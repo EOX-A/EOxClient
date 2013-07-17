@@ -12,3 +12,36 @@ html, body {
 	height: 100%;
 	width: 100%;
 }
+
+
+#content {
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+#left-side-bar {
+	width: 200px;
+	top: 10%;
+    height:80%;
+    float: left;
+    left: 20px;
+    position:relative;
+}
+
+#right-side-bar {
+	width: 200px;
+	top: 10%;
+    height:80%;
+    float: right;
+    right: 20px;
+    position:relative;
+}
+
+#top-bar {
+	
+}
+
+#bottom-bar {
+	
+}
