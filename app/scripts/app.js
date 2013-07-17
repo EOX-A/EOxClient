@@ -27,7 +27,10 @@
 				// Add application regions here
 
 				_.each(config.regions, function(region) {
-					this.addRegions({region: "#"});
+					var obj ={};
+					obj[region.name] = "#".concat(region.name);
+					this.addRegions(obj);
+					console.log("Added region ".concat(obj[region.name]));
 				}, this);
 
 

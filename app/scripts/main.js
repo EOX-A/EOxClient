@@ -28,7 +28,7 @@
 				values.mapConfig.visualizationTools, 	//Visualizations such as Openlayers or GlobWeb
 				values.mapConfig.module, 				//Which module should be used for map visualization
 				values.mapConfig.model,					//Which model to use for saving map data
-				//viewModules								//All "activated" views are loaded
+				viewModules								//All "activated" views are loaded
 			));
 
 
