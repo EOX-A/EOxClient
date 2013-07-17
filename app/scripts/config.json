@@ -1,0 +1,95 @@
+{
+
+
+  "mapConfig": {
+    "module": "views/MapView",
+    "model": "models/MapModel",
+    "visualizationTools": [
+      "openlayers"
+    ],
+    "baseLayers": [
+      {
+        "id": "baselayerid",
+        "urls": [
+          {
+            "url": "http://testurl.com",
+            "protocol": "WMS"
+          }
+        ]
+      },
+      {
+        "id": "baselayerid",
+        "urls": [
+          {
+            "url": "http://testurl.com",
+            "protocol": "WMS"
+          }
+        ]
+      }
+    ],
+    "products": [
+      {
+        "id": "productid",
+        "urls": [
+          {
+            "url": "http://testurl.com",
+            "protocol": "WCS"
+          }
+        ],
+        "visualization": [
+          {
+            "url": "http://testurl.com",
+            "protocol": "WMS"
+          }
+        ]
+      }
+    ],
+    "overlays": [
+      {
+        "id": "baselayerid",
+        "urls": [
+          {
+            "url": "http://testurl.com",
+            "protocol": "WMS"
+          }
+        ]
+      }
+    ]
+  },
+
+
+  "regions": [
+    {
+      "name": "content",
+      "class": ""
+    },
+    {
+      "name": "left-side-bar",
+      "class": ""
+    },
+    {
+      "name": "right-side-bar",
+      "class": ""
+    },
+    {
+      "name": "top-bar",
+      "class": ""
+    },
+    {
+      "name": "bottom-bar",
+      "class": ""
+    }
+  ],
+
+
+
+
+  "views": [
+    {
+      "module": "views/LayerSelectionView",
+      "options": ""
+    }
+  ]
+
+
+}
