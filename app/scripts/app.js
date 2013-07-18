@@ -43,7 +43,24 @@
 					globals.baseLayers.add(
 							new LayerModel({
 								id : baselayer.id,
-								urls : baselayer.urls
+								urls : baselayer.urls,
+								protocol: baselayer.protocol,
+								name: baselayer.name,
+								projection: baselayer.projection,
+								attribution: baselayer.attribution,
+								matrixSet: baselayer.matrixSet,
+								style: baselayer.style,
+								format: baselayer.format,
+								resolutions: baselayer.resolutions,
+								maxExtent: baselayer.maxExtent,	
+								gutter: baselayer.gutter,
+								buffer: baselayer.buffer,
+								units: baselayer.units,
+								transitionEffect: baselayer.transitionEffect,
+								isphericalMercator: baselayer.isphericalMercator,
+								isBaseLayer: baselayer.isBaseLayer,
+								wrapDateLine: baselayer.wrapDateLine,
+								zoomOffset: baselayer.zoomOffset
 							})
 						);
 					console.log("Added baselayer " + baselayer.id );

@@ -6,28 +6,53 @@ define(['backbone',
 		'openlayers'],
 		function( Backbone, Communicator, globals ) {
 
-			//my_template_html = '<div id="<%= args.id %>" style="width:100%;height:100%"></div>';
 			var MapView = Backbone.View.extend({
 
 				render: function() {
+					map = new OpenLayers.Map("map");
+					console.log("Created Map");
 
-					console.log(globals.baseLayers.at(0).get("id") + "  "  + globals.baseLayers.at(0).get("urls")[0].url);
 
-					var wmts = new OpenLayers.Layer.WMTS({
-					    name: globals.baseLayers.at(0).get("id"),
-					    url: globals.baseLayers.at(0).get("urls")[0].url,
-					    layer: globals.baseLayers.at(0).get("id"),
-					    style: "default",
-					    matrixSet: "WGS84",
-					    style: 'default',
-      				format: 'image/png'
-					});
+					globals.baseLayers.each(function(baselayer) {
+						map.addLayer(this.createLayer(baselayer));
+					}, this);
 
-	   			map = new OpenLayers.Map("map");
-			    map.addLayer(wmts);
+			    
 			    map.setCenter(new OpenLayers.LonLat(13.41,52.52), 5 );
 			    return this;
+				},
 
+				createLayer: function (layer) {
+
+					var return_layer = null;
+
+					switch(layer.get("protocol")){
+
+						case "WMTS":
+							return_layer = new OpenLayers.Layer.WMTS({
+								"name": layer.get("name"),
+				        "layer": layer.get("id"),
+				        "protocol": layer.get("protocol"),
+				        "url": layer.get("urls"),
+				        "matrixSet": layer.get("matrixSet"),
+				        "style": layer.get("style"),
+				        "format": layer.get("format"),
+				        "maxExtent": layer.get("maxExtent"),
+				        "resolutions": layer.get("resolutions"),
+				        "projection": layer.get("projection"),
+				        "gutter": layer.get("gutter"),
+				        "buffer": layer.get("buffer"),
+				        "units": layer.get("units"),
+				        "transitionEffect": layer.get("transitionEffect"),
+				        "isphericalMercator": layer.get("isphericalMercator"),
+				        "isBaseLayer": layer.get("isBaseLayer"),
+				        "wrapDateLine": layer.get("wrapDateLine"),
+				        "zoomOffset": layer.get("zoomOffset")
+							});
+							break;
+
+					};
+					return return_layer;		
 				}
 			});
 
