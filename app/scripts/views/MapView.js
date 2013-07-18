@@ -3,7 +3,8 @@
 define(['backbone',
 		'communicator',
 		'globals',
-		'openlayers'],
+		'openlayers',
+		'models/MapModel'],
 		function( Backbone, Communicator, globals ) {
 
 			var MapView = Backbone.View.extend({
@@ -12,22 +13,22 @@ define(['backbone',
 					map = new OpenLayers.Map("map");
 					console.log("Created Map");
 
-
+					//Go through all defined baselayer and add them to the map
 					globals.baseLayers.each(function(baselayer) {
 						map.addLayer(this.createLayer(baselayer));
 					}, this);
 
-			    
-			    map.setCenter(new OpenLayers.LonLat(13.41,52.52), 5 );
+					//Set attributes of map based on mapmodel attributes
+			    var mapmodel = globals.objects.get('mapmodel');
+			    map.setCenter(new OpenLayers.LonLat(mapmodel.get("center")), mapmodel.get("zoom") );
 			    return this;
 				},
-
+				//method to create layer depending on protocol
+				//setting possible description attributes
 				createLayer: function (layer) {
-
 					var return_layer = null;
 
 					switch(layer.get("protocol")){
-
 						case "WMTS":
 							return_layer = new OpenLayers.Layer.WMTS({
 								"name": layer.get("name"),
@@ -50,12 +51,10 @@ define(['backbone',
 				        "zoomOffset": layer.get("zoomOffset")
 							});
 							break;
-
 					};
 					return return_layer;		
 				}
 			});
-
 			return MapView;
 	});
 

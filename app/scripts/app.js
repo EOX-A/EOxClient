@@ -9,11 +9,12 @@
 		'globals',
 		'views/MapView',
 		'models/LayerModel',
+		'models/MapModel',
 		'jquery',
 		'backbone.marionette'		
 	],
 
-	function( Backbone, Communicator, globals, MapView, LayerModel ) {
+	function( Backbone, Communicator, globals, MapView, LayerModel, MapModel ) {
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
 				// if options == string --> retrieve json config
@@ -27,8 +28,9 @@
 			},
 
 			configure: function(config) {
-				// Add application regions here
 
+
+				// Application regions are loaded and added to the Marionette Application
 				_.each(config.regions, function(region) {
 					var obj ={};
 					obj[region.name] = "#" + region.name;
@@ -37,6 +39,15 @@
 				}, this);
 
 
+				//Map attributes are loaded and added to the global map model
+				globals.objects.add('mapmodel', new MapModel({
+						visualizationLibs : config.mapConfig.visualizationLibs,
+						center: config.mapConfig.center,
+						zoom: config.mapConfig.zoom
+					})
+				);
+
+				//Base Layers are loaded and added to the global collection
 				_.each(config.mapConfig.baseLayers, function(baselayer) {
 					var urls = [];
 

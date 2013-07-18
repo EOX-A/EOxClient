@@ -13,7 +13,9 @@
 	function( Backbone, Communicator ) {
 
 		var MapModel = Backbone.Model.extend({
-			visualizationTools : []
+			visualizationLibs : [],
+			center: [],
+			zoom: 0
 		});
 
 		return MapModel;

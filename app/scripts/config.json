@@ -4,9 +4,11 @@
   "mapConfig": {
     "module": "views/MapView",
     "model": "models/MapModel",
-    "visualizationTools": [
+    "visualizationLibs": [
       "openlayers"
     ],
+    "center": [13.41,52.52],
+    "zoom": 5,
     "baseLayers": [
       {
         "name": "Terrain Layer",

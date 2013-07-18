@@ -16,10 +16,10 @@ define(['backbone'], function() {
 	}
 
 	ObjectStore.prototype.get = function(key) {
-		return this.object[key];	
+		return this.objects[key];	
 	}
 
-	_.extend(ObjectStore, Backbone.Events);
+	_.extend(ObjectStore.prototype, Backbone.Events);
 
   return ObjectStore;
 })
