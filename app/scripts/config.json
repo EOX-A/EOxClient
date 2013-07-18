@@ -9,20 +9,20 @@
     ],
     "baseLayers": [
       {
-        "id": "baselayerid",
+        "id": "terrain_wgs84",
         "urls": [
           {
-            "url": "http://testurl.com",
-            "protocol": "WMS"
+            "url": "http://a.maps.eox.at/tiles/wmts/",
+            "protocol": "WMTS"
           }
         ]
       },
       {
-        "id": "baselayerid",
+        "id": "bluemarble_wgs84",
         "urls": [
           {
-            "url": "http://testurl.com",
-            "protocol": "WMS"
+            "url": "http://a.maps.eox.at/tiles/wmts/",
+            "protocol": "WMTS"
           }
         ]
       }
@@ -60,7 +60,7 @@
 
   "regions": [
     {
-      "name": "content",
+      "name": "background",
       "class": ""
     },
     {

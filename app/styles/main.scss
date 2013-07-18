@@ -13,11 +13,16 @@ html, body {
 	width: 100%;
 }
 
-
 #content {
 	height: 100%;
 	width: 100%;
 	position: relative;
+}
+
+#map {
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }
 
 #left-side-bar {

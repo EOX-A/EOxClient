@@ -1,41 +1,37 @@
-(function() {
-	'use strict';
 
-	var root = this;
 
-	root.define([
-		'backbone',
+define(['backbone',
 		'communicator',
-		'models/MapModel'
-	],
+		'globals',
+		'openlayers'],
+		function( Backbone, Communicator, globals ) {
 
-	function( Backbone, Communicator ) {
+			//my_template_html = '<div id="<%= args.id %>" style="width:100%;height:100%"></div>';
+			var MapView = Backbone.View.extend({
 
-		var ViewManager = Backbone.Marionette.Controller.extend({
-		
-			initialize: function( options ) {
-				console.log("Initialize a View Manager");
+				render: function() {
 
-			}
-		});
+					console.log(globals.baseLayers.at(0).get("id") + "  "  + globals.baseLayers.at(0).get("urls")[0].url);
 
-		var MapView = Backbone.Marionette.ItemView.extend({
-            /*model: MapModel,
-            template: '#tool-template',
-            tagName: 'li', */
-            events: {'click': 'itemClicked'},
-            itemClicked: function(){
-                console.log('ToolItemClicked: '+ this.model.get('name'));
-                Communicator.mediator.trigger(this.model.get('eventToRaise'), this);
-            },
-            initialize: function( options ) {
-            	var a=5;
-			}
+					var wmts = new OpenLayers.Layer.WMTS({
+					    name: globals.baseLayers.at(0).get("id"),
+					    url: globals.baseLayers.at(0).get("urls")[0].url,
+					    layer: globals.baseLayers.at(0).get("id"),
+					    style: "default",
+					    matrixSet: "WGS84",
+					    style: 'default',
+      				format: 'image/png'
+					});
 
-		
-		});
+	   			map = new OpenLayers.Map("map");
+			    map.addLayer(wmts);
+			    map.setCenter(new OpenLayers.LonLat(13.41,52.52), 5 );
+			    return this;
 
+				}
+			});
 
+			return MapView;
 	});
 
-}).call( this );
+

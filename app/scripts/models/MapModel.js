@@ -13,7 +13,10 @@
 	function( Backbone, Communicator ) {
 
 		var MapModel = Backbone.Model.extend({
+			visualizationTools : []
 		});
+
+		return MapModel;
 
 	});
 

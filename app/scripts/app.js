@@ -6,11 +6,14 @@
 	root.define([
 		'backbone',
 		'communicator',
+		'globals',
+		'views/MapView',
+		'models/LayerModel',
 		'jquery',
-		'backbone.marionette'
+		'backbone.marionette'		
 	],
 
-	function( Backbone, Communicator ) {
+	function( Backbone, Communicator, globals, MapView, LayerModel ) {
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
 				// if options == string --> retrieve json config
@@ -28,10 +31,27 @@
 
 				_.each(config.regions, function(region) {
 					var obj ={};
-					obj[region.name] = "#".concat(region.name);
+					obj[region.name] = "#" + region.name;
 					this.addRegions(obj);
-					console.log("Added region ".concat(obj[region.name]));
+					console.log("Added region " + obj[region.name]);
 				}, this);
+
+
+				_.each(config.mapConfig.baseLayers, function(baselayer) {
+					var urls = [];
+
+					globals.baseLayers.add(
+							new LayerModel({
+								id : baselayer.id,
+								urls : baselayer.urls
+							})
+						);
+					console.log("Added baselayer " + baselayer.id );
+				}, this);
+
+				this.background.show(new MapView({el: $("#map")}));
+
+
 
 
 				/*_.each(config.views, function(viewDef) {

@@ -58,6 +58,7 @@
             'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars',
 
             'openlayers': 'http://openlayers.org/api/OpenLayers'
+            //'openlayers': 'http://ol3js.org/en/master/build/ol',
         },
 
         hbs: {
