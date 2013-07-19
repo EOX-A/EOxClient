@@ -10,11 +10,21 @@
 		'views/MapView',
 		'models/LayerModel',
 		'models/MapModel',
+		'views/NavBarCollectionView',
+		'models/NavBarItemModel',
+		'hbs!tmpl/listElement',
+		'hbs!tmpl/NavBar',
+		'hbs!tmpl/NavBarItem',
+		'models/NavBarCollection',
+		'views/NavBarItemView',
 		'jquery',
 		'backbone.marionette'		
 	],
 
-	function( Backbone, Communicator, globals, MapView, LayerModel, MapModel ) {
+	function( Backbone, Communicator, globals, MapView, LayerModel, 
+			  MapModel , NavBarCollectionView, NavBarItemModel, 
+			  listElementTmpl, NavBarTmpl, NavBarItemTmpl, 
+			  NavBarCollection, NavBarItemView ) {
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
 				// if options == string --> retrieve json config
@@ -77,7 +87,23 @@
 					console.log("Added baselayer " + baselayer.id );
 				}, this);
 
+
+				//TODO: Everything below has to be done automatically based on configuration
+
 				this.background.show(new MapView({el: $("#map")}));
+
+				var model = new NavBarItemModel({name:"test", content:"", link:"#"});
+				var somecollection = new NavBarCollection([model]);
+				/*this.topBar.show(new NavBarCollectionView(
+					{itemViewContainer: "ul", template: NavBarTmpl(), className:"navbar", 
+					itemView: NavBarItemView, 
+					collection: somecollection}));*/
+
+				this.topBar.show(new NavBarCollectionView(
+					{template: NavBarTmpl(), className:"navbar navbar-fixed-top transparent", 
+					itemView: NavBarItemView, 
+					collection: somecollection}));
+
 
 
 

@@ -100,19 +100,19 @@
       "class": ""
     },
     {
-      "name": "left-side-bar",
+      "name": "leftSideBar",
       "class": ""
     },
     {
-      "name": "right-side-bar",
+      "name": "rightSideBar",
       "class": ""
     },
     {
-      "name": "top-bar",
+      "name": "topBar",
       "class": ""
     },
     {
-      "name": "bottom-bar",
+      "name": "bottomBar",
       "class": ""
     }
   ],

@@ -36,12 +36,29 @@
         <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
 
+        <script type="text/template" id="navbar">
+            <div class="navbar navbar-inverse navbar-fixed-top" style="height:15px">
+              <div class="navbar-inner" style="min-height:15px">
+              </div>
+            </div>
+        </script>
+
+        <script type="text/template" id="navbar-item">
+            <div class="navbar navbar-inverse navbar-fixed-top" style="height:15px">
+              <div class="navbar-inner" style="min-height:15px">
+              </div>
+            </div>
+        </script>
+
+
         <div id="content">
             <div id="map"></div>
-            <div id="left-side-bar"></div>
-            <div id="right-side-bar"></div>
-            <div id="top-bar"></div>
-            <div id="bottom-bar"></div>
+            <div id="leftSideBar"></div>
+            <div id="rightSideBar"></div>
+            <div id="topBar">
+                <div id="test"></div>
+            </div>
+            <div id="bottomBar"></div>
         </div>
 
 
