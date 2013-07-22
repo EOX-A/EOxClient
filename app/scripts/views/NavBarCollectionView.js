@@ -5,10 +5,11 @@
 
 	root.define([
 		'backbone',
-		'communicator'
+		'communicator',
+		'views/NavBarItemView'
 	],
 
-	function( Backbone, Communicator ) {
+	function( Backbone, Communicator, NavBarItemView ) {
 
 		var NavBarCollectionView = Backbone.Marionette.CompositeView.extend({  
 			appendHtml: function(collectionView, itemView, index){

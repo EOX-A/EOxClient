@@ -92,17 +92,30 @@
 
 				this.background.show(new MapView({el: $("#map")}));
 
-				var model = new NavBarItemModel({name:"test", content:"", link:"#"});
+				if (config.navBarConfig) {
+
+					var navBarItemCollection = new NavBarCollection();
+
+					_.each(config.navBarConfig.items, function(list_item){
+						navBarItemCollection.add(new NavBarItemModel({name:list_item.name, link:list_item.link}));
+					}, this);
+
+					this.topBar.show(new NavBarCollectionView(
+						{template: NavBarTmpl({title: config.navBarConfig.title, url: config.navBarConfig.url}), className:"navbar navbar-fixed-top transparent", 
+						itemView: NavBarItemView, tag: "div",
+						collection: navBarItemCollection}));
+
+				};
+
+				
+
+				/*var model = new NavBarItemModel({name:"test", content:"", link:"#"});
 				var somecollection = new NavBarCollection([model]);
-				/*this.topBar.show(new NavBarCollectionView(
-					{itemViewContainer: "ul", template: NavBarTmpl(), className:"navbar", 
-					itemView: NavBarItemView, 
-					collection: somecollection}));*/
 
 				this.topBar.show(new NavBarCollectionView(
 					{template: NavBarTmpl(), className:"navbar navbar-fixed-top transparent", 
 					itemView: NavBarItemView, 
-					collection: somecollection}));
+					collection: somecollection}));*/
 
 
 

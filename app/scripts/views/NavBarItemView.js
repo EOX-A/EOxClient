@@ -14,8 +14,11 @@
 	function( Backbone, Communicator, NavBarItemModel, listElementTmpl, NavBarItemTmpl ) {
 
 		var NavBarItemView = Backbone.Marionette.ItemView.extend({
-            //model: new NavBarItemModel(),
-            template: NavBarItemTmpl(),
+            model: NavBarItemModel,
+            template: {
+                type: 'handlebars',
+                template: NavBarItemTmpl
+            },
             tagName: 'li', 
             events: {'click': 'itemClicked'},
             itemClicked: function(){

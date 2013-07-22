@@ -117,7 +117,38 @@
     }
   ],
 
-
+  "navBarConfig": {
+    "title" : "EOxClient",
+    "url" : "http://www.eox.at",
+    "items" : [
+      {
+        "name" : "About",
+        "link" : "#about",
+        "subitems" : [
+          {
+          "name" : "Info",
+          "link" : "#info",
+          "template" : "info"
+          },
+          {
+          "name" : "Help",
+          "link" : "#help",
+          "template" : "help"
+          }
+        ]
+      },
+      {
+        "name" : "Selection Tools",
+        "link" : "#selectionTools",
+        "template" : "selectionTools"
+      },
+      {
+        "name" : "Visualization Tools",
+        "link" : "#visualizationTools",
+        "template" : "visualizationTools"
+      }
+    ]
+  },
 
 
   "views": [
