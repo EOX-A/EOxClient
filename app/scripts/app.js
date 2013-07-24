@@ -19,6 +19,8 @@
 		'views/ContentView',
 		'hbs!tmpl/Info',
 		'regions/DialogRegion',
+		'regions/UIRegion',
+		'views/UIElementView',
 		'jquery',
 		'backbone.marionette',
 		'controller/ContentController'		
@@ -27,7 +29,7 @@
 	function( Backbone, Communicator, globals, MapView, LayerModel, 
 			  MapModel , NavBarCollectionView, NavBarItemModel, 
 			  NavBarTmpl, NavBarItemTmpl, NavBarCollection, NavBarItemView,
-			  ContentView, InfoTmpl, DialogRegion ) {
+			  ContentView, InfoTmpl, DialogRegion, UIRegion, UIElementView ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
@@ -111,14 +113,13 @@
 
 				};
 
-				//var bla = new ContentView({ template: {type: 'handlebars', template: InfoTmpl}, className: "modal" });
-				//this.viewContent.show(new ContentView({ template: {type: 'handlebars', template: InfoTmpl}, className: "modal" }));
 				this.addRegions({dialogRegion: DialogRegion.extend({el: "#viewContent"})});
+				this.DialogContentView = new ContentView({ template: {type: 'handlebars', template: InfoTmpl},
+															className: "modal hide fade",
+															attributes: {"data-keyboard":"false", "data-backdrop":"static"} });
 
-				this.DialogContentView = new ContentView({ template: {type: 'handlebars', template: InfoTmpl}, className: "modal hide fade" });
-				//this.dialogRegion.show(tmp);
-
-
+				this.addRegions({UIRegion: UIRegion.extend({el: "#rightSideBar"})});
+				this.UIView = new UIElementView({ className: "well sidepane" });
 				
 
 				/*var model = new NavBarItemModel({name:"test", content:"", link:"#"});

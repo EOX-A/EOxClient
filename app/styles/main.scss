@@ -59,35 +59,11 @@ html, body {
 	top: 50px;
 }
 
-/*added for testing info view*/
-
-.modal{
-	width: 600px;
-	height: 600px;
+.tab-header {
+	 cursor: pointer;
 }
 
-
-.modal-backdrop,.modal-backdrop.fade.in{
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-
-.modal .popover, .item-list .popover {
-  position: fixed;
-}
-
-.modal .popover {
-  width: 450px;
-}
-
-.modal-footer > .input-medium, .modal-footer > .input-small {
-  margin-bottom: 0px;
-}
-
-#modal-about {
-	width: 750px;
-}
-
-.modal-body-about {
-	max-height: none;
+.sidepane {
+	width: 100px;
+	height: 100px;
 }

@@ -13,19 +13,6 @@
 
 		var DialogRegion = Backbone.Marionette.Region.extend({
 
-            /*initialize: function(){
-            	_.extend(this, Backbone.Events);
-            	
-            },
-
-            onShow: function(view){
-            	console.log("onShow Dialog Region");
-            	this.listenTo(view, "dialog:close", this.closeDialog);
-            },
-            closeDialog: function(){
-            	console.log("DialogRegion: Dialoge close event");
-            }*/
-
             constructor: function(){
 		      _.bindAll(this);
 		      Backbone.Marionette.Region.prototype.constructor.apply(this, arguments);
@@ -47,10 +34,6 @@
 		      //$el.modal('hide');
 		    }
 
-
-
-            
-            
 		});
 		return DialogRegion;
 	});
