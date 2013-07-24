@@ -7,11 +7,10 @@
 		'backbone',
 		'communicator',
 		'models/NavBarItemModel',
-		'hbs!tmpl/listElement',
 		'hbs!tmpl/NavBarItem'
 	],
 
-	function( Backbone, Communicator, NavBarItemModel, listElementTmpl, NavBarItemTmpl ) {
+	function( Backbone, Communicator, NavBarItemModel, NavBarItemTmpl ) {
 
 		var NavBarItemView = Backbone.Marionette.ItemView.extend({
             model: NavBarItemModel,
@@ -20,9 +19,11 @@
                 template: NavBarItemTmpl
             },
             tagName: 'li', 
+            cursor: 'pointer',
             events: {'click': 'itemClicked'},
+
             itemClicked: function(){
-                console.log('ToolItemClicked: '+ this.model.get('name'));
+                console.log('Event triggered: '+ this.model.get('eventToRaise'));
                 Communicator.mediator.trigger(this.model.get('eventToRaise'), this);
             }
             

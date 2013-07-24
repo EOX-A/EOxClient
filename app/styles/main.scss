@@ -25,7 +25,7 @@ html, body {
 	position: absolute;
 }
 
-#left-side-bar {
+#leftSideBar {
 	width: 200px;
 	top: 10%;
     height:80%;
@@ -34,7 +34,7 @@ html, body {
     position:relative;
 }
 
-#right-side-bar {
+#rightSideBar {
 	width: 200px;
 	top: 10%;
     height:80%;
@@ -43,14 +43,51 @@ html, body {
     position:relative;
 }
 
-#top-bar {
+#topBar {
 	
 }
 
-#bottom-bar {
+#bottomBar {
 	
+}
+
+#viewContent{
+	position: relative;
 }
 
 #OpenLayers_Control_Zoom_5 {
 	top: 50px;
+}
+
+/*added for testing info view*/
+
+.modal{
+	width: 600px;
+	height: 600px;
+}
+
+
+.modal-backdrop,.modal-backdrop.fade.in{
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.modal .popover, .item-list .popover {
+  position: fixed;
+}
+
+.modal .popover {
+  width: 450px;
+}
+
+.modal-footer > .input-medium, .modal-footer > .input-small {
+  margin-bottom: 0px;
+}
+
+#modal-about {
+	width: 750px;
+}
+
+.modal-body-about {
+	max-height: none;
 }

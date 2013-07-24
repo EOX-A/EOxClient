@@ -6,11 +6,11 @@
 	root.define([
 		'backbone',
 		'communicator',
-		'models/MapModel'
+		'backbone.marionette'
 	],
 
 	function( Backbone, Communicator ) {
-		var Router = Backbone.Router.extend({
+		var Router = Backbone.Marionette.AppRouter.extend({
 			initialize: function(options) {
 				var routes = [];
 				_.each(options.regions, function(region){

@@ -12,19 +12,23 @@
 		'models/MapModel',
 		'views/NavBarCollectionView',
 		'models/NavBarItemModel',
-		'hbs!tmpl/listElement',
 		'hbs!tmpl/NavBar',
 		'hbs!tmpl/NavBarItem',
 		'models/NavBarCollection',
 		'views/NavBarItemView',
+		'views/ContentView',
+		'hbs!tmpl/Info',
+		'regions/DialogRegion',
 		'jquery',
-		'backbone.marionette'		
+		'backbone.marionette',
+		'controller/ContentController'		
 	],
 
 	function( Backbone, Communicator, globals, MapView, LayerModel, 
 			  MapModel , NavBarCollectionView, NavBarItemModel, 
-			  listElementTmpl, NavBarTmpl, NavBarItemTmpl, 
-			  NavBarCollection, NavBarItemView ) {
+			  NavBarTmpl, NavBarItemTmpl, NavBarCollection, NavBarItemView,
+			  ContentView, InfoTmpl, DialogRegion ) {
+
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
 				// if options == string --> retrieve json config
@@ -97,7 +101,7 @@
 					var navBarItemCollection = new NavBarCollection();
 
 					_.each(config.navBarConfig.items, function(list_item){
-						navBarItemCollection.add(new NavBarItemModel({name:list_item.name, link:list_item.link}));
+						navBarItemCollection.add(new NavBarItemModel({name:list_item.name, eventToRaise:list_item.eventToRaise}));
 					}, this);
 
 					this.topBar.show(new NavBarCollectionView(
@@ -106,6 +110,14 @@
 						collection: navBarItemCollection}));
 
 				};
+
+				//var bla = new ContentView({ template: {type: 'handlebars', template: InfoTmpl}, className: "modal" });
+				//this.viewContent.show(new ContentView({ template: {type: 'handlebars', template: InfoTmpl}, className: "modal" }));
+				this.addRegions({dialogRegion: DialogRegion.extend({el: "#viewContent"})});
+
+				this.DialogContentView = new ContentView({ template: {type: 'handlebars', template: InfoTmpl}, className: "modal hide fade" });
+				//this.dialogRegion.show(tmp);
+
 
 				
 

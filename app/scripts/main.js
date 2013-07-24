@@ -32,10 +32,10 @@
 			));
 
 
-			var Application = App;
+			//var Application = App;
 			//Application.initialize(options);
-			Application.configure(values);
-			Application.start();	
+			App.configure(values);
+			App.start();	
 		});
 		
 	});

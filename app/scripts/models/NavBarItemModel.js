@@ -7,7 +7,8 @@
 		var NavBarItemModel = Backbone.Model.extend({
 			name: "",
 			content: "",
-			link: ""
+			eventToRaise: ""
+			
 		});
 		return NavBarItemModel;
 	});

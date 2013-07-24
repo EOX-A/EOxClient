@@ -114,6 +114,10 @@
     {
       "name": "bottomBar",
       "class": ""
+    },
+    {
+      "name": "viewContent_tmp",
+      "class": ""
     }
   ],
 
@@ -123,28 +127,28 @@
     "items" : [
       {
         "name" : "About",
-        "link" : "#about",
+        "eventToRaise" : "dialog:open:about",
         "subitems" : [
           {
           "name" : "Info",
-          "link" : "#info",
+          "eventToRaise" : "dialog:open:info",
           "template" : "info"
           },
           {
           "name" : "Help",
-          "link" : "#help",
+          "eventToRaise" : "dialog:open:help",
           "template" : "help"
           }
         ]
       },
       {
         "name" : "Selection Tools",
-        "link" : "#selectionTools",
+        "eventToRaise" : "dialog:open:selectionTools",
         "template" : "selectionTools"
       },
       {
         "name" : "Visualization Tools",
-        "link" : "#visualizationTools",
+        "eventToRaise" : "dialog:open:visualizationTools",
         "template" : "visualizationTools"
       }
     ]
