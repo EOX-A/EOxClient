@@ -148,7 +148,7 @@
       },
       {
         "name" : "Visualization Tools",
-        "eventToRaise" : "dialog:open:visualizationTools",
+        "eventToRaise" : "Router:SetUrl",
         "template" : "visualizationTools"
       }
     ]

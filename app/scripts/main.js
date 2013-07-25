@@ -31,9 +31,8 @@
 				viewModules								//All "activated" views are loaded
 			));
 
+			
 
-			//var Application = App;
-			//Application.initialize(options);
 			App.configure(values);
 			App.start();	
 		});

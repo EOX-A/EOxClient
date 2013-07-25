@@ -10,18 +10,25 @@ define(['backbone',
 			var MapView = Backbone.View.extend({
 
 				render: function() {
-					map = new OpenLayers.Map("map");
+					this.map = new OpenLayers.Map("map");
 					console.log("Created Map");
+
+					//listen to moeveend event in order to keep router uptodate
+					this.map.events.register("moveend", this.map, function(data) {
+			            Communicator.mediator.trigger("Router:SetUrl", { x: data.object.center.lon, y: data.object.center.lat, l: data.object.zoom});
+			        });
+
+					this.listenTo(Communicator.mediator, "Map:CenterAtLatLongAndZoom", this.centerMap);
 
 					//Go through all defined baselayer and add them to the map
 					globals.baseLayers.each(function(baselayer) {
-						map.addLayer(this.createLayer(baselayer));
+						this.map.addLayer(this.createLayer(baselayer));
 					}, this);
 
 					//Set attributes of map based on mapmodel attributes
-			    var mapmodel = globals.objects.get('mapmodel');
-			    map.setCenter(new OpenLayers.LonLat(mapmodel.get("center")), mapmodel.get("zoom") );
-			    return this;
+				    var mapmodel = globals.objects.get('mapmodel');
+				    this.map.setCenter(new OpenLayers.LonLat(mapmodel.get("center")), mapmodel.get("zoom") );
+				    return this;
 				},
 				//method to create layer depending on protocol
 				//setting possible description attributes
@@ -53,6 +60,10 @@ define(['backbone',
 							break;
 					};
 					return return_layer;		
+				},
+
+				centerMap: function(data){
+					this.map.setCenter(new OpenLayers.LonLat(data.x, data.y), data.l );
 				}
 			});
 			return MapView;

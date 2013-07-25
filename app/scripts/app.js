@@ -23,7 +23,8 @@
 		'views/UIElementView',
 		'jquery',
 		'backbone.marionette',
-		'controller/ContentController'		
+		'controller/ContentController',
+		'router'	
 	],
 
 	function( Backbone, Communicator, globals, MapView, LayerModel, 

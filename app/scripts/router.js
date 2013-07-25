@@ -3,29 +3,49 @@
 
 	var root = this;
 
-	root.define([
+	root.require([
+		'app',
 		'backbone',
 		'communicator',
 		'backbone.marionette'
 	],
 
-	function( Backbone, Communicator ) {
+	function( App, Backbone, Communicator ) {
+
+		App.addInitializer(function (options) {
+            //Create a new Router
+            App.router = new Router();
+            //start history
+            Backbone.history.start({pushState: false});
+        });
+
+
 		var Router = Backbone.Marionette.AppRouter.extend({
 			initialize: function(options) {
-				var routes = [];
-				_.each(options.regions, function(region){
-					// TODO: add regio.routes to `routes` if not already contained
-				}, this);
 
-				_.each(routes, function(route) {
-					this.route(route, "onRoute");
-				}, this);
+				console.log('RouterModule starting up...');
+
+				this.listenTo(Communicator.mediator, "Router:SetUrl", this.setUrl);
 			},
 
-			onRoute: function(def) {
-				// TODO: "close" all regions that are not associated with the route
-				// TODO: "show" all regions that are associated with the route
-			}
+			setUrl: function(data){
+				console.log("setURL invoked");
+				 //round to two decimals
+                data.x = Math.round(data.x * 100)/100;
+                data.y = Math.round(data.y * 100)/100;
+                var urlFragment = 'map/'+data.x+'/'+data.y+'/'+data.l;  
+                App.router.navigate(urlFragment, 
+                    {trigger:false});
+			},
+
+			routes : {
+                "map/:x/:y/:l" : "centerAndZoom"
+            },
+
+            centerAndZoom : function(x,y,l){
+                Communicator.mediator.trigger('Map:CenterAtLatLongAndZoom', 
+                    {x:x, y:y, l:l});
+            }
 		});
 
 		return Router;
