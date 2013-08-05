@@ -66,6 +66,7 @@
     "products": [
       {
         "id": "productid",
+        "name": "testproduct",
         "urls": [
           {
             "url": "http://testurl.com",
@@ -147,9 +148,9 @@
         "template" : "selectionTools"
       },
       {
-        "name" : "Visualization Tools",
-        "eventToRaise" : "Router:SetUrl",
-        "template" : "visualizationTools"
+        "name" : "Layer Controls",
+        "eventToRaise" : "ui:open:layercontrol",
+        "template" : "LayerControl"
       }
     ]
   },

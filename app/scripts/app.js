@@ -21,6 +21,11 @@
 		'regions/DialogRegion',
 		'regions/UIRegion',
 		'views/UIElementView',
+		'views/LayerItemView',
+		'views/LayerSelectionView',
+		'layouts/LayerControlLayout',
+		'hbs!tmpl/BulletLayer',
+		'hbs!tmpl/CheckBoxLayer',
 		'jquery',
 		'backbone.marionette',
 		'controller/ContentController',
@@ -30,7 +35,9 @@
 	function( Backbone, Communicator, globals, MapView, LayerModel, 
 			  MapModel , NavBarCollectionView, NavBarItemModel, 
 			  NavBarTmpl, NavBarItemTmpl, NavBarCollection, NavBarItemView,
-			  ContentView, InfoTmpl, DialogRegion, UIRegion, UIElementView ) {
+			  ContentView, InfoTmpl, DialogRegion, UIRegion, UIElementView, 
+			  LayerItemView, LayerSelectionView, LayerControlLayout,
+			  BulletLayerTmpl, CheckBoxLayerTmpl ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
@@ -66,8 +73,7 @@
 
 				//Base Layers are loaded and added to the global collection
 				_.each(config.mapConfig.baseLayers, function(baselayer) {
-					var urls = [];
-
+					
 					globals.baseLayers.add(
 							new LayerModel({
 								id : baselayer.id,
@@ -94,8 +100,38 @@
 					console.log("Added baselayer " + baselayer.id );
 				}, this);
 
+				//Productsare loaded and added to the global collection
+				_.each(config.mapConfig.products, function(products) {
+					
+					globals.products.add(
+							new LayerModel({
+								id : products.id,
+								urls : products.urls,
+								protocol: products.protocol,
+								name: products.name,
+								projection: products.projection,
+								attribution: products.attribution,
+								matrixSet: products.matrixSet,
+								style: products.style,
+								format: products.format,
+								resolutions: products.resolutions,
+								maxExtent: products.maxExtent,	
+								gutter: products.gutter,
+								buffer: products.buffer,
+								units: products.units,
+								transitionEffect: products.transitionEffect,
+								isphericalMercator: products.isphericalMercator,
+								isBaseLayer: products.isBaseLayer,
+								wrapDateLine: products.wrapDateLine,
+								zoomOffset: products.zoomOffset
+							})
+						);
+					console.log("Added product " + products.id );
+				}, this);
+
 
 				//TODO: Everything below has to be done automatically based on configuration
+				//Take a look at requirement loading
 
 				this.background.show(new MapView({el: $("#map")}));
 
@@ -119,8 +155,27 @@
 															className: "modal hide fade",
 															attributes: {"data-keyboard":"false", "data-backdrop":"static"} });
 
-				this.addRegions({UIRegion: UIRegion.extend({el: "#rightSideBar"})});
-				this.UIView = new UIElementView({ className: "well sidepane" });
+
+
+
+				//create the views - these are Marionette.CollectionViews that render ItemViews
+                this.baseLayerView = new LayerSelectionView({
+                	collection:globals.baseLayers,
+                	itemView: LayerItemView.extend({template: {type:'handlebars', template: BulletLayerTmpl}} )
+                });
+                this.productsView = new LayerSelectionView({
+                	collection:globals.products,
+                	itemView: LayerItemView.extend({template: {type:'handlebars', template: CheckBoxLayerTmpl}} )
+                });
+
+                //this.productsView = new LayerSelectionView({collection:globals.products, template:{type:'handlebars', template: CheckBoxLayerTmpl}});
+
+                //create our layout that will hold the child views
+                this.layout = new LayerControlLayout();
+
+
+				/*this.addRegions({UIRegion: UIRegion.extend({el: "#rightSideBar"})});
+				this.UIView = new UIElementView({ className: "well sidepane" });*/
 				
 
 				/*var model = new NavBarItemModel({name:"test", content:"", link:"#"});
