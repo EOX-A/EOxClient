@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>app.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>app.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="app.html">
+                    app.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="communicator.html">
+                    communicator.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentController.html">
+                    ContentController.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="globals.html">
+                    globals.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="init.html">
+                    init.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerControlLayout.html">
+                    LayerControlLayout.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="main.html">
+                    main.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerModel.html">
+                    LayerModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapModel.html">
+                    MapModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollection.html">
+                    NavBarCollection.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemModel.html">
+                    NavBarItemModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="objectStore.html">
+                    objectStore.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="regionManager.html">
+                    regionManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="DialogRegion.html">
+                    DialogRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIRegion.html">
+                    UIRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="router.html">
+                    router.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentView.html">
+                    ContentView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerItemView.html">
+                    LayerItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerSelectionView.html">
+                    LayerSelectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapView.html">
+                    MapView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollectionView.html">
+                    NavBarCollectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemView.html">
+                    NavBarItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIElementView.html">
+                    UIElementView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="readme.html">
+                    readme.md
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre>(<span class="keyword">function</span>() {
+	<span class="string">'use strict'</span>;
+
+	<span class="keyword">var</span> root = <span class="keyword">this</span>;
+
+	root.define([
+		<span class="string">'backbone'</span>,
+		<span class="string">'communicator'</span>,
+		<span class="string">'globals'</span>,
+		<span class="string">'views/MapView'</span>,
+		<span class="string">'models/LayerModel'</span>,
+		<span class="string">'models/MapModel'</span>,
+		<span class="string">'views/NavBarCollectionView'</span>,
+		<span class="string">'models/NavBarItemModel'</span>,
+		<span class="string">'hbs!tmpl/NavBar'</span>,
+		<span class="string">'hbs!tmpl/NavBarItem'</span>,
+		<span class="string">'models/NavBarCollection'</span>,
+		<span class="string">'views/NavBarItemView'</span>,
+		<span class="string">'views/ContentView'</span>,
+		<span class="string">'hbs!tmpl/Info'</span>,
+		<span class="string">'regions/DialogRegion'</span>,
+		<span class="string">'regions/UIRegion'</span>,
+		<span class="string">'views/UIElementView'</span>,
+		<span class="string">'views/LayerItemView'</span>,
+		<span class="string">'views/LayerSelectionView'</span>,
+		<span class="string">'layouts/LayerControlLayout'</span>,
+		<span class="string">'hbs!tmpl/BulletLayer'</span>,
+		<span class="string">'hbs!tmpl/CheckBoxLayer'</span>,
+		<span class="string">'jquery'</span>,
+		<span class="string">'backbone.marionette'</span>,
+		<span class="string">'controller/ContentController'</span>,
+		<span class="string">'router'</span>	
+	],
+
+	<span class="keyword">function</span>( Backbone, Communicator, globals, MapView, LayerModel, 
+			  MapModel , NavBarCollectionView, NavBarItemModel, 
+			  NavBarTmpl, NavBarItemTmpl, NavBarCollection, NavBarItemView,
+			  ContentView, InfoTmpl, DialogRegion, UIRegion, UIElementView, 
+			  LayerItemView, LayerSelectionView, LayerControlLayout,
+			  BulletLayerTmpl, CheckBoxLayerTmpl ) {
+
+		<span class="keyword">var</span> Application = Backbone.Marionette.Application.extend({
+			initialize: <span class="keyword">function</span>(options) {</pre></div>
+        
+      
+        
+        <p>if options == string --&gt; retrieve json config
+else options are directly the config</p>
+
+        
+          <div class='highlight'><pre>				<span class="comment">/*if (typeof options == "string") {
+					$.get(options, this.configure);
+				}
+				else {
+					this.configure(options);
+				}*/</span>
+			},
+
+			configure: <span class="keyword">function</span>(config) {</pre></div>
+        
+      
+        
+        <p>Application regions are loaded and added to the Marionette Application</p>
+
+        
+          <div class='highlight'><pre>				_.each(config.regions, <span class="keyword">function</span>(region) {
+					<span class="keyword">var</span> obj ={};
+					obj[region.name] = <span class="string">"#"</span> + region.name;
+					<span class="keyword">this</span>.addRegions(obj);
+					console.log(<span class="string">"Added region "</span> + obj[region.name]);
+				}, <span class="keyword">this</span>);</pre></div>
+        
+      
+        
+        <p>Map attributes are loaded and added to the global map model</p>
+
+        
+          <div class='highlight'><pre>				globals.objects.add(<span class="string">'mapmodel'</span>, <span class="keyword">new</span> MapModel({
+						visualizationLibs : config.mapConfig.visualizationLibs,
+						center: config.mapConfig.center,
+						zoom: config.mapConfig.zoom
+					})
+				);</pre></div>
+        
+      
+        
+        <p>Base Layers are loaded and added to the global collection</p>
+
+        
+          <div class='highlight'><pre>				_.each(config.mapConfig.baseLayers, <span class="keyword">function</span>(baselayer) {
+					
+					globals.baseLayers.add(
+							<span class="keyword">new</span> LayerModel({
+								id : baselayer.id,
+								urls : baselayer.urls,
+								protocol: baselayer.protocol,
+								name: baselayer.name,
+								projection: baselayer.projection,
+								attribution: baselayer.attribution,
+								matrixSet: baselayer.matrixSet,
+								style: baselayer.style,
+								format: baselayer.format,
+								resolutions: baselayer.resolutions,
+								maxExtent: baselayer.maxExtent,	
+								gutter: baselayer.gutter,
+								buffer: baselayer.buffer,
+								units: baselayer.units,
+								transitionEffect: baselayer.transitionEffect,
+								isphericalMercator: baselayer.isphericalMercator,
+								isBaseLayer: baselayer.isBaseLayer,
+								wrapDateLine: baselayer.wrapDateLine,
+								zoomOffset: baselayer.zoomOffset
+							})
+						);
+					console.log(<span class="string">"Added baselayer "</span> + baselayer.id );
+				}, <span class="keyword">this</span>);</pre></div>
+        
+      
+        
+        <p>Productsare loaded and added to the global collection</p>
+
+        
+          <div class='highlight'><pre>				_.each(config.mapConfig.products, <span class="keyword">function</span>(products) {
+					
+					globals.products.add(
+							<span class="keyword">new</span> LayerModel({
+								id : products.id,
+								urls : products.urls,
+								protocol: products.protocol,
+								name: products.name,
+								projection: products.projection,
+								attribution: products.attribution,
+								matrixSet: products.matrixSet,
+								style: products.style,
+								format: products.format,
+								resolutions: products.resolutions,
+								maxExtent: products.maxExtent,	
+								gutter: products.gutter,
+								buffer: products.buffer,
+								units: products.units,
+								transitionEffect: products.transitionEffect,
+								isphericalMercator: products.isphericalMercator,
+								isBaseLayer: products.isBaseLayer,
+								wrapDateLine: products.wrapDateLine,
+								zoomOffset: products.zoomOffset
+							})
+						);
+					console.log(<span class="string">"Added product "</span> + products.id );
+				}, <span class="keyword">this</span>);</pre></div>
+        
+      
+        
+        <p>TODO: Everything below has to be done automatically based on configuration
+Take a look at requirement loading</p>
+
+        
+          <div class='highlight'><pre>				<span class="keyword">this</span>.background.show(<span class="keyword">new</span> MapView({el: $(<span class="string">"#map"</span>)}));
+
+				<span class="keyword">if</span> (config.navBarConfig) {
+
+					<span class="keyword">var</span> navBarItemCollection = <span class="keyword">new</span> NavBarCollection();
+
+					_.each(config.navBarConfig.items, <span class="keyword">function</span>(list_item){
+						navBarItemCollection.add(<span class="keyword">new</span> NavBarItemModel({name:list_item.name, eventToRaise:list_item.eventToRaise}));
+					}, <span class="keyword">this</span>);
+
+					<span class="keyword">this</span>.topBar.show(<span class="keyword">new</span> NavBarCollectionView(
+						{template: NavBarTmpl({title: config.navBarConfig.title, url: config.navBarConfig.url}), className:<span class="string">"navbar navbar-fixed-top transparent"</span>, 
+						itemView: NavBarItemView, tag: <span class="string">"div"</span>,
+						collection: navBarItemCollection}));
+
+				};
+
+				<span class="keyword">this</span>.addRegions({dialogRegion: DialogRegion.extend({el: <span class="string">"#viewContent"</span>})});
+				<span class="keyword">this</span>.DialogContentView = <span class="keyword">new</span> ContentView({ template: {type: <span class="string">'handlebars'</span>, template: InfoTmpl},
+															className: <span class="string">"modal hide fade"</span>,
+															attributes: {<span class="string">"data-keyboard"</span>:<span class="string">"false"</span>, <span class="string">"data-backdrop"</span>:<span class="string">"static"</span>} });</pre></div>
+        
+      
+        
+        <p>create the views - these are Marionette.CollectionViews that render ItemViews</p>
+
+        
+          <div class='highlight'><pre>                <span class="keyword">this</span>.baseLayerView = <span class="keyword">new</span> LayerSelectionView({
+                	collection:globals.baseLayers,
+                	itemView: LayerItemView.extend({template: {type:<span class="string">'handlebars'</span>, template: BulletLayerTmpl}} )
+                });
+                <span class="keyword">this</span>.productsView = <span class="keyword">new</span> LayerSelectionView({
+                	collection:globals.products,
+                	itemView: LayerItemView.extend({template: {type:<span class="string">'handlebars'</span>, template: CheckBoxLayerTmpl}} )
+                });</pre></div>
+        
+      
+        
+        <p>this.productsView = new LayerSelectionView({collection:globals.products, template:{type:&#39;handlebars&#39;, template: CheckBoxLayerTmpl}});</p>
+<p>create our layout that will hold the child views</p>
+
+        
+          <div class='highlight'><pre>                <span class="keyword">this</span>.layout = <span class="keyword">new</span> LayerControlLayout();
+
+
+				<span class="comment">/*this.addRegions({UIRegion: UIRegion.extend({el: "#rightSideBar"})});
+				this.UIView = new UIElementView({ className: "well sidepane" });*/</span>
+				
+
+				<span class="comment">/*var model = new NavBarItemModel({name:"test", content:"", link:"#"});
+				var somecollection = new NavBarCollection([model]);
+
+				this.topBar.show(new NavBarCollectionView(
+					{template: NavBarTmpl(), className:"navbar navbar-fixed-top transparent", 
+					itemView: NavBarItemView, 
+					collection: somecollection}));*/</span>
+
+
+
+
+
+				<span class="comment">/*_.each(config.views, function(viewDef) {
+					var View = require(viewDef.module);
+					this.views.push(new View(viewDef.options));
+				}, this);*/</span></pre></div>
+        
+      
+        
+        <p>this.router = new Router({views: this.views, regions: this.regions});</p>
+
+        
+          <div class='highlight'><pre>			}
+
+		});
+
+		<span class="keyword">return</span> <span class="keyword">new</span> Application();
+	});
+}).call( <span class="keyword">this</span> );</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>ContentController.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>ContentController.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="app.html">
+                    app.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="communicator.html">
+                    communicator.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentController.html">
+                    ContentController.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="globals.html">
+                    globals.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="init.html">
+                    init.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerControlLayout.html">
+                    LayerControlLayout.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="main.html">
+                    main.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerModel.html">
+                    LayerModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapModel.html">
+                    MapModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollection.html">
+                    NavBarCollection.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemModel.html">
+                    NavBarItemModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="objectStore.html">
+                    objectStore.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="regionManager.html">
+                    regionManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="DialogRegion.html">
+                    DialogRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIRegion.html">
+                    UIRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="router.html">
+                    router.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentView.html">
+                    ContentView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerItemView.html">
+                    LayerItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerSelectionView.html">
+                    LayerSelectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapView.html">
+                    MapView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollectionView.html">
+                    NavBarCollectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemView.html">
+                    NavBarItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIElementView.html">
+                    UIElementView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="readme.html">
+                    readme.md
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre>(<span class="keyword">function</span>() {
+	<span class="string">'use strict'</span>;
+
+	<span class="keyword">var</span> root = <span class="keyword">this</span>;
+
+	root.require([
+		<span class="string">'backbone'</span>,
+		<span class="string">'communicator'</span>,
+		<span class="string">'app'</span>
+	],
+
+	<span class="keyword">function</span>( Backbone, Communicator, App ) {
+
+		<span class="keyword">var</span> ContentController = Backbone.Marionette.Controller.extend({
+            initialize: <span class="keyword">function</span>(options){
+            	<span class="keyword">this</span>.listenTo(Communicator.mediator, <span class="string">"dialog:open:about"</span>, <span class="keyword">this</span>.onDialogOpenAbout);
+            	<span class="keyword">this</span>.listenTo(Communicator.mediator, <span class="string">"ui:open:uielement"</span>, <span class="keyword">this</span>.onUIOpenElement);
+            	<span class="keyword">this</span>.listenTo(Communicator.mediator, <span class="string">"ui:open:layercontrol"</span>, <span class="keyword">this</span>.onLayerControlOpen);
+			},
+
+			onDialogOpenAbout: <span class="keyword">function</span>(event){
+				App.dialogRegion.show(App.DialogContentView);
+			},
+			onUIOpenElement: <span class="keyword">function</span>(event){</pre></div>
+        
+      
+        
+        <p>App.UIRegion.show(App.UIView);</p>
+
+        
+          <div class='highlight'><pre>			},
+			onLayerControlOpen: <span class="keyword">function</span>(event){</pre></div>
+        
+      
+        
+        <p>We have to render the layout before we can
+call show() on the layout&#39;s regions</p>
+
+        
+          <div class='highlight'><pre>                App.leftSideBar.show(App.layout);
+                App.layout.baseLayers.show(App.baseLayerView);
+                App.layout.products.show(App.productsView);
+			}
+		});
+		<span class="keyword">return</span> <span class="keyword">new</span> ContentController();
+	});
+
+}).call( <span class="keyword">this</span> );</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

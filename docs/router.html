@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>router.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>router.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="app.html">
+                    app.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="communicator.html">
+                    communicator.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentController.html">
+                    ContentController.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="globals.html">
+                    globals.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="init.html">
+                    init.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerControlLayout.html">
+                    LayerControlLayout.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="main.html">
+                    main.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerModel.html">
+                    LayerModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapModel.html">
+                    MapModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollection.html">
+                    NavBarCollection.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemModel.html">
+                    NavBarItemModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="objectStore.html">
+                    objectStore.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="regionManager.html">
+                    regionManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="DialogRegion.html">
+                    DialogRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIRegion.html">
+                    UIRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="router.html">
+                    router.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentView.html">
+                    ContentView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerItemView.html">
+                    LayerItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerSelectionView.html">
+                    LayerSelectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapView.html">
+                    MapView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollectionView.html">
+                    NavBarCollectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemView.html">
+                    NavBarItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIElementView.html">
+                    UIElementView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="readme.html">
+                    readme.md
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre>(<span class="keyword">function</span>() {
+	<span class="string">'use strict'</span>;
+
+	<span class="keyword">var</span> root = <span class="keyword">this</span>;
+
+	root.require([
+		<span class="string">'app'</span>,
+		<span class="string">'backbone'</span>,
+		<span class="string">'communicator'</span>,
+		<span class="string">'backbone.marionette'</span>
+	],
+
+	<span class="keyword">function</span>( App, Backbone, Communicator ) {
+
+		App.addInitializer(<span class="function"><span class="keyword">function</span> <span class="params">(options)</span> {</span></pre></div>
+        
+      
+        
+        <p>Create a new Router</p>
+
+        
+          <div class='highlight'><pre>            App.router = <span class="keyword">new</span> Router();</pre></div>
+        
+      
+        
+        <p>start history</p>
+
+        
+          <div class='highlight'><pre>            Backbone.history.start({pushState: <span class="literal">false</span>});
+        });
+
+
+		<span class="keyword">var</span> Router = Backbone.Marionette.AppRouter.extend({
+			initialize: <span class="keyword">function</span>(options) {
+
+				console.log(<span class="string">'RouterModule starting up...'</span>);
+
+				<span class="keyword">this</span>.listenTo(Communicator.mediator, <span class="string">"Router:SetUrl"</span>, <span class="keyword">this</span>.setUrl);
+			},
+
+			setUrl: <span class="keyword">function</span>(data){
+				console.log(<span class="string">"setURL invoked"</span>);</pre></div>
+        
+      
+        
+        <p>round to two decimals</p>
+
+        
+          <div class='highlight'><pre>                data.x = Math.round(data.x * <span class="number">100</span>)/<span class="number">100</span>;
+                data.y = Math.round(data.y * <span class="number">100</span>)/<span class="number">100</span>;
+                <span class="keyword">var</span> urlFragment = <span class="string">'map/'</span>+data.x+<span class="string">'/'</span>+data.y+<span class="string">'/'</span>+data.l;  
+                App.router.navigate(urlFragment, 
+                    {trigger:<span class="literal">false</span>});
+			},
+
+			routes : {
+                <span class="string">"map/:x/:y/:l"</span> : <span class="string">"centerAndZoom"</span>
+            },
+
+            centerAndZoom : <span class="keyword">function</span>(x,y,l){
+                Communicator.mediator.trigger(<span class="string">'Map:CenterAtLatLongAndZoom'</span>, 
+                    {x:x, y:y, l:l});
+            }
+		});
+
+		<span class="keyword">return</span> Router;
+	});
+}).call( <span class="keyword">this</span>);</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

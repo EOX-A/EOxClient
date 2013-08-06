@@ -12,6 +12,7 @@ var mountFolder = function (connect, dir) {
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -21,6 +22,7 @@ module.exports = function (grunt) {
         app: 'app',
         dist: 'dist'
     };
+
 
     grunt.initConfig({
         yeoman: yeomanConfig,
@@ -47,6 +49,16 @@ module.exports = function (grunt) {
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
+            }
+        },
+        docco: {
+            docs: {
+                src: ['readme.md','<%= yeoman.app %>/scripts/{,*/}*.js', '!<%= yeoman.app %>/scripts/vendor/{,*/}*.js'],
+                options: {
+                    layout: 'linear',
+                    css: 'docco.css',
+                    output: 'docs/'
+                }
             }
         },
         connect: {
@@ -318,6 +330,7 @@ module.exports = function (grunt) {
                 rjsConfig: '<%= yeoman.app %>/scripts/main.js'
             }
         }
+
     });
 
     grunt.registerTask('server', function (target) {

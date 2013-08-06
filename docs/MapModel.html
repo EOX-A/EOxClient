@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>MapModel.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>MapModel.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="app.html">
+                    app.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="communicator.html">
+                    communicator.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentController.html">
+                    ContentController.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="globals.html">
+                    globals.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="init.html">
+                    init.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerControlLayout.html">
+                    LayerControlLayout.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="main.html">
+                    main.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerModel.html">
+                    LayerModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapModel.html">
+                    MapModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollection.html">
+                    NavBarCollection.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemModel.html">
+                    NavBarItemModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="objectStore.html">
+                    objectStore.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="regionManager.html">
+                    regionManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="DialogRegion.html">
+                    DialogRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIRegion.html">
+                    UIRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="router.html">
+                    router.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentView.html">
+                    ContentView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerItemView.html">
+                    LayerItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerSelectionView.html">
+                    LayerSelectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapView.html">
+                    MapView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollectionView.html">
+                    NavBarCollectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemView.html">
+                    NavBarItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIElementView.html">
+                    UIElementView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="readme.html">
+                    readme.md
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre>
+
+(<span class="keyword">function</span>() {
+	<span class="string">'use strict'</span>;
+
+	<span class="keyword">var</span> root = <span class="keyword">this</span>;
+
+	root.define([
+		<span class="string">'backbone'</span>,
+		<span class="string">'communicator'</span>
+	],
+
+	<span class="keyword">function</span>( Backbone, Communicator ) {
+
+		<span class="keyword">var</span> MapModel = Backbone.Model.extend({
+			visualizationLibs : [],
+			center: [],
+			zoom: <span class="number">0</span>
+		});
+
+		<span class="keyword">return</span> MapModel;
+
+	});
+
+}).call( <span class="keyword">this</span> );</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>init.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>init.js</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="app.html">
+                    app.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="communicator.html">
+                    communicator.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentController.html">
+                    ContentController.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="globals.html">
+                    globals.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="init.html">
+                    init.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerControlLayout.html">
+                    LayerControlLayout.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="main.html">
+                    main.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerModel.html">
+                    LayerModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapModel.html">
+                    MapModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollection.html">
+                    NavBarCollection.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemModel.html">
+                    NavBarItemModel.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="objectStore.html">
+                    objectStore.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="regionManager.html">
+                    regionManager.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="DialogRegion.html">
+                    DialogRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIRegion.html">
+                    UIRegion.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="router.html">
+                    router.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="ContentView.html">
+                    ContentView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerItemView.html">
+                    LayerItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="LayerSelectionView.html">
+                    LayerSelectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="MapView.html">
+                    MapView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarCollectionView.html">
+                    NavBarCollectionView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="NavBarItemView.html">
+                    NavBarItemView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="UIElementView.html">
+                    UIElementView.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="readme.html">
+                    readme.md
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        
+        
+          <div class='highlight'><pre>(<span class="keyword">function</span>() {
+    <span class="string">'use strict'</span>;
+
+    <span class="keyword">var</span> root = <span class="keyword">this</span>;
+
+    root.require.config({
+
+        baseUrl: <span class="string">"/scripts"</span>,
+
+        <span class="comment">/* starting point for application */</span>
+        deps: [<span class="string">'backbone.marionette'</span>, <span class="string">'bootstrap'</span>, <span class="string">'marionette.handlebars'</span>, <span class="string">'main'</span>],
+
+
+        shim: {
+            handlebars: {
+                exports: <span class="string">'Handlebars'</span>
+            },
+
+            backbone: {
+                deps: [
+                    <span class="string">'underscore'</span>,
+                    <span class="string">'jquery'</span>
+                ],
+                exports: <span class="string">'Backbone'</span>
+            },
+            bootstrap: {
+                deps: [<span class="string">'jquery'</span>],
+                exports: <span class="string">'jquery'</span>
+            }
+        },
+
+        paths: {
+            jquery: <span class="string">'../bower_components/jquery/jquery'</span>,
+            backbone: <span class="string">'../bower_components/backbone-amd/backbone'</span>,
+            underscore: <span class="string">'../bower_components/underscore-amd/underscore'</span>,
+
+            <span class="comment">/* alias all marionette libs */</span>
+            <span class="string">'backbone.marionette'</span>: <span class="string">'../bower_components/backbone.marionette/lib/core/amd/backbone.marionette'</span>,
+            <span class="string">'backbone.wreqr'</span>: <span class="string">'../bower_components/backbone.wreqr/lib/amd/backbone.wreqr'</span>, 
+            <span class="string">'backbone.babysitter'</span>: <span class="string">'../bower_components/backbone.babysitter/lib/amd/backbone.babysitter'</span>,
+
+            <span class="comment">/* alias the bootstrap js lib */</span>
+            bootstrap: <span class="string">'vendor/bootstrap'</span>,
+
+            <span class="comment">/* Alias text.js for template loading and shortcut the templates dir to tmpl */</span>
+            text: <span class="string">'../bower_components/requirejs-text/text'</span>,
+            tmpl: <span class="string">"../templates"</span>,
+
+            <span class="comment">/* handlebars from the require handlerbars plugin below */</span>
+            handlebars: <span class="string">'../bower_components/require-handlebars-plugin/Handlebars'</span>,
+
+            <span class="comment">/* require handlebars plugin - Alex Sexton */</span>
+            i18nprecompile: <span class="string">'../bower_components/require-handlebars-plugin/hbs/i18nprecompile'</span>,
+            json2: <span class="string">'../bower_components/require-handlebars-plugin/hbs/json2'</span>,
+            hbs: <span class="string">'../bower_components/require-handlebars-plugin/hbs'</span>,
+
+            <span class="comment">/* marionette and handlebars plugin */</span>
+            <span class="string">'marionette.handlebars'</span>: <span class="string">'../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars'</span>,
+
+            <span class="string">'openlayers'</span>: <span class="string">'http://openlayers.org/api/OpenLayers'</span></pre></div>
+        
+      
+        
+        <p>&#39;openlayers&#39;: &#39;<a href="http://ol3js.org/en/master/build/ol">http://ol3js.org/en/master/build/ol</a>&#39;,</p>
+
+        
+          <div class='highlight'><pre>        },
+
+        hbs: {
+            disableI18n: <span class="literal">true</span>
+        }
+    });
+}).call( <span class="keyword">this</span> );</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>
