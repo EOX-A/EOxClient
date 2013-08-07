@@ -94,7 +94,9 @@
 								isphericalMercator: baselayer.isphericalMercator,
 								isBaseLayer: baselayer.isBaseLayer,
 								wrapDateLine: baselayer.wrapDateLine,
-								zoomOffset: baselayer.zoomOffset
+								zoomOffset: baselayer.zoomOffset,
+								visible: baselayer.visible,
+								time: baselayer.time
 							})
 						);
 					console.log("Added baselayer " + baselayer.id );
@@ -107,6 +109,7 @@
 							new LayerModel({
 								id : products.id,
 								urls : products.urls,
+								visualization: products.visualization,
 								protocol: products.protocol,
 								name: products.name,
 								projection: products.projection,
@@ -123,7 +126,9 @@
 								isphericalMercator: products.isphericalMercator,
 								isBaseLayer: products.isBaseLayer,
 								wrapDateLine: products.wrapDateLine,
-								zoomOffset: products.zoomOffset
+								zoomOffset: products.zoomOffset,
+								visible: products.visible,
+								time: products.time
 							})
 						);
 					console.log("Added product " + products.id );

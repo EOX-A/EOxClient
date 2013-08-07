@@ -15,6 +15,7 @@
 			name: '',
 			id : '',
 			urls : [],
+			visualization: [],
 			protocol: "",
 			attribution: '',
 			matrixSet: '',
@@ -30,7 +31,8 @@
 			isphericalMercator: null,
 			isBaseLayer: null,
 			wrapDateLine: null,
-			zoomOffset: null
+			zoomOffset: null,
+			visible: null
 		});
 
 		return LayerModel;

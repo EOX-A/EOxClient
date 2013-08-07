@@ -34,7 +34,8 @@
         "isphericalMercator": false,
         "isBaseLayer": true,
         "wrapDateLine": true,
-        "zoomOffset": 0
+        "zoomOffset": 0,
+        "visible": true
       },
       {
         "name": "Blue Marble",
@@ -60,25 +61,34 @@
         "isphericalMercator": false,
         "isBaseLayer": true,
         "wrapDateLine": true,
-        "zoomOffset": 0
+        "zoomOffset": 0,
+        "visible": false
       }
     ],
     "products": [
       {
-        "id": "productid",
-        "name": "testproduct",
+        "id": "daily_FSC_PanEuropean_Optical",
+        "name": "PanEuropean Fractional Snow Cover",
+        "protocol": "WMS",
         "urls": [
-          {
-            "url": "http://testurl.com",
-            "protocol": "WCS"
-          }
+            "http://neso.cryoland.enveo.at/cryoland/ows"
         ],
-        "visualization": [
-          {
-            "url": "http://testurl.com",
-            "protocol": "WMS"
-          }
-        ]
+        "visible": false,
+        "style": "default",
+        "isBaseLayer": false,
+        "time":"2011-02-10T00:00:00Z/2011-02-15T00:00:00Z"
+      },
+      {
+        "id": "daily_SWE_PanEuropean_Microwave",
+        "name": "PanEuropean Snow Water Equivalent",
+        "protocol": "WMS",
+        "urls": [
+            "http://neso.cryoland.enveo.at/cryoland/ows"
+        ],
+        "visible": false,
+        "style": "default",
+        "isBaseLayer": false,
+        "time":"2011-02-10T00:00:00Z/2011-02-15T00:00:00Z"
       }
     ],
     "overlays": [

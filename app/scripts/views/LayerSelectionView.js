@@ -6,7 +6,6 @@
 	root.define([
 		'backbone',
 		'communicator',
-		'hbs!tmpl/UIElement',
 		'underscore'
 	],
 
@@ -14,11 +13,9 @@
 
 		var LayerSelectionView = Backbone.Marionette.CollectionView.extend({
 
-			//template: {type: 'handlebars', template: UIElementTmpl},
-
 			initialize: function(options) {
-
 			}
+
 
 		});
 
