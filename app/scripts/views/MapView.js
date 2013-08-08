@@ -113,6 +113,7 @@ define(['backbone',
 						globals.baseLayers.find(function(model) { return model.get('name') == options.name; }).set("visible", true);
 						this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
 					}else{
+						globals.products.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
 						this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
 					}
 				}

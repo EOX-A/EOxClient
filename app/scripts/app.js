@@ -23,6 +23,7 @@
 		'views/UIElementView',
 		'views/LayerItemView',
 		'views/LayerSelectionView',
+		'views/BaseLayerSelectionView',
 		'layouts/LayerControlLayout',
 		'hbs!tmpl/BulletLayer',
 		'hbs!tmpl/CheckBoxLayer',
@@ -36,8 +37,8 @@
 			  MapModel , NavBarCollectionView, NavBarItemModel, 
 			  NavBarTmpl, NavBarItemTmpl, NavBarCollection, NavBarItemView,
 			  ContentView, InfoTmpl, DialogRegion, UIRegion, UIElementView, 
-			  LayerItemView, LayerSelectionView, LayerControlLayout,
-			  BulletLayerTmpl, CheckBoxLayerTmpl ) {
+			  LayerItemView, LayerSelectionView, BaseLayerSelectionView,
+			  LayerControlLayout, BulletLayerTmpl, CheckBoxLayerTmpl ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
@@ -164,13 +165,14 @@
 
 
 				//create the views - these are Marionette.CollectionViews that render ItemViews
-                this.baseLayerView = new LayerSelectionView({
+                this.baseLayerView = new BaseLayerSelectionView({
                 	collection:globals.baseLayers,
                 	itemView: LayerItemView.extend({template: {type:'handlebars', template: BulletLayerTmpl}} )
                 });
                 this.productsView = new LayerSelectionView({
                 	collection:globals.products,
-                	itemView: LayerItemView.extend({template: {type:'handlebars', template: CheckBoxLayerTmpl}} )
+                	itemView: LayerItemView.extend({template: {type:'handlebars', template: CheckBoxLayerTmpl}, className: "ui-state-default"} ),
+                	className: "sortable"
                 });
 
                 //this.productsView = new LayerSelectionView({collection:globals.products, template:{type:'handlebars', template: CheckBoxLayerTmpl}});
