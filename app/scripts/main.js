@@ -9,6 +9,7 @@
 		'backbone.marionette',
 		'regionManager',
 		'jquery',
+		'jqueryui',
 		"text!config.json"
 	],
 	function ( Backbone, App ) {

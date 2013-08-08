@@ -16,7 +16,6 @@ html, body {
 #content {
 	height: 100%;
 	width: 100%;
-	position: relative;
 }
 
 #map {
@@ -26,21 +25,11 @@ html, body {
 }
 
 #leftSideBar {
-	width: 200px;
-	top: 10%;
-    height:80%;
-    float: left;
-    left: 20px;
-    position:relative;
+
 }
 
 #rightSideBar {
-	width: 200px;
-	top: 10%;
-    height:80%;
-    float: right;
-    right: 20px;
-    position:relative;
+
 }
 
 #topBar {
@@ -66,4 +55,11 @@ html, body {
 .sidepane {
 	width: 100px;
 	height: 100px;
+}
+
+.layercontrol {
+	width: 260px;
+	top: 200px;
+	left: 20px;
+
 }

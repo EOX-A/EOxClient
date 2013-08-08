@@ -9,8 +9,8 @@ define(['backbone',
 
 			var MapView = Backbone.View.extend({
 
-				render: function() {
-					this.map = new OpenLayers.Map("map");
+				onShow: function() {
+					this.map = new OpenLayers.Map({div: "map", fallThrough: true});
 					console.log("Created Map");
 
 					//listen to moeveend event in order to keep router uptodate

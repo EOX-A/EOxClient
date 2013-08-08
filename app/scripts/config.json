@@ -107,7 +107,7 @@
 
   "regions": [
     {
-      "name": "background",
+      "name": "map",
       "class": ""
     },
     {

@@ -16,13 +16,14 @@
 
 			template: {type: 'handlebars', template: LayerControlTmpl},
 			regions: {baseLayers: "#baseLayers", products: "#products"},
-			className: "well",
+			className: "well layercontrol",
 
 			initialize: function(options) {
 			},
 
 			onShow: function(view){
 		    	this.$('.close').on("click", _.bind(this.onClose, this));
+		    	this.$el.draggable({ containment: "#content" , scroll: false});
 		    },
 
 			onClose: function() {

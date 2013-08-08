@@ -138,7 +138,7 @@
 				//TODO: Everything below has to be done automatically based on configuration
 				//Take a look at requirement loading
 
-				this.background.show(new MapView({el: $("#map")}));
+				this.map.show(new MapView({el: $("#map")}));
 
 				if (config.navBarConfig) {
 
@@ -203,8 +203,10 @@
 
 
 				//this.router = new Router({views: this.views, regions: this.regions});
-
+								
 			}
+
+
 
 		});
 

@@ -12,6 +12,7 @@
 
 
         shim: {
+            /*jqueryui: 'jquery',*/
             handlebars: {
                 exports: 'Handlebars'
             },
@@ -30,12 +31,13 @@
         },
 
         paths: {
-            jquery: '../bower_components/jquery/jquery',
-            backbone: '../bower_components/backbone-amd/backbone',
-            underscore: '../bower_components/underscore-amd/underscore',
+            jquery: '../bower_components/jquery/jquery.min',
+            jqueryui: '../bower_components/jquery-ui/ui/minified/jquery-ui.min',
+            backbone: '../bower_components/backbone-amd/backbone-min',
+            underscore: '../bower_components/underscore-amd/underscore-min',
 
             /* alias all marionette libs */
-            'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette',
+            'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',
             'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr', 
             'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter',
 
