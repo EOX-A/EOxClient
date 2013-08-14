@@ -167,11 +167,11 @@
 				//create the views - these are Marionette.CollectionViews that render ItemViews
                 this.baseLayerView = new BaseLayerSelectionView({
                 	collection:globals.baseLayers,
-                	itemView: LayerItemView.extend({template: {type:'handlebars', template: BulletLayerTmpl}} )
+                	itemView: LayerItemView.extend({template: {type:'handlebars', template: BulletLayerTmpl}, className: "radio" } )
                 });
                 this.productsView = new LayerSelectionView({
                 	collection:globals.products,
-                	itemView: LayerItemView.extend({template: {type:'handlebars', template: CheckBoxLayerTmpl}, className: "ui-state-default"} ),
+                	itemView: LayerItemView.extend({template: {type:'handlebars', template: CheckBoxLayerTmpl}, className: "ui-state-default checkbox"} ),
                 	className: "sortable"
                 });
 

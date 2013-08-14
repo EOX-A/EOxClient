@@ -14,6 +14,7 @@
 		var LayerSelectionView = Backbone.Marionette.CollectionView.extend({
 
 			tagName: "ul",
+			className: "radio",
 
 			initialize: function(options) {
 			},

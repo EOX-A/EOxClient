@@ -16,13 +16,20 @@ html, body {
 ul, li {
  	list-style-type: none;
     list-style-position:inside;
-    margin:0;
+    
+}
+
+
+#products ul {
+	margin:0;
     padding:0;
 }
 
-li {
-	padding: 5px 0 5px 0;
+
+#products li {
+   padding:5px 0 5px 20px;
 }
+
 
 #content {
 	height: 100%;
@@ -74,3 +81,5 @@ li {
 	left: 20px;
 
 }
+
+
