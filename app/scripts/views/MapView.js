@@ -20,6 +20,7 @@ define(['backbone',
 
 					this.listenTo(Communicator.mediator, "Map:CenterAtLatLongAndZoom", this.centerMap);
 					this.listenTo(Communicator.mediator, "Map:ChangeBaseLayer", this.changeBaseLayer);
+					this.listenTo(Communicator.mediator, "productCollection:sort-updated", this.onSortProducts);
 
 					//Go through all defined baselayer and add them to the map
 					globals.baseLayers.each(function(baselayer) {
@@ -30,6 +31,10 @@ define(['backbone',
 					globals.products.each(function(product){
 						this.map.addLayer(this.createLayer(product));
 					}, this);
+
+					// Order (sort) the product layers based on collection order
+
+					this.onSortProducts();
 
 					//Set attributes of map based on mapmodel attributes
 				    var mapmodel = globals.objects.get('mapmodel');
@@ -116,7 +121,15 @@ define(['backbone',
 						globals.products.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
 						this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
 					}
-				}
+				},
+				onSortProducts: function(productLayers) {
+				    globals.products.each(function(product) {
+				      var productLayer = this.map.getLayersByName(product.get("name"))[0];
+				      var index = globals.products.indexOf(productLayer);
+				      this.map.setLayerIndex(productLayer, index);
+				    }, this);
+				    console.log("Map products sorted");
+				},
 			});
 			return MapView;
 	});
