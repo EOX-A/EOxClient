@@ -166,10 +166,14 @@
   },
 
 
-  "views": [
+  "viewsConfig": [
     {
-      "module": "views/LayerSelectionView",
-      "options": ""
+      "view": "views/NavBarCollectionView",
+      "model": "models/NavBarCollection"
+    },
+    {
+      "view": "views/NavBarItemView",
+      "model": "models/NavBarItemModel"
     }
   ]
 

@@ -16,6 +16,7 @@
             	this.listenTo(Communicator.mediator, "dialog:open:about", this.onDialogOpenAbout);
             	this.listenTo(Communicator.mediator, "ui:open:uielement", this.onUIOpenElement);
             	this.listenTo(Communicator.mediator, "ui:open:layercontrol", this.onLayerControlOpen);
+            	
 			},
 
 			onDialogOpenAbout: function(event){

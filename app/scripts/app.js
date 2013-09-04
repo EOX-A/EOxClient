@@ -27,6 +27,7 @@
 		'layouts/LayerControlLayout',
 		'hbs!tmpl/BulletLayer',
 		'hbs!tmpl/CheckBoxLayer',
+		'views/TimeSliderView',
 		'jquery',
 		'backbone.marionette',
 		'controller/ContentController',
@@ -38,7 +39,8 @@
 			  NavBarTmpl, NavBarItemTmpl, NavBarCollection, NavBarItemView,
 			  ContentView, InfoTmpl, DialogRegion, UIRegion, UIElementView, 
 			  LayerItemView, LayerSelectionView, BaseLayerSelectionView,
-			  LayerControlLayout, BulletLayerTmpl, CheckBoxLayerTmpl ) {
+			  LayerControlLayout, BulletLayerTmpl, CheckBoxLayerTmpl,
+			  TimeSliderView ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
@@ -179,6 +181,10 @@
 
                 //create our layout that will hold the child views
                 this.layout = new LayerControlLayout();
+
+
+                this.timeSliderView = new TimeSliderView();
+                this.bottomBar.show(this.timeSliderView);
 
 
 				/*this.addRegions({UIRegion: UIRegion.extend({el: "#rightSideBar"})});
