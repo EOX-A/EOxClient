@@ -166,16 +166,57 @@
   },
 
 
-  "viewsConfig": [
+  "views": [
+    "views/MapView",
+    "views/NavBarCollectionView",
+    "views/NavBarItemView",
+    "views/BaseLayerSelectionView",
+    "views/LayerSelectionView",
+    "views/LayerItemView",
+    "views/ContentView",
+    "views/TimeSliderView"
+  ],
+
+  "models":[
+    "models/LayerModel",
+    "models/MapModel",
+    "models/NavBarCollection",
+    "models/NavBarItemModel"
+  ],
+
+  "templates":[
     {
-      "view": "views/NavBarCollectionView",
-      "model": "models/NavBarCollection"
+      "id":"BulletLayer",
+      "template":"hbs!tmpl/BulletLayer"
     },
     {
-      "view": "views/NavBarItemView",
-      "model": "models/NavBarItemModel"
-    }
+      "id":"CheckBoxLayer",
+      "template":"hbs!tmpl/CheckBoxLayer"
+    },
+    {
+      "id":"Info",
+      "template":"hbs!tmpl/Info"
+    },
+    {
+      "id":"LayerControl",
+      "template":"hbs!tmpl/LayerControl"
+    },
+    {
+      "id":"NavBar",
+      "template":"hbs!tmpl/NavBar"
+    },
+    {
+      "id":"NavBarItem",
+      "template":"hbs!tmpl/NavBarItem"
+    },
+    {
+      "id":"NavBarItemList",
+      "template":"hbs!tmpl/NavBarItemList"
+    },
+    {
+      "id":"UIElement",
+      "template":"hbs!tmpl/UIElement"
+    }    
   ]
-
 
 }

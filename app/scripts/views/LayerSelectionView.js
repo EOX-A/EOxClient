@@ -55,7 +55,7 @@
 
 		});
 
-		return LayerSelectionView;
+		return {'LayerSelectionView':LayerSelectionView};
 
 	});
 

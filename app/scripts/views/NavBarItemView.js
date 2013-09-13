@@ -28,7 +28,7 @@
             }
             
 		});
-		return NavBarItemView;
+		return {'NavBarItemView' : NavBarItemView};
 	});
 
 }).call( this );

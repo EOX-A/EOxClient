@@ -7,6 +7,6 @@
 		var NavBarCollection = Backbone.Collection.extend({
 			model: NavBarItemModel,
 		});
-		return NavBarCollection;
+		return {'NavBarCollection':NavBarCollection};
 	});
 }).call( this );

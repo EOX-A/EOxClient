@@ -11,7 +11,7 @@
 
 	function( Backbone, Communicator, UIElementTmpl ) {
 
-		var LayerSelectionView = Backbone.Marionette.CollectionView.extend({
+		var BaseLayerSelectionView = Backbone.Marionette.CollectionView.extend({
 
 			tagName: "ul",
 			className: "radio",
@@ -23,7 +23,7 @@
 
 		});
 
-		return LayerSelectionView;
+		return {'BaseLayerSelectionView':BaseLayerSelectionView};
 
 	});
 

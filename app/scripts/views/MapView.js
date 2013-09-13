@@ -131,7 +131,7 @@ define(['backbone',
 				    console.log("Map products sorted");
 				},
 			});
-			return MapView;
+			return {"MapView":MapView};
 	});
 
 

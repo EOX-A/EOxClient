@@ -35,7 +35,7 @@
 			visible: null
 		});
 
-		return LayerModel;
+		return {"LayerModel":LayerModel};
 	});
 
 	

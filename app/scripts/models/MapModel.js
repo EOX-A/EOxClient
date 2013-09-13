@@ -18,7 +18,7 @@
 			zoom: 0
 		});
 
-		return MapModel;
+		return {"MapModel":MapModel};
 
 	});
 

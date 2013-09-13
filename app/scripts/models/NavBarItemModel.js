@@ -10,6 +10,6 @@
 			eventToRaise: ""
 			
 		});
-		return NavBarItemModel;
+		return {'NavBarItemModel':NavBarItemModel};
 	});
 }).call( this );

@@ -16,7 +16,7 @@
 				collectionView.$("ul").append(itemView.el);
 			}
 		});
-		return NavBarCollectionView;
+		return {'NavBarCollectionView':NavBarCollectionView};
 	});
 
 }).call( this );

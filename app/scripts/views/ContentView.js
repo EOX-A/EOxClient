@@ -44,7 +44,7 @@
 
 
 
-		return ContentView;
+		return {"ContentView":ContentView};
 
 	});
 

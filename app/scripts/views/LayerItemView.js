@@ -8,7 +8,7 @@
 		'underscore'
 	],
 	function( Backbone, Communicator, BulletLayerTmpl) {
-		var ProductSelectionView = Backbone.Marionette.ItemView.extend({
+		var LayerItemView = Backbone.Marionette.ItemView.extend({
 			tagName: "li",
 			template: {
 				type: 'handlebars',
@@ -37,6 +37,6 @@
 		    }
 
 		});
-		return ProductSelectionView;
+		return {'LayerItemView':LayerItemView};
 	});
 }).call( this );

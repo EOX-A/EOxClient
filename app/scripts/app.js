@@ -5,57 +5,26 @@
 
 	root.define([
 		'backbone',
-		'communicator',
-		'globals',
-		'views/MapView',
-		'models/LayerModel',
-		'models/MapModel',
-		'views/NavBarCollectionView',
-		'models/NavBarItemModel',
-		'hbs!tmpl/NavBar',
-		'hbs!tmpl/NavBarItem',
-		'models/NavBarCollection',
-		'views/NavBarItemView',
-		'views/ContentView',
-		'hbs!tmpl/Info',
-		'regions/DialogRegion',
-		'regions/UIRegion',
-		'views/UIElementView',
-		'views/LayerItemView',
-		'views/LayerSelectionView',
-		'views/BaseLayerSelectionView',
+		'communicator','globals',
+		'regions/DialogRegion','regions/UIRegion',
 		'layouts/LayerControlLayout',
-		'hbs!tmpl/BulletLayer',
-		'hbs!tmpl/CheckBoxLayer',
-		'views/TimeSliderView',
-		'jquery',
-		'backbone.marionette',
+		'jquery', 'backbone.marionette',
 		'controller/ContentController',
-		'router'	
+		'router'
 	],
 
-	function( Backbone, Communicator, globals, MapView, LayerModel, 
-			  MapModel , NavBarCollectionView, NavBarItemModel, 
-			  NavBarTmpl, NavBarItemTmpl, NavBarCollection, NavBarItemView,
-			  ContentView, InfoTmpl, DialogRegion, UIRegion, UIElementView, 
-			  LayerItemView, LayerSelectionView, BaseLayerSelectionView,
-			  LayerControlLayout, BulletLayerTmpl, CheckBoxLayerTmpl,
-			  TimeSliderView ) {
+	function( Backbone, Communicator, globals, DialogRegion, 
+			  UIRegion, LayerControlLayout ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
-				// if options == string --> retrieve json config
-				// else options are directly the config
-				/*if (typeof options == "string") {
-					$.get(options, this.configure);
-				}
-				else {
-					this.configure(options);
-				}*/
 			},
 
 			configure: function(config) {
 
+				var v = {}; //views
+				var m = {};	//models
+				var t = {};	//templates
 
 				// Application regions are loaded and added to the Marionette Application
 				_.each(config.regions, function(region) {
@@ -65,9 +34,27 @@
 					console.log("Added region " + obj[region.name]);
 				}, this);
 
+				//Load all configured views
+				_.each(config.views, function(viewDef) {
+					var View = require(viewDef);
+					$.extend(v, View);
+				}, this);
+
+				//Load all configured models
+				_.each(config.models, function(modelDef) {
+					var Model = require(modelDef);
+					$.extend(m, Model);
+				}, this);
+
+				//Load all configured templates
+				_.each(config.templates, function(tmplDef) {
+					var Tmpl = require(tmplDef.template);
+					t[tmplDef.id] = Tmpl;
+				}, this);
+
 
 				//Map attributes are loaded and added to the global map model
-				globals.objects.add('mapmodel', new MapModel({
+				globals.objects.add('mapmodel', new m.MapModel({
 						visualizationLibs : config.mapConfig.visualizationLibs,
 						center: config.mapConfig.center,
 						zoom: config.mapConfig.zoom
@@ -78,30 +65,30 @@
 				_.each(config.mapConfig.baseLayers, function(baselayer) {
 					
 					globals.baseLayers.add(
-							new LayerModel({
-								id : baselayer.id,
-								urls : baselayer.urls,
-								protocol: baselayer.protocol,
-								name: baselayer.name,
-								projection: baselayer.projection,
-								attribution: baselayer.attribution,
-								matrixSet: baselayer.matrixSet,
-								style: baselayer.style,
-								format: baselayer.format,
-								resolutions: baselayer.resolutions,
-								maxExtent: baselayer.maxExtent,	
-								gutter: baselayer.gutter,
-								buffer: baselayer.buffer,
-								units: baselayer.units,
-								transitionEffect: baselayer.transitionEffect,
-								isphericalMercator: baselayer.isphericalMercator,
-								isBaseLayer: baselayer.isBaseLayer,
-								wrapDateLine: baselayer.wrapDateLine,
-								zoomOffset: baselayer.zoomOffset,
-								visible: baselayer.visible,
-								time: baselayer.time
-							})
-						);
+						new m.LayerModel({
+							id : baselayer.id,
+							urls : baselayer.urls,
+							protocol: baselayer.protocol,
+							name: baselayer.name,
+							projection: baselayer.projection,
+							attribution: baselayer.attribution,
+							matrixSet: baselayer.matrixSet,
+							style: baselayer.style,
+							format: baselayer.format,
+							resolutions: baselayer.resolutions,
+							maxExtent: baselayer.maxExtent,	
+							gutter: baselayer.gutter,
+							buffer: baselayer.buffer,
+							units: baselayer.units,
+							transitionEffect: baselayer.transitionEffect,
+							isphericalMercator: baselayer.isphericalMercator,
+							isBaseLayer: baselayer.isBaseLayer,
+							wrapDateLine: baselayer.wrapDateLine,
+							zoomOffset: baselayer.zoomOffset,
+							visible: baselayer.visible,
+							time: baselayer.time
+						})
+					);
 					console.log("Added baselayer " + baselayer.id );
 				}, this);
 
@@ -109,105 +96,99 @@
 				_.each(config.mapConfig.products, function(products) {
 					
 					globals.products.add(
-							new LayerModel({
-								id : products.id,
-								urls : products.urls,
-								visualization: products.visualization,
-								protocol: products.protocol,
-								name: products.name,
-								projection: products.projection,
-								attribution: products.attribution,
-								matrixSet: products.matrixSet,
-								style: products.style,
-								format: products.format,
-								resolutions: products.resolutions,
-								maxExtent: products.maxExtent,	
-								gutter: products.gutter,
-								buffer: products.buffer,
-								units: products.units,
-								transitionEffect: products.transitionEffect,
-								isphericalMercator: products.isphericalMercator,
-								isBaseLayer: products.isBaseLayer,
-								wrapDateLine: products.wrapDateLine,
-								zoomOffset: products.zoomOffset,
-								visible: products.visible,
-								time: products.time
-							})
-						);
+						new m.LayerModel({
+							id : products.id,
+							urls : products.urls,
+							visualization: products.visualization,
+							protocol: products.protocol,
+							name: products.name,
+							projection: products.projection,
+							attribution: products.attribution,
+							matrixSet: products.matrixSet,
+							style: products.style,
+							format: products.format,
+							resolutions: products.resolutions,
+							maxExtent: products.maxExtent,	
+							gutter: products.gutter,
+							buffer: products.buffer,
+							units: products.units,
+							transitionEffect: products.transitionEffect,
+							isphericalMercator: products.isphericalMercator,
+							isBaseLayer: products.isBaseLayer,
+							wrapDateLine: products.wrapDateLine,
+							zoomOffset: products.zoomOffset,
+							visible: products.visible,
+							time: products.time
+						})
+					);
 					console.log("Added product " + products.id );
 				}, this);
 
 
-				//TODO: Everything below has to be done automatically based on configuration
-				//Take a look at requirement loading
+				// Create map view and execute show of its region
+				this.map.show(new v.MapView({el: $("#map")}));
 
-				this.map.show(new MapView({el: $("#map")}));
-
+				// If Navigation Bar is set in configuration go trhough the 
+				// defined elements creating a item collection to rendered
+				// by the marionette collection view
 				if (config.navBarConfig) {
 
-					var navBarItemCollection = new NavBarCollection();
+					var navBarItemCollection = new m.NavBarCollection;
 
 					_.each(config.navBarConfig.items, function(list_item){
-						navBarItemCollection.add(new NavBarItemModel({name:list_item.name, eventToRaise:list_item.eventToRaise}));
+						navBarItemCollection.add(
+							new m.NavBarItemModel({
+								name:list_item.name,
+								eventToRaise:list_item.eventToRaise
+							}));
 					}, this);
 
-					this.topBar.show(new NavBarCollectionView(
-						{template: NavBarTmpl({title: config.navBarConfig.title, url: config.navBarConfig.url}), className:"navbar navbar-fixed-top transparent", 
-						itemView: NavBarItemView, tag: "div",
+					this.topBar.show(new v.NavBarCollectionView(
+						{template: t.NavBar({
+							title: config.navBarConfig.title,
+							url: config.navBarConfig.url}),
+						className:"navbar navbar-fixed-top transparent", 
+						itemView: v.NavBarItemView, tag: "div",
 						collection: navBarItemCollection}));
 
 				};
 
+				// Added region to test combination of backbone 
+				// functionality combined with jQuery UI
 				this.addRegions({dialogRegion: DialogRegion.extend({el: "#viewContent"})});
-				this.DialogContentView = new ContentView({ template: {type: 'handlebars', template: InfoTmpl},
-															className: "modal hide fade",
-															attributes: {"data-keyboard":"false", "data-backdrop":"static"} });
+				this.DialogContentView = new v.ContentView({ 
+					template: {type: 'handlebars', template: t.Info},
+					className: "modal hide fade",
+					attributes: {"data-keyboard":"false", "data-backdrop":"static"} 
+				});
 
-
-
-
-				//create the views - these are Marionette.CollectionViews that render ItemViews
-                this.baseLayerView = new BaseLayerSelectionView({
+				// Create the views - these are Marionette.CollectionViews that render ItemViews
+                this.baseLayerView = new v.BaseLayerSelectionView({
                 	collection:globals.baseLayers,
-                	itemView: LayerItemView.extend({template: {type:'handlebars', template: BulletLayerTmpl}, className: "radio" } )
+                	itemView: v.LayerItemView.extend({
+                		template: {
+                			type:'handlebars',
+                			template: t.BulletLayer},
+                		className: "radio" 
+                	})
                 });
-                this.productsView = new LayerSelectionView({
+
+                this.productsView = new v.LayerSelectionView({
                 	collection:globals.products,
-                	itemView: LayerItemView.extend({template: {type:'handlebars', template: CheckBoxLayerTmpl}, className: "ui-state-default checkbox"} ),
+                	itemView: v.LayerItemView.extend({
+                		template: {
+                			type:'handlebars',
+                			template: t.CheckBoxLayer},
+                		className: "ui-state-default checkbox"
+                	}),
                 	className: "sortable"
                 });
 
-                //this.productsView = new LayerSelectionView({collection:globals.products, template:{type:'handlebars', template: CheckBoxLayerTmpl}});
-
-                //create our layout that will hold the child views
+                // Create layout that will hold the child views
                 this.layout = new LayerControlLayout();
 
-
-                this.timeSliderView = new TimeSliderView();
+                this.timeSliderView = new v.TimeSliderView();
                 this.bottomBar.show(this.timeSliderView);
-
-
-				/*this.addRegions({UIRegion: UIRegion.extend({el: "#rightSideBar"})});
-				this.UIView = new UIElementView({ className: "well sidepane" });*/
-				
-
-				/*var model = new NavBarItemModel({name:"test", content:"", link:"#"});
-				var somecollection = new NavBarCollection([model]);
-
-				this.topBar.show(new NavBarCollectionView(
-					{template: NavBarTmpl(), className:"navbar navbar-fixed-top transparent", 
-					itemView: NavBarItemView, 
-					collection: somecollection}));*/
-
-
-
-
-
-				/*_.each(config.views, function(viewDef) {
-					var View = require(viewDef.module);
-					this.views.push(new View(viewDef.options));
-				}, this);*/
-
 
 
 				//this.router = new Router({views: this.views, regions: this.regions});

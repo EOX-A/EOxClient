@@ -43,6 +43,6 @@
       }
 
     });
-    return TimeSliderView;
+    return {'TimeSliderView':TimeSliderView};
   });
 }).call( this );

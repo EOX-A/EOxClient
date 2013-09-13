@@ -22,7 +22,7 @@
 
 		});
 
-		return UIElementView;
+		return {'UIElementView':UIElementView};
 
 	});
 
