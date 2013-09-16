@@ -8,8 +8,12 @@
 		'underscore'
 	],
 	function( Backbone, Communicator, BulletLayerTmpl) {
-		var LayerItemView = Backbone.Marionette.ItemView.extend({
+		var ToolItemView = Backbone.Marionette.ItemView.extend({
 			tagName: "li",
+			template: {
+				type: 'handlebars',
+				template: BulletLayerTmpl
+			},
 			events: {
 				'drop' : 'drop',
 				'change': 'onChange'
@@ -33,6 +37,6 @@
 		    }
 
 		});
-		return {'LayerItemView':LayerItemView};
+		return {'ToolItemView':ToolItemView};
 	});
 }).call( this );

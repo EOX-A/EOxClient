@@ -115,7 +115,7 @@
       "class": ""
     },
     {
-      "name": "rightSideBar_tmp",
+      "name": "rightSideBar",
       "class": ""
     },
     {
@@ -153,9 +153,9 @@
         ]
       },
       {
-        "name" : "Selection Tools",
-        "eventToRaise" : "ui:open:uielement",
-        "template" : "selectionTools"
+        "name" : "Tools",
+        "eventToRaise" : "ui:open:toolselection",
+        "template" : "ToolSelection"
       },
       {
         "name" : "Layer Controls",
@@ -174,14 +174,18 @@
     "views/LayerSelectionView",
     "views/LayerItemView",
     "views/ContentView",
-    "views/TimeSliderView"
+    "views/TimeSliderView",
+    "views/ToolSelectionView",
+    "views/ToolItemView"
   ],
 
   "models":[
     "models/LayerModel",
     "models/MapModel",
     "models/NavBarCollection",
-    "models/NavBarItemModel"
+    "models/NavBarItemModel",
+    "models/ToolModel",
+    "models/ToolCollection"
   ],
 
   "templates":[
@@ -216,7 +220,36 @@
     {
       "id":"UIElement",
       "template":"hbs!tmpl/UIElement"
-    }    
+    },
+    {
+      "id":"ToolControl",
+      "template":"hbs!tmpl/ToolControl"
+    },
+    {
+      "id":"ToolIcon",
+      "template":"hbs!tmpl/ToolIcon"
+    }       
+  ],
+
+  "selectionTools":[
+    {
+      "id":"pointSelection",
+      "description": "Allows selection of Points in Map",
+      "icon":"icon-map-marker"
+    },
+    {
+      "id":"bboxSelection",
+      "description": "Allows drawing a bounding box selection in Map",
+      "icon":"icon-map-marker"
+    }
+  ],
+
+  "visualizationTools":[
+    {
+      "id":"",
+      "description": "",
+      "icon":""
+    }
   ]
 
 }

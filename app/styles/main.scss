@@ -8,6 +8,10 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
     width: 300px;
 }
 
+hr {
+	margin: 9px 0 9px 0px;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -26,7 +30,7 @@ ul, li {
 }
 
 #products li {
-   padding:5px 0 5px 20px;
+   padding:5px 0 5px 25px;
 }
 
 #baseLayers ul {
@@ -35,7 +39,7 @@ ul, li {
 }
 
 #baseLayers li {
-   padding:5px 0 5px 20px;
+   padding:5px 0 5px 25px;
 }
 
 
@@ -89,8 +93,20 @@ ul, li {
 
 .layercontrol {
 	width: 260px;
-	top: 200px;
+	top: 120px;
 	left: 20px;
+	padding: 2px;
+	font-size: 13px;
+	float: left;
+
+}
+
+.toolcontrol {
+	width: 60px;
+	top: 120px;
+	float: right;
+	right: 40px;
+	padding: 2px;
 
 }
 

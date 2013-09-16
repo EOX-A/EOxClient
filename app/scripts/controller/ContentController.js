@@ -14,16 +14,13 @@
 		var ContentController = Backbone.Marionette.Controller.extend({
             initialize: function(options){
             	this.listenTo(Communicator.mediator, "dialog:open:about", this.onDialogOpenAbout);
-            	this.listenTo(Communicator.mediator, "ui:open:uielement", this.onUIOpenElement);
             	this.listenTo(Communicator.mediator, "ui:open:layercontrol", this.onLayerControlOpen);
+            	this.listenTo(Communicator.mediator, "ui:open:toolselection", this.onToolSelectionOpen);
             	
 			},
 
 			onDialogOpenAbout: function(event){
 				App.dialogRegion.show(App.DialogContentView);
-			},
-			onUIOpenElement: function(event){
-				//App.UIRegion.show(App.UIView);
 			},
 			onLayerControlOpen: function(event){
 				//We have to render the layout before we can
@@ -31,7 +28,11 @@
                 App.leftSideBar.show(App.layout);
                 App.layout.baseLayers.show(App.baseLayerView);
                 App.layout.products.show(App.productsView);
-			}
+			},
+			onToolSelectionOpen: function(event){
+				App.rightSideBar.show(App.toolLayout);
+				App.toolLayout.selection.show(App.selectionToolsView);
+			},
 		});
 		return new ContentController();
 	});

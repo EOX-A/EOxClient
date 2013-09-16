@@ -8,13 +8,14 @@
 		'communicator','globals',
 		'regions/DialogRegion','regions/UIRegion',
 		'layouts/LayerControlLayout',
+		'layouts/ToolControlLayout',
 		'jquery', 'backbone.marionette',
 		'controller/ContentController',
 		'router'
 	],
 
 	function( Backbone, Communicator, globals, DialogRegion, 
-			  UIRegion, LayerControlLayout ) {
+			  UIRegion, LayerControlLayout, ToolControlLayout ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
@@ -186,6 +187,47 @@
 
                 // Create layout that will hold the child views
                 this.layout = new LayerControlLayout();
+
+
+                // Define collection of selection tools
+                var selectionToolsCollection = new m.ToolCollection();
+                _.each(config.selectionTools, function(selTool) {
+					selectionToolsCollection.add(
+							new m.ToolModel({
+								id: selTool.id,
+								description: selTool.description,
+								icon:selTool.icon
+							}));
+				}, this);
+
+                // Define collection of visualization tools
+                
+                // Create Collection Views to hold set of views for selection tools
+                /*this.selectionToolsView = new v.ToolSelectionView({
+                	collection:globals.baseLayers,
+                	itemView: v.ToolItemView.extend({
+                		template: {
+                			type:'handlebars',
+                			template: t.BulletLayer},
+                		className: "radio" 
+                	})
+                });*/
+
+                // Create Collection Views to hold set of views for visualization tools
+                this.selectionToolsView = new v.ToolSelectionView({
+                	collection:selectionToolsCollection,
+                	itemView: v.ToolItemView.extend({
+                		template: {
+                			type:'handlebars',
+                			template: t.ToolIcon}
+                	})
+                });
+
+
+
+                // Create layout to hold collection views
+                this.toolLayout = new ToolControlLayout();
+
 
                 this.timeSliderView = new v.TimeSliderView();
                 this.bottomBar.show(this.timeSliderView);
