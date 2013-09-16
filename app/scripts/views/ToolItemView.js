@@ -9,32 +9,32 @@
 	],
 	function( Backbone, Communicator, BulletLayerTmpl) {
 		var ToolItemView = Backbone.Marionette.ItemView.extend({
-			tagName: "li",
-			template: {
-				type: 'handlebars',
-				template: BulletLayerTmpl
-			},
 			events: {
-				'drop' : 'drop',
-				'change': 'onChange'
+				'click': 'onClick'
 			},
 
 			initialize: function(options) {
+				this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 			}, 
 
-			onChange: function(evt){
-                console.log('LayerItemClicked: '+ this.model.get('name'));
-                var isBaseLayer = false;
-                if (this.model.get('isBaseLayer'))
-                	isBaseLayer = true;
-                var options = { name: this.model.get('name'), isBaseLayer: isBaseLayer, visible: evt.target.checked };
-                Communicator.mediator.trigger('Map:ChangeBaseLayer', options);
+			onClick: function(evt){
+                if(this.model.get('active')){
+                	Communicator.mediator.trigger('selection:deactivated',this.model);
+                	console.log("Event triggered: "+ 'selection:deactivated'+this.model.get('id'));
+                	this.model.set({active:false});
+                }else{
+                	Communicator.mediator.trigger('selection:activated',this.model);
+                	console.log("Event triggered: "+ 'selection:activated'+this.model.get('id'))
+                	this.model.set({active:true});
+                }
+                this.render();
             },
-
-            drop: function(event, index) {
-            	console.log("LayerItemView: drop event received")
-		        Communicator.mediator.trigger('productCollection:update-sort', {model:this.model, position:index});
-		    }
+            onSelectionActivated:function(model) {
+            	if(this.model != model && this.model.get('active')){
+            		this.model.set({active:false});
+            		this.render();
+            	}
+            }
 
 		});
 		return {'ToolItemView':ToolItemView};

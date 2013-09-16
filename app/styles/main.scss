@@ -23,6 +23,20 @@ ul, li {
     
 }
 
+.toolcontrol {
+	top: 120px;
+	float: right;
+	right: 2%;
+	padding: 2px;
+
+}
+
+.toolcontrol ul {
+	margin:0;
+    padding:0;
+    width: auto;
+}
+
 
 #products ul {
 	margin:0;
@@ -70,8 +84,7 @@ ul, li {
 	bottom: 10px;
 	position: absolute;
 	width: 96%;
-	left: 2%;
-	
+	left: 2%;	
 }
 
 #viewContent{
@@ -94,20 +107,13 @@ ul, li {
 .layercontrol {
 	width: 260px;
 	top: 120px;
-	left: 20px;
+	left: 2%;
 	padding: 2px;
 	font-size: 13px;
 	float: left;
 
 }
 
-.toolcontrol {
-	width: 60px;
-	top: 120px;
-	float: right;
-	right: 40px;
-	padding: 2px;
 
-}
 
 

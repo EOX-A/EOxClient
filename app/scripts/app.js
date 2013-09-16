@@ -196,7 +196,9 @@
 							new m.ToolModel({
 								id: selTool.id,
 								description: selTool.description,
-								icon:selTool.icon
+								icon:selTool.icon,
+								enabled: true,
+								active: false
 							}));
 				}, this);
 

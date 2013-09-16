@@ -21,6 +21,37 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "Map:CenterAtLatLongAndZoom", this.centerMap);
 					this.listenTo(Communicator.mediator, "Map:ChangeBaseLayer", this.changeBaseLayer);
 					this.listenTo(Communicator.mediator, "productCollection:sort-updated", this.onSortProducts);
+					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
+
+					// Add layers for different selection methods
+					var pointLayer = new OpenLayers.Layer.Vector("Point Layer");
+	                var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+	                var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
+	                var boxLayer = new OpenLayers.Layer.Vector("Box layer");
+
+	                this.map.addLayers([pointLayer, lineLayer, polygonLayer, boxLayer]);
+	                this.map.addControl(new OpenLayers.Control.MousePosition());
+
+	                this.drawControls = {
+	                    pointSelection: new OpenLayers.Control.DrawFeature(pointLayer,
+	                        OpenLayers.Handler.Point),
+	                    lineSelection: new OpenLayers.Control.DrawFeature(lineLayer,
+	                        OpenLayers.Handler.Path),
+	                    polygonSelection: new OpenLayers.Control.DrawFeature(polygonLayer,
+	                        OpenLayers.Handler.Polygon),
+	                    bboxSelection: new OpenLayers.Control.DrawFeature(boxLayer,
+	                        OpenLayers.Handler.RegularPolygon, {
+	                            handlerOptions: {
+	                                sides: 4,
+	                                irregular: true
+	                            }
+	                        }
+	                    )
+	                };
+
+	                for(var key in this.drawControls) {
+	                    this.map.addControl(this.drawControls[key]);
+	                }
 
 					//Go through all defined baselayer and add them to the map
 					globals.baseLayers.each(function(baselayer) {
@@ -130,6 +161,16 @@ define(['backbone',
 				    }, this);
 				    console.log("Map products sorted");
 				},
+				onSelectionActivated: function(model){
+					for(key in this.drawControls) {
+	                    var control = this.drawControls[key];
+	                    if(model.get('id') == key) {
+	                        control.activate();
+	                    } else {
+	                        control.deactivate();
+	                    }
+	                }
+				}
 			});
 			return {"MapView":MapView};
 	});

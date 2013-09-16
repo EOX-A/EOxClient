@@ -238,9 +238,19 @@
       "icon":"icon-map-marker"
     },
     {
+      "id":"lineSelection",
+      "description": "Allows selection of Lines in Map",
+      "icon":"icon-resize-horizontal"
+    },
+    {
+      "id":"polygonSelection",
+      "description": "Allows selection of Polygons in Map",
+      "icon":"icon-certificate"
+    },
+    {
       "id":"bboxSelection",
       "description": "Allows drawing a bounding box selection in Map",
-      "icon":"icon-map-marker"
+      "icon":"icon-retweet"
     }
   ],
 
@@ -248,7 +258,8 @@
     {
       "id":"",
       "description": "",
-      "icon":""
+      "icon":"",
+      "enabled":false
     }
   ]
 
