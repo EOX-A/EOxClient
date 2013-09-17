@@ -32,6 +32,7 @@
 			onToolSelectionOpen: function(event){
 				App.rightSideBar.show(App.toolLayout);
 				App.toolLayout.selection.show(App.selectionToolsView);
+				App.toolLayout.visualization.show(App.visualizationToolsView);
 			},
 		});
 		return new ContentController();

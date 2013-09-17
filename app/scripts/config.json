@@ -256,10 +256,11 @@
 
   "visualizationTools":[
     {
-      "id":"",
-      "description": "",
-      "icon":"",
-      "enabled":false
+      "id":"download",
+      "description": "WCS Download Tool for specific selections",
+      "icon":"icon-download-alt",
+      "enabled":false,
+      "active":false
     }
   ]
 

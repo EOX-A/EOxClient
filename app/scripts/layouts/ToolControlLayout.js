@@ -27,7 +27,7 @@
 		    },
 
 			onClose: function() {
-				console.log("Layer close triggered");
+				console.log("Tools Control close triggered");
 				this.close();
 			}
 

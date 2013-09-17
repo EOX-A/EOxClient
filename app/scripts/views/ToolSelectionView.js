@@ -14,7 +14,7 @@
 		var ToolSelectionView = Backbone.Marionette.CollectionView.extend({
 
 			tagName: "ul",
-			className: "toolcontrol",
+			className: "toolcontrolview",
 
 			initialize: function(options) {
 			},

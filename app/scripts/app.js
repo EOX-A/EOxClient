@@ -203,17 +203,27 @@
 				}, this);
 
                 // Define collection of visualization tools
+                var visualizationToolsCollection = new m.ToolCollection();
+                _.each(config.visualizationTools, function(visTool) {
+					visualizationToolsCollection.add(
+							new m.ToolModel({
+								id: visTool.id,
+								description: visTool.description,
+								icon:visTool.icon,
+								enabled: visTool.enabled,
+								active: visTool.active
+							}));
+				}, this);
                 
                 // Create Collection Views to hold set of views for selection tools
-                /*this.selectionToolsView = new v.ToolSelectionView({
-                	collection:globals.baseLayers,
+                this.visualizationToolsView = new v.ToolSelectionView({
+                	collection:visualizationToolsCollection,
                 	itemView: v.ToolItemView.extend({
                 		template: {
                 			type:'handlebars',
-                			template: t.BulletLayer},
-                		className: "radio" 
+                			template: t.ToolIcon}
                 	})
-                });*/
+                });
 
                 // Create Collection Views to hold set of views for visualization tools
                 this.selectionToolsView = new v.ToolSelectionView({
