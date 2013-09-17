@@ -8,7 +8,7 @@ define(['backbone',
 		function( Backbone, Communicator, globals ) {
 
 			var MapView = Backbone.View.extend({
-
+				
 				onShow: function() {
 					this.map = new OpenLayers.Map({div: "map", fallThrough: true});
 					console.log("Created Map");
@@ -22,6 +22,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "Map:ChangeBaseLayer", this.changeBaseLayer);
 					this.listenTo(Communicator.mediator, "productCollection:sort-updated", this.onSortProducts);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
+					this.listenTo(Communicator.mediator, "selection:deactivated", this.onSelectionDeactivated);
 
 					// Add layers for different selection methods
 					var pointLayer = new OpenLayers.Layer.Vector("Point Layer");
@@ -51,6 +52,7 @@ define(['backbone',
 
 	                for(var key in this.drawControls) {
 	                    this.map.addControl(this.drawControls[key]);
+	                    this.drawControls[key].events.register("featureadded",'', this.onDone);
 	                }
 
 					//Go through all defined baselayer and add them to the map
@@ -167,9 +169,24 @@ define(['backbone',
 	                    if(model.get('id') == key) {
 	                        control.activate();
 	                    } else {
+	                    	control.layer.removeAllFeatures();
 	                        control.deactivate();
 	                    }
 	                }
+				},
+				onSelectionDeactivated: function(evt){
+					for(key in this.drawControls) {
+	                    var control = this.drawControls[key];
+	                    control.layer.removeAllFeatures();
+	                    control.deactivate();
+	                    
+	                }
+				},
+				onDone: function (evt) {
+					// TODO: Hoow to handle multiple draws etc has to be thought of
+					// as well as what exactly is comunicated out
+					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
+					console.log(evt.feature.geometry);
 				}
 			});
 			return {"MapView":MapView};
