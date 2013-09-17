@@ -235,22 +235,22 @@
     {
       "id":"pointSelection",
       "description": "Allows selection of Points in Map",
-      "icon":"icon-map-marker"
+      "icon":"icon-screenshot"
     },
     {
       "id":"lineSelection",
       "description": "Allows selection of Lines in Map",
-      "icon":"icon-resize-horizontal"
+      "icon":"icon-vector-path-line"
     },
     {
       "id":"polygonSelection",
       "description": "Allows selection of Polygons in Map",
-      "icon":"icon-certificate"
+      "icon":"icon-vector-path-polygon"
     },
     {
       "id":"bboxSelection",
       "description": "Allows drawing a bounding box selection in Map",
-      "icon":"icon-retweet"
+      "icon":"icon-vector-path-square"
     }
   ],
 
