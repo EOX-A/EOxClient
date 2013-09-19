@@ -19,7 +19,7 @@ define(['backbone',
 			        });
 
 					this.listenTo(Communicator.mediator, "Map:CenterAtLatLongAndZoom", this.centerMap);
-					this.listenTo(Communicator.mediator, "Map:ChangeBaseLayer", this.changeBaseLayer);
+					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
 					this.listenTo(Communicator.mediator, "productCollection:sort-updated", this.onSortProducts);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 					this.listenTo(Communicator.mediator, "selection:deactivated", this.onSelectionDeactivated);
@@ -143,7 +143,7 @@ define(['backbone',
 					this.map.setCenter(new OpenLayers.LonLat(data.x, data.y), data.l );
 				},
 
-				changeBaseLayer: function(options){
+				changeLayer: function(options){
 					if (options.isBaseLayer){
 						globals.baseLayers.forEach(function(model, index) {
 						    model.set("visible", false);
@@ -171,6 +171,7 @@ define(['backbone',
 	                    } else {
 	                    	control.layer.removeAllFeatures();
 	                        control.deactivate();
+	                        Communicator.mediator.trigger("selection:changed", null);
 	                    }
 	                }
 				},
@@ -179,11 +180,12 @@ define(['backbone',
 	                    var control = this.drawControls[key];
 	                    control.layer.removeAllFeatures();
 	                    control.deactivate();
+	                    Communicator.mediator.trigger("selection:changed", null);
 	                    
 	                }
 				},
 				onDone: function (evt) {
-					// TODO: Hoow to handle multiple draws etc has to be thought of
+					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
 					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
 					console.log(evt.feature.geometry);

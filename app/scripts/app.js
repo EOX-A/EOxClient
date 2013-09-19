@@ -11,6 +11,7 @@
 		'layouts/ToolControlLayout',
 		'jquery', 'backbone.marionette',
 		'controller/ContentController',
+		'controller/DownloadController',
 		'router'
 	],
 
@@ -198,7 +199,8 @@
 								description: selTool.description,
 								icon:selTool.icon,
 								enabled: true,
-								active: false
+								active: false,
+								type: "selection"
 							}));
 				}, this);
 
@@ -208,10 +210,12 @@
 					visualizationToolsCollection.add(
 							new m.ToolModel({
 								id: visTool.id,
+								eventToRaise: visTool.eventToRaise,
 								description: visTool.description,
 								icon:visTool.icon,
 								enabled: visTool.enabled,
-								active: visTool.active
+								active: visTool.active,
+								type: "tool"
 							}));
 				}, this);
                 
@@ -246,6 +250,10 @@
 
 
 				//this.router = new Router({views: this.views, regions: this.regions});
+
+
+				this.downloadView = new v.DownloadView();
+				
 								
 			}
 

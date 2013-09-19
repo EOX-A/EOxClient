@@ -127,7 +127,7 @@
       "class": ""
     },
     {
-      "name": "viewContent_tmp",
+      "name": "viewContent",
       "class": ""
     }
   ],
@@ -136,6 +136,16 @@
     "title" : "EOxClient",
     "url" : "http://www.eox.at",
     "items" : [
+      {
+        "name" : "Layer Controls",
+        "eventToRaise" : "ui:open:layercontrol",
+        "template" : "LayerControl"
+      },
+      {
+        "name" : "Tools",
+        "eventToRaise" : "ui:open:toolselection",
+        "template" : "ToolSelection"
+      },
       {
         "name" : "About",
         "eventToRaise" : "dialog:open:about",
@@ -151,16 +161,6 @@
           "template" : "help"
           }
         ]
-      },
-      {
-        "name" : "Tools",
-        "eventToRaise" : "ui:open:toolselection",
-        "template" : "ToolSelection"
-      },
-      {
-        "name" : "Layer Controls",
-        "eventToRaise" : "ui:open:layercontrol",
-        "template" : "LayerControl"
       }
     ]
   },
@@ -176,7 +176,8 @@
     "views/ContentView",
     "views/TimeSliderView",
     "views/ToolSelectionView",
-    "views/ToolItemView"
+    "views/ToolItemView",
+    "views/DownloadView"
   ],
 
   "models":[
@@ -257,6 +258,7 @@
   "visualizationTools":[
     {
       "id":"download",
+      "eventToRaise":"dialog:open:download",
       "description": "WCS Download Tool for specific selections",
       "icon":"icon-download-alt",
       "enabled":false,

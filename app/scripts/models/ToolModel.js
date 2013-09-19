@@ -10,7 +10,7 @@
 			active: false,
 			enabled: true,
 			icon:"",
-			data:[]
+			type:""
 			
 		});
 		return {'ToolModel':ToolModel};

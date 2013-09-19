@@ -23,6 +23,27 @@ ul, li {
     
 }
 
+#modal-start-download {
+  width: 750px;
+}
+
+.download{
+	display: block;
+	position: absolute;
+	top: 120px;
+	left: 15%;
+	margin:0px auto;
+	left:0;
+	right:0;
+	width: 750px;
+	padding: 0;
+	font-size: 12px;
+}
+
+.popover {
+  position: fixed;
+}
+
 .toolcontrol {
 	top: 120px;
 	right: 2%;
@@ -35,6 +56,8 @@ ul, li {
 	margin:0;
     padding:0;
 }
+
+
 
 
 #products ul {

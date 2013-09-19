@@ -24,7 +24,7 @@
                 if (this.model.get('isBaseLayer'))
                 	isBaseLayer = true;
                 var options = { name: this.model.get('name'), isBaseLayer: isBaseLayer, visible: evt.target.checked };
-                Communicator.mediator.trigger('Map:ChangeBaseLayer', options);
+                Communicator.mediator.trigger('map:layer:change', options);
             },
 
             drop: function(event, index) {

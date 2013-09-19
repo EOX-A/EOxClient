@@ -10,7 +10,9 @@
 		'regionManager',
 		'jquery',
 		'jqueryui',
-		"text!config.json"
+		"text!config.json",
+		"util",
+		"libcoverage"
 	],
 	function ( Backbone, App ) {
 		$.get("scripts/config.json", function(values) {

@@ -27,6 +27,10 @@
             bootstrap: {
                 deps: ['jquery'],
                 exports: 'jquery'
+            },
+            libcoverage: {
+                deps: ['backbone'],
+                exports: 'WCS'
             }
         },
 
@@ -37,6 +41,7 @@
             underscore: '../bower_components/underscore-amd/underscore-min',
             d3: '../bower_components/d3/d3.min',
             timeslider: '../bower_components/d3.TimeSlider/d3.timeslider.min',
+            libcoverage: 'libcoverage.complete.min',
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',
