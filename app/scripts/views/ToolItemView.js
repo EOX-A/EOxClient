@@ -15,6 +15,7 @@
 
 			initialize: function(options) {
 				this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
+				this.listenTo(Communicator.mediator, "dialog:close", this.onDialogClose);
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
 			}, 
 
@@ -50,6 +51,14 @@
             		this.render();
             	}
             },
+
+            onDialogClose: function(id) {
+            	if(this.model.get('id') == id){
+            		this.model.set({active:false});
+            		this.render();
+            	}
+            },
+
             onSelectionEnabled: function(arg) {
             	if(this.model.get('id')==arg.id){
             		this.model.set({enabled: arg.enabled});

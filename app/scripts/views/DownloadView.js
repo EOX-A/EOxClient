@@ -36,7 +36,8 @@
       },
 
       modelEvents: {
-        "change": "onModelChange"
+        //"change": "onModelChange",
+        "reset": "onCoveragesReset"
       },
 
       events: {
@@ -49,10 +50,11 @@
       initialize: function(options) {
 
         this.coverages = new Backbone.Collection([]);
-        this.listenTo(this.coverages, "reset", this.onCoveragesReset);
         
       },
       onShow: function(view){
+
+        this.listenTo(this.coverages, "reset", this.onCoveragesReset);
         this.$('.close').on("click", _.bind(this.onClose, this));
         this.$el.draggable({ containment: "#content" , scroll: false});
         
@@ -87,13 +89,14 @@
 
       onSelectAllCoveragesClicked: function() {
         // select all coverages
-        this.$('input[type="checkbox"]').attr("checked", true).trigger("change");
+        //this.$('input[type="checkbox"]').attr("checked", true).trigger("change");
+        this.$('input[type="checkbox"]').prop("checked", true).trigger("change");
       },
       
       onInvertCoverageSelectionClicked: function() {
         this.$('input[type="checkbox"]').each(function() {
           var $this = $(this);
-          $this.attr("checked", !$this.is(":checked")).trigger("change");
+          $this.prop("checked", !$this.is(":checked")).trigger("change");
         });
       },
 
@@ -168,12 +171,13 @@
         // ===============================================================
       },
 
-      onModelChange: function(model) {
+      /*onModelChange: function(model) {
         
-      },
+      },*/
 
       onClose: function() {
-        console.log("Download close triggered");
+        console.log("Dialog close triggered");
+        Communicator.mediator.trigger("dialog:close", "download");
         this.close();
       }
 

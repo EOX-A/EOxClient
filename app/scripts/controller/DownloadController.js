@@ -6,12 +6,13 @@
 	root.require([
 		'backbone',
 		'communicator',
-    'globals',
+    	'globals',
 		'app',
-    'models/DownloadModel'
+		'views/DownloadView',
+    	'models/DownloadModel'
 	],
 
-	function( Backbone, Communicator, globals, App, m ) {
+	function( Backbone, Communicator, globals, App, v, m ) {
 
 		var DownloadController = Backbone.Marionette.Controller.extend({
 			model: new m.DownloadModel(),
@@ -68,8 +69,8 @@
 
           onDownloadToolOpen: function(toOpen) {
             if(toOpen){
-              App.downloadView.model = this.model;
-              App.viewContent.show(App.downloadView);
+              //App.downloadView.model = this.model;
+              App.viewContent.show(new v.DownloadView({model:this.model}));
             }else{
               App.viewContent.close();
             }
