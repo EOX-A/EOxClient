@@ -24,21 +24,17 @@
 					if(this.model.get('type') == 'selection'){
 						if(this.model.get('active')){
 		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:false});
-		                	console.log("Event triggered: "+ 'selection deactivated'+this.model.get('id'));
 		                	this.model.set({active:false});
 		                }else{
 		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:true});
-		                	console.log("Event triggered: "+ 'selection activated'+this.model.get('id'))
 		                	this.model.set({active:true});
 		                }
 					}else{
 						if(this.model.get('active')){
 		                	Communicator.mediator.trigger(this.model.get('eventToRaise'), false);
-		                	console.log("Event triggered: "+ this.model.get('eventToRaise') + " False");
 		                	this.model.set({active:false});
 		                }else{
 		                	Communicator.mediator.trigger(this.model.get('eventToRaise'), true);
-		                	console.log("Event triggered: "+ this.model.get('eventToRaise') + " True");
 		                	this.model.set({active:true});
 		                }
 					}

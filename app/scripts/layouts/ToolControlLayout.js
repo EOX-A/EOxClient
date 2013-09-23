@@ -27,7 +27,6 @@
 		    },
 
 			onClose: function() {
-				console.log("Tools Control close triggered");
 				this.close();
 			}
 

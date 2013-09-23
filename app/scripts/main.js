@@ -3,6 +3,22 @@
 
     var root = this;
 
+    function setuplogging (enable) {
+
+    	// Check if console exists (difference in browsers and if it is enabled)
+    	if (!enable || typeof console === 'undefined' || !console.log ) {
+		  window.console = {
+		    debug: function() {},
+		    trace: function() {},
+		    log: function() {},
+		    info: function() {},
+		    warn: function() {},
+		    error: function() {}
+		  };
+		}
+    	
+    }
+
     root.require([
 		'backbone',
 		'app',
@@ -16,9 +32,10 @@
 	],
 	function ( Backbone, App ) {
 		$.get("scripts/config.json", function(values) {
-			// TODO: parse config
-			// TODO: require modules from config
-			// get "components" from modules and initialze them
+			
+			// Configure Debug options
+			setuplogging(values.debug);
+
 			var viewModules = [];
 			var models = [];
 			var templates = [];

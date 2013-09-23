@@ -23,13 +23,10 @@
 		var Router = Backbone.Marionette.AppRouter.extend({
 			initialize: function(options) {
 
-				console.log('RouterModule starting up...');
-
 				this.listenTo(Communicator.mediator, "router:setUrl", this.setUrl);
 			},
 
 			setUrl: function(data){
-				console.log("setURL invoked");
 				 //round to two decimals
                 data.x = Math.round(data.x * 100)/100;
                 data.y = Math.round(data.y * 100)/100;

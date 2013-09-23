@@ -189,7 +189,6 @@ define(['backbone',
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
 					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
-					console.log(evt.feature.geometry);
 				}
 			});
 			return {"MapView":MapView};

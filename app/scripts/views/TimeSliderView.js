@@ -42,7 +42,6 @@
       }, 
 
       onChangeTime: function(evt){
-        console.log( "Time selection changed " + evt.originalEvent.detail.start + " " + evt.originalEvent.detail.end );
         Communicator.mediator.trigger('time:change', evt.originalEvent.detail);
       }
 

@@ -19,7 +19,6 @@
 			}, 
 
 			onChange: function(evt){
-                console.log('LayerItemClicked: '+ this.model.get('name'));
                 var isBaseLayer = false;
                 if (this.model.get('isBaseLayer'))
                 	isBaseLayer = true;
@@ -28,7 +27,6 @@
             },
 
             drop: function(event, index) {
-            	console.log("LayerItemView: drop event received")
 		        Communicator.mediator.trigger('productCollection:updateSort', {model:this.model, position:index});
 		    }
 

@@ -31,8 +31,7 @@
 			    });
 			},
 
-			updateSort: function(options) {      
-				console.log("LayerSelectionView: updateSort event received");      
+			updateSort: function(options) {         
 		        this.collection.remove(options.model);
 
 		        this.collection.each(function (model, index) {
@@ -49,14 +48,9 @@
 		        
 		        Communicator.mediator.trigger("productCollection:sortUpdated");
 		    }
-
-
-
-
 		});
-
+		
 		return {'LayerSelectionView':LayerSelectionView};
-
 	});
 
 }).call( this );

@@ -27,7 +27,6 @@
 		    },
 
 			onClose: function() {
-				console.log("Layer close triggered");
 				this.close();
 			}
 

@@ -176,7 +176,6 @@
       },*/
 
       onClose: function() {
-        console.log("Dialog close triggered");
         Communicator.mediator.trigger("ui:close", "download");
         this.close();
       }

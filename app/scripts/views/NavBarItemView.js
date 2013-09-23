@@ -23,7 +23,6 @@
             events: {'click': 'itemClicked'},
 
             itemClicked: function(){
-                console.log('Event triggered: '+ this.model.get('eventToRaise'));
                 Communicator.mediator.trigger(this.model.get('eventToRaise'), this);
             }
             
