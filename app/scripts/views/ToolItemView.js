@@ -15,7 +15,7 @@
 
 			initialize: function(options) {
 				this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
-				this.listenTo(Communicator.mediator, "dialog:close", this.onDialogClose);
+				this.listenTo(Communicator.mediator, "ui:close", this.onDialogClose);
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
 			}, 
 
@@ -23,12 +23,12 @@
 				if(this.model.get('enabled')){
 					if(this.model.get('type') == 'selection'){
 						if(this.model.get('active')){
-		                	Communicator.mediator.trigger('selection:deactivated',this.model);
-		                	console.log("Event triggered: "+ 'selection:deactivated'+this.model.get('id'));
+		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:false});
+		                	console.log("Event triggered: "+ 'selection deactivated'+this.model.get('id'));
 		                	this.model.set({active:false});
 		                }else{
-		                	Communicator.mediator.trigger('selection:activated',this.model);
-		                	console.log("Event triggered: "+ 'selection:activated'+this.model.get('id'))
+		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:true});
+		                	console.log("Event triggered: "+ 'selection activated'+this.model.get('id'))
 		                	this.model.set({active:true});
 		                }
 					}else{
@@ -45,10 +45,12 @@
 	                this.render();
 	            }
             },
-            onSelectionActivated: function(model) {
-        		if(this.model != model && this.model.get('active')){
-            		this.model.set({active:false});
-            		this.render();
+            onSelectionActivated: function(arg) {
+            	if(arg.active){
+	        		if(this.model.get('id') != arg.id && this.model.get('active')){
+	            		this.model.set({active:false});
+	            		this.render();
+	            	}
             	}
             },
 

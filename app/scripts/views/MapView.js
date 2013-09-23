@@ -15,14 +15,13 @@ define(['backbone',
 
 					//listen to moeveend event in order to keep router uptodate
 					this.map.events.register("moveend", this.map, function(data) {
-			            Communicator.mediator.trigger("Router:SetUrl", { x: data.object.center.lon, y: data.object.center.lat, l: data.object.zoom});
+			            Communicator.mediator.trigger("router:setUrl", { x: data.object.center.lon, y: data.object.center.lat, l: data.object.zoom});
 			        });
 
-					this.listenTo(Communicator.mediator, "Map:CenterAtLatLongAndZoom", this.centerMap);
+					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
 					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
-					this.listenTo(Communicator.mediator, "productCollection:sort-updated", this.onSortProducts);
+					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
-					this.listenTo(Communicator.mediator, "selection:deactivated", this.onSelectionDeactivated);
 
 					// Add layers for different selection methods
 					var pointLayer = new OpenLayers.Layer.Vector("Point Layer");
@@ -163,27 +162,29 @@ define(['backbone',
 				    }, this);
 				    console.log("Map products sorted");
 				},
-				onSelectionActivated: function(model){
-					for(key in this.drawControls) {
-	                    var control = this.drawControls[key];
-	                    if(model.get('id') == key) {
-	                        control.activate();
-	                    } else {
-	                    	control.layer.removeAllFeatures();
-	                        control.deactivate();
-	                        Communicator.mediator.trigger("selection:changed", null);
-	                    }
-	                }
-				},
-				onSelectionDeactivated: function(evt){
-					for(key in this.drawControls) {
-	                    var control = this.drawControls[key];
-	                    control.layer.removeAllFeatures();
-	                    control.deactivate();
-	                    Communicator.mediator.trigger("selection:changed", null);
+				onSelectionActivated: function(arg){
+					if(arg.active){
+						for(key in this.drawControls) {
+		                    var control = this.drawControls[key];
+		                    if(arg.id == key) {
+		                        control.activate();
+		                    } else {
+		                    	control.layer.removeAllFeatures();
+		                        control.deactivate();
+		                        Communicator.mediator.trigger("selection:changed", null);
+		                    }
+		                }
+		            }else{
+		            	for(key in this.drawControls) {
+		                    var control = this.drawControls[key];
+		                    control.layer.removeAllFeatures();
+		                    control.deactivate();
+		                    Communicator.mediator.trigger("selection:changed", null);
 	                    
-	                }
+	                	}	
+		            }
 				},
+				
 				onDone: function (evt) {
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out

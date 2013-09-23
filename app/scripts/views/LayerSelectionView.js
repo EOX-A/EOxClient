@@ -20,7 +20,7 @@
 
 			onShow: function(view){
 
-				this.listenTo(Communicator.mediator, "productCollection:update-sort", this.updateSort);
+				this.listenTo(Communicator.mediator, "productCollection:updateSort", this.updateSort);
 
 				$( ".sortable" ).sortable({
 					revert: true,
@@ -47,7 +47,7 @@
 
 		        this.render();
 		        
-		        Communicator.mediator.trigger("productCollection:sort-updated");
+		        Communicator.mediator.trigger("productCollection:sortUpdated");
 		    }
 
 

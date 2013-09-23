@@ -29,7 +29,7 @@
 
             drop: function(event, index) {
             	console.log("LayerItemView: drop event received")
-		        Communicator.mediator.trigger('productCollection:update-sort', {model:this.model, position:index});
+		        Communicator.mediator.trigger('productCollection:updateSort', {model:this.model, position:index});
 		    }
 
 		});

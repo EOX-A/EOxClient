@@ -25,7 +25,7 @@
 
 				console.log('RouterModule starting up...');
 
-				this.listenTo(Communicator.mediator, "Router:SetUrl", this.setUrl);
+				this.listenTo(Communicator.mediator, "router:setUrl", this.setUrl);
 			},
 
 			setUrl: function(data){
@@ -43,8 +43,7 @@
             },
 
             centerAndZoom : function(x,y,l){
-                Communicator.mediator.trigger('Map:CenterAtLatLongAndZoom', 
-                    {x:x, y:y, l:l});
+                Communicator.mediator.trigger('map:center', {x:x, y:y, l:l});
             }
 		});
 

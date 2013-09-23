@@ -20,7 +20,6 @@
 			},
 
 			onShow: function(view){
-				//this.listenTo(Communicator.mediator, "productCollection:update-sort", this.updateSort);
 			}
 
 		});
