@@ -10,13 +10,13 @@
     "backbone-amd": "~1.0.0",
     "underscore-amd": "~1.4.4",
     "modernizr": "~2.6.2",
-    "backbone.marionette": "~1.0.2",
+    "backbone.marionette": "~1.1.0",
     "backbone.wreqr": "~0.2.0",
     "backbone.babysitter": "~0.0.6",
     "require-handlebars-plugin": "~0.4.0",
     "backbone.marionette.handlebars": "~0.2.0",
-    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.2/d3.TimeSlider.v0.0.2.zip",
-    "d3": "~3.2.8"
+    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.3/d3.TimeSlider.v0.0.3.zip",
+    "d3": "~3.3.5"
   },
   "devDependencies": {}
 }

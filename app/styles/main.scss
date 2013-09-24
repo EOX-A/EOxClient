@@ -113,6 +113,20 @@ ul, li {
 	left: 2%;	
 }
 
+/*
+ * Time Slider
+ */
+/*#timeslider {
+  position: fixed;
+  bottom: 2em;
+  width: 90%;
+  padding: 0 5%;
+}*/
+
+#timeslider svg.timeslider {
+  height: 3em;
+}
+
 #viewContent{
 	position: relative;
 }
