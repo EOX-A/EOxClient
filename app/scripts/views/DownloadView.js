@@ -1,8 +1,9 @@
 (function() {
   'use strict';
 
+  // Helper collection to keep maintain data of coverage set
   var EOCoverageSet = Backbone.Collection.extend({
-  fetch: function(options) {
+    fetch: function(options) {
       options || (options = {});
       options.dataType = "xml";
       return Backbone.Collection.prototype.fetch.call(this, options);
@@ -36,7 +37,6 @@
       },
 
       modelEvents: {
-        //"change": "onModelChange",
         "reset": "onCoveragesReset"
       },
 
@@ -69,7 +69,7 @@
         };
         
         options.subsetCRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
-        var bbox = this.model.get("AoI");
+        var bbox = this.model.get("AoI").getBounds();
         options.subsetX = [bbox.left, bbox.right];
         options.subsetY = [bbox.bottom, bbox.top];
         
@@ -89,7 +89,6 @@
 
       onSelectAllCoveragesClicked: function() {
         // select all coverages
-        //this.$('input[type="checkbox"]').attr("checked", true).trigger("change");
         this.$('input[type="checkbox"]').prop("checked", true).trigger("change");
       },
       
@@ -132,7 +131,7 @@
         var $downloads = $("#div-downloads"),
             options = {};
 
-        var bbox = this.model.get("AoI");
+        var bbox = this.model.get("AoI").getBounds();
         options.subsetX = [bbox.left, bbox.right];
         options.subsetY = [bbox.bottom, bbox.top];
 
@@ -140,17 +139,17 @@
         options.format = this.$("#select-output-format").val();
         options.outputCRS = this.$("#select-output-crs").val();
         
-        // apply mask parameter
-        /*var polygon = this.mapModel.get("polygon");
-        if (polygon) {
-          var coords = []; 
-          _.each(polygon.get("shape").rings[0], function(point) {
+        // apply mask parameter if polygon is not a square 
+        // (described by 5 points, first and last the same)
+        var components = this.model.get("AoI").components[0].components;
+        if(components.length>5){
+          var coords = [];
+          _.each(components, function(point) {
             coords.push(point.x);
             coords.push(point.y);
           });
           options.mask = coords.join(" ");
-        }*/
-
+        }
         
         // ==============================================================
         //var owsUrl = this.owsUrl;
@@ -171,10 +170,6 @@
         // ===============================================================
       },
 
-      /*onModelChange: function(model) {
-        
-      },*/
-
       onClose: function() {
         Communicator.mediator.trigger("ui:close", "download");
         this.close();
@@ -184,30 +179,3 @@
     return {'DownloadView':DownloadView};
   });
 }).call( this );
-
-/*var StartDownloadView = Backbone.View.extend({
-  el: "#modal-start-download",
-  events: {
-    "show": "onModalShow",
-    "click #btn-select-all-coverages": "onSelectAllCoveragesClicked",
-    "click #btn-invert-coverage-selection": "onInvertCoverageSelectionClicked",
-    'change input[type="checkbox"]': "onCoverageSelected",
-    "click #btn-start-download": "onStartDownloadClicked"
-  },
-  
-  initialize: function(options) {
-    this.mapModel = options.mapModel;
-    this.timeModel = options.timeModel;
-    this.bboxModel = options.bboxModel;
-    this.productCollection = options.productCollection;
-    this.owsUrl = options.owsUrl;
-    
-    this.coverages = new Backbone.Collection([]);
-    this.listenTo(this.coverages, "reset", this.onCoveragesReset);
-  },
-  
-  onModalShow: function() {
-    
-  
-
-});*/

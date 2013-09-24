@@ -18,6 +18,7 @@
 
 			initialize: function(options) {
 			},
+			
 			onShow: function(view){
 			}
 
