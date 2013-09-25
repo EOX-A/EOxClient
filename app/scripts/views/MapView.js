@@ -75,61 +75,63 @@ define(['backbone',
 				},
 				//method to create layer depending on protocol
 				//setting possible description attributes
-				createLayer: function (layer) {
+				createLayer: function (layerdesc) {
 					var return_layer = null;
+					var layer = layerdesc.get('view');
 
-					switch(layer.get("protocol")){
+					switch(layer.protocol){
 						case "WMTS":
 							return_layer = new OpenLayers.Layer.WMTS({
-								name: layer.get("name"),
-						        layer: layer.get("id"),
-						        protocol: layer.get("protocol"),
-						        url: layer.get("urls"),
-						        matrixSet: layer.get("matrixSet"),
-						        style: layer.get("style"),
-						        format: layer.get("format"),
-						        maxExtent: layer.get("maxExtent"),
-						        resolutions: layer.get("resolutions"),
-						        projection: layer.get("projection"),
-						        gutter: layer.get("gutter"),
-						        buffer: layer.get("buffer"),
-						        units: layer.get("units"),
-						        transitionEffect: layer.get("transitionEffect"),
-						        isphericalMercator: layer.get("isphericalMercator"),
-						        isBaseLayer: layer.get("isBaseLayer"),
-						        wrapDateLine: layer.get("wrapDateLine"),
-						        zoomOffset: layer.get("zoomOffset"),
-						        visible: layer.get("visible"),
-						        time: layer.get("time")
+								name: layerdesc.get("name"),
+						        layer: layer.id,
+						        protocol: layer.protocol,
+						        url: layer.urls,
+						        matrixSet: layer.matrixSet,
+						        style: layer.style,
+						        format: layer.format,
+						        maxExtent: layer.maxExtent,
+						        resolutions: layer.resolutions,
+						        projection: layer.projection,
+						        gutter: layer.gutter,
+						        buffer: layer.buffer,
+						        units: layer.units,
+						        transitionEffect: layer.transitionEffect,
+						        isphericalMercator: layer.isphericalMercator,
+						        isBaseLayer: layer.isBaseLayer,
+						        wrapDateLine: layer.wrapDateLine,
+						        zoomOffset: layer.zoomOffset,
+						        visible: layerdesc.get("visible"),
+						        time: layer.time
 							});
 							break;
+
 						case "WMS":
 						return_layer = new OpenLayers.Layer.WMS(
-								layer.get("name"),
-						        layer.get("urls")[0],
+								layerdesc.get("name"),
+						        layer.urls[0],
 						        {
-						        	layers: layer.get("id"),
+						        	layers: layer.id,
 						        	transparent: "true",
         							format: "image/png",
-        							time: layer.get("time")
+        							time: layer.time
 						    	},
 						        {
 						        	format: 'image/png',
-							        matrixSet: layer.get("matrixSet"),
-							        style: layer.get("style"),
-							        format: layer.get("format"),
-							        maxExtent: layer.get("maxExtent"),
-							        resolutions: layer.get("resolutions"),
-							        projection: layer.get("projection"),
-							        gutter: layer.get("gutter"),
-							        buffer: layer.get("buffer"),
-							        units: layer.get("units"),
-							        transitionEffect: layer.get("transitionEffect"),
-							        isphericalMercator: layer.get("isphericalMercator"),
-							        isBaseLayer: layer.get("isBaseLayer"),
-							        wrapDateLine: layer.get("wrapDateLine"),
-							        zoomOffset: layer.get("zoomOffset"),
-							        visibility: layer.get("visible")
+							        matrixSet: layer.matrixSet,
+							        style: layer.style,
+							        format: layer.format,
+							        maxExtent: layer.maxExtent,
+							        resolutions: layer.resolutions,
+							        projection: layer.projection,
+							        gutter: layer.gutter,
+							        buffer: layer.buffer,
+							        units: layer.units,
+							        transitionEffect: layer.transitionEffect,
+							        isphericalMercator: layer.isphericalMercator,
+							        isBaseLayer: layer.isBaseLayer,
+							        wrapDateLine: layer.wrapDateLine,
+							        zoomOffset: layer.zoomOffset,
+							        visibility: layerdesc.get("visible"),
 							    }
 							);
 							break;
@@ -154,6 +156,7 @@ define(['backbone',
 						this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
 					}
 				},
+
 				onSortProducts: function(productLayers) {
 				    globals.products.each(function(product) {
 				      var productLayer = this.map.getLayersByName(product.get("name"))[0];
@@ -162,6 +165,7 @@ define(['backbone',
 				    }, this);
 				    console.log("Map products sorted");
 				},
+
 				onSelectionActivated: function(arg){
 					if(arg.active){
 						for(key in this.drawControls) {

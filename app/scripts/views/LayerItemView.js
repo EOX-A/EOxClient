@@ -20,7 +20,7 @@
 
 			onChange: function(evt){
                 var isBaseLayer = false;
-                if (this.model.get('isBaseLayer'))
+                if (this.model.get('view').isBaseLayer)
                 	isBaseLayer = true;
                 var options = { name: this.model.get('name'), isBaseLayer: isBaseLayer, visible: evt.target.checked };
                 Communicator.mediator.trigger('map:layer:change', options);

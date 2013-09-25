@@ -60,22 +60,27 @@
         
         var $downloadList = this.$("#download-list");
         $downloadList.children().remove();
-
-        var options = {
-            subsetTime: [
-              getISODateTimeString(this.model.get("ToI").start), 
-              getISODateTimeString(this.model.get("ToI").end)
-            ]
-        };
         
-        options.subsetCRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
-        var bbox = this.model.get("AoI").getBounds();
-        options.subsetX = [bbox.left, bbox.right];
-        options.subsetY = [bbox.bottom, bbox.top];
         
         var coverageSets = _.map(this.model.get('products'), function(product, key) {
           var set = new EOCoverageSet([]);
-          set.url = WCS.EO.KVP.describeEOCoverageSetURL(product.get('urls')[0], key, options);
+          var options = {};
+
+          if(product.get('view').time){
+            options = {
+                subsetTime: [
+                  getISODateTimeString(this.model.get("ToI").start), 
+                  getISODateTimeString(this.model.get("ToI").end)
+                ]
+            };
+          }
+          options.subsetCRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
+          var bbox = this.model.get("AoI").getBounds();
+          options.subsetX = [bbox.left, bbox.right];
+          options.subsetY = [bbox.bottom, bbox.top];
+
+          // TODO: Check for download protocol !
+          set.url = WCS.EO.KVP.describeEOCoverageSetURL(product.get('download').url, key, options);
           return set;
         }, this);
         
@@ -83,7 +88,16 @@
         var deferreds = _.invoke(coverageSets, "fetch");
         
         $.when.apply($, deferreds).done(_.bind(function() {
-          this.coverages.reset(_.flatten(_.pluck(coverageSets, "models")));
+
+
+          _.each(coverageSets, function(set) {
+            set.each(function(model) {
+              model.set("url", set.url)
+            });
+          });
+
+          var coverage = _.flatten(_.pluck(coverageSets, "models"));
+          this.coverages.reset(coverage);
         }, this));
       },
 
@@ -151,23 +165,22 @@
           options.mask = coords.join(" ");
         }
         
-        // ==============================================================
-        //var owsUrl = this.owsUrl;
-        // TODO: Each item on the list has to have a reference from 
-        // which server it has been been described, right now only testing
-        var owsUrl = "http://neso.cryoland.enveo.at/cryoland/ows?";
-        this.$('input[type="checkbox"]:checked').each(function(index) {
-          var xml = getCoverageXML($(this).val(), options);
-          
-          var $form = $(CoverageDownloadPostTmpl({
-            //url: this.model.get('products')[$(this).val()].get('urls')[0],
-            url: owsUrl, xml: xml}));
-          $downloads.append($form);
-          _.delay(function() { 
-          $form.submit(); 
-          }, index * 1000);
-        });
-        // ===============================================================
+
+        this.$('input[type="checkbox"]').each(_.bind(function(index) {
+          if ($('input[type="checkbox"]')[index].checked){
+            var model = this.coverages.models[index];
+            var xml = getCoverageXML(model.get('coverageId'), options);
+
+            var owsUrl = model.get('url').split('?')[0] + '?';
+            
+            var $form = $(CoverageDownloadPostTmpl({
+              url: owsUrl, xml: xml}));
+            $downloads.append($form);
+            _.delay(function() { 
+            $form.submit(); 
+            }, index * 1000);
+          }
+        }, this));
       },
 
       onClose: function() {

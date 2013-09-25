@@ -68,27 +68,29 @@
 					
 					globals.baseLayers.add(
 						new m.LayerModel({
-							id : baselayer.id,
-							urls : baselayer.urls,
-							protocol: baselayer.protocol,
 							name: baselayer.name,
-							projection: baselayer.projection,
-							attribution: baselayer.attribution,
-							matrixSet: baselayer.matrixSet,
-							style: baselayer.style,
-							format: baselayer.format,
-							resolutions: baselayer.resolutions,
-							maxExtent: baselayer.maxExtent,	
-							gutter: baselayer.gutter,
-							buffer: baselayer.buffer,
-							units: baselayer.units,
-							transitionEffect: baselayer.transitionEffect,
-							isphericalMercator: baselayer.isphericalMercator,
-							isBaseLayer: baselayer.isBaseLayer,
-							wrapDateLine: baselayer.wrapDateLine,
-							zoomOffset: baselayer.zoomOffset,
 							visible: baselayer.visible,
-							time: baselayer.time
+							view: {
+								id : baselayer.id,
+								urls : baselayer.urls,
+								protocol: baselayer.protocol,
+								projection: baselayer.projection,
+								attribution: baselayer.attribution,
+								matrixSet: baselayer.matrixSet,
+								style: baselayer.style,
+								format: baselayer.format,
+								resolutions: baselayer.resolutions,
+								maxExtent: baselayer.maxExtent,	
+								gutter: baselayer.gutter,
+								buffer: baselayer.buffer,
+								units: baselayer.units,
+								transitionEffect: baselayer.transitionEffect,
+								isphericalMercator: baselayer.isphericalMercator,
+								isBaseLayer: true,
+								wrapDateLine: baselayer.wrapDateLine,
+								zoomOffset: baselayer.zoomOffset,
+								time: baselayer.time
+							}
 						})
 					);
 					console.log("Added baselayer " + baselayer.id );
@@ -99,31 +101,38 @@
 					
 					globals.products.add(
 						new m.LayerModel({
-							id : products.id,
-							urls : products.urls,
-							visualization: products.visualization,
-							protocol: products.protocol,
 							name: products.name,
-							projection: products.projection,
-							attribution: products.attribution,
-							matrixSet: products.matrixSet,
-							style: products.style,
-							format: products.format,
-							resolutions: products.resolutions,
-							maxExtent: products.maxExtent,	
-							gutter: products.gutter,
-							buffer: products.buffer,
-							units: products.units,
-							transitionEffect: products.transitionEffect,
-							isphericalMercator: products.isphericalMercator,
-							isBaseLayer: products.isBaseLayer,
-							wrapDateLine: products.wrapDateLine,
-							zoomOffset: products.zoomOffset,
 							visible: products.visible,
-							time: products.time
+							view:{
+								id : products.view.id,
+								protocol: products.view.protocol,
+								urls : products.view.urls,
+								visualization: products.view.visualization,
+								projection: products.view.projection,
+								attribution: products.view.attribution,
+								matrixSet: products.view.matrixSet,
+								style: products.view.style,
+								format: products.view.format,
+								resolutions: products.view.resolutions,
+								maxExtent: products.view.maxExtent,	
+								gutter: products.view.gutter,
+								buffer: products.view.buffer,
+								units: products.view.units,
+								transitionEffect: products.view.transitionEffect,
+								isphericalMercator: products.view.isphericalMercator,
+								isBaseLayer: false,
+								wrapDateLine: products.view.wrapDateLine,
+								zoomOffset: products.view.zoomOffset,
+								time: products.view.time
+							},
+							download: {
+								id : products.download.id,
+								protocol: products.download.protocol,
+								url : products.download.url
+							}
 						})
 					);
-					console.log("Added product " + products.id );
+					console.log("Added product " + products.view.id );
 				}, this);
 
 

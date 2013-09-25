@@ -1,6 +1,6 @@
 {
 
-  "debug":false,
+  "debug":true,
 
   "mapConfig": {
     "module": "views/MapView",
@@ -33,7 +33,6 @@
         "units": "dd",
         "transitionEffect": "resize",
         "isphericalMercator": false,
-        "isBaseLayer": true,
         "wrapDateLine": true,
         "zoomOffset": 0,
         "visible": true
@@ -60,7 +59,6 @@
         "units": "dd",
         "transitionEffect": "resize",
         "isphericalMercator": false,
-        "isBaseLayer": true,
         "wrapDateLine": true,
         "zoomOffset": 0,
         "visible": false
@@ -68,28 +66,57 @@
     ],
     "products": [
       {
-        "id": "daily_FSC_PanEuropean_Optical",
         "name": "PanEuropean Fractional Snow Cover",
-        "protocol": "WMS",
-        "urls": [
-            "http://neso.cryoland.enveo.at/cryoland/ows"
-        ],
         "visible": false,
-        "style": "default",
-        "isBaseLayer": false,
-        "time":"2011-02-10T00:00:00Z/2011-02-15T00:00:00Z"
+        "view": {
+          "id": "daily_FSC_PanEuropean_Optical",
+          "protocol": "WMS",
+          "urls": [
+              "http://neso.cryoland.enveo.at/cryoland/ows"
+          ],
+          "style": "default",
+          "time":"2011-02-14T00:00:00Z/2011-02-15T00:00:00Z"
+        },
+        "download": {
+          "id": "daily_FSC_PanEuropean_Optical",
+          "protocol": "EOWCS",
+          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
+        }
       },
       {
-        "id": "daily_SWE_PanEuropean_Microwave",
         "name": "PanEuropean Snow Water Equivalent",
-        "protocol": "WMS",
-        "urls": [
-            "http://neso.cryoland.enveo.at/cryoland/ows"
-        ],
         "visible": false,
-        "style": "default",
-        "isBaseLayer": false,
-        "time":"2011-02-10T00:00:00Z/2011-02-15T00:00:00Z"
+        "view": {
+          "id": "daily_SWE_PanEuropean_Microwave",
+          "protocol": "WMS",
+          "urls": [
+              "http://neso.cryoland.enveo.at/cryoland/ows"
+          ],
+          "style": "default",
+          "time":"2011-02-14T00:00:00Z/2011-02-15T00:00:00Z"
+        },
+        "download": {
+          "id": "daily_SWE_PanEuropean_Microwave",
+          "protocol": "EOWCS",
+          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
+        }
+      },
+      {
+        "name": "SRTM",
+        "visible": false,
+        "view": {
+          "id": "SRTM8bit_mosaic",
+          "protocol": "WMS",
+          "urls": [
+              "http://earthserver.eox.at/open/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "SRTM_mosaic",
+          "protocol": "EOWCS",
+          "url": "http://earthserver.eox.at/open/ows"
+        }
       }
     ],
     "overlays": [
