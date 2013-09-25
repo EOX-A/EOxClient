@@ -1,15 +1,18 @@
 
 
-define(['backbone',
+define(['backbone.marionette',
 		'communicator',
+		'app',
 		'globals',
 		'openlayers',
 		'models/MapModel'],
-		function( Backbone, Communicator, globals ) {
+		function( Marionette, Communicator, App, globals ) {
 
-			var MapView = Backbone.View.extend({
+			var MapView = Marionette.View.extend({
 				
 				onShow: function() {
+					// FIXXME: quick hack to prevent OpenLayers to delete the region it is loaded in.
+					this.$el.html("<div id='map'></div>");
 					this.map = new OpenLayers.Map({div: "map", fallThrough: true});
 					console.log("Created Map");
 
@@ -71,6 +74,7 @@ define(['backbone',
 					//Set attributes of map based on mapmodel attributes
 				    var mapmodel = globals.objects.get('mapmodel');
 				    this.map.setCenter(new OpenLayers.LonLat(mapmodel.get("center")), mapmodel.get("zoom") );
+
 				    return this;
 				},
 				//method to create layer depending on protocol
@@ -191,6 +195,12 @@ define(['backbone',
 					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
 				}
 			});
+			
+			Communicator.registerEventHandler("viewer:show:map", function() {
+				App.viewer.show(new MapView);
+				console.log("[MapView] Command 'viewer:show:map' executed");
+			});
+
 			return {"MapView":MapView};
 	});
 

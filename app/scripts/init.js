@@ -34,6 +34,7 @@
             }
         },
 
+
         paths: {
             jquery: '../bower_components/jquery/jquery.min',
             jqueryui: '../bower_components/jquery-ui/ui/minified/jquery-ui.min',
@@ -66,8 +67,9 @@
             /* marionette and handlebars plugin */
             'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars',
 
-            'openlayers': 'http://openlayers.org/api/OpenLayers'
+            'openlayers': 'http://openlayers.org/api/OpenLayers',
             //'openlayers': 'http://ol3js.org/en/master/build/ol',
+            globweb: "../bower_components/globweb/src"
         },
 
         hbs: {

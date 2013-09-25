@@ -1,6 +1,6 @@
 {
 
-  "debug":false,
+  "debug": true,
 
   "mapConfig": {
     "module": "views/MapView",
@@ -108,8 +108,8 @@
 
   "regions": [
     {
-      "name": "map",
-      "class": ""
+      "name": "viewer",
+      "class": "viewer-fullscreen"
     },
     {
       "name": "leftSideBar",
@@ -178,7 +178,8 @@
     "views/TimeSliderView",
     "views/ToolSelectionView",
     "views/ToolItemView",
-    "views/DownloadView"
+    "views/DownloadView",
+    "views/VirtualGlobeView"
   ],
 
   "models":[
@@ -258,6 +259,27 @@
 
   "visualizationTools":[
     {
+      "id":"VirtualGlobeViewer",
+      "eventToRaise":"viewer:show:virtualglobeviewer",
+      "description": "VirtualGlobeViewer",
+      "icon":"icon-globe",
+      "enabled":true,
+      "active":false
+    }, {
+      "id":"RectangularBoxViewer",
+      "eventToRaise":"viewer:show:rectangularboxviewer",
+      "description": "RectangularBoxViewer",
+      "icon":"icon-inbox",
+      "enabled":true,
+      "active":false
+    }, {
+      "id":"Map",
+      "eventToRaise":"viewer:show:map",
+      "description": "2D Map",
+      "icon":"icon-picture",
+      "enabled":true,
+      "active":false
+    }, {
       "id":"download",
       "eventToRaise":"dialog:open:download",
       "description": "WCS Download Tool for specific selections",
