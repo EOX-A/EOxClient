@@ -27,6 +27,20 @@
 				this.command = new Backbone.Wreqr.Commands();
 
 				this.on('all')
+			},
+
+			registerEventHandler: function(eventid, handler) {
+				// FIXXME: create a list of eventid to keep track!
+				// this.eventlist.push(eventid);
+
+				// Register a new handler for the given eventid.
+				this.command.setHandler(eventid, handler);
+				
+				// Tell the mediator to call the above command handler if the
+				// event is fired somewhere in the application, i.e. via the toolbar. 
+				this.mediator.on(eventid, function() {
+					this.command.execute(eventid);
+				}.bind(this));
 			}
 		});
 

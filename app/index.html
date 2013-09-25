@@ -35,13 +35,8 @@
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
 
-        <!-- build:js scripts/main.js -->
-        <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
-        <!-- endbuild -->
-
-
         <div id="content">
-            <div id="map"></div>
+            <div id="viewer"></div>
             <div id="viewContent"></div>
             <div id="leftSideBar"></div>
             <div id="rightSideBar"></div>
@@ -50,9 +45,12 @@
         </div>
 
         <!-- HIDDEN DOWNLOAD DIV -->
-    <div id="div-downloads">
-      <iframe name="iframe-download-post" id="iframe-download-post"></iframe>
-    </div>
+        <div id="div-downloads">
+          <iframe name="iframe-download-post" id="iframe-download-post"></iframe>
+        </div>
 
+        <!-- build:js scripts/main.js -->
+        <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
+        <!-- endbuild -->
 </body>
 </html>
