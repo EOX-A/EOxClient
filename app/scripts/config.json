@@ -1,6 +1,6 @@
 {
 
-  "debug":true,
+  "debug":false,
 
   "mapConfig": {
     "module": "views/MapView",
@@ -206,7 +206,8 @@
     "views/ToolSelectionView",
     "views/ToolItemView",
     "views/DownloadView",
-    "views/VirtualGlobeView"
+    "views/VirtualGlobeView",
+    "views/RectangularBoxView"
   ],
 
   "models":[

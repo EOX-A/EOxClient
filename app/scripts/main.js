@@ -42,14 +42,16 @@
 			return this[idx];
 		};
 
-		// Testcode: If x3dom.js is not included, this code works fine (as it should). With x3dom.js included 'nodes' is an
-		// Array instead of a NodeList, which does not include a .item() function:
-		var nodes = document.getElementsByTagName('link');
-		console.dir(nodes);
-		for (var i = 0, len = nodes.length; i < len; ++i) {
-			console.log("link: " + nodes.item(i).href);
-		}		
+		// // Testcode: If x3dom.js is not included, this code works fine (as it should). With x3dom.js included 'nodes' is an
+		// // Array instead of a NodeList, which does not include a .item() function:
+		// var nodes = document.getElementsByTagName('link');
+		// console.dir(nodes);
+		// for (var i = 0, len = nodes.length; i < len; ++i) {
+		// 	console.log("link: " + nodes.item(i).href);
+		// }		
 		
+		$('#x3dom').hide();
+
 		$.get("scripts/config.json", function(values) {
 			
 			// Configure Debug options

@@ -1,0 +1,451 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">//Namespace</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">EarthServerGenericClient</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">EarthServerGenericClient</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  3</span> 
+<span class='line'>  4</span> </span><span class="COMM">/**
+<span class='line'>  5</span>  * @class Abstract base class for terrains.
+<span class='line'>  6</span>  * @constructor
+<span class='line'>  7</span>  */</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="NAME">EarthServerGenericClient.AbstractTerrain</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 11</span>      * Stores the created appearances' names.
+<span class='line'> 12</span>      * @type {Array}
+<span class='line'> 13</span>      */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">AppearanceDefined</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> 
+<span class='line'> 16</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 17</span>      * Stores the IDs of the materials to change the transparency.
+<span class='line'> 18</span>      * @type {Array}
+<span class='line'> 19</span>      */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="NAME">this.materialNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="COMM">//Stores the IDs of the materials to change the transparency.</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 23</span>      * Creates a html canvas element out of the texture and removes the alpha values.
+<span class='line'> 24</span>      * @param texture
+<span class='line'> 25</span>      *      Texture to draw. Can be everything which can be rendered into a canvas.
+<span class='line'> 26</span>      * @param index
+<span class='line'> 27</span>      *      Index of the model using this canvas. Used to give the canvas a unique ID.
+<span class='line'> 28</span>      * @returns {HTMLElement} The canvas element.
+<span class='line'> 29</span>      */</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">    </span><span class="NAME">this.createCanvas</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">texture</span><span class="PUNC">,</span><span class="NAME">index</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">canvasTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> 
+<span class='line'> 34</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">texture</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">            </span><span class="NAME">canvasTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'canvas'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">            </span><span class="NAME">canvasTexture.style.display</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"none"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">            </span><span class="NAME">canvasTexture.setAttribute</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"EarthServerGenericClient_Canvas"</span><span class="PUNC">+</span><span class="NAME">index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">            </span><span class="NAME">canvasTexture.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.pow</span><span class="PUNC">(</span><span class="NUMB">2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">Math.log</span><span class="PUNC">(</span><span class="NAME">texture.width</span><span class="PUNC">)</span><span class="PUNC">/</span><span class="NAME">Math.log</span><span class="PUNC">(</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">            </span><span class="NAME">canvasTexture.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.pow</span><span class="PUNC">(</span><span class="NUMB">2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">Math.log</span><span class="PUNC">(</span><span class="NAME">texture.height</span><span class="PUNC">)</span><span class="PUNC">/</span><span class="NAME">Math.log</span><span class="PUNC">(</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> 
+<span class='line'> 42</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasTexture.getContext</span><span class="PUNC">(</span><span class="STRN">'2d'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">            </span><span class="NAME">context.drawImage</span><span class="PUNC">(</span><span class="NAME">texture</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasTexture.width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasTexture.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> 
+<span class='line'> 45</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">imageData</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">context.getImageData</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasTexture.width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasTexture.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">            </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">imageData.data.length</span><span class="PUNC">;</span><span class="NAME">i</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="NUMB">4</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">                </span><span class="NAME">imageData.data</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">+</span><span class="NUMB">3</span><span class="PUNC">]</span><span class="PUNC">=</span><span class="NUMB">255</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">            </span><span class="NAME">context.putImageData</span><span class="PUNC">(</span><span class="NAME">imageData</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">        </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">console.log</span><span class="PUNC">(</span><span class="STRN">"Could not create Canvas, response Texture is empty."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 54</span> 
+<span class='line'> 55</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">canvasTexture</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> 
+<span class='line'> 58</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 59</span>      * Calcs the needed numbers of chunks for the terrain for a specific chunk size.
+<span class='line'> 60</span>      * @param width
+<span class='line'> 61</span>      *      Width of the entire terrain.
+<span class='line'> 62</span>      * @param height
+<span class='line'> 63</span>      *      Height of the entire terrain.
+<span class='line'> 64</span>      * @param chunkSize
+<span class='line'> 65</span>      *      The size of one chunk.
+<span class='line'> 66</span>      * @returns {Object literal} numChunksX: number, numChunksY: number, numChunks: number
+<span class='line'> 67</span>      */</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">    </span><span class="NAME">this.calcNumberOfChunks</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">width</span><span class="PUNC">,</span><span class="NAME">height</span><span class="PUNC">,</span><span class="NAME">chunkSize</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">chunksInfo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">            </span><span class="NAME">numChunksX</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">width</span><span class="PUNC">/</span><span class="NAME">chunkSize</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">            </span><span class="NAME">numChunksY</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">height</span><span class="PUNC">/</span><span class="NAME">chunkSize</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">            </span><span class="NAME">numChunks</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> 
+<span class='line'> 76</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">width</span><span class="PUNC">%</span><span class="NAME">chunkSize</span><span class="PUNC">!==</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">chunksInfo.numChunksX</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 78</span> 
+<span class='line'> 79</span> 
+<span class='line'> 80</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">height</span><span class="PUNC">%</span><span class="NAME">chunkSize</span><span class="PUNC">!==</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 81</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">chunksInfo.numChunksY</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 82</span> 
+<span class='line'> 83</span> </span><span class="WHIT">        </span><span class="NAME">chunksInfo.numChunks</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">chunksInfo.numChunksY</span><span class="PUNC">*</span><span class="NAME">chunksInfo.numChunksX</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">chunksInfo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 86</span> 
+<span class='line'> 87</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 88</span>      * This function calcs the needed information to build and place a chunk of a terrain.
+<span class='line'> 89</span>      * @param index
+<span class='line'> 90</span>      *      Index of the model using the terrain. Used for creating IDs.
+<span class='line'> 91</span>      * @param chunkSize
+<span class='line'> 92</span>      *      The desired size (count of values) of one chunk per axis.
+<span class='line'> 93</span>      * @param chunkInfo
+<span class='line'> 94</span>      *      This parameter uses an object that will be returned by calcNumberOfChunks().
+<span class='line'> 95</span>      *      It contains the information about a terrain and its chunks (e.g. number of chunks on each axis).
+<span class='line'> 96</span>      * @param currentChunk
+<span class='line'> 97</span>      *      The index of the current chunk to be build.
+<span class='line'> 98</span>      * @param terrainWidth
+<span class='line'> 99</span>      *      Width of the whole terrain. Used to calc texture coordinates.
+<span class='line'>100</span>      * @param terrainHeight
+<span class='line'>101</span>      *      Height of the whole terrain. Used to calc texture coordinates.
+<span class='line'>102</span>      * @returns {Object literal}
+<span class='line'>103</span>      *      xpos: number, ypos: number, chunkWidth: number,
+<span class='line'>104</span>      *      chunkHeight: number, terrainWidth: number,
+<span class='line'>105</span>      *      terrainHeight: number, ID: number, modelIndex: number
+<span class='line'>106</span>      */</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">    </span><span class="NAME">this.createChunkInfo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">,</span><span class="NAME">chunkSize</span><span class="PUNC">,</span><span class="NAME">chunkInfo</span><span class="PUNC">,</span><span class="NAME">currentChunk</span><span class="PUNC">,</span><span class="NAME">terrainWidth</span><span class="PUNC">,</span><span class="NAME">terrainHeight</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">info</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">            </span><span class="NAME">xpos</span><span class="PUNC">:</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">currentChunk</span><span class="PUNC">%</span><span class="NAME">chunkInfo.numChunksX</span><span class="PUNC">)</span><span class="PUNC">*</span><span class="PUNC">(</span><span class="NAME">chunkSize</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">            </span><span class="NAME">ypos</span><span class="PUNC">:</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">currentChunk</span><span class="PUNC">/</span><span class="NAME">chunkInfo.numChunksX</span><span class="PUNC">)</span><span class="PUNC">*</span><span class="PUNC">(</span><span class="NAME">chunkSize</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">            </span><span class="NAME">chunkWidth</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">            </span><span class="NAME">chunkHeight</span><span class="PUNC">:</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">            </span><span class="NAME">terrainWidth</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">terrainWidth</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">            </span><span class="NAME">terrainHeight</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">terrainHeight</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">            </span><span class="NAME">ID</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">            </span><span class="NAME">modelIndex</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">index</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> 
+<span class='line'>120</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="PUNC">%</span><span class="NAME">chunkInfo.numChunksX</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">chunkInfo.numChunksX</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">info.chunkWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">terrainWidth</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">chunkInfo.numChunksX</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">*</span><span class="NAME">chunkSize</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">   </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">        </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">info.chunkWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">chunkSize</span><span class="PUNC">;</span><span class="WHIT">   </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>124</span> 
+<span class='line'>125</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NAME">chunkInfo.numChunks</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">chunkInfo.numChunksX</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">info.chunkHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">terrainHeight</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">chunkInfo.numChunksY</span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">*</span><span class="NAME">chunkSize</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">        </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">info.chunkHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">chunkSize</span><span class="WHIT">  </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>129</span> 
+<span class='line'>130</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">info</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>132</span> 
+<span class='line'>133</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>134</span>      * Returns a height map part from the given height map specified in the info parameter.
+<span class='line'>135</span>      * @param info
+<span class='line'>136</span>      *      Which part of the heightmap should be returned. In this case the parameter is an object literal
+<span class='line'>137</span>      *      and uses the following attributes: xpos: number, ypos: number, chunkWidth: number, chunkHeight: number
+<span class='line'>138</span>      * @param  hm
+<span class='line'>139</span>      *      The heightmap from which the parts is extracted.
+<span class='line'>140</span>      * @returns {Array}
+<span class='line'>141</span>      *      Returns a 2D Array, use it as follows Array[chunk height][chunk width].
+<span class='line'>142</span>      * @throws If any error occurs, the function will return null.
+<span class='line'>143</span>      */</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">    </span><span class="NAME">this.getHeightMap</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">info</span><span class="PUNC">,</span><span class="NAME">hm</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">        </span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">heightmapPart</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="NAME">info.chunkHeight</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">            </span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">info.chunkHeight</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">                </span><span class="NAME">heightmapPart</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="NAME">info.chunkWidth</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">                </span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">j</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">j</span><span class="PUNC">&lt;</span><span class="NAME">info.chunkWidth</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">j</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">                </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="WHIT">                    </span><span class="NAME">heightmapPart</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">[</span><span class="NAME">j</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">hm</span><span class="PUNC">[</span><span class="NAME">info.xpos</span><span class="PUNC">+</span><span class="NAME">j</span><span class="PUNC">]</span><span class="PUNC">[</span><span class="NAME">info.ypos</span><span class="PUNC">+</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">heightmapPart</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">        </span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">            </span><span class="NAME">console.log</span><span class="PUNC">(</span><span class="STRN">'AbstractTerrain::getHeightMap(): '</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>165</span> 
+<span class='line'>166</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>167</span>      * Collects all material nodes of the terrain and changes each transparency attribute.
+<span class='line'>168</span>      * @param value
+<span class='line'>169</span>      *      Transparency value between 0 (full visible) and 1 (invisible).
+<span class='line'>170</span>      */</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">    </span><span class="NAME">this.setTransparency</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">value</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">k</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="NAME">k</span><span class="PUNC">&lt;</span><span class="NAME">this.materialNodes.length</span><span class="PUNC">;</span><span class="NAME">k</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mat</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">  </span><span class="NAME">document.getElementById</span><span class="PUNC">(</span><span class="NAME">this.materialNodes</span><span class="PUNC">[</span><span class="NAME">k</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">mat</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">mat.setAttribute</span><span class="PUNC">(</span><span class="STRN">"transparency"</span><span class="PUNC">,</span><span class="NAME">value</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">            </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">   </span><span class="NAME">console.log</span><span class="PUNC">(</span><span class="STRN">"Material with ID "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="NAME">this.materialNodes</span><span class="PUNC">[</span><span class="NAME">k</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" not found."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>182</span> 
+<span class='line'>183</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>184</span>      * Deletes all saved material IDs. Use this function if you remove old material from the dom.
+<span class='line'>185</span>      * E.g. for ProgressiveTerrain.
+<span class='line'>186</span>      */</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">    </span><span class="NAME">this.clearMaterials</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">       </span><span class="NAME">this.materialNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>191</span> 
+<span class='line'>192</span> 
+<span class='line'>193</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>194</span>      * This function handles the creation and usage of the appearances. It can be called for every shape or LOD that should use a canvasTexture.
+<span class='line'>195</span>      * It returns the amount of appearances specified. For every name only one appearance exits, every other uses it.
+<span class='line'>196</span>      * @param AppearanceName
+<span class='line'>197</span>      *      Name of the appearance. If this name is not set in the array, it will be registered.
+<span class='line'>198</span>      *      In the case the name is already set, the existing one will be used.
+<span class='line'>199</span>      * @param AppearanceCount
+<span class='line'>200</span>      *      Number of appearance to be created. E.g. the LODs use a bunch of three appearance nodes.
+<span class='line'>201</span>      * @param modelIndex
+<span class='line'>202</span>      *      Index of the model using this appearance.
+<span class='line'>203</span>      * @param canvasTexture
+<span class='line'>204</span>      *      Canvas element to be used in the appearance as texture.
+<span class='line'>205</span>      * @param transparency
+<span class='line'>206</span>      *      Transparency of the appearance.
+<span class='line'>207</span>      * @returns {Array}
+<span class='line'>208</span>      *      Array of appearance nodes.
+<span class='line'>209</span>      *      @throws If any error occurs, the function will return null.
+<span class='line'>210</span>      */</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">    </span><span class="NAME">this.getAppearances</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">AppearanceName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">AppearanceCount</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">modelIndex</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasTexture</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transparency</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="WHIT">        </span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">appearances</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="NAME">AppearanceCount</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">            </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">AppearanceCount</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">appearance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'Appearance'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">                </span><span class="NAME">appearance.setAttribute</span><span class="PUNC">(</span><span class="STRN">'sortType'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'transparent'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>217</span> 
+<span class='line'>218</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">AppearanceDefined</span><span class="PUNC">[</span><span class="NAME">AppearanceName</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">)</span><span class="COMM">//use the already defined appearance</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">                </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">                    </span><span class="NAME">appearance.setAttribute</span><span class="PUNC">(</span><span class="STRN">"use"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">AppearanceDefined</span><span class="PUNC">[</span><span class="NAME">AppearanceName</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">                </span><span class="KEYW">else</span><span class="WHIT">    </span><span class="COMM">//create a new appearance with the given parameter</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">                </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">                    </span><span class="NAME">AppearanceDefined</span><span class="PUNC">[</span><span class="NAME">AppearanceName</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">AppearanceName</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">                    </span><span class="NAME">appearance.setAttribute</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">AppearanceDefined</span><span class="PUNC">[</span><span class="NAME">AppearanceName</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">                    </span><span class="NAME">appearance.setAttribute</span><span class="PUNC">(</span><span class="STRN">"def"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">AppearanceDefined</span><span class="PUNC">[</span><span class="NAME">AppearanceName</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>227</span> 
+<span class='line'>228</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">texture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'Texture'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">                    </span><span class="NAME">texture.setAttribute</span><span class="PUNC">(</span><span class="STRN">'hideChildren'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'true'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">                    </span><span class="NAME">texture.setAttribute</span><span class="PUNC">(</span><span class="STRN">"repeatS"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'true'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">                    </span><span class="NAME">texture.setAttribute</span><span class="PUNC">(</span><span class="STRN">"repeatT"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'true'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>232</span> 
+<span class='line'>233</span> </span><span class="WHIT">                    </span><span class="NAME">texture.appendChild</span><span class="PUNC">(</span><span class="NAME">canvasTexture</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>234</span> 
+<span class='line'>235</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">imageTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'TextureTransform'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> </span><span class="WHIT">                    </span><span class="NAME">imageTransform.setAttribute</span><span class="PUNC">(</span><span class="STRN">"scale"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"1,-1"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>237</span> 
+<span class='line'>238</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">material</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'material'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>239</span> </span><span class="WHIT">                    </span><span class="NAME">material.setAttribute</span><span class="PUNC">(</span><span class="STRN">"specularColor"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"0.25,0.25,0.25"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">                    </span><span class="NAME">material.setAttribute</span><span class="PUNC">(</span><span class="STRN">"diffuseColor"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"1 1 1"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">                    </span><span class="NAME">material.setAttribute</span><span class="PUNC">(</span><span class="STRN">'transparency'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transparency</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>242</span> </span><span class="WHIT">                    </span><span class="NAME">material.setAttribute</span><span class="PUNC">(</span><span class="STRN">'ID'</span><span class="PUNC">,</span><span class="NAME">AppearanceName</span><span class="PUNC">+</span><span class="STRN">"_mat"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>243</span> </span><span class="WHIT">                    </span><span class="COMM">//Save this material ID to change transparency during runtime</span><span class="WHIT">
+<span class='line'>244</span> </span><span class="WHIT">                   </span><span class="NAME">this.materialNodes.push</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">AppearanceName</span><span class="PUNC">+</span><span class="STRN">"_mat"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>245</span> 
+<span class='line'>246</span> </span><span class="WHIT">                    </span><span class="NAME">appearance.appendChild</span><span class="PUNC">(</span><span class="NAME">material</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="WHIT">                    </span><span class="NAME">appearance.appendChild</span><span class="PUNC">(</span><span class="NAME">imageTransform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="WHIT">                    </span><span class="NAME">appearance.appendChild</span><span class="PUNC">(</span><span class="NAME">texture</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>249</span> 
+<span class='line'>250</span> </span><span class="WHIT">                    </span><span class="NAME">texture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>251</span> </span><span class="WHIT">                    </span><span class="NAME">imageTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">                    </span><span class="NAME">material</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">                </span><span class="NAME">appearances</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">appearance</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">appearances</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">        </span><span class="KEYW">catch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">            </span><span class="NAME">console.log</span><span class="PUNC">(</span><span class="STRN">'AbstractTerrain::getAppearances(): '</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">            </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>264</span> 
+<span class='line'>265</span> 
+<span class='line'>266</span> 
+<span class='line'>267</span> 
+<span class='line'>268</span> 
+<span class='line'>269</span> </span><span class="COMM">/**
+<span class='line'>270</span>  * @class This terrain should receive multiple insertLevel calls. It removes the old version
+<span class='line'>271</span>  * and replace it with the new data. It can be used for progressive loading.
+<span class='line'>272</span>  * Example: WCPSDemAlpha with progressive loading using the progressiveWCPSImageLoader.
+<span class='line'>273</span>  *
+<span class='line'>274</span>  * @augments EarthServerGenericClient.AbstractTerrain
+<span class='line'>275</span>  * @param index
+<span class='line'>276</span>  *      Index of the model using this terrain.
+<span class='line'>277</span>  * @constructor
+<span class='line'>278</span>  */</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="NAME">EarthServerGenericClient.ProgressiveTerrain</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>282</span>      * General information about the amount of chunks needed to build the terrain.
+<span class='line'>283</span>      * @type {Object}
+<span class='line'>284</span>      */</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">chunkInfo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>287</span>      * Size of one chunk. Chunks at the borders can be smaller.
+<span class='line'>288</span>      * 256*256 (2^16) is the max size because of only 16 bit indices.
+<span class='line'>289</span>      * @type {number}
+<span class='line'>290</span>      */</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">chunkSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">256</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>293</span>      * The canvas that holds the received image.
+<span class='line'>294</span>      * @type {HTMLElement}
+<span class='line'>295</span>      */</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">canvasTexture</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>297</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>298</span>      * Counter of the inserted levels.
+<span class='line'>299</span>      * @type {number}
+<span class='line'>300</span>      */</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentData</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>302</span> 
+<span class='line'>303</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>304</span>      * Insert one data level into the scene. The old elevation grid will be removed and one new build.
+<span class='line'>305</span>      * @param root
+<span class='line'>306</span>      *      Dom Element to append the terrain to.
+<span class='line'>307</span>      * @param data
+<span class='line'>308</span>      *      Received Data of the Server request.
+<span class='line'>309</span>      */</span><span class="WHIT">
+<span class='line'>310</span> </span><span class="WHIT">    </span><span class="NAME">this.insertLevel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">root</span><span class="PUNC">,</span><span class="NAME">data</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>311</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="WHIT">        </span><span class="NAME">canvasTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.createCanvas</span><span class="PUNC">(</span><span class="NAME">data.texture</span><span class="PUNC">,</span><span class="NAME">index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="WHIT">        </span><span class="NAME">chunkInfo</span><span class="WHIT">     </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.calcNumberOfChunks</span><span class="PUNC">(</span><span class="NAME">data.width</span><span class="PUNC">,</span><span class="NAME">data.height</span><span class="PUNC">,</span><span class="NAME">chunkSize</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>314</span> 
+<span class='line'>315</span> </span><span class="WHIT">        </span><span class="COMM">//Remove old Materials of the deleted children</span><span class="WHIT">
+<span class='line'>316</span> </span><span class="WHIT">        </span><span class="NAME">this.clearMaterials</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>317</span> 
+<span class='line'>318</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">chunkInfo.numChunks</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>320</span> </span><span class="WHIT">            </span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>321</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">                </span><span class="COMM">//Build all necessary information and values to create a chunk</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">info</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.createChunkInfo</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">,</span><span class="NAME">chunkSize</span><span class="PUNC">,</span><span class="NAME">chunkInfo</span><span class="PUNC">,</span><span class="NAME">currentChunk</span><span class="PUNC">,</span><span class="NAME">data.width</span><span class="PUNC">,</span><span class="NAME">data.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hm</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getHeightMap</span><span class="PUNC">(</span><span class="NAME">info</span><span class="PUNC">,</span><span class="NAME">data.heightmap</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>325</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">appearance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getAppearances</span><span class="PUNC">(</span><span class="STRN">"TerrainApp_"</span><span class="PUNC">+</span><span class="NAME">index</span><span class="PUNC">+</span><span class="STRN">"_"</span><span class="PUNC">+</span><span class="NAME">currentData</span><span class="PUNC">,</span><span class="NUMB">1</span><span class="PUNC">,</span><span class="NAME">index</span><span class="PUNC">,</span><span class="NAME">canvasTexture</span><span class="PUNC">,</span><span class="NAME">data.transparency</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>326</span> 
+<span class='line'>327</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'Transform'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">                </span><span class="NAME">transform.setAttribute</span><span class="PUNC">(</span><span class="STRN">"translation"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">info.xpos</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" 0 "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">info.ypos</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">                </span><span class="NAME">transform.setAttribute</span><span class="PUNC">(</span><span class="STRN">"scale"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"1.0 1.0 1.0"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>330</span> 
+<span class='line'>331</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ElevationGrid</span><span class="PUNC">(</span><span class="NAME">transform</span><span class="PUNC">,</span><span class="NAME">info</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">hm</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">appearance</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>332</span> 
+<span class='line'>333</span> </span><span class="WHIT">                </span><span class="NAME">root.appendChild</span><span class="PUNC">(</span><span class="NAME">transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>334</span> 
+<span class='line'>335</span> </span><span class="WHIT">                </span><span class="COMM">//Delete vars avoid circular references</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">                </span><span class="NAME">info</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">                </span><span class="NAME">hm</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">                </span><span class="NAME">appearance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">                </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">            </span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">                </span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">'Terrain::CreateNewChunk(): '</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">        </span><span class="NAME">currentData</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">        </span><span class="NAME">canvasTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">        </span><span class="NAME">chunkInfo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>349</span> 
+<span class='line'>350</span> </span><span class="WHIT">        </span><span class="NAME">EarthServerGenericClient_MainScene.reportProgress</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="NAME">EarthServerGenericClient.ProgressiveTerrain.inheritsFrom</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">EarthServerGenericClient.AbstractTerrain</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>354</span> 
+<span class='line'>355</span> 
+<span class='line'>356</span> </span><span class="COMM">/**
+<span class='line'>357</span>  * @class This terrain build up a LOD with 3 levels of the received data.
+<span class='line'>358</span>  * @param root
+<span class='line'>359</span>  *      Dom Element to append the terrain to.
+<span class='line'>360</span>  * @param data
+<span class='line'>361</span>  *      Received Data of the Server request.
+<span class='line'>362</span>  * @param index
+<span class='line'>363</span>  *      Index of the model that uses this terrain.
+<span class='line'>364</span>  * @augments EarthServerGenericClient.AbstractTerrain
+<span class='line'>365</span>  * @constructor
+<span class='line'>366</span>  */</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="NAME">EarthServerGenericClient.LODTerrain</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">root</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">,</span><span class="NAME">index</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>370</span>      * Distance to change between full and 1/2 resolution.
+<span class='line'>371</span>      * @type {number}
+<span class='line'>372</span>      */</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lodRange1</span><span class="WHIT">       </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">2000</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>375</span>      * Distance to change between 1/2 and 1/4 resolution.
+<span class='line'>376</span>      * @type {number}
+<span class='line'>377</span>      */</span><span class="WHIT">
+<span class='line'>378</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lodRange2</span><span class="WHIT">       </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">10000</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>379</span> 
+<span class='line'>380</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>381</span>      * The canvas that holds the received image.
+<span class='line'>382</span>      * @type {HTMLElement}
+<span class='line'>383</span>      */</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">canvasTexture</span><span class="WHIT">   </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.createCanvas</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">data.texture</span><span class="PUNC">,</span><span class="NAME">index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>386</span>      * Size of one chunk. Chunks at the borders can be smaller.
+<span class='line'>387</span>      * We want to build 3 chunks for the LOD with different resolution but the same size on the screen.
+<span class='line'>388</span>      * With 253 values the length of the most detailed chunk is 252.
+<span class='line'>389</span>      * The second chunk has 127 values and the length of 126. With a scale of 2 it's back to the size of 252.
+<span class='line'>390</span>      * The third chunk has 64 values and the length if 63. With a scale of 4 it's also back to the size 252.
+<span class='line'>391</span>      * @type {number}
+<span class='line'>392</span>      */</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">chunkSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">253</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>395</span>      * General information about the number of chunks needed to build the terrain.
+<span class='line'>396</span>      * @type {number}
+<span class='line'>397</span>      */</span><span class="WHIT">
+<span class='line'>398</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">chunkInfo</span><span class="WHIT">       </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.calcNumberOfChunks</span><span class="PUNC">(</span><span class="NAME">data.width</span><span class="PUNC">,</span><span class="NAME">data.height</span><span class="PUNC">,</span><span class="NAME">chunkSize</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>399</span> 
+<span class='line'>400</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>401</span>      * Builds the terrain and appends into the scene.
+<span class='line'>402</span>      */</span><span class="WHIT">
+<span class='line'>403</span> </span><span class="WHIT">    </span><span class="NAME">this.createTerrain</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>404</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>405</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">currentChunk</span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">chunkInfo.numChunks</span><span class="PUNC">;</span><span class="NAME">currentChunk</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>406</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>407</span> </span><span class="WHIT">            </span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="WHIT">                </span><span class="COMM">//Build all necessary information and values to create a chunk</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">info</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.createChunkInfo</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">,</span><span class="NAME">chunkSize</span><span class="PUNC">,</span><span class="NAME">chunkInfo</span><span class="PUNC">,</span><span class="NAME">currentChunk</span><span class="PUNC">,</span><span class="NAME">data.width</span><span class="PUNC">,</span><span class="NAME">data.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hm</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getHeightMap</span><span class="PUNC">(</span><span class="NAME">info</span><span class="PUNC">,</span><span class="NAME">data.heightmap</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">appearance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.getAppearances</span><span class="PUNC">(</span><span class="STRN">"TerrainApp_"</span><span class="PUNC">+</span><span class="NAME">index</span><span class="PUNC">,</span><span class="NUMB">3</span><span class="PUNC">,</span><span class="NAME">index</span><span class="PUNC">,</span><span class="NAME">canvasTexture</span><span class="PUNC">,</span><span class="NAME">data.transparency</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>413</span> 
+<span class='line'>414</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'Transform'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">                </span><span class="NAME">transform.setAttribute</span><span class="PUNC">(</span><span class="STRN">"translation"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">info.xpos</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" 0 "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">info.ypos</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>416</span> </span><span class="WHIT">                </span><span class="NAME">transform.setAttribute</span><span class="PUNC">(</span><span class="STRN">"scale"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"1.0 1.0 1.0"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>417</span> 
+<span class='line'>418</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lodNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="STRN">'LOD'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>419</span> </span><span class="WHIT">                </span><span class="NAME">lodNode.setAttribute</span><span class="PUNC">(</span><span class="STRN">"Range"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">lodRange1</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">','</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">lodRange2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">                </span><span class="NAME">lodNode.setAttribute</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">'lod'</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">info.ID</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>421</span> 
+<span class='line'>422</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ElevationGrid</span><span class="PUNC">(</span><span class="NAME">lodNode</span><span class="PUNC">,</span><span class="NAME">info</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">hm</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">appearance</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="WHIT">                </span><span class="NAME">transform.appendChild</span><span class="PUNC">(</span><span class="NAME">lodNode</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">                </span><span class="NAME">root.appendChild</span><span class="PUNC">(</span><span class="NAME">transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>425</span> 
+<span class='line'>426</span> </span><span class="WHIT">                </span><span class="COMM">//Delete vars avoid circular references</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">                </span><span class="NAME">info</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">                </span><span class="NAME">hm</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">                </span><span class="NAME">appearance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>430</span> </span><span class="WHIT">                </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="WHIT">                </span><span class="NAME">lodNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>432</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">            </span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">error</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="WHIT">                </span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">'Terrain::CreateNewChunk(): '</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">error</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>437</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>438</span> </span><span class="WHIT">        </span><span class="NAME">canvasTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>439</span> </span><span class="WHIT">        </span><span class="NAME">chunkInfo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>440</span> 
+<span class='line'>441</span> </span><span class="WHIT">        </span><span class="NAME">EarthServerGenericClient_MainScene.reportProgress</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="NAME">EarthServerGenericClient.LODTerrain.inheritsFrom</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">EarthServerGenericClient.AbstractTerrain</span><span class="PUNC">)</span><span class="PUNC">;</span></pre></body></html>

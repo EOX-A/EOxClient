@@ -51,11 +51,11 @@ ul, li {
 }
 
 .toolcontrol {
+	position: absolute;
 	top: 120px;
 	right: 2%;
 	padding: 2px;
-	float: right;
-
+	//float: right;
 }
 
 .toolcontrol ul {
