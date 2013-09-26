@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<title>GlobWeb example</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="GlobWeb.css">
+
+<script  src="require.min.js"></script>
+<script type="text/javascript">
+	
+require(['../src/Globe','../src/WMSLayer','../src/WCSElevationLayer','../src/Navigation','../src/Stats','../src/GroundOverlayLayer'], 
+	function (Globe,WMSLayer,WCSElevationLayer,Navigation,Stats,GroundOverlayLayer) 
+{	
+	var cvs = document.getElementById("GlobWebCanvas");
+	cvs.width = window.innerWidth;
+	cvs.height = window.innerHeight;
+	
+	// Create the globe
+	var globe = new Globe( { canvas: cvs, 
+			atmosphere: false,
+			lighting: false,
+			tileErrorTreshold: 3, 
+			continuousRendering: true } );
+
+	// Add mouse navigation
+	var navigation = new Navigation(globe);
+	
+	// Add stats
+	var stats = new Stats( globe, {element: 'fps', verbose: false} );
+
+	var blueMarbleLayer = new WMSLayer({ baseUrl: "http://demonstrator.vegaspace.com/wmspub", layers: "BlueMarble" });
+	globe.setBaseImagery( blueMarbleLayer );
+		
+	var elevationLayer = new WCSElevationLayer({ baseUrl:"http://demonstrator.telespazio.com/wcspub", coverage: "GTOPO", version: "1.0.0"});
+	globe.setBaseElevation( elevationLayer );
+			
+	var go1 = new GroundOverlayLayer( { image:"GlobWeb.png", quad: [ [-1,45], [-2,46], [0,48], [1,47]  ], opacity: 0.5, flipY: false });
+	globe.addLayer( go1 );
+
+	var go2 = new GroundOverlayLayer( { image:"GlobWeb.png", quad: [ [10,40], [18,40], [15,48], [10,45] ] });
+	globe.addLayer( go2 );
+});
+
+</script>
+
+</head>
+
+
+<body  style="margin: 0; padding: 0;">
+    <canvas id="GlobWebCanvas" style="border: none; margin: 0; padding: 0;" width="800" height="600"></canvas> 
+ 	<div id="fps"></div>
+</body>
+
+</html>
+
