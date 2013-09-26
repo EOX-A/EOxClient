@@ -31,6 +31,25 @@
 		"libcoverage"
 	],
 	function ( Backbone, App ) {
+
+		// FIXXME: MH: that took me a while:
+		// document.getElementsByTagName() returns a NodeList. However, if x3dom.js is included together with OpenLayers.js
+		// it is magically returning an Array. The OpenLayers.Map constructor tries to access the returned value with ret.item(i),
+		// which is of course not working on an Array, only on a NodeList.
+		// I couldn't find the problem in the x3dom.js file, so for now I'm patching the Array object with an 'item' function.
+		// If someone knows what is going on here give me a hint ;-)
+		Array.prototype.item = function(idx) {
+			return this[idx];
+		};
+
+		// Testcode: If x3dom.js is not included, this code works fine (as it should). With x3dom.js included 'nodes' is an
+		// Array instead of a NodeList, which does not include a .item() function:
+		var nodes = document.getElementsByTagName('link');
+		console.dir(nodes);
+		for (var i = 0, len = nodes.length; i < len; ++i) {
+			console.log("link: " + nodes.item(i).href);
+		}		
+		
 		$.get("scripts/config.json", function(values) {
 			
 			// Configure Debug options
