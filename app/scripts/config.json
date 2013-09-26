@@ -1,6 +1,6 @@
 {
 
-  "debug":false,
+  "debug": true,
 
   "mapConfig": {
     "module": "views/MapView",
