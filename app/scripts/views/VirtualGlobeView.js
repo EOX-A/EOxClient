@@ -93,9 +93,13 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 		}
 	});
 
+	// FIXXME: MH: create a module/controller!
+	var _myView = undefined;
 	Communicator.registerEventHandler("viewer:show:virtualglobeviewer", function() {
-		console.log("[VirtualGlobeView] Command 'viewer:show:virtualglobeviewer' executed");		
-		App.viewer.show(new GlobeView());
+		if (!_myView) {
+			_myView = new GlobeView();
+		}
+		App.viewer.show(_myView);
 	});
 
 	return {
