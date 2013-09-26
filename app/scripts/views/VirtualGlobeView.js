@@ -8,8 +8,6 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 		className: "globe",
 
 		initialize: function() {
-			this._globe = null;
-
 			$(window).resize(function() {
 				this.onResize();
 			}.bind(this));
@@ -33,6 +31,54 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 			console.log("[GlobeView::selectProduct] selected " + model.get("name"));
 		},
 
+		createGlobe: function() {
+			// Create the globe
+			this._globe = new GlobWeb.Globe({
+				canvas: this.el,
+				lighting: false,
+				tileErrorTreshold: 3,
+				continuousRendering: false,
+				backgroundColor: [0, 0, 0, 0],
+				// backgroundColor: [0.8, 0.8, 0.8, 1],
+				shadersPath: "lib/modules/Globe/backend/GlobWeb/shaders/"
+			});
+
+			// Add mouse navigation
+			var navigation = new GlobWeb.Navigation(this._globe, {
+				inertia: true
+			});
+
+			// Add stats
+			// var stats = new GlobWeb.Stats(globe, {
+			// 	element: 'fps',
+			// 	verbose: false
+			// });
+
+			// var osmLayer = new GlobWeb.OSMLayer({
+			// 	baseUrl: "http://tile.openstreetmap.org"
+			// });
+			// globe.setBaseImagery(osmLayer);
+
+			var blueMarbleLayer = new GlobWeb.WMSLayer({
+				baseUrl: "http://demonstrator.telespazio.com/wmspub",
+				layers: "BlueMarble",
+				opacity: 0.1
+			});
+			this._globe.setBaseImagery(blueMarbleLayer);
+
+			// var eoxLayer = new GlobWeb.WMTSLayer({
+			// 	baseUrl: "http://c.maps.eox.at/tiles/wmts",
+			// 	style: "default",
+			// 	layer: "terrain_wgs84",
+			// 	format: "image/png",
+			// 	matrixSet: "WGS84"
+			// });
+			// eoxLayer.opacity(0.5);
+			// this._globe.addLayer(eoxLayer);
+
+			this.onResize();
+		},
+
 		onResize: function() {
 			// console.log("w: " + this._globe.renderContext.canvas.width + " / " + this.$el.width());
 			// console.log("h: " + this._globe.renderContext.canvas.height + " / " + this.$el.height());
@@ -48,48 +94,10 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 		},
 
 		onShow: function() {
-			// Create the globe
-			var globe = this._globe = new GlobWeb.Globe({
-				canvas: this.el,
-				lighting: false,
-				tileErrorTreshold: 3,
-				continuousRendering: false,
-				backgroundColor: [0, 0, 0, 0],
-				// backgroundColor: [0.8, 0.8, 0.8, 1],
-				shadersPath: "lib/modules/Globe/backend/GlobWeb/shaders/"
-			});
-
-			// Add mouse navigation
-			var navigation = new GlobWeb.Navigation(globe, {
-				inertia: true
-			});
-
-			// Add stats
-			// var stats = new GlobWeb.Stats(globe, {
-			// 	element: 'fps',
-			// 	verbose: false
-			// });
-
-			// var osmLayer = new GlobWeb.OSMLayer({
-			// 	baseUrl: "http://tile.openstreetmap.org"
-			// });
-			// globe.setBaseImagery(osmLayer);
-
-			// var myMapLayer = new GlobWeb.WMSLayer({
-			// 	baseUrl: "http://localhost:9000/service",
-			// 	layers: "osm",
-			// 	opacity: 1
-			// });
-			// globe.setBaseImagery(myMapLayer);
-
-			var blueMarbleLayer = new GlobWeb.WMSLayer({
-				baseUrl: "http://demonstrator.telespazio.com/wmspub",
-				layers: "BlueMarble",
-				opacity: 0.1
-			});
-			globe.setBaseImagery(blueMarbleLayer);
-
-			this.onResize();
+			if (!this._globe) {
+				this.createGlobe();
+				this.onResize();
+			}
 		}
 	});
 
