@@ -95,7 +95,7 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 
 	Communicator.registerEventHandler("viewer:show:virtualglobeviewer", function() {
 		console.log("[VirtualGlobeView] Command 'viewer:show:virtualglobeviewer' executed");		
-		App.viewer.show(new GlobeView);
+		App.viewer.show(new GlobeView());
 	});
 
 	return {

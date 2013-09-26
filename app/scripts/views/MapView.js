@@ -11,8 +11,9 @@ define(['backbone.marionette',
 			var MapView = Marionette.View.extend({
 				
 				onShow: function() {
-					// FIXXME: quick hack to prevent OpenLayers to delete the region it is loaded in.
-					this.$el.html("<div id='map'></div>");
+					// MH: Explicitly tell OpenLayers to take this view's div to operate in. Otherwise the
+					// region was deleted after switching viewers:
+					this.$el.attr('id', 'map');
 					this.map = new OpenLayers.Map({div: "map", fallThrough: true});
 					console.log("Created Map");
 
@@ -201,7 +202,7 @@ define(['backbone.marionette',
 			});
 			
 			Communicator.registerEventHandler("viewer:show:map", function() {
-				App.viewer.show(new MapView);
+				App.viewer.show(new MapView());
 				console.log("[MapView] Command 'viewer:show:map' executed");
 			});
 
