@@ -44,6 +44,19 @@ ul, li {
 	display: none;
 }
 
+.selectionManager{
+	display: block;
+	position: absolute;
+	top: 120px;
+	left: 15%;
+	margin:0px auto;
+	left:0;
+	right:0;
+	width: 750px;
+	padding: 0;
+	font-size: 12px;
+}
+
 .popover {
   position: fixed;
 }

@@ -285,6 +285,14 @@
 
   "visualizationTools":[
     {
+      "id":"selectionManager",
+      "eventToRaise":"ui:open:selectionManager",
+      "description": "Allows importing, exporting and saving selections",
+      "icon":"icon-edit",
+      "enabled":true,
+      "active":false
+    },
+    {
       "id":"download",
       "eventToRaise":"dialog:open:download",
       "description": "WCS Download Tool for specific selections",
@@ -292,6 +300,7 @@
       "enabled":false,
       "active":false
     }
+    
   ]
 
 }

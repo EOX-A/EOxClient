@@ -12,6 +12,7 @@
 		'jquery', 'backbone.marionette',
 		'controller/ContentController',
 		'controller/DownloadController',
+		'controller/SelectionManagerController',
 		'router'
 	],
 
