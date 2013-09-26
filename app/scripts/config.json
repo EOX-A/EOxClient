@@ -314,6 +314,13 @@
       "icon":"icon-download-alt",
       "enabled":false,
       "active":false
+    }, {
+      "id":"selectionManager",
+      "eventToRaise":"ui:open:selectionManager",
+      "description": "Allows importing, exporting and saving selections",
+      "icon":"icon-edit",
+      "enabled":true,
+      "active":false
     }
   ]
 

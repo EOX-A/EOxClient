@@ -5,8 +5,11 @@ define(['backbone.marionette',
 		'app',
 		'globals',
 		'openlayers',
-		'models/MapModel'],
-		function( Marionette, Communicator, App, globals ) {
+		'models/MapModel',
+		'FileSaver'
+		],
+function( Marionette, Communicator, App, globals ) {
+
 
 			var MapView = Marionette.View.extend({
 				
@@ -26,24 +29,26 @@ define(['backbone.marionette',
 					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
 					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
+					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
+					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 
 					// Add layers for different selection methods
-					var pointLayer = new OpenLayers.Layer.Vector("Point Layer");
-	                var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
-	                var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
-	                var boxLayer = new OpenLayers.Layer.Vector("Box layer");
+					this.pointLayer = new OpenLayers.Layer.Vector("Point Layer");
+	                this.lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+	                this.polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
+	                this.boxLayer = new OpenLayers.Layer.Vector("Box layer");
 
-	                this.map.addLayers([pointLayer, lineLayer, polygonLayer, boxLayer]);
+	                this.map.addLayers([this.pointLayer, this.lineLayer, this.polygonLayer, this.boxLayer]);
 	                this.map.addControl(new OpenLayers.Control.MousePosition());
 
 	                this.drawControls = {
-	                    pointSelection: new OpenLayers.Control.DrawFeature(pointLayer,
+	                    pointSelection: new OpenLayers.Control.DrawFeature(this.pointLayer,
 	                        OpenLayers.Handler.Point),
-	                    lineSelection: new OpenLayers.Control.DrawFeature(lineLayer,
+	                    lineSelection: new OpenLayers.Control.DrawFeature(this.lineLayer,
 	                        OpenLayers.Handler.Path),
-	                    polygonSelection: new OpenLayers.Control.DrawFeature(polygonLayer,
+	                    polygonSelection: new OpenLayers.Control.DrawFeature(this.polygonLayer,
 	                        OpenLayers.Handler.Polygon),
-	                    bboxSelection: new OpenLayers.Control.DrawFeature(boxLayer,
+	                    bboxSelection: new OpenLayers.Control.DrawFeature(this.boxLayer,
 	                        OpenLayers.Handler.RegularPolygon, {
 	                            handlerOptions: {
 	                                sides: 4,
@@ -69,8 +74,16 @@ define(['backbone.marionette',
 					}, this);
 
 					// Order (sort) the product layers based on collection order
-
 					this.onSortProducts();
+
+					// Openlayers format readers for loading geojson selections
+					var io_options = {
+		                'internalProjection': this.map.baseLayer.projection,
+		                'externalProjection': new OpenLayers.Projection('EPSG:4326')
+		            }; 
+
+					this.geojson = new OpenLayers.Format.GeoJSON(io_options);
+
 
 					//Set attributes of map based on mapmodel attributes
 				    var mapmodel = globals.objects.get('mapmodel');
@@ -192,6 +205,38 @@ define(['backbone.marionette',
 	                    
 	                	}	
 		            }
+				},
+
+				onLoadGeoJSON: function (data) {
+					var features = this.geojson.read(data);
+					var bounds;
+		            if(features) {
+		                if(features.constructor != Array) {
+		                    features = [features];
+		                }
+		                for(var i=0; i<features.length; ++i) {
+		                    if (!bounds) {
+		                        bounds = features[i].geometry.getBounds();
+		                    } else {
+		                        bounds.extend(features[i].geometry.getBounds());
+		                    }
+
+		                }
+		                this.polygonLayer.addFeatures(features);
+		                this.map.zoomToExtent(bounds);
+					}
+				},
+
+				onExportGeoJSON: function() {
+					var geojsonstring = [];
+					var features = this.polygonLayer.features;
+
+					_.each(features, function (feature) {
+						geojsonstring.push(this.geojson.write(feature, true));
+					},this);
+					
+					var blob = new Blob(geojsonstring, {type: "text/plain;charset=utf-8"});
+					saveAs(blob, "selection.geojson");
 				},
 				
 				onDone: function (evt) {
