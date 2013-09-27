@@ -6,7 +6,7 @@ define(['backbone.marionette',
 		'globals',
 		'openlayers',
 		'models/MapModel',
-		'FileSaver'
+		'filesaver'
 		],
 function( Marionette, Communicator, App, globals ) {
 
