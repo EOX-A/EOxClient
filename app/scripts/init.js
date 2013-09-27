@@ -32,7 +32,7 @@
                 deps: ['backbone']/*,
                 exports: 'WCS'*/
             },
-            FileSaver: {
+            filesaver: {
                 exports: 'saveAs'
             }
         },
@@ -45,7 +45,7 @@
             d3: '../bower_components/d3/d3.min',
             timeslider: '../bower_components/d3.TimeSlider/d3.timeslider.min',
             libcoverage: '../bower_components/libcoverage/libcoverage.min',
-            FileSaver: '../bower_components/filesaver/FileSaver',
+            filesaver: '../bower_components/filesaver/FileSaver',
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',
