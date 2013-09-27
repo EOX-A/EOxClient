@@ -5,7 +5,7 @@ define(['backbone',
 		'globals',
 		'openlayers',
 		'models/MapModel',
-		'FileSaver'
+		'filesaver'
 		],
 		function( Backbone, Communicator, globals ) {
 
