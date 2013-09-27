@@ -137,9 +137,9 @@
 				}, this);
 
 
-				// Create map view and execute show of its region
-				this.map.show(new v.MapView);
-				//this.map.show(new v.VirtualGlobeView);
+				// Tell the application to initially show the 2D map widget:
+				Communicator.mediator.trigger("viewer:show:map");
+				
 				// If Navigation Bar is set in configuration go trhough the 
 				// defined elements creating a item collection to rendered
 				// by the marionette collection view
