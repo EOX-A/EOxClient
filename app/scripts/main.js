@@ -85,12 +85,11 @@
 			), function(){
 				App.configure(values);
 				App.start();
-			});
-
-			
-
-				
-		});
+			});				
+		}).fail(function( jqXHR, textStatus, errorThrown ) {
+			console.log("Loading 'scripts/config.json' failed with error: ");
+			console.log(errorThrown);
+	  	});
 		
 	});
 }).call( this );
