@@ -221,15 +221,10 @@ define(['backbone',
 					}
 				},
 
-				onExportGeoJSON: function() {
-					var geojsonstring = [];
-					var features = this.polygonLayer.features;
-
-					_.each(features, function (feature) {
-						geojsonstring.push(this.geojson.write(feature, true));
-					},this);
+				onExportGeoJSON: function() {		
+					var geojsonstring = this.geojson.write(this.polygonLayer.features, true);
 					
-					var blob = new Blob(geojsonstring, {type: "text/plain;charset=utf-8"});
+					var blob = new Blob([geojsonstring], {type: "text/plain;charset=utf-8"});
 					saveAs(blob, "selection.geojson");
 				},
 				

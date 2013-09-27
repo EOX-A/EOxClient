@@ -18,17 +18,18 @@
 			model: new m.SelectionModel(),
 
 	    initialize: function(options){
-	      	this.model.set('products', []);
+	      	this.model.set('selections', []);
 	        this.listenTo(Communicator.mediator, "selection:changed", this.onSelectionChange);
 	        this.listenTo(Communicator.mediator, "ui:open:selectionManager", this.onSelectionManagerOpen);
 		},
 
 	    onSelectionChange: function(selection) {
 	        if (selection != null) {
-	        	var selections = this.model.get('selection').push(selection);
-	            this.model.set('selection', selections);
+	        	var selections = this.model.get('selections');
+	        	selections.push(selection);
+	            this.model.set('selections', selections);
 	        }else{
-	        	this.model.set('selection', []);
+	        	this.model.set('selections', []);
 	        }
 		},
 
