@@ -161,11 +161,11 @@
   ],
 
   "navBarConfig": {
-    "title" : "EOxClient",
-    "url" : "http://www.eox.at",
+    "title" : "V-MANIP",
+    "url" : "https://v-manip.eox.at/",
     "items" : [
       {
-        "name" : "Layer Controls",
+        "name" : "Layers",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl"
       },
