@@ -13,6 +13,7 @@
 		'controller/ContentController',
 		'controller/DownloadController',
 		'controller/SelectionManagerController',
+		'controller/VirtualGlobeViewerController',
 		'router'
 	],
 

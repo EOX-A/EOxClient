@@ -101,14 +101,14 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 		}
 	});
 
-	// FIXXME: MH: create a module/controller!
-	var _myView = undefined;
-	Communicator.registerEventHandler("viewer:show:virtualglobeviewer", function() {
-		if (!_myView) {
-			_myView = new GlobeView();
-		}
-		App.map.show(_myView);
-	});
+	// // FIXXME: MH: create a module/controller!
+	// var _myView = undefined;
+	// Communicator.registerEventHandler("viewer:show:virtualglobeviewer", function() {
+	// 	if (!_myView) {
+	// 		_myView = new GlobeView();
+	// 	}
+	// 	App.map.show(_myView);
+	// });
 
 	return {
 		'VirtualGlobeView': GlobeView
