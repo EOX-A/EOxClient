@@ -61,14 +61,17 @@
 				viewModules,							//All "activated" views are loaded
 				models,
 				templates
-			), function(){
+			), function() {
+				App.on("initialize:after", function(options) {
+					if (Backbone.history) {
+            			Backbone.history.start({
+            				pushState: false
+            			});
+					}
+				});	
 				App.configure(values);
 				App.start();
-			});
-
-			
-
-				
+			});				
 		});
 		
 	});
