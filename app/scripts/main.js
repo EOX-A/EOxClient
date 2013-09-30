@@ -28,7 +28,8 @@
 		'jqueryui',
 		"text!config.json",
 		"util",
-		"libcoverage"
+		"libcoverage",
+		'controller/VirtualGlobeViewerController'
 	],
 	function ( Backbone, App ) {
 

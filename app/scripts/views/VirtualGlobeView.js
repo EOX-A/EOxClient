@@ -110,9 +110,7 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 	// 	App.map.show(_myView);
 	// });
 
-	return {
-		'VirtualGlobeView': GlobeView
-	};
+	return GlobeView;
 
 }); // end module definition
 
