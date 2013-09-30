@@ -127,7 +127,7 @@ define(["backbone.marionette", "app", "communicator", "jqueryui"],
 					el: $('#x3dom')
 				});
 			}
-			App.viewer.show(_myView);
+			App.map.show(_myView);
 		});
 
 		return {

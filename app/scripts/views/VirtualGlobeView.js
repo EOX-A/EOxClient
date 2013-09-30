@@ -66,15 +66,15 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 			});
 			this._globe.setBaseImagery(blueMarbleLayer);
 
-			// var eoxLayer = new GlobWeb.WMTSLayer({
-			// 	baseUrl: "http://c.maps.eox.at/tiles/wmts",
-			// 	style: "default",
-			// 	layer: "terrain_wgs84",
-			// 	format: "image/png",
-			// 	matrixSet: "WGS84"
-			// });
-			// eoxLayer.opacity(0.5);
-			// this._globe.addLayer(eoxLayer);
+			var eoxLayer = new GlobWeb.WMTSLayer({
+				baseUrl: "http://c.maps.eox.at/tiles/wmts",
+				style: "default",
+				layer: "terrain_wgs84",
+				format: "image/png",
+				matrixSet: "WGS84"
+			});
+			eoxLayer.opacity(0.5);
+			this._globe.addLayer(eoxLayer);
 
 			this.onResize();
 		},
@@ -107,7 +107,7 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 		if (!_myView) {
 			_myView = new GlobeView();
 		}
-		App.viewer.show(_myView);
+		App.map.show(_myView);
 	});
 
 	return {

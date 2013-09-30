@@ -135,8 +135,8 @@
 
   "regions": [
     {
-      "name": "viewer",
-      "class": "viewer-fullscreen"
+      "name": "map",
+      "class": "map-fullscreen"
     },
     {
       "name": "leftSideBar",

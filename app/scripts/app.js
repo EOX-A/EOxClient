@@ -138,7 +138,7 @@
 
 
 				// Create map view and execute show of its region
-				this.viewer.show(new v.MapView);
+				this.map.show(new v.MapView);
 				//this.map.show(new v.VirtualGlobeView);
 				// If Navigation Bar is set in configuration go trhough the 
 				// defined elements creating a item collection to rendered

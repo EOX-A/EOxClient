@@ -242,8 +242,7 @@ function( Marionette, Communicator, App, globals ) {
 			});
 			
 			Communicator.registerEventHandler("viewer:show:map", function() {
-				App.viewer.show(new MapView());
-				console.log("[MapView] Command 'viewer:show:map' executed");
+				App.map.show(new MapView());
 			});
 
 			return {"MapView":MapView};
