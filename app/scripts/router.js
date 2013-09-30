@@ -15,8 +15,6 @@
 		App.addInitializer(function (options) {
             //Create a new Router
             App.router = new Router();
-            //start history
-            Backbone.history.start({pushState: false});
         });
 
 
