@@ -26,7 +26,7 @@
 				// create commands
 				this.command = new Backbone.Wreqr.Commands();
 
-				this.on('all')
+				this.on('all');
 			},
 
 			registerEventHandler: function(eventid, handler) {
@@ -41,6 +41,14 @@
 				this.mediator.on(eventid, function() {
 					this.command.execute(eventid);
 				}.bind(this));
+			},
+
+			setAoiModel: function(model) {
+				this.aoiModel = model;
+			},
+
+			getAoiModel: function() {
+				return this.aoiModel;
 			}
 		});
 

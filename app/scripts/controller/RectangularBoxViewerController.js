@@ -19,7 +19,10 @@ define([
 
 			show: function() {
 				if (typeof(this.rbvView) == 'undefined') {
-					this.rbvView = new RectangularBoxView({});
+					this.rbvView = new RectangularBoxView({
+						x3did: '#x3dom',
+						hideid: '#hidden'
+					});
 				}
 
 				App.map.show(this.rbvView);
