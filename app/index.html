@@ -17,12 +17,11 @@
         <link rel="stylesheet" href="bower_components/d3.TimeSlider/d3.timeslider.min.css" />
         
         <link rel="stylesheet" type="text/css" href="bower_components/earthserver/css/earthservergenericclient.css" />
-        <link rel="stylesheet" type="text/css" href="bower_components/earthserver/js-ext/jquery-ui-1.10.2/themes/base/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/earthserver/js-ext/jquery-ui/themes/base/jquery-ui.css">
         <!-- endbuild -->
 
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
-        <script src="http://x3dom.org/download/dev/x3dom.js"></script>
         <!-- endbuild -->
     </head>
     <body>
@@ -52,11 +51,15 @@
         <div id="x3dom">
             <div id="progressbar"></div>
             <X3D id="x3d" showlog="false" showstat="false">
-                <scene id="x3dScene"></scene>
+                <scene id="x3dScene">
+                    <group id="root">
+                        <group id="theScene" DEF='theScene'></group>
+                    </group>
+                </scene>
             </X3D>
 
             <div id='x3domUI'></div>
-        </div>        
+        </div>
 
         <!-- HIDDEN DOWNLOAD DIV -->
         <div id="div-downloads">
@@ -66,15 +69,8 @@
         <!-- build:js scripts/main.js -->
         
         <!-- FIXXME: MH: create a bower component for earthserver -->
-        <script src="../bower_components/earthserver/js/SceneModules.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/ElevationGrid.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/Terrain.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/ServerRequest.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/Module_WCPSDemAlpha.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/Module_WCPSDemWCS.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/Module_WMSDemWCS.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/UI_jQueryUI.js" type="text/javascript"></script>
-        <script src="../bower_components/earthserver/js/AnnotationLayer.js" type="text/javascript"></script>   
+        <script type="text/javascript" src="bower_components/earthserver/js-ext/x3dom-full.js"></script>
+        <script type="text/javascript" src="bower_components/earthserver/js/EarthServerClient.js"></script>
 
         <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->

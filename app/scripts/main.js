@@ -52,9 +52,7 @@
 		// console.dir(nodes);
 		// for (var i = 0, len = nodes.length; i < len; ++i) {
 		// 	console.log("link: " + nodes.item(i).href);
-		// }		
-		
-		$('#x3dom').hide();
+		// }
 
 		$.get("scripts/config.json", function(values) {
 			
@@ -95,6 +93,11 @@
 					} else {
 						alert('Your browser has no "History API" support. Be aware that the application could behave in unexpected ways. Please consider updating your browser!')
 					}
+
+					// When x3dom.js is loaded the X3D element within #x3dom has to be within the DOM for initialization.
+					// Otherwise EarthServerClient.js crashes in its exitFrame() function. Hidding the element here ensures
+					// it is initialized correctly in the beginning.
+					$('#x3dom').hide();					
 				});	
 				App.configure(values);
 				App.start({

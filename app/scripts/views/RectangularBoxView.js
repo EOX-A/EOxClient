@@ -4,7 +4,7 @@ define(["backbone.marionette", "app", "communicator", "jqueryui"],
 		'use strict';
 
 		var BoxView = Marionette.View.extend({
-			
+
 			initialize: function() {
 				this.isInitialized = false;
 
@@ -21,97 +21,128 @@ define(["backbone.marionette", "app", "communicator", "jqueryui"],
 			},
 
 			hide: function() {
-				$("#x3dom").hide();
+				$('#x3dom').hide();
 				$("#x3domUI").hide();
 			},
 
 			show: function() {
 				this.onResize();
 
-				$("#x3dom").show();
+				$('#x3dom').show();
 				$("#x3domUI").show();
 			},
 
 			onShow: function() {
+
+				this.show();
+
 				if (!this.isInitialized) {
-					//x3dom.reload();
-					// FIXXME: for whatever reason this global is necessary within the EarthServer library code!
-					//         funny :-(
-					window.EarthServerGenericClient_MainScene = new EarthServerGenericClient.SceneManager();
-					EarthServerGenericClient_MainScene.setTimeLog(false);
 
-					var q = new EarthServerGenericClient.Model_WCPSDemAlpha();
-					q.setName("BGS High Resolution");
-					q.setURL("http://earthserver.bgs.ac.uk/petascope");
-					q.setCoverages("bgs_rs", "os_dtm");
-					q.setAreaOfInterest(400000, 500000, 450000, 550000);
-					//q.setAreaOfInterest(375000,475000,475000,575000);
-					q.setScale(1.0, 0.3, 1.0);
-					q.setResolution(600, 600);
-					//q.setProgressiveLoading(true);
+					// basic setup:
+					EarthServerGenericClient.MainScene.setTimeLog(false); //TimeLogging: outputs time of loading and building the models to the console
+					EarthServerGenericClient.MainScene.addLightToScene(true); //Adds a light into the scene
+					// background of the render window
+					// EarthServerGenericClient.MainScene.setBackground("0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57", "0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57");
 
-					// var WMS = new EarthServerGenericClient.Model_WMSDemWCS();
-					// WMS.setName("WMS_WCS");
-					// WMS.setURLs("http://planetserver.jacobs-university.de:8080/petascope/wms", "http://planetserver.jacobs-university.de:8080/petascope");
-					// WMS.setCoverages("galehrsc_wms", "galehrscdtm");
-					// WMS.setWMSVersion("1.1");
-					// WMS.setCoordinateReferenceSystem("SRS", "EPSG:4326");
-					// WMS.setAreaOfInterest(137, -6, 138, -5);
-					// WMS.setResolution(1000, 1000);
-					// WMS.setOffset(0, 0.4, 0);
+					// Onclick function example
+					EarthServerGenericClient.MainScene.OnClickFunction = function(modelIndex, hitPoint) {
+						var height = EarthServerGenericClient.MainScene.getDemValueAt3DPosition(modelIndex, hitPoint[0], hitPoint[2]);
+						console.log("Height at clicked position: ", height);
+					};
 
-					// var w = new EarthServerGenericClient.Model_WCPSDemAlpha();
-					// w.setName("BGS Low Resolution");
-					// w.setURL("http://earthserver.bgs.ac.uk/petascope");
-					// w.setCoverages("bgs_rs", "os_dtm");
-					// w.setAreaOfInterest(400000, 500000, 450000, 550000);
-					// w.setScale(1.0, 0.2, 1.0);
-					// w.setOffset(0, 0.4, 0);
-					// w.setResolution(200, 200);
-					// w.setWCPSForChannelRED('scale(trim($CI.red, {x($MINX:$MAXX), y($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
-					// w.setWCPSForChannelGREEN('scale(trim($CI.green, {x($MINX:$MAXX), y($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
-					// w.setWCPSForChannelBLUE('scale(trim($CI.blue, {x($MINX:$MAXX), y($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
-					// w.setWCPSForChannelALPHA('(char) (((scale(trim(dtm , {x($MINX:$MAXX), y($MINY:$MAXY)}), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {})) / 1349) * 255)');
+					var BGS = new EarthServerGenericClient.Model_WCPSDemWCPS();
+					BGS.setName("BGS 2x WCPS");
+					BGS.setURLs("http://earthserver.bgs.ac.uk/petascope");
+					BGS.setCoverages("bgs_rs", "os_dtm");
+					BGS.setAreaOfInterest(400000, 500000, 450000, 550000);
+					BGS.setResolution(500, 500);
+					BGS.setOffset(0, 0.2, 0);
+					BGS.setScale(1, 0.3, 1);
+					BGS.setCoordinateReferenceSystem("http://www.opengis.net/def/crs/EPSG/0/27700");
+					BGS.setSidePanels(true);
 
-					var g = new EarthServerGenericClient.Model_WCPSDemWCS();
-					g.setURLs("http://planetserver.jacobs-university.de:8080/petascope/wcps.php", "http:///planetserver.jacobs-university.de:8080/petascope");
-					g.setCoverages("FRT0000C51807L", "galehrscdtm");
-					g.setAreaOfInterest(137, -6, 138, -5);
-					g.setResolution(1000, 1000);
-					g.setOffset(0, 0.4, 0);
-					//g.setTransparency(0.5);
 
-					var g_query = 'for data in ( $CI ) return encode( (char)({';
-					g_query += 'red: (char) (255 / (max(((data.100)!=65535) * (data.100)) - min(data.100))) * ((data.100) - min(data.100));';
-					g_query += 'green: (char) (255 / (max(((data.200)!=65535) * (data.200)) - min(data.200))) * ((data.200) - min(data.200));';
-					g_query += 'blue: (char) (255 / (max(((data.300)!=65535) * (data.300)) - min(data.300))) * ((data.300) - min(data.300))';
-					g_query += ', "png" )';
-					g.setWCPSQuery(g_query);
+					var BGS_LOW = new EarthServerGenericClient.Model_WCPSDemAlpha();
+					BGS_LOW.setName("BGS Low Resolution");
+					BGS_LOW.setURL("http://earthserver.bgs.ac.uk/petascope");
+					BGS_LOW.setCoverages("bgs_rs", "os_dtm"); // can be referenced as "$CI" and "$CD" in the WCPS Query
+					BGS_LOW.setAreaOfInterest(400000, 500000, 450000, 550000);
+					BGS_LOW.setCoordinateReferenceSystem("http://www.opengis.net/def/crs/EPSG/0/27700");
+					BGS_LOW.setScale(1.0, 0.2, 1.0);
+					BGS_LOW.setOffset(0, 0.8, 0);
+					BGS_LOW.setResolution(200, 200);
+					BGS_LOW.setWCPSForChannelRED('scale(trim($CI.red, {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
+					BGS_LOW.setWCPSForChannelGREEN('scale(trim($CI.green, {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
+					BGS_LOW.setWCPSForChannelBLUE('scale(trim($CI.blue, {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY) }), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {});');
+					BGS_LOW.setWCPSForChannelALPHA('(char) (((scale(trim($CD , {x:$CRS($MINX:$MAXX), y:$CRS($MINY:$MAXY)}), {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {})) / 1349) * 255)');
 
-					//EarthServerGenericClient_MainScene.addModel(q);
-					EarthServerGenericClient_MainScene.addModel(g);
+					var Bedrock = new EarthServerGenericClient.Model_WMSDemWCPS();
+					Bedrock.setName("Bedrock geology on ground surface");
+					Bedrock.setURLs("http://ogc.bgs.ac.uk/cgi-bin/BGS_Bedrock_and_Superficial_Geology/wms", "http://earthserver.bgs.ac.uk/petascope");
+					Bedrock.setCoverages("GBR_BGS_625k_BLS", "os_dtm");
+					Bedrock.setAreaOfInterest(254750.0, 659824.9, 265250.0, 670024.9);
+					Bedrock.setWMSCoordinateReferenceSystem("CRS", "EPSG:27700");
+					Bedrock.setWCPSCoordinateReferenceSystem("http://www.opengis.net/def/crs/EPSG/0/27700");
+					Bedrock.setScale(1.0, 0.3, 1.0); // Size within the cube 100%width, 30%height and 100%length
+					Bedrock.setOffset(0, 1.0, 0);
+					Bedrock.setResolution(256, 256); // Resolution of the model
 
-					EarthServerGenericClient_MainScene.createScene('dummy_not_used', "x3dScene", 1, 0.8, 1);
 
-					EarthServerGenericClient_MainScene.addAnnotationsLayer("TEST", 50, "1 1 1", 25, 6, "1 1 1");
-					EarthServerGenericClient_MainScene.addAnnotation("TEST", 310, 35, -170, "CityName");
-					EarthServerGenericClient_MainScene.addAnnotation("TEST", 200, -45, 400, "You can annotate here");
+					var glasgow_witi_t = new EarthServerGenericClient.Model_WCPSDemWCPS();
+					glasgow_witi_t.setName("Wilderness Till Formation");
+					glasgow_witi_t.setURLs("http://earthserver.bgs.ac.uk/petascope", "http://earthserver.bgs.ac.uk/petascope");
+					glasgow_witi_t.setCoverages("glasgow_witi_t", "glasgow_witi_t");
+					glasgow_witi_t.setAreaOfInterest(254750.0, 659824.9, 265250.0, 670024.9);
+					glasgow_witi_t.setCoordinateReferenceSystem("http://www.opengis.net/def/crs/EPSG/0/27700");
+					glasgow_witi_t.setScale(1.0, 0.3, 1.0); // Size within the cube 100%width, 30%height and 100%length
+					glasgow_witi_t.setOffset(0, 0.4, 0);
+					glasgow_witi_t.setResolution(105, 102); // Resolution of the model
+					// This value will be considered as NODATA in the DEM. Vertices with that value will not be used and gaps are left.
+					glasgow_witi_t.setDemNoDataValue(0);
+					// The user can set the height of the model manually to make sure multiple models have the same scaling.
+					// Per default this value will be determined by the difference between the dems's min and max values.
+					glasgow_witi_t.setHeightResolution(100);
+					var query = 'for i in ( $CI ) ';
+					query += 'return encode( ';
+					query += '{ ';
+					query += 'red: (char) 0; ';
+					query += 'green: (char) scale((i != -340282346638528859811704183484516925440.0) * 240, {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {}); ';
+					query += 'blue: (char) 0 ';
+					query += '} ';
+					query += ', "png", "nodata=0,0,0")';
+					glasgow_witi_t.setWCPSImageQuery(query);
+					var demquery = 'for i in ( glasgow_witi_t ) ';
+					demquery += 'return encode( ';
+					demquery += ' scale((i != -340282346638528859811704183484516925440.0) * i, {x:"CRS:1"(0:$RESX), y:"CRS:1"(0:$RESZ)}, {}) ';
+					demquery += ', "csv" )';
+					glasgow_witi_t.setWCPSDemQuery(demquery);
 
-					EarthServerGenericClient_MainScene.createUI('x3domUI');
-					EarthServerGenericClient_MainScene.setAxisLabels("Latitude", "Height", "Longitude");
-					EarthServerGenericClient_MainScene.createAxisLabels();
+					// add models to the scene
+					EarthServerGenericClient.MainScene.addModel(BGS);
+					EarthServerGenericClient.MainScene.addModel(BGS_LOW);
+					EarthServerGenericClient.MainScene.addModel(glasgow_witi_t);
+					EarthServerGenericClient.MainScene.addModel(Bedrock);
 
-					//var pb = new EarthServerGenericClient.createProgressBar("progressbar");
-					//EarthServerGenericClient_MainScene.setProgressCallback(pb.updateValue);
+					// create the scene: Cube has 60% height compared to width and length
+					EarthServerGenericClient.MainScene.createScene('x3dScene', 'theScene', 1, 0.6, 1);
 
-					EarthServerGenericClient_MainScene.createModels();
+					EarthServerGenericClient.MainScene.createAxisLabels("Latitude", "Height", "Longitude");
+
+					// register a progressbar (you can register your own or just delete this lines)
+					var pb = new EarthServerGenericClient.createProgressBar("progressbar");
+					EarthServerGenericClient.MainScene.setProgressCallback(pb.updateValue);
+
+					// create the UI
+					EarthServerGenericClient.MainScene.createUI('x3domUI');
+					// starts loading and creating the models
+					// here the function starts as soon as the html page is fully loaded
+					// you can map this function to e.g. a button
+					EarthServerGenericClient.MainScene.createModels();
 
 					this.onResize();
 
 					this.isInitialized = true;
 				}
-
-				this.show();
 			},
 
 			onClose: function() {
