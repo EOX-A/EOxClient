@@ -22,6 +22,7 @@
     root.require([
 		'backbone',
 		'app',
+		'communicator',
 		'backbone.marionette',
 		'regionManager',
 		'jquery',
@@ -29,9 +30,11 @@
 		"text!config.json",
 		"util",
 		"libcoverage",
-		'controller/VirtualGlobeViewerController'
+		'controller/VirtualGlobeViewerController',
+		'controller/RectangularBoxViewerController',
+		'controller/MapViewerController'
 	],
-	function ( Backbone, App ) {
+	function ( Backbone, App, Communicator ) {
 
 		// FIXXME: MH: that took me a while:
 		// document.getElementsByTagName() returns a NodeList. However, if x3dom.js is included together with OpenLayers.js
@@ -89,10 +92,17 @@
             			Backbone.history.start({
             				pushState: false
             			});
+					} else {
+						alert('Your browser has no "History API" support. Be aware that the application could behave in unexpected ways. Please consider updating your browser!')
 					}
 				});	
 				App.configure(values);
-				App.start();
+				App.start({
+					viewerRegion: App.map
+				});
+
+				// Tell the application to initially show the 2D map widget:
+				Communicator.mediator.trigger("viewer:show:map");
 			});				
 		});
 		

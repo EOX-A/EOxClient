@@ -40,7 +40,7 @@ define([
 
 		var registerWithCommunicator = function(rbv_controller) {
 			Communicator.registerEventHandler("viewer:show:rectangularboxviewer", function() {
-				App.router.navigate("rbv", {
+				Backbone.history.navigate("rbv", {
 					trigger: true
 				});
 			});

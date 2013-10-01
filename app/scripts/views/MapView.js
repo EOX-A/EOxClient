@@ -1,106 +1,125 @@
 define(['backbone.marionette',
 		'communicator',
 		'app',
+		'models/MapModel',
 		'globals',
 		'openlayers',
-		'models/MapModel',
 		'filesaver'
 	],
-	function(Marionette, Communicator, App, globals) {
-
+	function(Marionette, Communicator, App, MapModel, globals) {
 
 		var MapView = Marionette.View.extend({
+
+			model: new MapModel.MapModel(),
 
 			initialize: function() {
 				this.map = undefined;
 			},
 
+			createMap: function() {
+				// FIXXME: MH: For some reason the map is only displayed if the div's id is "map". Removing the next line
+				// causes the map not to be displayed...
+				this.$el.attr('id', 'map');
+				this.map = new OpenLayers.Map({
+					div: this.el,
+					fallThrough: true
+				});
+				console.log("Created Map");
+
+				//--------------------------------------------------------------------------------------
+				// NOTE: The view should be 'dump' regarding the application structure surrounding the
+				// view. I.e. it should not concern about a mediator. That is the job of the view controller
+				// (see MapViewerController::connectToView()).
+				//--------------------------------------------------------------------------------------
+
+				////listen to moeveend event in order to keep router uptodate
+				// this.map.events.register("moveend", this.map, function(data) {
+				// 	Communicator.mediator.trigger("router:setUrl", {
+				// 		x: data.object.center.lon,
+				// 		y: data.object.center.lat,
+				// 		l: data.object.zoom
+				// 	});
+				// });
+
+				// this.listenTo(Communicator.mediator, "map:center", this.centerMap);
+				// this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
+				// this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
+				// this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
+				// this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
+				// this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
+
+				this.map.events.register("moveend", this.map, function(data) {
+					this.model.set({
+						'center': [data.object.center.lon, data.object.center.lat],
+						'zoom': data.object.zoom
+					});
+				}.bind(this));
+
+				// Add layers for different selection methods
+				this.pointLayer = new OpenLayers.Layer.Vector("Point Layer");
+				this.lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+				this.polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
+				this.boxLayer = new OpenLayers.Layer.Vector("Box layer");
+
+				this.map.addLayers([this.pointLayer, this.lineLayer, this.polygonLayer, this.boxLayer]);
+				this.map.addControl(new OpenLayers.Control.MousePosition());
+
+				this.drawControls = {
+					pointSelection: new OpenLayers.Control.DrawFeature(this.pointLayer,
+						OpenLayers.Handler.Point),
+					lineSelection: new OpenLayers.Control.DrawFeature(this.lineLayer,
+						OpenLayers.Handler.Path),
+					polygonSelection: new OpenLayers.Control.DrawFeature(this.polygonLayer,
+						OpenLayers.Handler.Polygon),
+					bboxSelection: new OpenLayers.Control.DrawFeature(this.boxLayer,
+						OpenLayers.Handler.RegularPolygon, {
+							handlerOptions: {
+								sides: 4,
+								irregular: true
+							}
+						}
+					)
+				};
+
+				for (var key in this.drawControls) {
+					this.map.addControl(this.drawControls[key]);
+					this.drawControls[key].events.register("featureadded", '', this.onDone);
+				}
+
+				//Go through all defined baselayer and add them to the map
+				globals.baseLayers.each(function(baselayer) {
+					this.map.addLayer(this.createLayer(baselayer));
+				}, this);
+
+				// Go through all products and add them to the map
+				globals.products.each(function(product) {
+					this.map.addLayer(this.createLayer(product));
+				}, this);
+
+				// Order (sort) the product layers based on collection order
+				this.onSortProducts();
+
+				// Openlayers format readers for loading geojson selections
+				var io_options = {
+					'internalProjection': this.map.baseLayer.projection,
+					'externalProjection': new OpenLayers.Projection('EPSG:4326')
+				};
+
+				this.geojson = new OpenLayers.Format.GeoJSON(io_options);
+
+
+				//Set attributes of map based on mapmodel attributes
+				var mapmodel = globals.objects.get('mapmodel');
+				this.map.setCenter(new OpenLayers.LonLat(mapmodel.get("center")), mapmodel.get("zoom"));
+			},
+
 			onShow: function() {
 				if (!this.map) {
-					// FIXXME: MH: For some reason the map is only displayed if the div's id is "map". Removing the next line
-					// causes the map not to be displayed...
-					this.$el.attr('id', 'map');
-					this.map = new OpenLayers.Map({
-						div: this.el,
-						fallThrough: true
-					});
-					console.log("Created Map");
-
-					//listen to moeveend event in order to keep router uptodate
-					this.map.events.register("moveend", this.map, function(data) {
-						Communicator.mediator.trigger("router:setUrl", {
-							x: data.object.center.lon,
-							y: data.object.center.lat,
-							l: data.object.zoom
-						});
-					});
-
-					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
-					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
-					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
-					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
-					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
-					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
-
-					// Add layers for different selection methods
-					this.pointLayer = new OpenLayers.Layer.Vector("Point Layer");
-					this.lineLayer = new OpenLayers.Layer.Vector("Line Layer");
-					this.polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
-					this.boxLayer = new OpenLayers.Layer.Vector("Box layer");
-
-					this.map.addLayers([this.pointLayer, this.lineLayer, this.polygonLayer, this.boxLayer]);
-					this.map.addControl(new OpenLayers.Control.MousePosition());
-
-					this.drawControls = {
-						pointSelection: new OpenLayers.Control.DrawFeature(this.pointLayer,
-							OpenLayers.Handler.Point),
-						lineSelection: new OpenLayers.Control.DrawFeature(this.lineLayer,
-							OpenLayers.Handler.Path),
-						polygonSelection: new OpenLayers.Control.DrawFeature(this.polygonLayer,
-							OpenLayers.Handler.Polygon),
-						bboxSelection: new OpenLayers.Control.DrawFeature(this.boxLayer,
-							OpenLayers.Handler.RegularPolygon, {
-								handlerOptions: {
-									sides: 4,
-									irregular: true
-								}
-							}
-						)
-					};
-
-					for (var key in this.drawControls) {
-						this.map.addControl(this.drawControls[key]);
-						this.drawControls[key].events.register("featureadded", '', this.onDone);
-					}
-
-					//Go through all defined baselayer and add them to the map
-					globals.baseLayers.each(function(baselayer) {
-						this.map.addLayer(this.createLayer(baselayer));
-					}, this);
-
-					// Go through all products and add them to the map
-					globals.products.each(function(product) {
-						this.map.addLayer(this.createLayer(product));
-					}, this);
-
-					// Order (sort) the product layers based on collection order
-					this.onSortProducts();
-
-					// Openlayers format readers for loading geojson selections
-					var io_options = {
-						'internalProjection': this.map.baseLayer.projection,
-						'externalProjection': new OpenLayers.Projection('EPSG:4326')
-					};
-
-					this.geojson = new OpenLayers.Format.GeoJSON(io_options);
-
-
-					//Set attributes of map based on mapmodel attributes
-					var mapmodel = globals.objects.get('mapmodel');
-					this.map.setCenter(new OpenLayers.LonLat(mapmodel.get("center")), mapmodel.get("zoom"));
+					this.createMap();
 				}
 				return this;
 			},
+
 			//method to create layer depending on protocol
 			//setting possible description attributes
 			createLayer: function(layerdesc) {
@@ -168,6 +187,11 @@ define(['backbone.marionette',
 
 			centerMap: function(data) {
 				this.map.setCenter(new OpenLayers.LonLat(data.x, data.y), data.l);
+
+				this.model.set({
+					'center': [data.x, data.y],
+					'zoom': data.l
+				});
 			},
 
 			changeLayer: function(options) {
@@ -255,15 +279,13 @@ define(['backbone.marionette',
 			}
 		});
 
-		this._myView = undefined;
-		Communicator.registerEventHandler("viewer:show:map", function() {
-			if (!this._myView) {
-				this._myView = new MapView();
-			}
-			App.map.show(this._myView);
-		}.bind(this));
+		// this._myView = undefined;
+		// Communicator.registerEventHandler("viewer:show:map", function() {
+		// 	if (!this._myView) {
+		// 		this._myView = new MapView();
+		// 	}
+		// 	App.map.show(this._myView);
+		// }.bind(this));
 
-		return {
-			"MapView": MapView
-		};
+		return MapView;
 	});

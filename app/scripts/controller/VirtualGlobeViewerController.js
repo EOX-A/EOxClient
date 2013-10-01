@@ -44,7 +44,7 @@ define([
 
 		var registerWithCommunicator = function(globe_controller) {
 			Communicator.registerEventHandler("viewer:show:virtualglobeviewer", function() {
-				App.router.navigate("vgv", {
+				Backbone.history.navigate("vgv", {
 					trigger: true
 				});
 			});

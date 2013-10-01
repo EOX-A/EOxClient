@@ -130,8 +130,6 @@ define(["backbone.marionette", "app", "communicator", "jqueryui"],
 			App.map.show(_myView);
 		});
 
-		return {
-			'RectangularBoxView': BoxView
-		};
+		return BoxView;
 
 	}); // end module definition
