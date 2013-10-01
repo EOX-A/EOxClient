@@ -197,15 +197,27 @@ ul.inheritsList
 	
 	<li><a href="../symbols/EarthServerGenericClient.AbstractTerrain.html">EarthServerGenericClient.AbstractTerrain</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.AnnotationLayer.html">EarthServerGenericClient.AnnotationLayer</a></li>
+	
 	<li><a href="../symbols/EarthServerGenericClient.AxisLabels.html">EarthServerGenericClient.AxisLabels</a></li>
+	
+	<li><a href="../symbols/EarthServerGenericClient.createProgressBar.html">EarthServerGenericClient.createProgressBar</a></li>
+	
+	<li><a href="../symbols/EarthServerGenericClient.Light.html">EarthServerGenericClient.Light</a></li>
 	
 	<li><a href="../symbols/EarthServerGenericClient.LODTerrain.html">EarthServerGenericClient.LODTerrain</a></li>
 	
 	<li><a href="../symbols/EarthServerGenericClient.Model_WCPSDemAlpha.html">EarthServerGenericClient.Model_WCPSDemAlpha</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.Model_WCPSDemWCPS.html">EarthServerGenericClient.Model_WCPSDemWCPS</a></li>
+	
 	<li><a href="../symbols/EarthServerGenericClient.Model_WCPSDemWCS.html">EarthServerGenericClient.Model_WCPSDemWCS</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.Model_WMSDemWCPS.html">EarthServerGenericClient.Model_WMSDemWCPS</a></li>
+	
 	<li><a href="../symbols/EarthServerGenericClient.Model_WMSDemWCS.html">EarthServerGenericClient.Model_WMSDemWCS</a></li>
+	
+	<li><a href="../symbols/EarthServerGenericClient.Module_Sharad.html">EarthServerGenericClient.Module_Sharad</a></li>
 	
 	<li><a href="../symbols/EarthServerGenericClient.ProgressiveTerrain.html">EarthServerGenericClient.ProgressiveTerrain</a></li>
 	
@@ -213,7 +225,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/EarthServerGenericClient.ServerResponseData.html">EarthServerGenericClient.ServerResponseData</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.SharadTerrain.html">EarthServerGenericClient.SharadTerrain</a></li>
+	
 	<li><a href="../symbols/ElevationGrid.html">ElevationGrid</a></li>
+	
+	<li><a href="../symbols/Function.html">Function</a></li>
+	
+	<li><a href="../symbols/GapGrid.html">GapGrid</a></li>
 	
 </ul>
 <hr />
@@ -234,10 +252,10 @@ ul.inheritsList
 					<a href="../symbols/EarthServerGenericClient.AbstractTerrain.html">EarthServerGenericClient.AbstractTerrain</a>.<br />
 				
 			
-				This terrain build up a LOD with 3 levels of the received data.
+				This terrain builds up a LOD with 3 levels of the received data.
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/EarthServer_js__Terrain.js.html">Terrain.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/code_Terrain.js.html">Terrain.js</a>.
 				
 			</p>
 
@@ -256,7 +274,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#constructor">EarthServerGenericClient.LODTerrain</a></b>(root, data, index)
+								<b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#constructor">EarthServerGenericClient.LODTerrain</a></b>(root, data, index, noDataValue, noDemValue)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -280,10 +298,10 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;inner&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#-canvasTexture">canvasTexture</a></b>
+								<b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#canvasTexture">canvasTexture</a></b>
 								</div>
 								<div class="description">The canvas that holds the received image.</div>
 							</td>
@@ -306,6 +324,16 @@ ul.inheritsList
 								<b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#-chunkSize">chunkSize</a></b>
 								</div>
 								<div class="description">Size of one chunk.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;inner&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#-currentChunk">currentChunk</a></b>
+								</div>
+								<div class="description">Counter for the insertion of chunks.</div>
 							</td>
 						</tr>
 					
@@ -359,7 +387,16 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#createTerrain">createTerrain</a></b>()
 								</div>
-								<div class="description">Builds the terrain and appends into the scene.</div>
+								<div class="description">Builds the terrain and appends it into the scene.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.LODTerrain.html#nextFrame">nextFrame</a></b>()
+								</div>
+								<div class="description">The Scene Manager calls this function after a few frames since the last insertion of a chunk.</div>
 							</td>
 						</tr>
 					
@@ -369,7 +406,7 @@ ul.inheritsList
 				
 				
 				<dl class="inheritsList">
-				<dt>Methods borrowed from class <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html">EarthServerGenericClient.AbstractTerrain</a>: </dt><dd><a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#calcNumberOfChunks">calcNumberOfChunks</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#clearMaterials">clearMaterials</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#createCanvas">createCanvas</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#createChunkInfo">createChunkInfo</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getAppearances">getAppearances</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getHeightMap">getHeightMap</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#setTransparency">setTransparency</a></dd>
+				<dt>Methods borrowed from class <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html">EarthServerGenericClient.AbstractTerrain</a>: </dt><dd><a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#calcNumberOfChunks">calcNumberOfChunks</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#clearMaterials">clearMaterials</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#createCanvas">createCanvas</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#createChunkInfo">createChunkInfo</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#createOneSidePanel">createOneSidePanel</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#createSidePanels">createSidePanels</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getAppearances">getAppearances</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getColorSlide">getColorSlide</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getDemValueAt3DPosition">getDemValueAt3DPosition</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getHeightAt3DPosition">getHeightAt3DPosition</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getHeightMap">getHeightMap</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getHeightmapHeight">getHeightmapHeight</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#getHeightmapWidth">getHeightmapWidth</a>, <a href="../symbols/EarthServerGenericClient.AbstractTerrain.html#setTransparency">setTransparency</a></dd>
 				</dl>
 				
 			
@@ -384,7 +421,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>EarthServerGenericClient.LODTerrain</b>(root, data, index)
+						<b>EarthServerGenericClient.LODTerrain</b>(root, data, index, noDataValue, noDemValue)
 				</div>
 				
 				<div class="description">
@@ -403,19 +440,31 @@ ul.inheritsList
 								 <b>root</b>
 								
 							</dt>
-								<dd>Dom Element to append the terrain to.</dd>
+								<dd>- Dom Element to append the terrain to.</dd>
 						
 							<dt>
 								 <b>data</b>
 								
 							</dt>
-								<dd>Received Data of the Server request.</dd>
+								<dd>- Received Data of the Server request.</dd>
 						
 							<dt>
 								 <b>index</b>
 								
 							</dt>
-								<dd>Index of the model that uses this terrain.</dd>
+								<dd>- Index of the model that uses this terrain.</dd>
+						
+							<dt>
+								 <b>noDataValue</b>
+								
+							</dt>
+								<dd>- Array with the RGB values to be considered as no data available and shall be drawn transparent.</dd>
+						
+							<dt>
+								 <b>noDemValue</b>
+								
+							</dt>
+								<dd>- The single value in the DEM that should be considered as NODATA</dd>
 						
 						</dl>
 					
@@ -435,8 +484,8 @@ ul.inheritsList
 					Field Detail
 				</div>
 				
-					<a name="-canvasTexture"> </a>
-					<div class="fixedFont">&lt;inner&gt; 
+					<a name="canvasTexture"> </a>
+					<div class="fixedFont">
 					
 					
 					<b>canvasTexture</b>
@@ -487,7 +536,29 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Size of one chunk. Chunks at the borders can be smaller.We want to build 3 chunks for the LOD with different resolution but the same size on the screen.With 253 values the length of the most detailed chunk is 252.The second chunk has 127 values and the length of 126. With a scale of 2 it's back to the size of 252.The third chunk has 64 values and the length if 63. With a scale of 4 it's also back to the size 252.
+						Size of one chunk. Chunks at the borders can be smaller.We want to build 3 chunks for the LOD with different resolution but the same size on the screen.With 121 values the length of the most detailed chunk is 120.The second chunk has 61 values and the length of 60. With a scale of 2 it's back to the size of 120.The third chunk has 31 values and the length if 30. With a scale of 4 it's also back to the size 120.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="-currentChunk"> </a>
+					<div class="fixedFont">&lt;inner&gt; 
+					
+					
+					<b>currentChunk</b>
+					
+					</div>
+					<div class="description">
+						Counter for the insertion of chunks.
 						
 						
 					</div>
@@ -561,7 +632,32 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Builds the terrain and appends into the scene.
+						Builds the terrain and appends it into the scene.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="nextFrame"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>nextFrame</b>()
+					
+					</div>
+					<div class="description">
+						The Scene Manager calls this function after a few frames since the last insertion of a chunk.
 						
 						
 					</div>
@@ -590,7 +686,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Apr 08 2013 13:48:17 GMT+0200 (MESZ)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Thu Aug 22 2013 15:29:00 GMT+0200 (MESZ)
 		</div>
 	</body>
 </html>

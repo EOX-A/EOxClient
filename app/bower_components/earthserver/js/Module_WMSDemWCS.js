@@ -95,7 +95,7 @@ EarthServerGenericClient.Model_WMSDemWCS.prototype.createModel=function(root, cu
     if( root === undefined)
         alert("root is not defined");
 
-    EarthServerGenericClient_MainScene.timeLogStart("Create Model " + this.name);
+    EarthServerGenericClient.MainScene.timeLogStart("Create Model " + this.name);
 
     this.cubeSizeX = cubeSizeX;
     this.cubeSizeY = cubeSizeY;
@@ -140,18 +140,21 @@ EarthServerGenericClient.Model_WMSDemWCS.prototype.receiveData= function( data)
         //Remove the placeHolder
         this.removePlaceHolder();
 
-        var YResolution = (parseFloat(data.maxHMvalue) - parseFloat(data.minHMvalue) );
+        var YResolution = this.YResolution || (parseFloat(data.maxHMvalue) - parseFloat(data.minHMvalue) );
         var transform = this.createTransform(data.width,YResolution,data.height,parseFloat(data.minHMvalue));
         this.root.appendChild( transform);
 
         //Set transparency
         data.transparency = this.transparency;
         //Create Terrain out of the received data
-        EarthServerGenericClient_MainScene.timeLogStart("Create Terrain " + this.name);
-        this.terrain = new EarthServerGenericClient.LODTerrain(transform, data, this.index);
+        EarthServerGenericClient.MainScene.timeLogStart("Create Terrain " + this.name);
+        this.terrain = new EarthServerGenericClient.LODTerrain(transform, data, this.index, this.noData, this.demNoData);
         this.terrain.createTerrain();
-        EarthServerGenericClient_MainScene.timeLogEnd("Create Terrain " + this.name);
-        EarthServerGenericClient_MainScene.timeLogEnd("Create Model " + this.name);
+        EarthServerGenericClient.MainScene.timeLogEnd("Create Terrain " + this.name);
+        this.elevationUpdateBinding();
+        if(this.sidePanels)
+        {   this.terrain.createSidePanels(this.transformNode,1);    }
+        EarthServerGenericClient.MainScene.timeLogEnd("Create Model " + this.name);
 
         transform = null;
     }

@@ -197,15 +197,27 @@ ul.inheritsList
 	
 	<li><a href="../symbols/EarthServerGenericClient.AbstractTerrain.html">EarthServerGenericClient.AbstractTerrain</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.AnnotationLayer.html">EarthServerGenericClient.AnnotationLayer</a></li>
+	
 	<li><a href="../symbols/EarthServerGenericClient.AxisLabels.html">EarthServerGenericClient.AxisLabels</a></li>
+	
+	<li><a href="../symbols/EarthServerGenericClient.createProgressBar.html">EarthServerGenericClient.createProgressBar</a></li>
+	
+	<li><a href="../symbols/EarthServerGenericClient.Light.html">EarthServerGenericClient.Light</a></li>
 	
 	<li><a href="../symbols/EarthServerGenericClient.LODTerrain.html">EarthServerGenericClient.LODTerrain</a></li>
 	
 	<li><a href="../symbols/EarthServerGenericClient.Model_WCPSDemAlpha.html">EarthServerGenericClient.Model_WCPSDemAlpha</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.Model_WCPSDemWCPS.html">EarthServerGenericClient.Model_WCPSDemWCPS</a></li>
+	
 	<li><a href="../symbols/EarthServerGenericClient.Model_WCPSDemWCS.html">EarthServerGenericClient.Model_WCPSDemWCS</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.Model_WMSDemWCPS.html">EarthServerGenericClient.Model_WMSDemWCPS</a></li>
+	
 	<li><a href="../symbols/EarthServerGenericClient.Model_WMSDemWCS.html">EarthServerGenericClient.Model_WMSDemWCS</a></li>
+	
+	<li><a href="../symbols/EarthServerGenericClient.Module_Sharad.html">EarthServerGenericClient.Module_Sharad</a></li>
 	
 	<li><a href="../symbols/EarthServerGenericClient.ProgressiveTerrain.html">EarthServerGenericClient.ProgressiveTerrain</a></li>
 	
@@ -213,7 +225,13 @@ ul.inheritsList
 	
 	<li><a href="../symbols/EarthServerGenericClient.ServerResponseData.html">EarthServerGenericClient.ServerResponseData</a></li>
 	
+	<li><a href="../symbols/EarthServerGenericClient.SharadTerrain.html">EarthServerGenericClient.SharadTerrain</a></li>
+	
 	<li><a href="../symbols/ElevationGrid.html">ElevationGrid</a></li>
+	
+	<li><a href="../symbols/Function.html">Function</a></li>
+	
+	<li><a href="../symbols/GapGrid.html">GapGrid</a></li>
 	
 </ul>
 <hr />
@@ -235,7 +253,7 @@ ul.inheritsList
 				Abstract base class for scene models.
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/EarthServer_js__SceneModules.js.html">SceneModules.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/code_Module_Base.js.html">Module_Base.js</a>.
 				
 			</p>
 
@@ -281,6 +299,16 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
+								<b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#bindings">bindings</a></b>
+								</div>
+								<div class="description">All objects that are bound to the module.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
 								<b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#imageFormat">imageFormat</a></b>
 								</div>
 								<div class="description">The used Image format (if one is used)</div>
@@ -314,6 +342,16 @@ ul.inheritsList
 								<b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#requests">requests</a></b>
 								</div>
 								<div class="description">The amount of requests the model do.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#sidePanels">sidePanels</a></b>
+								</div>
+								<div class="description">Flag if side panels should be added to the terrain.</div>
 							</td>
 						</tr>
 					
@@ -431,6 +469,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#addBinding">addBinding</a></b>(bindingObject)
+								</div>
+								<div class="description">Adds an Object that will be informed about movements and alterations of the model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#checkReceivedData">checkReceivedData</a></b>(data)
 								</div>
 								<div class="description">Validates the received data from the server request.</div>
@@ -458,6 +505,78 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#elevationUpdateBinding">elevationUpdateBinding</a></b>(value)
+								</div>
+								<div class="description">This function calls every binding object that the elevation of the models was changed.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#getAreaOfInterest">getAreaOfInterest</a></b>()
+								</div>
+								<div class="description">Returns object with the area of interest of the model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#getDemNoDataValue">getDemNoDataValue</a></b>()
+								</div>
+								<div class="description">Returns the noData Value for the DEM or undefined if not set.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#getDemValueAt3DPosition">getDemValueAt3DPosition</a></b>(xPos, zPos)
+								</div>
+								<div class="description">Returns the dem value of it's terrain at a specific point in the 3D scene.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#getHeightAt3DPosition">getHeightAt3DPosition</a></b>(xPos, zPos)
+								</div>
+								<div class="description">Returns the elevation value of it's terrain at a specific point in the 3D scene.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#getName">getName</a></b>()
+								</div>
+								<div class="description">Returns the name of the model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#movementUpdateBindings">movementUpdateBindings</a></b>(movementType, value)
+								</div>
+								<div class="description">This function is called if the model is moved in the scene.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#removeBinding">removeBinding</a></b>(bindingObject)
+								</div>
+								<div class="description">Removes an Object that will be informed about movements and alterations of the model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#removePlaceHolder">removePlaceHolder</a></b>()
 								</div>
 								<div class="description">Removes the PlaceHolder created in createPlaceHolder().</div>
@@ -467,9 +586,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#replaceSymbolsInString">replaceSymbolsInString</a></b>(inputString)
+								</div>
+								<div class="description">Replaces all $xx symbols with the value-</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#reportProgress">reportProgress</a></b>()
 								</div>
-								<div class="description">Modules report their loading progress to this function which leads the information to the main scene.</div>
+								<div class="description">Modules report their loading progress with this function which reports to the main scene.</div>
 							</td>
 						</tr>
 					
@@ -478,7 +606,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setAreaOfInterest">setAreaOfInterest</a></b>(minx, miny, maxx, maxy)
 								</div>
-								<div class="description">Sets the area of interest for the model (Lower Corner, Upper Corner).</div>
+								<div class="description">Sets the area of interest for the model.</div>
 							</td>
 						</tr>
 					
@@ -488,6 +616,24 @@ ul.inheritsList
 								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setDefaults">setDefaults</a></b>()
 								</div>
 								<div class="description">Sets the default values.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setDemNoDataValue">setDemNoDataValue</a></b>(value)
+								</div>
+								<div class="description">Sets the DEM value to be considered as NODATA in the DEM.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setHeightResolution">setHeightResolution</a></b>(value)
+								</div>
+								<div class="description">Sets the height resolution of the model.</div>
 							</td>
 						</tr>
 					
@@ -533,6 +679,33 @@ ul.inheritsList
 								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setScale">setScale</a></b>(xScale, yScale, zScale)
 								</div>
 								<div class="description">Sets the size of the scene model compared to the fishtank/cube.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setSidePanels">setSidePanels</a></b>(value)
+								</div>
+								<div class="description">Sets if side panels should be added to the model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setSidePanelsImageLinks">setSidePanelsImageLinks</a></b>(links)
+								</div>
+								<div class="description">Sets the queries for the four side panels' textures.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/EarthServerGenericClient.AbstractSceneModel.html#setTextureNoDataValue">setTextureNoDataValue</a></b>(red, green, blue)
+								</div>
+								<div class="description">Sets the RGB value to be considered as NODATA in the TEXTURE.</div>
 							</td>
 						</tr>
 					
@@ -598,6 +771,28 @@ ul.inheritsList
 				<div class="sectionTitle">
 					Field Detail
 				</div>
+				
+					<a name="bindings"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>bindings</b>
+					
+					</div>
+					<div class="description">
+						All objects that are bound to the module. The will be noticed if the models is moved or altered.Example: Annotation layers should be moved with the module and change the height when the elevation changes.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
 				
 					<a name="imageFormat"> </a>
 					<div class="fixedFont">
@@ -709,6 +904,35 @@ ul.inheritsList
 							<dt class="heading">Default Value:</dt>
 							<dd>
 								1
+							</dd>
+							</dl>
+						
+
+					<hr />
+				
+					<a name="sidePanels"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>sidePanels</b>
+					
+					</div>
+					<div class="description">
+						Flag if side panels should be added to the terrain.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Default Value:</dt>
+							<dd>
+								false
 							</dd>
 							</dl>
 						
@@ -984,6 +1208,42 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
+					<a name="addBinding"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>addBinding</b>(bindingObject)
+					
+					</div>
+					<div class="description">
+						Adds an Object that will be informed about movements and alterations of the model.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>bindingObject</b>
+									
+								</dt>
+								<dd>- Object that will receive the notification.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="checkReceivedData"> </a>
 					<div class="fixedFont">
 					
@@ -1075,25 +1335,25 @@ ul.inheritsList
 									<b>xRes</b>
 									
 								</dt>
-								<dd>Size of the received data on the x-axis (e.g. the requested DEM )</dd>
+								<dd>- Size of the received data on the x-axis (e.g. the requested DEM )</dd>
 							
 								<dt>
 									<b>yRes</b>
 									
 								</dt>
-								<dd>Size of the received data on the y-axis</dd>
+								<dd>- Size of the received data on the y-axis</dd>
 							
 								<dt>
 									<b>zRes</b>
 									
 								</dt>
-								<dd>Size of the received data on the z-axis</dd>
+								<dd>- Size of the received data on the z-axis</dd>
 							
 								<dt>
 									<b>minvalue</b>
 									
 								</dt>
-								<dd>Minimum Value along the y-axis (e.g. minimum value in a DEM, so the model starts at it's wished location)</dd>
+								<dd>- Minimum Value along the y-axis (e.g. minimum value in a DEM, so the model starts at it's wished location)</dd>
 							
 							</dl>
 						
@@ -1107,6 +1367,314 @@ ul.inheritsList
 								<dd><span class="light fixedFont">{Element}</span> </dd>
 							
 							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="elevationUpdateBinding"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>elevationUpdateBinding</b>(value)
+					
+					</div>
+					<div class="description">
+						This function calls every binding object that the elevation of the models was changed.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>value</b>
+									
+								</dt>
+								<dd>- This is the value the that was given to SceneManager::updateElevation().</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getAreaOfInterest"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{{}}</span>
+					<b>getAreaOfInterest</b>()
+					
+					</div>
+					<div class="description">
+						Returns object with the area of interest of the model. (minx,miny,maxx,maxy)
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{{}}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getDemNoDataValue"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{float}</span>
+					<b>getDemNoDataValue</b>()
+					
+					</div>
+					<div class="description">
+						Returns the noData Value for the DEM or undefined if not set.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{float}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getDemValueAt3DPosition"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>getDemValueAt3DPosition</b>(xPos, zPos)
+					
+					</div>
+					<div class="description">
+						Returns the dem value of it's terrain at a specific point in the 3D scene.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>xPos</b>
+									
+								</dt>
+								<dd>- Position on the x-axis.</dd>
+							
+								<dt>
+									<b>zPos</b>
+									
+								</dt>
+								<dd>- Position on the z-axis.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> - The height of the dem.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getHeightAt3DPosition"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>getHeightAt3DPosition</b>(xPos, zPos)
+					
+					</div>
+					<div class="description">
+						Returns the elevation value of it's terrain at a specific point in the 3D scene.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>xPos</b>
+									
+								</dt>
+								<dd>- Position on the x-axis.</dd>
+							
+								<dt>
+									<b>zPos</b>
+									
+								</dt>
+								<dd>- Position on the z-axis.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> - The height on the y-axis.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getName"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>getName</b>()
+					
+					</div>
+					<div class="description">
+						Returns the name of the model.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="movementUpdateBindings"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>movementUpdateBindings</b>(movementType, value)
+					
+					</div>
+					<div class="description">
+						This function is called if the model is moved in the scene.All bindings will also get the movement update.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>movementType</b>
+									
+								</dt>
+								<dd>- Type of the movement: xAxis,zAxis,elevation...</dd>
+							
+								<dt>
+									<b>value</b>
+									
+								</dt>
+								<dd>- Updated position</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeBinding"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>removeBinding</b>(bindingObject)
+					
+					</div>
+					<div class="description">
+						Removes an Object that will be informed about movements and alterations of the model.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>bindingObject</b>
+									
+								</dt>
+								<dd>- Object that will no longer receive the notification.</dd>
+							
+							</dl>
+						
+						
+						
+						
 						
 						
 						
@@ -1138,6 +1706,49 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="replaceSymbolsInString"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>replaceSymbolsInString</b>(inputString)
+					
+					</div>
+					<div class="description">
+						Replaces all $xx symbols with the value-
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>inputString</b>
+									
+								</dt>
+								<dd>- Input WCPS query string.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> - String with symbols replaced by values.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name="reportProgress"> </a>
 					<div class="fixedFont">
 					
@@ -1146,7 +1757,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Modules report their loading progress to this function which leads the information to the main scene.
+						Modules report their loading progress with this function which reports to the main scene.
 						
 						
 					</div>
@@ -1171,7 +1782,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Sets the area of interest for the model (Lower Corner, Upper Corner).
+						Sets the area of interest for the model. (Lower Corner, Upper Corner)
 						
 						
 					</div>
@@ -1186,25 +1797,25 @@ ul.inheritsList
 									<b>minx</b>
 									
 								</dt>
-								<dd>Minimum of lower latitude</dd>
+								<dd>- Minimum/Lower Latitude</dd>
 							
 								<dt>
 									<b>miny</b>
 									
 								</dt>
-								<dd>Minimum of lower longitude</dd>
+								<dd>- Minimum/Lower Longitude</dd>
 							
 								<dt>
 									<b>maxx</b>
 									
 								</dt>
-								<dd>Maximum of upper latitude</dd>
+								<dd>- Maximum/Upper Latitude</dd>
 							
 								<dt>
 									<b>maxy</b>
 									
 								</dt>
-								<dd>Maximum of upper longitude</dd>
+								<dd>- Maximum/Upper Longitude</dd>
 							
 							</dl>
 						
@@ -1242,6 +1853,78 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="setDemNoDataValue"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setDemNoDataValue</b>(value)
+					
+					</div>
+					<div class="description">
+						Sets the DEM value to be considered as NODATA in the DEM. No Faces will be drawn having a vertex with that value.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>value</b>
+									
+								</dt>
+								<dd>- No data value</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setHeightResolution"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setHeightResolution</b>(value)
+					
+					</div>
+					<div class="description">
+						Sets the height resolution of the model. This effects the scaling of the elevation of the model.The parameter should be the difference between the smallest and biggest value of the DEM.Make the sure the value fits to the model's size.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>value</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="setImageFormat"> </a>
 					<div class="fixedFont">
 					
@@ -1265,7 +1948,7 @@ ul.inheritsList
 									<b>imageFormat</b>
 									
 								</dt>
-								<dd>Default format is "png".</dd>
+								<dd>- Default "png".</dd>
 							
 							</dl>
 						
@@ -1286,7 +1969,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Sets the name of the scene model.The name is useful for the demo because it appears in the category "Modules".
+						Sets the name of the scene model.
 						
 						
 					</div>
@@ -1301,7 +1984,7 @@ ul.inheritsList
 									<b>modelName</b>
 									
 								</dt>
-								<dd>Sets the name of model.</dd>
+								<dd>- Name of the model.</dd>
 							
 							</dl>
 						
@@ -1322,7 +2005,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Sets the position of the scene model within the fishtank/cube.The function accepts values in the range of 0 and 1 for each parameter.
+						Sets the position of the scene model within the fishtank/cube. Values between [0-1]
 						
 						
 					</div>
@@ -1337,19 +2020,19 @@ ul.inheritsList
 									<b>xOffset</b>
 									
 								</dt>
-								<dd>Offset on the x-axis (width).</dd>
+								<dd>- Offset on the x-axis/width  Default:0</dd>
 							
 								<dt>
 									<b>yOffset</b>
 									
 								</dt>
-								<dd>Offset on the y-axis (height).</dd>
+								<dd>- Offset on the y-axis/height Default:0</dd>
 							
 								<dt>
 									<b>zOffset</b>
 									
 								</dt>
-								<dd>Offset on the z-axis (depth).</dd>
+								<dd>- Offset on the z-axis/depth  Default:0</dd>
 							
 							</dl>
 						
@@ -1385,13 +2068,13 @@ ul.inheritsList
 									<b>xRes</b>
 									
 								</dt>
-								<dd>Resolution on the x-axis/Latitude</dd>
+								<dd>- Resolution on the x-axis/Latitude</dd>
 							
 								<dt>
 									<b>zRes</b>
 									
 								</dt>
-								<dd>Resolution on the z-axis/Longitude</dd>
+								<dd>- Resolution on the z-axis/Longitude</dd>
 							
 							</dl>
 						
@@ -1412,7 +2095,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Sets the size of the scene model compared to the fishtank/cube.The function accepts values in the range of 0 and 1 for each parameter.
+						Sets the size of the scene model compared to the fishtank/cube. Values between 0 - 1.
 						
 						
 					</div>
@@ -1427,19 +2110,139 @@ ul.inheritsList
 									<b>xScale</b>
 									
 								</dt>
-								<dd>Size of the model on the x-axis (width).</dd>
+								<dd>- Size of the model on the x-axis/width  Default:1   (whole cube)</dd>
 							
 								<dt>
 									<b>yScale</b>
 									
 								</dt>
-								<dd>Size of the model on the y-axis (height).</dd>
+								<dd>- Size of the model on the y-axis/height Default:0.3 (30% of the cube)</dd>
 							
 								<dt>
 									<b>zScale</b>
 									
 								</dt>
-								<dd>Size of the model on the x-axis (width).</dd>
+								<dd>- Size of the model on the x-axis/width  Default:1   (whole cube)</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setSidePanels"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setSidePanels</b>(value)
+					
+					</div>
+					<div class="description">
+						Sets if side panels should be added to the model.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>value</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setSidePanelsImageLinks"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setSidePanelsImageLinks</b>(links)
+					
+					</div>
+					<div class="description">
+						Sets the queries for the four side panels' textures.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>links</b>
+									
+								</dt>
+								<dd>- Array with four image links.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setTextureNoDataValue"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setTextureNoDataValue</b>(red, green, blue)
+					
+					</div>
+					<div class="description">
+						Sets the RGB value to be considered as NODATA in the TEXTURE. All pixels with this RGB value will be drawn transparent.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>red</b>
+									
+								</dt>
+								<dd>- Value for the red channel.</dd>
+							
+								<dt>
+									<b>green</b>
+									
+								</dt>
+								<dd>- Value for the green channel.</dd>
+							
+								<dt>
+									<b>blue</b>
+									
+								</dt>
+								<dd>- Value for the blue channel.</dd>
 							
 							</dl>
 						
@@ -1475,7 +2278,7 @@ ul.inheritsList
 									<b>transparency</b>
 									
 								</dt>
-								<dd>Value of visibility.</dd>
+								<dd>- Value of transparency.</dd>
 							
 							</dl>
 						
@@ -1511,7 +2314,7 @@ ul.inheritsList
 									<b>transparency</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>- Value of transparency.</dd>
 							
 							</dl>
 						
@@ -1536,7 +2339,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Apr 08 2013 13:48:17 GMT+0200 (MESZ)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Thu Aug 22 2013 15:28:59 GMT+0200 (MESZ)
 		</div>
 	</body>
 </html>

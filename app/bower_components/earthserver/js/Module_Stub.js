@@ -48,8 +48,7 @@ EarthServerGenericClient.Model_Name.prototype.createModel=function(root,cubeSize
     this.root = root;
 
     //Create Placeholder
-    this.placeHolder = this.createPlaceHolder();
-    this.root.appendChild( this.placeHolder );
+    this.createPlaceHolder();
 
     //1: Check if mandatory values are set
     /*if( this.var === undefined || ....)

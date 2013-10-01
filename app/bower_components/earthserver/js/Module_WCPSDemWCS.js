@@ -77,6 +77,15 @@ EarthServerGenericClient.Model_WCPSDemWCS.prototype.setWCSVersion = function(ver
 };
 
 /**
+ * Sets the Coordinate Reference System.
+ * @param value - eg. "http://www.opengis.net/def/crs/EPSG/0/27700"
+ */
+EarthServerGenericClient.Model_WCPSDemWCS.prototype.setCoordinateReferenceSystem = function(value)
+{
+    this.CRS = value;
+};
+
+/**
  * Creates the x3d geometry and appends it to the given root node. This is done automatically by the SceneManager.
  * @param root - X3D node to append the model.
  * @param cubeSizeX - Size of the fishtank/cube on the x-axis.
@@ -87,7 +96,7 @@ EarthServerGenericClient.Model_WCPSDemWCS.prototype.createModel=function(root, c
     if( root === undefined)
         alert("root is not defined");
 
-    EarthServerGenericClient_MainScene.timeLogStart("Create Model " + this.name);
+    EarthServerGenericClient.MainScene.timeLogStart("Create Model " + this.name);
 
     this.cubeSizeX = cubeSizeX;
     this.cubeSizeY = cubeSizeY;
@@ -100,7 +109,7 @@ EarthServerGenericClient.Model_WCPSDemWCS.prototype.createModel=function(root, c
 
     //1: Check if mandatory values are set
     if( this.coverageImage === undefined || this.coverageDEM === undefined || this.URLWCPS === undefined || this.URLDEM === undefined
-        || this.minx === undefined || this.miny === undefined || this.maxx === undefined || this.maxy === undefined )
+        || this.minx === undefined || this.miny === undefined || this.maxx === undefined || this.maxy === undefined || this.CRS === undefined )
     {
         alert("Not all mandatory values are set. WCPSDemWCS: " + this.name );
         console.log(this);
@@ -111,24 +120,18 @@ EarthServerGenericClient.Model_WCPSDemWCS.prototype.createModel=function(root, c
     //If no query was defined use standard query.
     if( this.WCPSQuery === undefined)
     {
-        this.WCPSQuery =  "for i in (" + this.coverageImage + "), dtm in (" + this.coverageDEM + ") return encode ( { ";
-        this.WCPSQuery += "red: scale(trim(i.red, {x(" + this.minx + ":" +  this.maxx + "), y(" + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + this.XResolution + '), y:"CRS:1"(0:' + this.ZResolution + ")}, {}); ";
-        this.WCPSQuery += "green: scale(trim(i.green, {x(" + this.minx + ":" +  this.maxx + "), y(" + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + this.XResolution + '), y:"CRS:1"(0:' + this.ZResolution + ")}, {}); ";
-        this.WCPSQuery += "blue: scale(trim(i.blue, {x(" + this.minx + ":" +  this.maxx + "), y(" + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + this.XResolution + '), y:"CRS:1"(0:' + this.ZResolution + ")}, {})";
+        this.WCPSQuery =  "for i in (" + this.coverageImage + ") return encode ( { ";
+        this.WCPSQuery += 'red: scale(trim(i.red, {x:"' + this.CRS + '"(' + this.minx + ":" +  this.maxx + '), y:"' + this.CRS + '"(' + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + this.XResolution + '), y:"CRS:1"(0:' + this.ZResolution + ")}, {}); ";
+        this.WCPSQuery += 'green: scale(trim(i.green, {x:"' + this.CRS + '"(' + this.minx + ":" +  this.maxx + '), y:"' + this.CRS + '"(' + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + this.XResolution + '), y:"CRS:1"(0:' + this.ZResolution + ")}, {}); ";
+        this.WCPSQuery += 'blue: scale(trim(i.blue, {x:"' + this.CRS + '"(' + this.minx + ":" +  this.maxx + '), y:"' + this.CRS + '"(' + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + this.XResolution + '), y:"CRS:1"(0:' + this.ZResolution + ")}, {})";
         this.WCPSQuery += '}, "' + this.imageFormat +'" )';
     }
     else //A custom query was defined so use it
     {
         //Replace $ symbols with the actual values
-        this.WCPSQuery = this.WCPSQuery.replace("$CI",this.coverageImage);
-        this.WCPSQuery = this.WCPSQuery.replace("$MINX",this.minx);
-        this.WCPSQuery = this.WCPSQuery.replace("$MINY",this.miny);
-        this.WCPSQuery = this.WCPSQuery.replace("$MAXX",this.maxx);
-        this.WCPSQuery = this.WCPSQuery.replace("$MAXY",this.maxy);
-        this.WCPSQuery = this.WCPSQuery.replace("$RESX",this.XResolution);
-        this.WCPSQuery = this.WCPSQuery.replace("$RESZ",this.ZResolution);
+        this.WCPSQuery = this.replaceSymbolsInString(this.WCPSQuery);
+        console.log(this.WCPSQuery);
     }
-
     //3: Make ServerRequest and receive data.
     var bb = {
         minLongitude: this.miny,
@@ -151,18 +154,23 @@ EarthServerGenericClient.Model_WCPSDemWCS.prototype.receiveData= function( data)
         //Remove the placeHolder
         this.removePlaceHolder();
 
-        var YResolution = (parseFloat(data.maxHMvalue) - parseFloat(data.minHMvalue) );
+        var YResolution = this.YResolution || (parseFloat(data.maxHMvalue) - parseFloat(data.minHMvalue) );
         var transform = this.createTransform(data.width,YResolution,data.height,parseFloat(data.minHMvalue));
         this.root.appendChild( transform);
 
         //Set transparency
         data.transparency = this.transparency;
         //Create Terrain out of the received data
-        EarthServerGenericClient_MainScene.timeLogStart("Create Terrain " + this.name);
-        this.terrain = new EarthServerGenericClient.LODTerrain(transform, data, this.index);
+        EarthServerGenericClient.MainScene.timeLogStart("Create Terrain " + this.name);
+        this.terrain = new EarthServerGenericClient.LODTerrain(transform, data, this.index, this.noData, this.demNoData);
         this.terrain.createTerrain();
-        EarthServerGenericClient_MainScene.timeLogEnd("Create Terrain " + this.name);
-        EarthServerGenericClient_MainScene.timeLogEnd("Create Model " + this.name);
+        EarthServerGenericClient.MainScene.timeLogEnd("Create Terrain " + this.name);
+        this.elevationUpdateBinding();
+
+        if(this.sidePanels)
+        {   this.terrain.createSidePanels(transform,1); }
+
+        EarthServerGenericClient.MainScene.timeLogEnd("Create Model " + this.name);
 
         transform = null;
     }

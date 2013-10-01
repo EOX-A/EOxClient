@@ -1,18 +1,16 @@
 /**
- * Builds one elevation grid chunk. It can consists of several elevation grids to be used in a LOD.
+ * @class Builds one elevation grid chunk. It can consists of several elevation grids to be used in a LOD.
  * For every appearance in the appearances parameter one level is built with 25% size of the last level.
  * @param parentNode - Dom element to append the elevation grids to.
- * @param info - Information about the ID,position of the chunk, the heightmap's size and the modelIndex.
- * @param hf - The heightmap to be used for the elevation grid.
+ * @param info - Information about the ID,position of the chunk, the height map's size and the modelIndex.
+ * @param hf - The height map to be used for the elevation grid.
  * @param appearances - Array of appearances. For every appearance one level for LOD is built. 1 Level = no LOD.
  * @constructor
  */
 function ElevationGrid(parentNode,info, hf,appearances)
 {
-    "use strict";
-
     /**
-     * Creates and inserts elevation grid (terrain chunk) into DOM.
+     * Creates and inserts elevation grid (terrain chunk) into the DOM.
      */
     function setupChunk()
     {
@@ -21,27 +19,27 @@ function ElevationGrid(parentNode,info, hf,appearances)
         {
             var elevationGrid, shape, shf;
 
-            //We build one level of a LOD for every appearance. Example: With 3 children means: [Full Resolution, 1/2 Resolution, 1/4 Resolution]
+            // We build one level of a LOD for every appearance. Example: With 3 children means: [Full Resolution, 1/2 Resolution, 1/4 Resolution]
             for(var i=0; i<appearances.length; i++)
             {
-                //All none full resolutions needs to be one element bigger to keep the desired length
+                // All none full resolutions needs to be one element bigger to keep the desired length
                 var add = 0;
                 if(i !== 0)
                 { add = 1;  }
 
-                //Set up: Shape-> Appearance -> ImageTexture +  Texturetransform
+                // Set up: Shape-> Appearance -> ImageTexture +  Texturetransform
                 shape = document.createElement('Shape');
                 shape.setAttribute("id",info.modelIndex+"_shape_"+info.ID+"_"+i);
 
-                //Build the Elevation Grids
-                //shrink the heightfield to the correct size for this detail level
+                // Build the Elevation Grids
+                // shrink the heightfield to the correct size for this detail level
                 shf = shrinkHeightMap(hf, info.chunkWidth, info.chunkHeight,Math.pow(2,i));
                 elevationGrid = document.createElement('ElevationGrid');
                 elevationGrid.setAttribute("id", info.modelIndex+"hm"+ info.ID+"_"+i);
                 elevationGrid.setAttribute("solid", "false");
-                elevationGrid.setAttribute("xSpacing", String(Math.pow(2,i)));//To keep the same size with fewer elements increase the space of one element
-                elevationGrid.setAttribute("zSpacing", String(Math.pow(2,i)));
-                elevationGrid.setAttribute("xDimension", String(info.chunkWidth/Math.pow(2,i)+add));//fewer elements in every step
+                elevationGrid.setAttribute("xSpacing", String(parseInt(Math.pow(2,i))));// To keep the same size with fewer elements increase the space of one element
+                elevationGrid.setAttribute("zSpacing", String(parseInt(Math.pow(2,i))));
+                elevationGrid.setAttribute("xDimension", String(info.chunkWidth/Math.pow(2,i)+add));// fewer elements in every step
                 elevationGrid.setAttribute("zDimension", String(info.chunkHeight/Math.pow(2,i)+add));
                 elevationGrid.setAttribute("height", shf );
                 elevationGrid.appendChild(calcTexCoords(info.xpos, info.ypos, info.chunkWidth, info.chunkHeight, info.terrainWidth, info.terrainHeight,Math.pow(2,i)));
@@ -51,7 +49,7 @@ function ElevationGrid(parentNode,info, hf,appearances)
 
                 parentNode.appendChild(shape);
 
-                //set vars null
+                // set vars null
                 shf = null;
                 shape = null;
                 elevationGrid = null;
@@ -142,13 +140,10 @@ function ElevationGrid(parentNode,info, hf,appearances)
      */
     function calcTexCoords(xpos,ypos,sizex,sizey,terrainWidth, terrainHeight, shrinkfactor)
     {
-        var tc, tcnode,i,k, offsetx, offsety, partx, party, tmpx, tmpy,smallx,smally;
-        offsetx = xpos/terrainWidth;
-        offsety = ypos/terrainHeight;
-        partx   = parseFloat( (sizex/terrainWidth)*(1/sizex)*shrinkfactor );
-        party   = parseFloat( (sizey/terrainHeight)*(1/sizey)*shrinkfactor );
-        smallx = parseInt(sizex/shrinkfactor);
-        smally = parseInt(sizey/shrinkfactor);
+        var tmpx, tmpy;
+
+        var smallx = parseInt(sizex/shrinkfactor);
+        var smally = parseInt(sizey/shrinkfactor);
 
         if( shrinkfactor !== 1)
         {
@@ -158,21 +153,21 @@ function ElevationGrid(parentNode,info, hf,appearances)
 
         var buffer = [];
         //Create Node
-        tcnode = document.createElement("TextureCoordinate");
+        var tcnode = document.createElement("TextureCoordinate");
 
         //File string
-        for (i = 0; i < smally; i++)
+        for (var i = 0; i < smally; i++)
         {
-            for (k = 0; k < smallx; k++)
+            for (var k = 0; k < smallx; k++)
             {
-                tmpx = offsetx + (k*partx);
-                tmpy = offsety + (i*party);
+                tmpx = parseFloat((xpos+(k*shrinkfactor))/(terrainWidth-1));
+                tmpy = parseFloat((ypos+(i*shrinkfactor))/(terrainHeight-1));
 
                 buffer.push(tmpx + " ");
                 buffer.push(tmpy + " ");
             }
         }
-        tc = buffer.join("");
+        var tc = buffer.join("");
 
         tcnode.setAttribute("point", tc);
 

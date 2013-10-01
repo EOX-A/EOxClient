@@ -110,6 +110,15 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.setWCPSForChannelALPHA = f
 };
 
 /**
+ * Sets the Coordinate Reference System.
+ * @param value - eg. "http://www.opengis.net/def/crs/EPSG/0/27700"
+*/
+EarthServerGenericClient.Model_WCPSDemAlpha.prototype.setCoordinateReferenceSystem = function(value)
+{
+    this.CRS = value;
+};
+
+/**
  * Creates the x3d geometry and appends it to the given root node. This is done automatically by the SceneManager.
  * @param root - X3D node to append the model.
  * @param cubeSizeX - Size of the fishtank/cube on the x-axis.
@@ -120,7 +129,7 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.createModel=function(root,
     if( root === undefined)
         alert("root is not defined");
 
-    EarthServerGenericClient_MainScene.timeLogStart("Create Model " + this.name);
+    EarthServerGenericClient.MainScene.timeLogStart("Create Model " + this.name);
 
     this.cubeSizeX = cubeSizeX;
     this.cubeSizeY = cubeSizeY;
@@ -132,11 +141,10 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.createModel=function(root,
     this.createPlaceHolder();
 
     //1: Check if mandatory values are set
-    if( this.coverageImage === undefined || this.coverageDEM === undefined || this.URLWCPS === undefined
+    if( this.coverageImage === undefined || this.coverageDEM === undefined || this.URLWCPS === undefined || this.CRS === undefined
         || this.minx === undefined || this.miny === undefined || this.maxx === undefined || this.maxy === undefined )
     {
         alert("Not all mandatory values are set. WCPSDemAlpha: " + this.name );
-        alert(this.coverageImage + this.coverageDEM + this.URLWCPS + this.minx + this.miny+ this.maxx + this.maxy );
         console.log(this);
         return;
     }
@@ -153,10 +161,10 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.createModel=function(root,
             var currentXRes = parseInt(this.XResolution / Math.pow(2,i) );
             var currentZRes = parseInt(this.ZResolution / Math.pow(2,i) );
             this.WCPSQuery[i] =  "for i in (" + this.coverageImage + "), dtm in (" + this.coverageDEM + ") return encode ( { ";
-            this.WCPSQuery[i] += "red: scale(trim(i.red, {x(" + this.minx + ":" +  this.maxx + "), y(" + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {}); ";
-            this.WCPSQuery[i] += "green: scale(trim(i.green, {x(" + this.minx + ":" +  this.maxx + "), y(" + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {}); ";
-            this.WCPSQuery[i] += "blue: scale(trim(i.blue, {x(" + this.minx + ":" +  this.maxx + "), y(" + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {});";
-            this.WCPSQuery[i] += "alpha: (char) (((scale(trim(dtm , {x(" + this.minx + ":" +  this.maxx + "), y(" + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {})) / 1349) * 255)";
+            this.WCPSQuery[i] += 'red: scale(trim(i.red, {x:"' + this.CRS + '"(' + this.minx + ":" +  this.maxx + '), y:"' + this.CRS + '"(' + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {}); ";
+            this.WCPSQuery[i] += 'green: scale(trim(i.green, {x:"' + this.CRS + '"(' + this.minx + ":" +  this.maxx + '), y:"' + this.CRS + '"(' + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {}); ";
+            this.WCPSQuery[i] += 'blue: scale(trim(i.blue, {x:"' + this.CRS + '"(' + this.minx + ":" +  this.maxx + '), y:"' + this.CRS + '"(' + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {});";
+            this.WCPSQuery[i] += 'alpha: (char) (((scale(trim(dtm , {x:"' + this.CRS + '"(' + this.minx + ":" +  this.maxx + '), y:"' + this.CRS + '"(' + this.miny + ":" + this.maxy + ') }), {x:"CRS:1"(0:' + currentXRes + '), y:"CRS:1"(0:' + currentZRes + ")}, {})) / 1349) * 255)";
             this.WCPSQuery[i] += '}, "' + this.imageFormat +'" )';
         }
     }
@@ -169,14 +177,15 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.createModel=function(root,
             var tmpString = [];
             for(i=0; i<4; i++)
             {
-                tmpString[i] = this.WCPSQuery[i].replace("$CI","image");
-                tmpString[i] = tmpString[i].replace("$CD","dtm");
-                tmpString[i] = tmpString[i].replace("$MINX",this.minx);
-                tmpString[i] = tmpString[i].replace("$MINY",this.miny);
-                tmpString[i] = tmpString[i].replace("$MAXX",this.maxx);
-                tmpString[i] = tmpString[i].replace("$MAXY",this.maxy);
-                tmpString[i] = tmpString[i].replace("$RESX",parseInt(this.XResolution / Math.pow(2,j) ) );
-                tmpString[i] = tmpString[i].replace("$RESZ",parseInt(this.ZResolution / Math.pow(2,j) ) );
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(this.WCPSQuery[i],"$CI","image");
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$CD","dtm");
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$MINX",this.minx);
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$MINY",this.miny);
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$MAXX",this.maxx);
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$MAXY",this.maxy);
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$CRS" ,'"' + this.CRS + '"');
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$RESX",parseInt(this.XResolution / Math.pow(2,j) ) );
+                tmpString[i] = EarthServerGenericClient.replaceAllFindsInString(tmpString[i],"$RESZ",parseInt(this.ZResolution / Math.pow(2,j) ) );
             }
             this.WCPSQuery[j] =  "for image in (" + this.coverageImage + "), dtm in (" + this.coverageDEM + ") return encode ( { ";
             this.WCPSQuery[j] += "red: " + tmpString[0] + " ";
@@ -211,7 +220,7 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.receiveData = function( da
         //In the first receiveData call remove the placeholder.
         this.removePlaceHolder();
 
-        var YResolution = (parseFloat(data.maxHMvalue) - parseFloat(data.minHMvalue) );
+        var YResolution = this.YResolution || (parseFloat(data.maxHMvalue) - parseFloat(data.minHMvalue) );
         this.transformNode = this.createTransform(data.width,YResolution,data.height,parseFloat(data.minHMvalue));
         this.root.appendChild(this.transformNode);
 
@@ -221,11 +230,14 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.receiveData = function( da
         //Create Terrain out of the received data
         if( !this.progressiveLoading)
         {
-            EarthServerGenericClient_MainScene.timeLogStart("Create Terrain " + this.name);
-            this.terrain = new EarthServerGenericClient.LODTerrain(this.transformNode, data, this.index);
+            EarthServerGenericClient.MainScene.timeLogStart("Create Terrain " + this.name);
+            this.terrain = new EarthServerGenericClient.LODTerrain(this.transformNode, data, this.index, this.noData, this.demNoData);
             this.terrain.createTerrain();
-            EarthServerGenericClient_MainScene.timeLogEnd("Create Terrain " + this.name);
-            EarthServerGenericClient_MainScene.timeLogEnd("Create Model " + this.name);
+            EarthServerGenericClient.MainScene.timeLogEnd("Create Terrain " + this.name);
+            this.elevationUpdateBinding();
+            if(this.sidePanels)
+            {   this.terrain.createSidePanels(this.transformNode,1);    }
+            EarthServerGenericClient.MainScene.timeLogEnd("Create Model " + this.name);
         }
         else
         {
@@ -234,12 +246,15 @@ EarthServerGenericClient.Model_WCPSDemAlpha.prototype.receiveData = function( da
             {   this.terrain = new EarthServerGenericClient.ProgressiveTerrain(this.index); }
 
             //Add new data (with higher resolution) to the terrain
-            EarthServerGenericClient_MainScene.timeLogStart("Create Terrain " + this.name);
-            this.terrain.insertLevel(this.transformNode,data);
-            EarthServerGenericClient_MainScene.timeLogEnd("Create Terrain " + this.name);
+            EarthServerGenericClient.MainScene.timeLogStart("Create Terrain " + this.name);
+            this.terrain.insertLevel(this.transformNode,data,this.noData, this.demNoData);
+            this.elevationUpdateBinding();
+            if(this.sidePanels)
+            {   this.terrain.createSidePanels(this.transformNode,1);    }
+            EarthServerGenericClient.MainScene.timeLogEnd("Create Terrain " + this.name);
 
             if( this.receivedDataCount === this.requests)
-            {   EarthServerGenericClient_MainScene.timeLogEnd("Create Model " + this.name);   }
+            {   EarthServerGenericClient.MainScene.timeLogEnd("Create Model " + this.name);   }
         }
 
         //Delete transformNode when the last response call is done.
