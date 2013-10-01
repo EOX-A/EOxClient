@@ -3,7 +3,11 @@ define(["backbone.marionette", "app", "communicator", "jqueryui"],
 
 		'use strict';
 
-		var BoxView = Marionette.View.extend({
+		var X3DOMView = Marionette.View.extend({
+
+		});
+
+		var BoxView = X3DOMView.extend({
 
 			initialize: function() {
 				this.isInitialized = false;
@@ -11,31 +15,29 @@ define(["backbone.marionette", "app", "communicator", "jqueryui"],
 				$(window).resize(function() {
 					this.onResize();
 				}.bind(this));
-
-				this.hide();
 			},
 
 			onResize: function() {
-				$('.x3dom-canvas').attr("width", $(window).width() - 5);
-				$('.x3dom-canvas').attr("height", $(window).height() - 5);
+				$('.x3dom-canvas').attr("width", $(window).width() - 2);
+				$('.x3dom-canvas').attr("height", $(window).height() - 2);	
 			},
 
 			hide: function() {
-				$('#x3dom').hide();
-				$("#x3domUI").hide();
+				// FIXXME: x3dom expects the X3D element to be part of the DOM for some features, causing errors if the
+				// element is hidden (e.g. not in the DOM). Therefore we make the element invisible, but keep it in the DOM.
+				$('#hidden').append($('#x3dom'));
 			},
 
 			show: function() {
-				this.onResize();
+				this.$el.append($('#x3dom'));
 
-				$('#x3dom').show();
-				$("#x3domUI").show();
+				$('#x3dom').width($(window).width());
+				$('#x3dom').height($(window).height());
+
+				this.onResize();
 			},
 
 			onShow: function() {
-
-				this.show();
-
 				if (!this.isInitialized) {
 
 					// basic setup:
@@ -143,22 +145,13 @@ define(["backbone.marionette", "app", "communicator", "jqueryui"],
 
 					this.isInitialized = true;
 				}
+
+				this.show();
 			},
 
-			onClose: function() {
+			onBeforeClose: function() {
 				this.hide();
 			}
-		});
-
-		// FIXXME: MH: create a module/controller!
-		var _myView = undefined;
-		Communicator.registerEventHandler("viewer:show:rectangularboxviewer", function() {
-			if (!_myView) {
-				_myView = new BoxView({
-					el: $('#x3dom')
-				});
-			}
-			App.map.show(_myView);
 		});
 
 		return BoxView;

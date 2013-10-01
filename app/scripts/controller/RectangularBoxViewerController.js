@@ -19,9 +19,7 @@ define([
 
 			show: function() {
 				if (typeof(this.rbvView) == 'undefined') {
-					this.rbvView = new RectangularBoxView({
-						el: $('#x3dom')
-					});
+					this.rbvView = new RectangularBoxView({});
 				}
 
 				App.map.show(this.rbvView);
@@ -44,6 +42,10 @@ define([
 					trigger: true
 				});
 			});
+
+			Communicator.registerEventHandler("viewer:hide:rectangularboxviewer", function() {
+				rbv_controller.hide();
+			});			
 		};
 
 		var setupRouter = function(rbv_controller) {

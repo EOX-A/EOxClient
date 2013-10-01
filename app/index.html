@@ -48,19 +48,23 @@
             <div id="bottomBar"></div>
         </div>
 
-        <div id="x3dom">
-            <div id="progressbar"></div>
-            <X3D id="x3d" showlog="false" showstat="false">
-                <scene id="x3dScene">
-                    <group id="root">
-                        <group id="theScene" DEF='theScene'></group>
-                    </group>
-                </scene>
-            </X3D>
 
-            <div id='x3domUI'></div>
+        <!-- HIDDEN X3DOM DIV -->
+        <div id="hidden" style="display:none">
+            <div id="x3dom">
+                <div id="progressbar"></div>
+                <X3D id="x3d" showlog="false" showstat="false">
+                    <scene id="x3dScene">
+                        <group id="root">
+                            <group id="theScene" DEF='theScene'></group>
+                        </group>
+                    </scene>
+                </X3D>
+
+                <div id='x3domUI'></div>
+            </div>
         </div>
-
+        
         <!-- HIDDEN DOWNLOAD DIV -->
         <div id="div-downloads">
           <iframe name="iframe-download-post" id="iframe-download-post"></iframe>
