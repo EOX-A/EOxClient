@@ -28,7 +28,8 @@
 		'jqueryui',
 		"text!config.json",
 		"util",
-		"libcoverage"
+		"libcoverage",
+		'controller/MapViewerController'
 	],
 	function ( Backbone, App ) {
 		$.get("scripts/config.json", function(values) {
@@ -70,7 +71,9 @@
 					}
 				});	
 				App.configure(values);
-				App.start();
+				App.start({
+					viewerRegion: App.map
+				});
 			});				
 		});
 		
