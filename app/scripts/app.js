@@ -5,18 +5,17 @@
 
 	root.define([
 		'backbone',
-		'communicator','globals',
+		'globals',
 		'regions/DialogRegion','regions/UIRegion',
 		'layouts/LayerControlLayout',
 		'layouts/ToolControlLayout',
 		'jquery', 'backbone.marionette',
 		'controller/ContentController',
 		'controller/DownloadController',
-		'controller/SelectionManagerController',
-		'router'
+		'controller/SelectionManagerController'
 	],
 
-	function( Backbone, Communicator, globals, DialogRegion, 
+	function( Backbone, globals, DialogRegion, 
 			  UIRegion, LayerControlLayout, ToolControlLayout ) {
 
 		var Application = Backbone.Marionette.Application.extend({
@@ -135,11 +134,7 @@
 					);
 					console.log("Added product " + products.view.id );
 				}, this);
-
-
-				// Create map view and execute show of its region
-				this.map.show(new v.MapView({el: $("#map")}));
-
+				
 				// If Navigation Bar is set in configuration go trhough the 
 				// defined elements creating a item collection to rendered
 				// by the marionette collection view

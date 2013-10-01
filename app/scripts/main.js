@@ -28,7 +28,8 @@
 		'jqueryui',
 		"text!config.json",
 		"util",
-		"libcoverage"
+		"libcoverage",
+		'controller/MapViewerController'
 	],
 	function ( Backbone, App ) {
 		$.get("scripts/config.json", function(values) {
@@ -61,14 +62,19 @@
 				viewModules,							//All "activated" views are loaded
 				models,
 				templates
-			), function(){
+			), function() {
+				App.on("initialize:after", function(options) {
+					if (Backbone.history) {
+            			Backbone.history.start({
+            				pushState: false
+            			});
+					}
+				});	
 				App.configure(values);
-				App.start();
-			});
-
-			
-
-				
+				App.start({
+					viewerRegion: App.map
+				});
+			});				
 		});
 		
 	});
