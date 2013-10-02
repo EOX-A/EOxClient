@@ -72,12 +72,12 @@ define([
 			},
 
 			connectToView: function() {
-				this.mapView.listenTo(Communicator.mediator, "map:center", this.mapView.centerMap);
-				this.mapView.listenTo(Communicator.mediator, "map:layer:change", this.mapView.changeLayer);
-				this.mapView.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.mapView.onSortProducts);
-				this.mapView.listenTo(Communicator.mediator, "selection:activated", this.mapView.onSelectionActivated);
-				this.mapView.listenTo(Communicator.mediator, "map:load:geojson", this.mapView.onLoadGeoJSON);
-				this.mapView.listenTo(Communicator.mediator, "map:export:geojson", this.mapView.onExportGeoJSON);
+				this.listenTo(Communicator.mediator, "map:center", _.bind(this.mapView.centerMap, this.mapView));
+				this.listenTo(Communicator.mediator, "map:layer:change", _.bind(this.mapView.changeLayer, this.mapView));
+				this.listenTo(Communicator.mediator, "productCollection:sortUpdated", _.bind(this.mapView.onSortProducts, this.mapView));
+				this.listenTo(Communicator.mediator, "selection:activated", _.bind(this.mapView.onSelectionActivated, this.mapView));
+				this.listenTo(Communicator.mediator, "map:load:geojson", _.bind(this.mapView.onLoadGeoJSON, this.mapView));
+				this.listenTo(Communicator.mediator, "map:export:geojson", _.bind(this.mapView.onExportGeoJSON, this.mapView));
 
 				this.mapView.listenTo(this.mapView.model, 'change', function(model, options) {
 					Communicator.mediator.trigger("router:setUrl", {
