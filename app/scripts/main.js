@@ -22,6 +22,7 @@
     root.require([
 		'backbone',
 		'app',
+		'communicator',
 		'backbone.marionette',
 		'regionManager',
 		'jquery',
@@ -31,7 +32,7 @@
 		"libcoverage",
 		'controller/MapViewerController'
 	],
-	function ( Backbone, App ) {
+	function ( Backbone, App, Communicator ) {
 		$.get("scripts/config.json", function(values) {
 			
 			// Configure Debug options
@@ -74,6 +75,8 @@
 				App.start({
 					viewerRegion: App.map
 				});
+
+				Communicator.mediator.trigger("viewer:show:map");
 			});				
 		});
 		
