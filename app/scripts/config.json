@@ -2,8 +2,11 @@
 
   "debug":true,
 
+  "modules": [
+    "modules/MapViewer/MapViewModule"
+  ],
+
   "mapConfig": {
-    "module": "views/MapView",
     "model": "models/MapModel",
     "visualizationLibs": [
       "openlayers"
@@ -195,7 +198,6 @@
 
 
   "views": [
-    "views/MapView",
     "views/NavBarCollectionView",
     "views/NavBarItemView",
     "views/BaseLayerSelectionView",
