@@ -3,7 +3,7 @@
   "debug":true,
 
   "modules": [
-    "modules/MapViewer/MapViewController"
+    "modules/MapViewer/MapViewModule"
   ],
 
   "mapConfig": {
