@@ -1,4 +1,4 @@
-define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], function(Marionette, GlobWeb, App, Communicator) {
+define(["backbone.marionette", "virtualglobeviewer/GlobWeb", "app", "communicator"], function(Marionette, GlobWeb, App, Communicator) {
 
 	'use strict';
 
@@ -40,7 +40,7 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 				continuousRendering: false,
 				backgroundColor: [0, 0, 0, 0],
 				// backgroundColor: [0.8, 0.8, 0.8, 1],
-				shadersPath: "lib/modules/Globe/backend/GlobWeb/shaders/"
+				shadersPath: "../bower_components/virtualglobeviewer/shaders/"
 			});
 
 			// Add mouse navigation
@@ -66,15 +66,15 @@ define(["backbone.marionette", "globweb/GlobWeb", "app", "communicator"], functi
 			});
 			this._globe.setBaseImagery(blueMarbleLayer);
 
-			var eoxLayer = new GlobWeb.WMTSLayer({
-				baseUrl: "http://c.maps.eox.at/tiles/wmts",
-				style: "default",
-				layer: "terrain_wgs84",
-				format: "image/png",
-				matrixSet: "WGS84"
-			});
-			eoxLayer.opacity(0.5);
-			this._globe.addLayer(eoxLayer);
+			// var eoxLayer = new GlobWeb.WMTSLayer({
+			// 	baseUrl: "http://c.maps.eox.at/tiles/wmts",
+			// 	style: "default",
+			// 	layer: "terrain_wgs84",
+			// 	format: "image/png",
+			// 	matrixSet: "WGS84"
+			// });
+			// eoxLayer.opacity(0.5);
+			// this._globe.addLayer(eoxLayer);
 
 			this.onResize();
 		},

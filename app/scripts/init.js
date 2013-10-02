@@ -73,7 +73,7 @@
 
             'openlayers': 'http://openlayers.org/api/OpenLayers',
             //'openlayers': 'http://ol3js.org/en/master/build/ol',
-            globweb: "../bower_components/globweb/src",
+            virtualglobeviewer: "../bower_components/virtualglobeviewer/src",
             x3dom: "http://www.x3dom.org/download/dev/x3dom"
         },
 

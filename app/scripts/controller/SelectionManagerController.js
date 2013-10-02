@@ -21,8 +21,6 @@
 	      	this.model.set('selections', []);
 	        this.listenTo(Communicator.mediator, "selection:changed", this.onSelectionChange);
 	        this.listenTo(Communicator.mediator, "ui:open:selectionManager", this.onSelectionManagerOpen);
-
-	        Communicator.setAoiModel(this.model);
 		},
 
 	    onSelectionChange: function(selection) {
