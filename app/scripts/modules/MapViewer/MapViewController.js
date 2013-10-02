@@ -2,7 +2,7 @@ define([
 	'backbone',
 	'communicator',
 	'app',
-	'views/MapView'
+	'./MapView'
 ], function(Backbone, Communicator, App, MapView) {
 
 	'use strict';

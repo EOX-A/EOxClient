@@ -16,7 +16,6 @@
 		    error: function() {}
 		  };
 		}
-    	
     }
 
     root.require([
@@ -29,8 +28,7 @@
 		'jqueryui',
 		"text!config.json",
 		"util",
-		"libcoverage",
-		'controller/MapViewerController'
+		"libcoverage"
 	],
 	function ( Backbone, App, Communicator ) {
 		$.get("scripts/config.json", function(values) {
@@ -38,11 +36,17 @@
 			// Configure Debug options
 			setuplogging(values.debug);
 
+			var modules = [];
 			var viewModules = [];
 			var models = [];
 			var templates = [];
 			var options = {};
 			var config = {};
+
+			_.each(values.modules, function(module) {
+				modules.push(module);
+				console.log("[V-MANIP] Registered module from: " + module + ".js");
+			});
 
 			_.each(values.views, function(view) {
 				viewModules.push(view);
@@ -57,10 +61,11 @@
 			}, this);
 
 			root.require([].concat(
-				values.mapConfig.visualizationLibs, 	//Visualizations such as Openlayers or GlobWeb
-				values.mapConfig.module, 				//Which module should be used for map visualization
-				values.mapConfig.model,					//Which model to use for saving map data
-				viewModules,							//All "activated" views are loaded
+				modules,                                // Webclient Modules
+				values.mapConfig.visualizationLibs, 	// Visualizations such as Openlayers or GlobWeb
+				values.mapConfig.module, 				// Which module should be used for map visualization
+				values.mapConfig.model,					// Which model to use for saving map data
+				viewModules,							// All "activated" views are loaded
 				models,
 				templates
 			), function() {
