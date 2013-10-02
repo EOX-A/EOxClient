@@ -72,14 +72,14 @@ define([
 			},
 
 			connectToView: function() {
-				this.listenTo(Communicator.mediator, "map:center", this.mapView.centerMap);
-				this.listenTo(Communicator.mediator, "map:layer:change", this.mapView.changeLayer);
-				this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.mapView.onSortProducts);
-				this.listenTo(Communicator.mediator, "selection:activated", this.mapView.onSelectionActivated);
-				this.listenTo(Communicator.mediator, "map:load:geojson", this.mapView.onLoadGeoJSON);
-				this.listenTo(Communicator.mediator, "map:export:geojson", this.mapView.onExportGeoJSON);
+				this.mapView.listenTo(Communicator.mediator, "map:center", this.mapView.centerMap);
+				this.mapView.listenTo(Communicator.mediator, "map:layer:change", this.mapView.changeLayer);
+				this.mapView.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.mapView.onSortProducts);
+				this.mapView.listenTo(Communicator.mediator, "selection:activated", this.mapView.onSelectionActivated);
+				this.mapView.listenTo(Communicator.mediator, "map:load:geojson", this.mapView.onLoadGeoJSON);
+				this.mapView.listenTo(Communicator.mediator, "map:export:geojson", this.mapView.onExportGeoJSON);
 
-				this.listenTo(this.mapView.model, 'change', function(model, options) {
+				this.mapView.listenTo(this.mapView.model, 'change', function(model, options) {
 					Communicator.mediator.trigger("router:setUrl", {
 						x: model.get('center')[0],
 						y: model.get('center')[1],
