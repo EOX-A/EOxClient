@@ -279,5 +279,13 @@ define(['backbone.marionette',
 			}
 		});
 
+		// this._myView = undefined;
+		// Communicator.registerEventHandler("viewer:show:map", function() {
+		// 	if (!this._myView) {
+		// 		this._myView = new MapView();
+		// 	}
+		// 	App.map.show(this._myView);
+		// }.bind(this));
+
 		return MapView;
 	});

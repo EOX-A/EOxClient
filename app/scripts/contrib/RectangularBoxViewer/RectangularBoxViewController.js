@@ -35,7 +35,7 @@ define([
 			registerWithCommunicator(controller);
 			setupRouter(controller);
 
-			console.log('[VirtualGlobeViewer] Finished module initialization');
+			console.log('[RectangularBoxViewer] Finished module initialization');
 
 		});
 

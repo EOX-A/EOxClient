@@ -3,7 +3,7 @@
   "debug": true,
 
   "modules": [
-    "contrib/MapViewer/MapViewController",
+    "contrib/MapViewer/MapViewModule",
     "contrib/VirtualGlobeViewer/VirtualGlobeViewController",
     "contrib/RectangularBoxViewer/RectangularBoxViewController"
   ],
@@ -141,7 +141,6 @@
   "regions": [
     {
       "name": "map",
-      "class": "map-fullscreen"
       "class": ""
     },
     {

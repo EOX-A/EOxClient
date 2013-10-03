@@ -33,7 +33,7 @@
 					var obj ={};
 					obj[region.name] = "#" + region.name;
 					this.addRegions(obj);
-					console.log("Added region " + obj[region.name]);
+					//console.log("Added region " + obj[region.name]);
 				}, this);
 
 				//Load all configured views
