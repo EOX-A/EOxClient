@@ -142,6 +142,7 @@
     {
       "name": "map",
       "class": "map-fullscreen"
+      "class": ""
     },
     {
       "name": "leftSideBar",
@@ -166,6 +167,8 @@
   ],
 
   "navBarConfig": {
+    "title" : "V-MANIP",
+    "url" : "https://v-manip.eox.at/",
     "title" : "V-MANIP",
     "url" : "https://v-manip.eox.at/",
     "items" : [
@@ -324,6 +327,7 @@
       "enabled":true,
       "active":false
     }
+    
   ]
 
 }

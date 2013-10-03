@@ -16,7 +16,6 @@
 		    error: function() {}
 		  };
 		}
-    	
     }
 
     root.require([
@@ -65,8 +64,8 @@
 
 			_.each(values.modules, function(module) {
 				modules.push(module);
-				console.log("[V-MANIP] Loaded Webclient module located in: " + module + ".js");
-			}, this);
+				console.log("[V-MANIP] Registered module from: " + module + ".js");
+			});
 
 			_.each(values.views, function(view) {
 				viewModules.push(view);
@@ -81,11 +80,11 @@
 			}, this);
 
 			root.require([].concat(
-				modules,								// Webclient modules
-				values.mapConfig.visualizationLibs, 	//Visualizations such as Openlayers or GlobWeb
-				values.mapConfig.module, 				//Which module should be used for map visualization
-				values.mapConfig.model,					//Which model to use for saving map data
-				viewModules,							//All "activated" views are loaded
+				modules,                                // Webclient Modules
+				values.mapConfig.visualizationLibs, 	// Visualizations such as Openlayers or GlobWeb
+				values.mapConfig.module, 				// Which module should be used for map visualization
+				values.mapConfig.model,					// Which model to use for saving map data
+				viewModules,							// All "activated" views are loaded
 				models,
 				templates
 			), function() {
