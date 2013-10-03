@@ -2,7 +2,7 @@ define([
 	'backbone',
 	'communicator',
 	'app',
-	'views/VirtualGlobeView'
+	'contrib/VirtualGlobeViewer/VirtualGlobeView'
 ], function(Backbone, Communicator, App, VirtualGlobeView) {
 
 	'use strict';

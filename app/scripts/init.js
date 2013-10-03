@@ -39,6 +39,7 @@
 
 
         paths: {
+            contrib: 'contrib',
             jquery: '../bower_components/jquery/jquery.min',
             jqueryui: '../bower_components/jquery-ui/ui/minified/jquery-ui.min',
             backbone: '../bower_components/backbone-amd/backbone-min',

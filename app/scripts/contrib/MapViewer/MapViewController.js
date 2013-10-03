@@ -3,7 +3,7 @@ define([
 	'underscore',
 	'communicator',
 	'app',
-	'views/MapView'
+	'contrib/MapViewer/MapView'
 ], function(Backbone, _, Communicator, App, MapView) {
 
 	'use strict';

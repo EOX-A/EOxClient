@@ -2,8 +2,13 @@
 
   "debug": true,
 
+  "modules": [
+    "contrib/MapViewer/MapViewController",
+    "contrib/VirtualGlobeViewer/VirtualGlobeViewController",
+    "contrib/RectangularBoxViewer/RectangularBoxViewController"
+  ],
+
   "mapConfig": {
-    "module": "views/MapView",
     "model": "models/MapModel",
     "visualizationLibs": [
       "openlayers"
@@ -195,7 +200,6 @@
 
 
   "views": [
-    "views/MapView",
     "views/NavBarCollectionView",
     "views/NavBarItemView",
     "views/BaseLayerSelectionView",
@@ -205,9 +209,7 @@
     "views/TimeSliderView",
     "views/ToolSelectionView",
     "views/ToolItemView",
-    "views/DownloadView",
-    "views/VirtualGlobeView",
-    "views/RectangularBoxView"
+    "views/DownloadView"
   ],
 
   "models":[

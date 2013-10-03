@@ -2,7 +2,7 @@ define([
 	'backbone',
 	'communicator',
 	'app',
-	'views/RectangularBoxView'
+	'contrib/RectangularBoxViewer/RectangularBoxView'
 ], function(Backbone, Communicator, App, RectangularBoxView) {
 
 	'use strict';
