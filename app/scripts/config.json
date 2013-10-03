@@ -4,8 +4,8 @@
 
   "modules": [
     "contrib/MapViewer/MapViewModule",
-    "contrib/VirtualGlobeViewer/VirtualGlobeViewController",
-    "contrib/RectangularBoxViewer/RectangularBoxViewController"
+    "contrib/VirtualGlobeViewer/VirtualGlobeViewModule",
+    "contrib/RectangularBoxViewer/RectangularBoxViewModule"
   ],
 
   "mapConfig": {

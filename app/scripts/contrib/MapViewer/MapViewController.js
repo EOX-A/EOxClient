@@ -21,7 +21,7 @@ define([
 			this.region = options.viewerRegion;
 
 			if (typeof(this.region) === 'undefined') {
-				console.log('[MapViewerModule] Please specify a region for this module to be shown in.')
+				console.log('[MapViewerController] Please specify a region for this module to be shown in.')
 			}
 		},
 

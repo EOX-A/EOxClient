@@ -1,74 +1,34 @@
 define([
 	'backbone',
-	'communicator',
 	'app',
-	'contrib/RectangularBoxViewer/RectangularBoxView'
-], function(Backbone, Communicator, App, RectangularBoxView) {
+	'communicator',
+	'./RectangularBoxView'
+], function(Backbone, App, Communicator, RectangularBoxView) {
 
 	'use strict';
 
-	App.module('RectangularBoxViewer', function(Module) {
+	var RectangularBoxViewController = Backbone.Marionette.Controller.extend({
 
-		this.startsWithParent = true;
+		initialize: function(options) {
+			this.rbvView = undefined;
+			this.region = options.viewerRegion;
 
-		Module.Controller = Backbone.Marionette.Controller.extend({
-
-			initialize: function(options) {
-				this.rbvView = undefined;
-			},
-
-			show: function() {
-				if (typeof(this.rbvView) == 'undefined') {
-					this.rbvView = new RectangularBoxView({
-						x3did: '#x3dom',
-						hideid: '#hidden'
-					});
-				}
-
-				App.map.show(this.rbvView);
+			if (typeof(this.region) === 'undefined') {
+				console.log('[RectangularBoxViewController] Please specify a region for this module to be shown in.')
 			}
-		});
+		},
 
-		this.on('start', function(options) {
-			var controller = new Module.Controller();
-
-			registerWithCommunicator(controller);
-			setupRouter(controller);
-
-			console.log('[RectangularBoxViewer] Finished module initialization');
-
-		});
-
-		var registerWithCommunicator = function(rbv_controller) {
-			Communicator.registerEventHandler("viewer:show:rectangularboxviewer", function() {
-				Backbone.history.navigate("rbv", {
-					trigger: true
+		show: function() {
+			if (typeof(this.rbvView) == 'undefined') {
+				this.rbvView = new RectangularBoxView({
+					x3did: '#x3dom',
+					hideid: '#hidden'
 				});
-			});
+			}
 
-			Communicator.registerEventHandler("viewer:hide:rectangularboxviewer", function() {
-				rbv_controller.hide();
-			});			
-		};
-
-		var setupRouter = function(rbv_controller) {
-			var Router = Backbone.Marionette.AppRouter.extend({
-				appRoutes: {
-					"rbv": "show"
-				}
-			});
-
-			var RouteController = function() {};
-
-			_.extend(RouteController.prototype, {
-				show: function() {
-					rbv_controller.show();
-				}
-			});
-
-			new Router({
-				controller: new RouteController(rbv_controller)
-			});
-		};
+			this.region.show(this.rbvView);
+		}
 	});
+
+	return RectangularBoxViewController;
 });

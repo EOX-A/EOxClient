@@ -1,73 +1,32 @@
 define([
-	'backbone',
-	'communicator',
+	'backbone.marionette',
 	'app',
-	'contrib/VirtualGlobeViewer/VirtualGlobeView'
-], function(Backbone, Communicator, App, VirtualGlobeView) {
+	'communicator',
+	'./VirtualGlobeView'
+], function(Marionette, App, Communicator, VirtualGlobeView) {
 
 	'use strict';
 
-	App.module('VirtualGlobeViewer', function(Module) {
+	var VirtualGlobeViewController = Marionette.Controller.extend({
 
-		this.startsWithParent = true;
+		initialize: function(options) {
+			this.globeView = undefined;
 
-		Module.Controller = Backbone.Marionette.Controller.extend({
+			this.region = options.viewerRegion;
 
-			initialize: function(options) {
-				this.globeView = undefined;
-			},
-
-			show: function() {
-				if (typeof(this.globeView) == 'undefined') {
-					this.globeView = new VirtualGlobeView();
-				}
-
-				App.map.show(this.globeView);
+			if (typeof(this.region) === 'undefined') {
+				console.log('[MapViewerController] Please specify a region for this module to be shown in.')
 			}
-		});
+		},
 
-		// I like the idea of a 'module' that holds together the controllers and
-		// views. The module-controller-view concept allows to delegate the responsibilities of 
-		// each component clearly. E.g. the module only communicates with the App and the 
-		// Communicator object. A controller only talks to its module and to its views. A view
-		// is connected only to its controller via events. No other communication is allowed,
-		// i.e. a controller is not allowed to directly talk to the Communicator.
-		this.on('start', function(options) {
-			var controller = new Module.Controller();
+		show: function() {
+			if (typeof(this.globeView) == 'undefined') {
+				this.globeView = new VirtualGlobeView();
+			}
 
-			registerWithCommunicator(controller);
-			setupRouter(controller);
-
-			console.log('[VirtualGlobeViewer] Finished module initialization');
-
-		});
-
-		var registerWithCommunicator = function(globe_controller) {
-			Communicator.registerEventHandler("viewer:show:virtualglobeviewer", function() {
-				Backbone.history.navigate("vgv", {
-					trigger: true
-				});
-			});
-		};
-
-		var setupRouter = function(globe_controller) {
-			var Router = Backbone.Marionette.AppRouter.extend({
-				appRoutes: {
-					"vgv": "show"
-				}
-			});
-
-			var RouteController = function() {};
-
-			_.extend(RouteController.prototype, {
-				show: function() {
-					globe_controller.show();
-				}
-			});
-
-			new Router({
-				controller: new RouteController(globe_controller)
-			});
-		};		
+			this.region.show(this.globeView);
+		}
 	});
+
+	return VirtualGlobeViewController;
 });
