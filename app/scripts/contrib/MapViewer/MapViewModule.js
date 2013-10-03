@@ -19,7 +19,7 @@ define([
 		// Moreover the Router responsible for this module is activated in this routine.
 		this.on('start', function(options) {
 			var controller = new MapViewController({
-				viewerRegion: options.viewerRegion
+				viewerRegion: App.left//options.viewerRegion
 			});
 
 			registerWithCommunicator(controller);

@@ -140,7 +140,11 @@
 
   "regions": [
     {
-      "name": "map",
+      "name": "left",
+      "class": ""
+    },
+    {
+      "name": "right",
       "class": ""
     },
     {

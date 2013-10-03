@@ -99,11 +99,12 @@
 				});	
 				App.configure(values);
 				App.start({
-					viewerRegion: App.map
+					viewerRegion: App.left
 				});
 
 				// Tell the application to initially show the 2D map widget:
 				Communicator.mediator.trigger("viewer:show:map");
+				Communicator.mediator.trigger("viewer:show:virtualglobeviewer");
 			});				
 		});
 		

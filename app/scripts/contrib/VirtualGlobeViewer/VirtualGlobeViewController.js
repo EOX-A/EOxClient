@@ -17,6 +17,10 @@ define([
 			if (typeof(this.region) === 'undefined') {
 				console.log('[MapViewerController] Please specify a region for this module to be shown in.')
 			}
+
+			this.listenTo(Communicator.mediator, 'selection:changed', function(data) {
+				this.addAreaOfInterest(data);
+			}.bind(this));
 		},
 
 		show: function() {
@@ -25,6 +29,10 @@ define([
 			}
 
 			this.region.show(this.globeView);
+		},
+
+		addAreaOfInterest: function(geojson) {
+			this.globeView.addAreaOfInterest(geojson);			
 		}
 	});
 

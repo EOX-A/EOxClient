@@ -20,19 +20,19 @@ define([
 			}.bind(this));
 		},
 
+		addAreaOfInterest: function(geojson) {
+			this.globe.addAreaOfInterest(geojson);
+		},
+
 		selectProduct: function(model) {
 			if (model.get("name") === "OpenStreetMap") {
-				var osmLayer = new GlobWeb.OSMLayer({
-					baseUrl: "http://tile.openstreetmap.org"
+				this.globe.setProduct({
+					type: 'OSMLayer'
 				});
-				this.globe.setBaseImagery(osmLayer);
 			} else {
-				var blueMarbleLayer = new GlobWeb.WMSLayer({
-					baseUrl: "http://demonstrator.telespazio.com/wmspub",
-					layers: "BlueMarble",
-					opacity: 0.1
+				this.globe.setProduct({
+					type: 'BlueMarble'
 				});
-				this.globe.setBaseImagery(blueMarbleLayer);
 			}
 
 			console.log("[GlobeView::selectProduct] selected " + model.get("name"));
@@ -45,7 +45,7 @@ define([
 		},
 
 		onResize: function() {
-			this.globe.setViewport(this.$el.width(), this.$el.height());
+			this.globe.updateViewport();
 		},
 
 		onShow: function() {

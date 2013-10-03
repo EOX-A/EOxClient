@@ -20,7 +20,7 @@ define([
 		// i.e. a controller is not allowed to directly talk to the Communicator.
 		this.on('start', function(options) {
 			var controller = new VirtualGlobeViewController({
-				viewerRegion: options.viewerRegion
+				viewerRegion: App.right//options.viewerRegion
 			});
 			
 			registerWithCommunicator(controller);

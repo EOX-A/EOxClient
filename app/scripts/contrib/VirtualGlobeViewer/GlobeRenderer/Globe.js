@@ -1,6 +1,7 @@
 define([
 	'virtualglobeviewer/GlobWeb',
-], function(GlobWeb) {
+	'openlayers' // FIXXME: replace OpenLayers with generic format!
+], function(GlobWeb, OpenLayers) {
 
 	'use strict';
 
@@ -22,7 +23,8 @@ define([
 			shadersPath: "../bower_components/virtualglobeviewer/shaders/"
 		});
 
-		// Add mouse navigation
+		this.aoiLayer = undefined;
+
 		var navigation = new GlobWeb.Navigation(this.globe, {
 			inertia: true
 		});
@@ -54,11 +56,82 @@ define([
 		// });
 		// eoxLayer.opacity(0.5);
 		// this.globe.addLayer(eoxLayer);
-
-		this.testAreaOfInterestRenderer(this.globe);
 	};
 
-	Globe.prototype.setViewport = function(width, height) {
+	var convertFromOpenLayers = function(ol_geometry, altitude) {
+		var verts = ol_geometry.getVertices();
+
+		var coordinates = [];
+		for (var idx = 0; idx < verts.length; ++idx) {
+			var p = [];
+
+			p.push(verts[idx].x);
+			p.push(verts[idx].y);
+			p.push(altitude);
+
+			coordinates.push(p);
+		}
+		var p = [];
+
+		p.push(verts[0].x);
+		p.push(verts[0].y);
+		p.push(altitude);
+		coordinates.push(p);
+
+		return coordinates;
+	};
+
+	Globe.prototype.addAreaOfInterest = function(geojson) {
+		if (!this.aoiLayer) {
+			this.aoiLayer = new GlobWeb.VectorLayer({
+				style: style,
+				opacity: 1
+			});
+			this.globe.addLayer(this.aoiLayer);
+		}
+
+		if (geojson) {
+			var style = new GlobWeb.FeatureStyle({
+				fillColor: [1, 0.5, 0.1, 0.5],
+				strokeColor: [1, 0.5, 0.1, 1],
+				extrude: true,
+				fill: true
+			});
+
+			var altitude = 30000;
+			var coordinates = convertFromOpenLayers(geojson, altitude);
+			
+			var selection0 = {
+				"geometry": {
+					"type": "Polygon",
+					"coordinates": coordinates
+				},
+				"properties": {
+					"style": style
+				}
+			};
+
+			this.aoiLayer.addFeature(selection0);
+		}
+	};
+
+	Globe.prototype.setProduct = function(desc) {
+		if (desc.type == 'OSMLayer') {
+			var osmLayer = new GlobWeb.OSMLayer({
+				baseUrl: "http://tile.openstreetmap.org"
+			});
+			this.globe.setBaseImagery(osmLayer);
+		} else {
+			var blueMarbleLayer = new GlobWeb.WMSLayer({
+				baseUrl: "http://demonstrator.telespazio.com/wmspub",
+				layers: "BlueMarble",
+				opacity: 0.1
+			});
+			this.globe.setBaseImagery(blueMarbleLayer);
+		}
+	};
+
+	Globe.prototype.updateViewport = function() {
 		// FIXXME: the height/width has to be set explicitly after setting the
 		// the new css class. Why?
 		this.globe.renderContext.canvas.width = this.canvas.width();
@@ -67,70 +140,6 @@ define([
 		// Adjust the globe's aspect ration and redraw:
 		this.globe.renderContext.updateViewDependentProperties();
 		this.globe.refresh();
-	},
-
-	Globe.prototype.testAreaOfInterestRenderer = function(globe) {
-		var style = new GlobWeb.FeatureStyle({
-			fillColor: [0, 0, 255],
-			outlineColor: [255, 255, 255],
-			extrude: true,
-			fill: true
-			//renderer: "AreaOfInterest"
-		});
-
-		var aoi_layer = new GlobWeb.VectorLayer({
-			style: style,
-			opacity: 1
-		});
-		globe.addLayer(aoi_layer);
-
-		var altitude = 30000;
-		var selection0 = {
-			"geometry": {
-				"type": "Polygon",
-				"coordinates": [
-					[0.439498, 47.070761, altitude],
-					[46.439498, 47.070761, altitude],
-					[46.439498, 48.070761, altitude],
-					[0.439498, 47.070761, altitude]
-					// [15.439498, 48.070761, altitude],
-					// [15.439498, 47.070761, altitude]
-				]
-			},
-			"properties": {
-				"style": style
-			}
-		};
-		aoi_layer.addFeature(selection0);
-
-		// setTimeout(function() {
-		// 	aoi_layer.removeFeature(selection0);
-
-		// 	var style = new GlobWeb.FeatureStyle({
-		// 		fillColor: [255, 0, 255],
-		// 		outlineColor: [255, 255, 255],
-		// 		renderer: "AreaOfInterest"
-		// 	});
-
-		// 	var selection1 = {
-		// 		"geometry": {
-		// 			"type": "Polygon",
-		// 			"coordinates": [
-		// 				[15.439498, 47.070761, altitude],
-		// 				[16.439498, 47.070761, altitude],
-		// 				[16.439498, 48.070761, altitude],
-		// 				[15.439498, 48.070761, altitude],
-		// 				[15.439498, 47.070761, altitude]
-		// 			]
-		// 		},
-		// 		"properties": {
-		// 			"style": style
-		// 		}
-		// 	};
-		// 	aoi_layer.addFeature(selection1);
-		// }, 3000);
-
-		console.log("[Test_AreaOfInterestRenderer::run] executed");
 	};
 
 	return Globe;

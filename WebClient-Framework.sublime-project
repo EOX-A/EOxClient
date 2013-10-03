@@ -15,8 +15,8 @@
 		},
 		{
 			"name": "VirtualGlobeViewer",
-			// "path": "app/bower_components/virtualglobeviewer/src"
-			"path": "../VirtualGlobeViewer/src"
+			"path": "app/bower_components/virtualglobeviewer/src"
+			//"path": "../VirtualGlobeViewer/src"
 		}
 	]
 }
