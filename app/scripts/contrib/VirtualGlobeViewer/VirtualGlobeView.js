@@ -3,14 +3,24 @@ define([
 	'app',
 	'communicator',
 	'./GlobeRenderer/Globe'
-], function(Marionette, App, Communicator, Globe) {
+	// 'hbs!tmpl/VirtualGlobeView',
+], function(Marionette, App, Communicator, Globe /*, VirtualGlobeViewTmpl*/) {
 
 	'use strict';
 
 	var GlobeView = Marionette.View.extend({
-		tagName: "canvas",
+		tagName: 'canvas',
+		className: 'globe',
 
-		className: "globe",
+		// template: {
+		// 	type: 'handlebars',
+		// 	template: VirtualGlobeViewTmpl
+		// },
+
+		// ui: {
+		// 	viewport: '#myglobe',
+		// 	gui: '.gui'
+		// },
 
 		initialize: function() {
 			$(window).resize(function() {

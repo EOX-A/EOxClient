@@ -1,0 +1,65 @@
+@import "compass/css3/transition";
+@import "partials/rounded";
+
+.splitview {
+	width: 100%;
+	height: 100%;
+
+	@include transition-property(width);
+  	@include transition-duration(2s);
+  	@include transition-timing-function(ease-out);
+}
+
+.splitview .fullscreen {
+	width: 100%;
+	height: 100%;
+
+	@include transition-property(width);
+  	@include transition-duration(2s);
+  	@include transition-timing-function(ease-out);
+}
+
+.splitview .halfscreen {
+	display: inline-block;
+
+	width: 49.5%;
+	height: 100%;
+
+	@include transition-property(width);
+  	@include transition-duration(2s);
+  	@include transition-timing-function(ease-out);
+}
+
+.splitview .disabled {
+	display: none;
+}
+
+.splitview .fullscreenbutton {
+	position: absolute;
+	z-index: 1000;
+
+	width: 100px;
+	height: 50px;
+
+	right: 40px;
+	top: 40px;
+
+	background: #0f0;
+
+	@include rounded;
+}
+
+.splitview .splitscreenbutton {
+	position: absolute;
+	z-index: 1000;
+
+	width: 100px;
+	height: 50px;
+
+	right: 40px;
+	top: 85px;
+
+	background: #0f0;
+
+	@include rounded;
+}

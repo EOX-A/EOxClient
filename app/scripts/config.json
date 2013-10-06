@@ -140,11 +140,7 @@
 
   "regions": [
     {
-      "name": "left",
-      "class": ""
-    },
-    {
-      "name": "right",
+      "name": "main",
       "class": ""
     },
     {

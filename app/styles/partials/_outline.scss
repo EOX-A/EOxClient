@@ -1,0 +1,19 @@
+@mixin outline($color: black, $width: 1px, $style: solid) {
+	border-style: $style;
+	border-width: $width;
+	border-color: $color;
+}
+
+@mixin outline-topbottom($color: black, $width: 1px, $style: solid) {
+	border-top-style: $style;
+	border-bottom-style: $style;
+	border-width: $width;
+	border-color: $color;
+}
+
+@mixin outline-leftright($color: black, $width: 1px, $style: solid) {
+	border-left-style: $style;
+	border-right-style: $style;
+	border-width: $width;
+	border-color: $color;
+}

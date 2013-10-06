@@ -3,6 +3,8 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 
 @import 'sass-bootstrap/lib/bootstrap';
 @import "base";
+@import "splitview";
+@import "mapviewer";
 @import "virtualglobeviewer";
 @import "rectangularboxviewer";
 
@@ -104,10 +106,9 @@ ul, li {
 	width: 100%;
 }
 
-#map {
+#main {
 	height: 100%;
-	width: 50%;
-	position: absolute;
+	width: 100%;
 }
 
 #leftSideBar {
@@ -138,6 +139,10 @@ ul, li {
   width: 90%;
   padding: 0 5%;
 }*/
+
+#timeslider .bottomBar {
+  z-index: 1000;
+}
 
 #timeslider svg.timeslider {
   height: 3em;

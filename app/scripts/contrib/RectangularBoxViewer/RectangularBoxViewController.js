@@ -11,11 +11,6 @@ define([
 
 		initialize: function(options) {
 			this.rbvView = undefined;
-			this.region = options.viewerRegion;
-
-			if (typeof(this.region) === 'undefined') {
-				console.log('[RectangularBoxViewController] Please specify a region for this module to be shown in.')
-			}
 		},
 
 		show: function() {

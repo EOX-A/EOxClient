@@ -13,12 +13,11 @@ define([
 		this.startsWithParent = true;
 
 		this.on('start', function(options) {
-			var controller = new RectangularBoxViewController({
-				viewerRegion: options.viewerRegion
-			});
+			var controller = new RectangularBoxViewController();
 
 			registerWithCommunicator(controller);
-			setupRouter(controller);
+			// FIXXME: Routing system has to be reworked to integrate it with multiple views!
+			//setupRouter(controller);
 
 			console.log('[RectangularBoxViewer] Finished module initialization');
 

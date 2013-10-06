@@ -28,7 +28,7 @@
 		'jqueryui',
 		"text!config.json",
 		"util",
-		"libcoverage"
+		"libcoverage",
 	],
 	function ( Backbone, App, Communicator ) {
 
@@ -99,12 +99,9 @@
 				});	
 				App.configure(values);
 				App.start({
-					viewerRegion: App.left
+					viewerRegion: App.map
 				});
-
-				// Tell the application to initially show the 2D map widget:
-				Communicator.mediator.trigger("viewer:show:map");
-				Communicator.mediator.trigger("viewer:show:virtualglobeviewer");
+				App.setupGui();
 			});				
 		});
 		
