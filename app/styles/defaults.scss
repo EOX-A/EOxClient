@@ -1,35 +1,7 @@
 //
-// Colors:
-//
-$default-background: rgba(255, 255, 255, 0.9);
-$default-header-background: #000;
-$default-header-height: 30px;
-$default-border-radius: 8px;
-
-$default-listitem-background: #85B5D9;
-$default-listitem-hover: #FFD977;
-
-$default-color: rgba(255,255,255,0.9);
-
-//
-// Toggle:
-//
-$default-toggle-width: 12px;
-$default-toggle-color: $default-color;
-$default-toggle-color-onhover: rgba(200,200,200,0.9);
-$default-toggle-shade-percentage: 15;
-$default-toggle-shade-percentage-onhover: 50;
-
-//
-// Widgets:
-//
-$default-widget-border-width: 1px;
-$default-widget-background: $default-color;
-
-//
-// Layers:
+// GUI Layers:
 //
 $layer-body: 0;
 $layer-map: 100;
-$layer-gui: 200;
+$layer-gui: 1004; // OpenLayers defines its GUI elements with z-index 1004
 

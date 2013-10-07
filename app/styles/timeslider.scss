@@ -1,0 +1,8 @@
+@import "defaults";
+
+#timeslider svg.timeslider {
+  z-index: $layer-gui;
+  position: relative;
+
+  height: 3em;
+}
