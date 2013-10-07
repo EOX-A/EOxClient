@@ -34,7 +34,7 @@
 
 .highlight {
 	padding: 4px;
-	width: 15px;
+	width: 14px;
 	height: 18px;
 
 	background: rgba(0, 60, 136, 0.5);
@@ -44,16 +44,20 @@
 .splitview .gui {
 	position: absolute;
 	z-index: $layer-gui;
+
+	background: rgba(255,255,255,0.4);
+	padding: 3px;
+	@include rounded(4px);
 }
 
 .splitview .leftpane .gui {
-	left: 10px;
-	top: 100px;
+	left: 8px;
+	top: 103px;
 }
 
 .splitview .rightpane .gui {
+	top: 50px;
 	right: 10px;
-	top: 100px;
 }
 
 .splitview .fullscreen-btn {
