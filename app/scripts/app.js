@@ -280,17 +280,29 @@
 				// The GUI is setup after the application is started. Therefore all modules
 				// are already registered and can be requested to populate the GUI.
 				setupGui: function() {
-					var splitview = new SplitView({
+					// Starts the SplitView module and registers it with the Communicator.
+					this.module('SplitView').start();
+
+					// Retrieves the SplitView module and creates a new splitted view.
+					var splitController = Communicator.reqres.request('core:get:splitviewmodule').createController();
+
+					// Be sure to insert the view into the DOM before adding the child view. E.g.
+					// OpenLayers.Map fails to initialize if its div is not within the DOM.
+					this.main.show(splitController.getView());
+
+					// Register the views which are available to the SplitView with an Id.
+					splitController.registerViews({
 						'vgv': Communicator.reqres.request('viewer:get:virtualglobeviewer', 'main'),
 						'map': Communicator.reqres.request('viewer:get:mapviewer', 'main')
 					});
 
-					this.main.show(splitview);
+					// Set the views into the desired areas of the SplitView.
+					splitController.showViewInRegion('map', 'left');
+					splitController.showViewInRegion('vgv', 'right');
 
-					splitview.showViewInRegion('map', 'left');
-					splitview.showViewInRegion('vgv', 'right');
-					
-					splitview.setSplitscreen();
+					// Configure the SplitView:
+					//splitController.setSplitscreen();
+					splitController.setFullscreen('left');
 				}
 			});
 
