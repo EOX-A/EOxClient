@@ -14,6 +14,12 @@ define(['backbone.marionette',
 
 			initialize: function() {
 				this.map = undefined;
+
+				$(window).resize(function() {
+					if (this.map) {
+						this.onResize();
+					}
+				}.bind(this));
 			},
 
 			createMap: function() {
@@ -24,7 +30,7 @@ define(['backbone.marionette',
 					div: this.el,
 					fallThrough: true
 				});
-				
+
 				this.map.events.register("moveend", this.map, function(data) {
 					this.model.set({
 						'center': [data.object.center.lon, data.object.center.lat],
@@ -95,6 +101,10 @@ define(['backbone.marionette',
 					this.createMap();
 				}
 				return this;
+			},
+
+			onResize: function() {
+				this.map.updateSize();
 			},
 
 			//method to create layer depending on protocol

@@ -26,7 +26,7 @@ define([
 
 			'click .splitscreenbutton': function() {
 				this.setSplitscreen();
-			}			
+			}
 		},
 
 		initialize: function(views) {
@@ -53,26 +53,16 @@ define([
 
 		setFullscreen: function(regionid) {
 			if (regionid === 'left') {
-				this.left.$el.removeClass('halfscreen');
-				this.right.$el.removeClass('halfscreen');
-
-				this.right.$el.addClass('disabled');
-				this.left.$el.addClass('fullscreen');
+				this.left.$el.addClass('disabled').removeClass('halfscreen');
+				this.right.$el.addClass('fullscreen').removeClass('halfscreen');
 			} else if (regionid === 'right') {
-				this.left.$el.removeClass('halfscreen');
-				this.right.$el.removeClass('halfscreen');
-				
-				this.left.$el.addClass('disabled');
-				this.right.$el.addClass('fullscreen');
+				this.left.$el.addClass('disabled').removeClass('halfscreen');
+				this.right.$el.addClass('fullscreen').removeClass('halfscreen');
 			} else {
 				alert('[SplitView::setFullscreen] Unknown regionid: ' + regionid);
 			}
 
-			_.each(this.views, function(view) {
-				if (view.onResize) {
-					view.onResize();
-				}
-			});
+			this.updateViewSize();
 		},
 
 		setSplitscreen: function() {
@@ -82,12 +72,16 @@ define([
 			this.left.$el.addClass('halfscreen');
 			this.right.$el.addClass('halfscreen');
 
+			this.updateViewSize();
+		},
+
+		updateViewSize: function() {
 			_.each(this.views, function(view) {
 				if (view.onResize) {
 					view.onResize();
 				}
-			});			
-		}		
+			});
+		}
 
 	});
 
