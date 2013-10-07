@@ -284,15 +284,12 @@
 						'vgv': Communicator.reqres.request('viewer:get:virtualglobeviewer', 'main'),
 						'map': Communicator.reqres.request('viewer:get:mapviewer', 'main')
 					});
-					splitview.addRegions({
-						left: ".left",
-						right: ".right"
-					});
 
 					this.main.show(splitview);
+
 					splitview.showViewInRegion('map', 'left');
 					splitview.showViewInRegion('vgv', 'right');
-
+					
 					splitview.setSplitscreen();
 				}
 			});

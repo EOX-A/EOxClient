@@ -14,17 +14,31 @@ define([
 			template: SplitViewTmpl
 		},
 
-		ui: {
-			fullscreenBtn: '.fullscreenbutton',
-			splitscreenBtn: '.spliscreenbutton'
+		regions: {
+			left: '.leftpane > .viewport',
+			right: '.rightpane > .viewport'
 		},
 
+		ui: {
+			leftgui: '.leftpane > .gui',
+			rightgui: '.rightpane > .gui',
+			leftpane: '.leftpane',
+			rightpane: '.rightpane',
+			fullscreenBtn: '.fullscreenbutton',
+			splitscreenBtn: '.splitscreenbutton'
+		},
+
+		// FIXXME: replace with 'triggers' and let the controller decide what to do on a click on the buttons!
 		events: {
-			'click .fullscreenbutton': function() {
+			'click .leftpane .fullscreen-btn': function() {
 				this.setFullscreen('left');
 			},
 
-			'click .splitscreenbutton': function() {
+			'click .rightpane .fullscreen-btn': function() {
+				this.setFullscreen('right');
+			},
+
+			'click .splitscreen-btn': function() {
 				this.setSplitscreen();
 			}
 		},
@@ -53,24 +67,32 @@ define([
 
 		setFullscreen: function(regionid) {
 			if (regionid === 'left') {
-				this.left.$el.addClass('disabled').removeClass('halfscreen');
-				this.right.$el.addClass('fullscreen').removeClass('halfscreen');
+				this.ui.leftpane.addClass('disabled').removeClass('halfscreen');
+				this.ui.rightpane.addClass('fullscreen').removeClass('halfscreen');
+
+				this.ui.rightgui.addClass('disabled');
 			} else if (regionid === 'right') {
-				this.left.$el.addClass('disabled').removeClass('halfscreen');
-				this.right.$el.addClass('fullscreen').removeClass('halfscreen');
+				this.ui.leftpane.addClass('disabled').removeClass('halfscreen');
+				this.ui.rightpane.addClass('fullscreen').removeClass('halfscreen');
+
+				this.ui.leftgui.addClass('disabled');
 			} else {
 				alert('[SplitView::setFullscreen] Unknown regionid: ' + regionid);
+				return;
 			}
 
 			this.updateViewSize();
 		},
 
 		setSplitscreen: function() {
-			this.left.$el.removeClass('fullscreen disabled');
-			this.right.$el.removeClass('fullscreen disabled');
+			this.ui.leftpane.removeClass('fullscreen disabled');
+			this.ui.rightpane.removeClass('fullscreen disabled');
 
-			this.left.$el.addClass('halfscreen');
-			this.right.$el.addClass('halfscreen');
+			this.ui.leftpane.addClass('halfscreen');
+			this.ui.rightpane.addClass('halfscreen');
+
+			this.ui.leftgui.removeClass('disabled');
+			this.ui.rightgui.removeClass('disabled');
 
 			this.updateViewSize();
 		},

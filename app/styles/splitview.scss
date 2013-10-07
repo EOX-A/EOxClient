@@ -1,6 +1,8 @@
 @import "compass/css3/transition";
 @import "partials/rounded";
 
+@import "defaults";
+
 .splitview {
 	width: 100%;
 	height: 100%;
@@ -8,6 +10,15 @@
 	@include transition-property(width);
   	@include transition-duration(2s);
   	@include transition-timing-function(ease-out);
+}
+
+.splitview .leftpane, .splitview .rightpane {
+	position: relative;
+}
+
+.splitview .viewport {
+	width: 100%;
+	height: 100%;
 }
 
 .splitview .fullscreen {
@@ -31,35 +42,51 @@
 }
 
 .splitview .disabled {
-	display: none;
+	width: 0;
+
+	@include transition-property(width);
+  	@include transition-duration(2s);
+  	@include transition-timing-function(ease-out);
 }
 
-.splitview .fullscreenbutton {
-	position: absolute;
-	z-index: 1000;
+.highlight {
+	padding: 4px;
+	width: 15px;
+	height: 18px;
 
-	width: 100px;
-	height: 50px;
-
-	right: 40px;
-	top: 40px;
-
-	background: #0f0;
-
-	@include rounded;
+	background: rgba(0, 60, 136, 0.5);
+	@include rounded(4px);
 }
 
-.splitview .splitscreenbutton {
+// .gui {
+// 	position: absolute;
+// 	z-index: $layer-gui;
+
+// 	left: 10px;
+// 	top: 100px;
+// }
+
+.splitview .fullscreen-btn, .splitview .splitscreen-btn {
 	position: absolute;
-	z-index: 1000;
+	z-index: $layer-gui;
+}
 
-	width: 100px;
-	height: 50px;
+.splitview .leftpane .fullscreen-btn {
+	left: 10px;
+	top: 100px;
+}
 
-	right: 40px;
-	top: 85px;
+.splitview .leftpane .splitscreen-btn {
+	left: 10px;
+	top: 127px;
+}
 
-	background: #0f0;
+.splitview .rightpane .fullscreen-btn {
+	right: 10px;
+	top: 100px;
+}
 
-	@include rounded;
+.splitview .rightpane .splitscreen-btn {
+	right: 10px;
+	top: 127px;
 }
