@@ -1,0 +1,21 @@
+{
+	"folders":
+	[
+		{
+			"name": "Webclient",
+			"folder_exclude_patterns":
+			[
+				"bower_components"
+			],
+			"path": "app"
+		},
+		{
+			"name": "RectangularBoxViewer",
+			"path": "app/bower_components/rectangularboxviewer"
+		},
+		{
+			"name": "VirtualGlobeViewer",
+			"path": "app/bower_components/virtualglobeviewer/src"
+		}
+	]
+}

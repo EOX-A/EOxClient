@@ -17,16 +17,14 @@ define([
 		initialize: function(options) {
 			this.mapView = new MapView();
 			this.connectToView();
-
-			this.region = options.viewerRegion;
-
-			if (typeof(this.region) === 'undefined') {
-				console.log('[MapViewerController] Please specify a region for this module to be shown in.')
-			}
 		},
 
-		show: function() {
-			this.region.show(this.mapView);
+		getView: function(id) {
+			if (id === 'main') {
+				return this.mapView;
+			} else {
+				console.log('[MapViewController::getView] Error: Unknown view "' + id + "' requested!");
+			}
 		},
 
 		centerAndZoom: function(x, y, l) {

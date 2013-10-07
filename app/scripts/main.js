@@ -28,7 +28,8 @@
 		'jqueryui',
 		"text!config.json",
 		"util",
-		"libcoverage"
+		"libcoverage",
+		'core/SplitView/SplitViewModule'
 	],
 	function ( Backbone, App, Communicator ) {
 
@@ -101,9 +102,7 @@
 				App.start({
 					viewerRegion: App.map
 				});
-
-				// Tell the application to initially show the 2D map widget:
-				Communicator.mediator.trigger("viewer:show:map");
+				App.setupGui();
 			});				
 		});
 		

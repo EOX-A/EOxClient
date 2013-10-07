@@ -1,0 +1,65 @@
+@import "partials/rounded";
+@import "defaults";
+
+.splitview {
+	width: 100%;
+	height: 100%;
+}
+
+.splitview .leftpane, .splitview .rightpane {
+	position: relative;
+}
+
+.splitview .viewport {
+	width: 100%;
+	height: 100%;
+}
+
+.splitview .fullscreen {
+	width: 100%;
+	height: 100%;
+}
+
+.splitview .halfscreen {
+	display: inline-block;
+
+	width: 49.8%;
+	height: 100%;
+}
+
+.splitview .disabled {
+	display: none;
+	//width: 0;
+}
+
+.highlight {
+	padding: 4px;
+	width: 14px;
+	height: 18px;
+
+	background: rgba(0, 60, 136, 0.5);
+	@include rounded(4px);
+}
+
+.splitview .gui {
+	position: absolute;
+	z-index: $layer-gui;
+
+	background: rgba(255,255,255,0.4);
+	padding: 3px;
+	@include rounded(4px);
+}
+
+.splitview .leftpane .gui {
+	left: 8px;
+	top: 103px;
+}
+
+.splitview .rightpane .gui {
+	top: 50px;
+	right: 10px;
+}
+
+.splitview .fullscreen-btn {
+	margin-bottom: 2px;
+}

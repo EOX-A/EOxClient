@@ -10,21 +10,27 @@ define([
 	var VirtualGlobeViewController = Marionette.Controller.extend({
 
 		initialize: function(options) {
-			this.globeView = undefined;
+			this.globeView = new VirtualGlobeView();
 
-			this.region = options.viewerRegion;
+			this.listenTo(Communicator.mediator, 'selection:changed', function(data) {
+				this.addAreaOfInterest(data);
+			}.bind(this));
+		},
 
-			if (typeof(this.region) === 'undefined') {
-				console.log('[MapViewerController] Please specify a region for this module to be shown in.')
+		getView: function(id) {
+			if (id === 'main') {
+				return this.globeView;
+			} else {
+				console.log('[VirtualGlobeViewController::getView] Error: Unknown view "' + id + "' requested!");
 			}
 		},
 
 		show: function() {
-			if (typeof(this.globeView) == 'undefined') {
-				this.globeView = new VirtualGlobeView();
-			}
-
 			this.region.show(this.globeView);
+		},
+
+		addAreaOfInterest: function(geojson) {
+			this.globeView.addAreaOfInterest(geojson);
 		}
 	});
 

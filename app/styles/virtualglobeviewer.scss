@@ -1,16 +1,16 @@
 @import "defaults";
 
 .globe {
-	position: absolute;
+	//position: absolute;
 	//z-index: $layer-map;
 
 	// FIXXME: take header/footer into account!
-	top: 0;
-	left: 0;
+	// top: 0;
+	// left: 0;
 
 	width: 100%;
 	height: 100%;
 
-	margin: 0;
+	margin: 0px;
 	padding: 0;
 }

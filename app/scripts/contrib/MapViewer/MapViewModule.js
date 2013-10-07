@@ -18,21 +18,19 @@ define([
 		// connected to the event system of the application via the Communicator.
 		// Moreover the Router responsible for this module is activated in this routine.
 		this.on('start', function(options) {
-			var controller = new MapViewController({
-				viewerRegion: options.viewerRegion
-			});
+			var controller = new MapViewController();
 
 			registerWithCommunicator(controller);
-			setupRouter(controller);
+			
+			// FIXXME: Routing system has to be reworked to integrate it with multiple views!
+			//setupRouter(controller);
 
 			console.log('[MapViewerModule] Finished module initialization');
 		});
 
 		var registerWithCommunicator = function(map_controller) {
-			Communicator.registerEventHandler("viewer:show:map", function() {
-				Backbone.history.navigate("map", {
-					trigger: true
-				});
+			Communicator.reqres.setHandler("viewer:get:mapviewer", function(id) {
+				return map_controller.getView(id);
 			});
 		};
 

@@ -140,7 +140,7 @@
 
   "regions": [
     {
-      "name": "map",
+      "name": "main",
       "class": ""
     },
     {

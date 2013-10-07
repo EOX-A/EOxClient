@@ -14,6 +14,12 @@ define(['backbone.marionette',
 
 			initialize: function() {
 				this.map = undefined;
+
+				$(window).resize(function() {
+					if (this.map) {
+						this.onResize();
+					}
+				}.bind(this));
 			},
 
 			createMap: function() {
@@ -24,29 +30,6 @@ define(['backbone.marionette',
 					div: this.el,
 					fallThrough: true
 				});
-				console.log("Created Map");
-
-				//--------------------------------------------------------------------------------------
-				// NOTE: The view should be 'dump' regarding the application structure surrounding the
-				// view. I.e. it should not concern about a mediator. That is the job of the view controller
-				// (see MapViewerController::connectToView()).
-				//--------------------------------------------------------------------------------------
-
-				////listen to moeveend event in order to keep router uptodate
-				// this.map.events.register("moveend", this.map, function(data) {
-				// 	Communicator.mediator.trigger("router:setUrl", {
-				// 		x: data.object.center.lon,
-				// 		y: data.object.center.lat,
-				// 		l: data.object.zoom
-				// 	});
-				// });
-
-				// this.listenTo(Communicator.mediator, "map:center", this.centerMap);
-				// this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
-				// this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
-				// this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
-				// this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
-				// this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 
 				this.map.events.register("moveend", this.map, function(data) {
 					this.model.set({
@@ -118,6 +101,10 @@ define(['backbone.marionette',
 					this.createMap();
 				}
 				return this;
+			},
+
+			onResize: function() {
+				this.map.updateSize();
 			},
 
 			//method to create layer depending on protocol

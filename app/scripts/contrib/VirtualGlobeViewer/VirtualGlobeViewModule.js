@@ -19,22 +19,19 @@ define([
 		// is connected only to its controller via events. No other communication is allowed,
 		// i.e. a controller is not allowed to directly talk to the Communicator.
 		this.on('start', function(options) {
-			var controller = new VirtualGlobeViewController({
-				viewerRegion: options.viewerRegion
-			});
+			var controller = new VirtualGlobeViewController();
 			
 			registerWithCommunicator(controller);
-			setupRouter(controller);
+			// FIXXME: Routing system has to be reworked to integrate it with multiple views!
+			//setupRouter(controller);
 
 			console.log('[VirtualGlobeViewer] Finished module initialization');
 
 		});
 
 		var registerWithCommunicator = function(globe_controller) {
-			Communicator.registerEventHandler("viewer:show:virtualglobeviewer", function() {
-				Backbone.history.navigate("vgv", {
-					trigger: true
-				});
+			Communicator.reqres.setHandler("viewer:get:virtualglobeviewer", function(id) {
+				return globe_controller.getView(id);
 			});
 		};
 
