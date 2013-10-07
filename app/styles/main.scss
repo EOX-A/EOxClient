@@ -21,6 +21,8 @@ hr {
 html, body {
 	height: 100%;
 	width: 100%;
+
+	// overflow: hidden;
 }
 
 ul, li {
@@ -166,14 +168,16 @@ ul, li {
 }
 
 .layercontrol {
-	width: 260px;
+	position: absolute;
+	z-index: $layer-gui;
+
 	top: 120px;
 	left: 2%;
+	
 	padding: 2px;
 	font-size: 13px;
-	float: left;
-
 }
+
 
 
 
