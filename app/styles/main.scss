@@ -70,9 +70,12 @@ ul, li {
 }
 
 .toolcontrol {
-	//position: absolute;
+	position: absolute;
+  	z-index: $layer-gui;
+
 	top: 120px;
-	right: 2%;
+	right: 20px;
+	width: 50px;
 	padding: 2px;
 	float: right;
 }
@@ -81,9 +84,6 @@ ul, li {
 	margin:0;
     padding:0;
 }
-
-
-
 
 #products ul {
 	margin:0;
@@ -145,7 +145,7 @@ ul, li {
 
 #timeslider svg.timeslider {
   position: relative;
-  z-index: 1004;
+  z-index: $layer-gui;
   
   height: 3em;
 }
