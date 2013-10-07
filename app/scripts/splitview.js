@@ -67,8 +67,8 @@ define([
 
 		setFullscreen: function(regionid) {
 			if (regionid === 'left') {
-				this.ui.leftpane.addClass('disabled').removeClass('halfscreen');
-				this.ui.rightpane.addClass('fullscreen').removeClass('halfscreen');
+				this.ui.rightpane.addClass('disabled').removeClass('halfscreen');
+				this.ui.leftpane.addClass('fullscreen').removeClass('halfscreen');
 
 				this.ui.rightgui.addClass('disabled');
 			} else if (regionid === 'right') {
