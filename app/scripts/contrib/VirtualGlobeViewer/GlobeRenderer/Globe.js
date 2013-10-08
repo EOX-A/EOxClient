@@ -25,7 +25,7 @@ define([
 
 		this.aoiLayer = undefined;
 
-		var navigation = new GlobWeb.Navigation(this.globe, {
+		this.navigation = new GlobWeb.Navigation(this.globe, {
 			inertia: true
 		});
 
@@ -100,7 +100,7 @@ define([
 
 			var altitude = 30000;
 			var coordinates = convertFromOpenLayers(geojson, altitude);
-			
+
 			var selection0 = {
 				"geometry": {
 					"type": "Polygon",
@@ -140,6 +140,10 @@ define([
 		// Adjust the globe's aspect ration and redraw:
 		this.globe.renderContext.updateViewDependentProperties();
 		this.globe.refresh();
+	};
+
+	Globe.prototype.zoomTo = function(pos) {
+		this.navigation.zoomTo(pos.center, pos.distance, pos.duration, pos.tilt);
 	};
 
 	return Globe;

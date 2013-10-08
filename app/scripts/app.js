@@ -309,28 +309,50 @@
 					this.module('WindowView').start();
 					var windowController = Communicator.reqres.request('core:get:windowmodule').createController();
 					this.main.show(windowController.getView());
+					var vgv = this.module('VirtualGlobeViewer').createController();
+					var map = this.module('MapViewer').createController();
+
+					windowController.registerViews({
+						'vgv': vgv.getView(),
+						'map': map.getView()
+					});
+
+					windowController.showViewInRegion('map', 'viewport');
+
+
+
+
+
+					/*
 					// Starts the SplitView module and registers it with the Communicator.
-					//this.module('SplitView').start();
+					this.module('SplitView').start();
 
 					// Retrieves the SplitView module and creates a new splitted view.
-					//var splitController = Communicator.reqres.request('core:get:splitviewmodule').createController();
+					//var splitview = this.module('SplitView').createController();
 
 					// Be sure to insert the view into the DOM before adding the child view. E.g.
 					// OpenLayers.Map fails to initialize if its div is not within the DOM.
-					//this.main.show(splitController.getView());
+					this.main.show(splitview.getView());
+
+					var vgv = this.module('VirtualGlobeViewer').createController();
+					var map = this.module('MapViewer').createController();
 
 					// Register the views which are available to the SplitView with an Id.
-					windowController.registerViews({
-						'map': Communicator.reqres.request('viewer:get:mapviewer', 'main')
+					splitview.registerViews({
+						'vgv': vgv.getView(),
+						'map': map.getView()
 					});
 
 					// Set the views into the desired areas of the SplitView.
-					//splitController.showViewInRegion('mapul', 'left');
-					windowController.showViewInRegion('map', 'viewport');
+					splitController.showViewInRegion('map', 'left');
+					splitController.showViewInRegion('vgv', 'right');
+					splitview.showViewInRegion('map', 'left');
+					splitview.showViewInRegion('vgv', 'right');
 
 					// Configure the SplitView:
 					//splitController.setSplitscreen();
-					//splitController.setFullscreen('left');
+					//splitController.setFullscreen('left'); 
+					*/
 				}
 			});
 

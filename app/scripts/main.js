@@ -89,6 +89,15 @@
 				models,
 				templates
 			), function() {
+				App.addInitializer(function(options) {
+					// Start core modules:
+					this.module('SplitView').start();
+				});
+
+				App.on('initialize:before', function(options) {
+					this.configure(values);
+				});
+
 				App.on("initialize:after", function(options) {
 					if (Backbone.history) {
             			Backbone.history.start({
@@ -97,12 +106,11 @@
 					} else {
 						alert('Your browser has no "History API" support. Be aware that the application could behave in unexpected ways. Please consider updating your browser!')
 					}
+
+					this.setupGui();
 				});	
-				App.configure(values);
-				App.start({
-					viewerRegion: App.map
-				});
-				App.setupGui();
+
+				App.start();
 			});				
 		});
 		

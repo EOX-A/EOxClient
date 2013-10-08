@@ -19,32 +19,54 @@ define([
 		// is connected only to its controller via events. No other communication is allowed,
 		// i.e. a controller is not allowed to directly talk to the Communicator.
 		this.on('start', function(options) {
-			var controller = new VirtualGlobeViewController();
-			
-			registerWithCommunicator(controller);
-			// FIXXME: Routing system has to be reworked to integrate it with multiple views!
-			//setupRouter(controller);
+			this.instances = {};
+			this.idx = 0;
 
 			console.log('[VirtualGlobeViewer] Finished module initialization');
-
 		});
 
-		var registerWithCommunicator = function(globe_controller) {
-			Communicator.reqres.setHandler("viewer:get:virtualglobeviewer", function(id) {
-				return globe_controller.getView(id);
+		this.createController = function(opts) {
+			var id = undefined;
+			var startPosition = undefined;
+
+			if (typeof opts !== 'undefined') {
+				id = opts.id;
+				startPosition = opts.startPosition;
+
+			} else {
+				startPosition = {
+					center: [15, 47],
+					distance: 0,
+					duration: 3000,
+					tilt: 40
+				};
+			}
+
+			if (typeof id === 'undefined') {
+				id = 'VirtualGlobeViewer.' + this.idx++;
+			}
+
+			var controller = new VirtualGlobeViewController({
+				id: id,
+				startPosition: startPosition
 			});
+			this.instances[id] = controller;
+
+			setupKeyboardShortcuts(controller);
+
+			return controller;
 		};
 
-		var setupRouter = function(globe_controller) {
-			var Router = Backbone.Marionette.AppRouter.extend({
-				appRoutes: {
-					"vgv": "show"
-				}
+		var setupKeyboardShortcuts = function(controller) {
+			keypress.combo("a", function() {
+				var pos = controller.getStartPosition();
+				// FIXXME: not that nice...
+				controller.zoomTo({
+					x: pos.center[0],
+					y: pos.center[1],
+					l: undefined
+				});
 			});
-
-			new Router({
-				controller: new VirtualGlobeViewRouter(globe_controller)
-			});
-		};		
+		};
 	});
 });
