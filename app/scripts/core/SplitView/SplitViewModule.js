@@ -16,12 +16,7 @@ define([
 			this.instances = {};
 			this.idx = 0;
 
-			Communicator.reqres.setHandler("core:get:splitviewmodule", function() {
-				return this;
-			}.bind(this));
-
 			console.log('[SplitView] Finished module initialization');
-
 		});
 
 		this.createController = function(opts) {

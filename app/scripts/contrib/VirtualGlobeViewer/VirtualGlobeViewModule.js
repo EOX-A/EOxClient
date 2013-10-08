@@ -22,10 +22,6 @@ define([
 			this.instances = {};
 			this.idx = 0;
 
-			Communicator.reqres.setHandler("viewer:get:virtualglobeviewer", function(id) {
-				return this;
-			}.bind(this));
-
 			console.log('[VirtualGlobeViewer] Finished module initialization');
 		});
 

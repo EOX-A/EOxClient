@@ -21,10 +21,6 @@ define([
 			this.instances = {};
 			this.idx = 0;
 
-			Communicator.reqres.setHandler("viewer:get:mapviewer", function(id) {
-				return this;
-			}.bind(this));
-
 			console.log('[MapViewerModule] Finished module initialization');
 		});
 
