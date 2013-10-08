@@ -280,9 +280,6 @@
 				// The GUI is setup after the application is started. Therefore all modules
 				// are already registered and can be requested to populate the GUI.
 				setupGui: function() {
-					// Starts the SplitView module and registers it with the Communicator.
-					this.module('SplitView').start();
-
 					// Retrieves the SplitView module and creates a new splitted view.
 					var splitview = this.module('SplitView').createController();
 
