@@ -29,7 +29,7 @@ define([
 		},
 
 		// FIXXME: replace with 'triggers' and let the controller decide what to do on a click on the buttons!
-		events: {
+		/*events: {
 			'click .leftpane .fullscreen-btn': function() {
 				this.setFullscreen('left');
 			},
@@ -41,7 +41,7 @@ define([
 			'click .splitscreen-btn': function() {
 				this.setSplitscreen();
 			}
-		},
+		},*/
 
 		initialize: function() {
 			this.views = undefined;

@@ -15,7 +15,7 @@
 		var ToolControlLayout = Backbone.Marionette.Layout.extend({
 
 			template: {type: 'handlebars', template: ToolControlTmpl},
-			regions: {selection: "#selection", visualization: "#visualization"},
+			regions: {selection: "#selection", visualization: "#visualization", mapmode:"#mapmode"},
 			className: "well toolcontrol",
 
 			initialize: function(options) {

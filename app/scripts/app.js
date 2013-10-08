@@ -9,7 +9,6 @@
 			'regions/DialogRegion', 'regions/UIRegion',
 			'layouts/LayerControlLayout',
 			'layouts/ToolControlLayout',
-			'./splitview',
 			'communicator',
 			'jquery', 'backbone.marionette',
 			'controller/ContentController',
@@ -18,7 +17,7 @@
 		],
 
 		function(Backbone, globals, DialogRegion,
-			UIRegion, LayerControlLayout, ToolControlLayout, SplitView, Communicator) {
+			UIRegion, LayerControlLayout, ToolControlLayout, Communicator) {
 
 			var Application = Backbone.Marionette.Application.extend({
 				initialize: function(options) {},
@@ -239,6 +238,21 @@
 							}));
 					}, this);
 
+					// Define collection of visualization modes
+					var visualizationModesCollection = new m.ToolCollection();
+					_.each(config.visualizationModes, function(visMode) {
+						visualizationModesCollection.add(
+							new m.ToolModel({
+								id: visMode.id,
+								eventToRaise: visMode.eventToRaise,
+								description: visMode.description,
+								icon: visMode.icon,
+								enabled: visMode.enabled,
+								active: visMode.active,
+								type: "vis_mode"
+							}));
+					}, this);
+
 					// Create Collection Views to hold set of views for selection tools
 					this.visualizationToolsView = new v.ToolSelectionView({
 						collection: visualizationToolsCollection,
@@ -253,6 +267,17 @@
 					// Create Collection Views to hold set of views for visualization tools
 					this.selectionToolsView = new v.ToolSelectionView({
 						collection: selectionToolsCollection,
+						itemView: v.ToolItemView.extend({
+							template: {
+								type: 'handlebars',
+								template: t.ToolIcon
+							}
+						})
+					});
+
+					// Create Collection Views to hold set of views for visualization modes
+					this.visualizationModesView = new v.ToolSelectionView({
+						collection: visualizationModesCollection,
 						itemView: v.ToolItemView.extend({
 							template: {
 								type: 'handlebars',
@@ -280,29 +305,32 @@
 				// The GUI is setup after the application is started. Therefore all modules
 				// are already registered and can be requested to populate the GUI.
 				setupGui: function() {
+
+					this.module('WindowView').start();
+					var windowController = Communicator.reqres.request('core:get:windowmodule').createController();
+					this.main.show(windowController.getView());
 					// Starts the SplitView module and registers it with the Communicator.
-					this.module('SplitView').start();
+					//this.module('SplitView').start();
 
 					// Retrieves the SplitView module and creates a new splitted view.
-					var splitController = Communicator.reqres.request('core:get:splitviewmodule').createController();
+					//var splitController = Communicator.reqres.request('core:get:splitviewmodule').createController();
 
 					// Be sure to insert the view into the DOM before adding the child view. E.g.
 					// OpenLayers.Map fails to initialize if its div is not within the DOM.
-					this.main.show(splitController.getView());
+					//this.main.show(splitController.getView());
 
 					// Register the views which are available to the SplitView with an Id.
-					splitController.registerViews({
-						'vgv': Communicator.reqres.request('viewer:get:virtualglobeviewer', 'main'),
+					windowController.registerViews({
 						'map': Communicator.reqres.request('viewer:get:mapviewer', 'main')
 					});
 
 					// Set the views into the desired areas of the SplitView.
-					splitController.showViewInRegion('map', 'left');
-					splitController.showViewInRegion('vgv', 'right');
+					//splitController.showViewInRegion('mapul', 'left');
+					windowController.showViewInRegion('map', 'viewport');
 
 					// Configure the SplitView:
 					//splitController.setSplitscreen();
-					splitController.setFullscreen('left');
+					//splitController.setFullscreen('left');
 				}
 			});
 

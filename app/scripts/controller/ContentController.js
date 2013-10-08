@@ -32,6 +32,7 @@
 				App.rightSideBar.show(App.toolLayout);
 				App.toolLayout.selection.show(App.selectionToolsView);
 				App.toolLayout.visualization.show(App.visualizationToolsView);
+				App.toolLayout.mapmode.show(App.visualizationModesView);
 			}
 		});
 		return new ContentController();
