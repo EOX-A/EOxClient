@@ -12,7 +12,8 @@ define([
 		this.startsWithParent = true;
 
 		this.on('start', function(options) {
-			this.controllerMap = undefined;
+			
+			this.instances = {};
 			this.idx = 0;
 
 			Communicator.reqres.setHandler("core:get:splitviewmodule", function() {
@@ -33,15 +34,11 @@ define([
 				id = 'SplitView.' + this.idx++;
 			}
 
-			if (typeof this.controllerMap === 'undefined') {
-				this.controllerMap = {};
-			}
-
 			var controller = new SplitViewController();
 
 			// Keep track of the created SplitView controllers. Not used at the moment,
 			// but maybe in future releases to switch between view setups.
-			this.controllerMap[id] = controller;
+			this.instances[id] = controller;
 
 			return controller;
 		};

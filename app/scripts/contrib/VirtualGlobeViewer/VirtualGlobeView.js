@@ -4,7 +4,7 @@ define([
 	'communicator',
 	'./GlobeRenderer/Globe'
 	// 'hbs!tmpl/VirtualGlobeView',
-], function(Marionette, App, Communicator, Globe /*, VirtualGlobeViewTmpl*/) {
+], function(Marionette, App, Communicator, Globe /*, VirtualGlobeViewTmpl*/ ) {
 
 	'use strict';
 
@@ -22,7 +22,18 @@ define([
 		// 	gui: '.gui'
 		// },
 
-		initialize: function() {
+		initialize: function(opts) {
+			this.startPosition = opts.startPosition;
+
+			if (typeof this.startPosition === 'undefined') {
+				this.startPosition = {
+					geoCenter: [15, 47],
+					distance: 0,
+					duration: 3000,
+					tilt: 40
+				}
+			};
+
 			$(window).resize(function() {
 				if (this.globe) {
 					this.onResize();
@@ -62,6 +73,13 @@ define([
 			if (!this.globe) {
 				this.createGlobe();
 				this.onResize();
+				this.zoomTo(this.startPosition);
+			}
+		},
+
+		zoomTo: function(position) {
+			if (this.globe) {
+				this.globe.zoomTo(position);
 			}
 		}
 	});

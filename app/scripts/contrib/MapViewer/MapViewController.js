@@ -14,17 +14,19 @@ define([
 	// the Application object directly.
 	var MapViewController = Backbone.Marionette.Controller.extend({
 
-		initialize: function(options) {
-			this.mapView = new MapView();
+		initialize: function(opts) {
+			this.id = opts.id;
+			this.startPosition = opts.startPosition;
+
+			this.mapView = new MapView({
+				startPosition: opts.startPosition
+			});
+
 			this.connectToView();
 		},
 
 		getView: function(id) {
-			if (id === 'main') {
-				return this.mapView;
-			} else {
-				console.log('[MapViewController::getView] Error: Unknown view "' + id + "' requested!");
-			}
+			return this.mapView;
 		},
 
 		centerAndZoom: function(x, y, l) {
@@ -50,6 +52,10 @@ define([
 					l: model.get('zoom')
 				});
 			});
+		},
+
+		getStartPosition: function() {
+			return this.startPosition;
 		}
 	});
 

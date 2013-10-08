@@ -22,5 +22,7 @@
     "virtualglobeviewer": "https://github.com/v-manip/VirtualGlobeViewer.git",
     "rectangularboxviewer": "https://github.com/v-manip/RectangularBoxViewer.git"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "Keypress": "*"
+  }
 }

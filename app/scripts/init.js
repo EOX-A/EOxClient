@@ -34,6 +34,9 @@
             },
             filesaver: {
                 exports: 'saveAs'
+            },
+            keypress: {
+                exports: 'Keypress'
             }
         },
 
@@ -77,7 +80,8 @@
 
             /* 3D viewer modules base libraries */
             virtualglobeviewer: "../bower_components/virtualglobeviewer/src",
-            x3dom: "http://www.x3dom.org/download/dev/x3dom"
+            x3dom: "http://www.x3dom.org/download/dev/x3dom",
+            keypress: '../bower_components/Keypress/keypress'
         },
 
         hbs: {

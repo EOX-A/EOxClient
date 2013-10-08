@@ -18,36 +18,69 @@ define([
 		// connected to the event system of the application via the Communicator.
 		// Moreover the Router responsible for this module is activated in this routine.
 		this.on('start', function(options) {
-			var controller = new MapViewController();
+			this.instances = {};
+			this.idx = 0;
 
-			registerWithCommunicator(controller);
-			
-			// FIXXME: Routing system has to be reworked to integrate it with multiple views!
-			//setupRouter(controller);
+			Communicator.reqres.setHandler("viewer:get:mapviewer", function(id) {
+				return this;
+			}.bind(this));
 
 			console.log('[MapViewerModule] Finished module initialization');
 		});
 
-		var registerWithCommunicator = function(map_controller) {
-			Communicator.reqres.setHandler("viewer:get:mapviewer", function(id) {
-				return map_controller.getView(id);
+		this.createController = function(opts) {
+			var id = undefined;
+			var startPosition = undefined;
+
+			if (typeof opts !== 'undefined') {
+				id = opts.id;
+				startPosition = opts.startPosition;
+
+			} else {
+				startPosition = {
+					x: 15,
+					y: 47,
+					l: 6
+				};
+			}
+
+			if (typeof id === 'undefined') {
+				id = 'MapViewer.' + this.idx++;
+			}
+
+			var controller = new MapViewController({
+				id: id,
+				startPosition: startPosition
+			});
+			this.instances[id] = controller;
+
+			setupKeyboardShortcuts(controller);
+
+			return controller;
+		};
+
+		var setupKeyboardShortcuts = function(controller) {
+			keypress.combo("a", function() {
+				var pos = controller.getStartPosition();
+				controller.centerAndZoom(pos.x, pos.y, pos.l);
 			});
 		};
 
-		var setupRouter = function(map_controller) {
-			// The Router maps the history API of the browser to the application in defining
-			// routes, which are then mapped to calls to the internal MapViewRouterController.
-			// The RouterController knows how to react to those events.
-			var MapViewRouter = Marionette.AppRouter.extend({
-				appRoutes: {
-					"map": "show",
-					"map/:x/:y/:l": "centerAndZoom"
-				}
-			});
+		// FIXXME: the router/history concept has to be redesigned for the multiple view approach!
+		// var setupRouter = function(map_controller) {
+		// 	// The Router maps the history API of the browser to the application in defining
+		// 	// routes, which are then mapped to calls to the internal MapViewRouterController.
+		// 	// The RouterController knows how to react to those events.
+		// 	var MapViewRouter = Marionette.AppRouter.extend({
+		// 		appRoutes: {
+		// 			"map": "show",
+		// 			"map/:x/:y/:l": "centerAndZoom"
+		// 		}
+		// 	});
 
-			new MapViewRouter({
-				controller: new MapViewRouterController(map_controller)
-			});
-		};
+		// 	new MapViewRouter({
+		// 		controller: new MapViewRouterController(map_controller)
+		// 	});
+		// };
 	});
 });

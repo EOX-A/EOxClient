@@ -290,10 +290,13 @@
 					// OpenLayers.Map fails to initialize if its div is not within the DOM.
 					this.main.show(splitController.getView());
 
+					var vgvController = Communicator.reqres.request('viewer:get:virtualglobeviewer').createController();
+					var mapController = Communicator.reqres.request('viewer:get:mapviewer').createController();
+
 					// Register the views which are available to the SplitView with an Id.
 					splitController.registerViews({
-						'vgv': Communicator.reqres.request('viewer:get:virtualglobeviewer', 'main'),
-						'map': Communicator.reqres.request('viewer:get:mapviewer', 'main')
+						'vgv': vgvController.getView(),
+						'map': mapController.getView()
 					});
 
 					// Set the views into the desired areas of the SplitView.
@@ -301,8 +304,8 @@
 					splitController.showViewInRegion('vgv', 'right');
 
 					// Configure the SplitView:
-					//splitController.setSplitscreen();
-					splitController.setFullscreen('left');
+					splitController.setSplitscreen();
+					//splitController.setFullscreen('left');
 				}
 			});
 
