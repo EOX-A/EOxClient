@@ -307,7 +307,7 @@
 				setupGui: function() {
 
 					this.module('WindowView').start();
-					var windowController = Communicator.reqres.request('core:get:windowmodule').createController();
+					var windowController = this.module('WindowView').createController();//Communicator.reqres.request('core:get:windowmodule').createController();
 					this.main.show(windowController.getView());
 					var vgv = this.module('VirtualGlobeViewer').createController();
 					var map = this.module('MapViewer').createController();
