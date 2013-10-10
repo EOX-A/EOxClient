@@ -23,9 +23,9 @@ define([
 		// },
 
 		initialize: function(opts) {
-			this.startPosition = opts.startPosition;
 			this.isClosed = true;
 
+			this.startPosition = opts.startPosition;
 			if (typeof this.startPosition === 'undefined') {
 				this.startPosition = {
 					geoCenter: [15, 47],
@@ -34,6 +34,8 @@ define([
 					tilt: 40
 				}
 			};
+
+			this.startProduct = opts.startProduct;
 
 			$(window).resize(function() {
 				if (this.globe) {
@@ -46,16 +48,9 @@ define([
 			this.globe.addAreaOfInterest(geojson);
 		},
 
-		selectProduct: function(model) {
-			if (model.get("name") === "OpenStreetMap") {
-				this.globe.setProduct({
-					type: 'OSMLayer'
-				});
-			} else {
-				this.globe.setProduct({
-					type: 'BlueMarble'
-				});
-			}
+		selectProduct: function(model, isBaseLayer) {
+
+			this.globe.selectProduct(model, isBaseLayer);
 
 			console.log("[GlobeView::selectProduct] selected " + model.get("name"));
 		},
@@ -64,6 +59,9 @@ define([
 			this.globe = new Globe({
 				canvas: this.el
 			});
+			if (typeof this.startProduct !== 'undefined') {
+				this.globe.selectProduct(this.startProduct, true);
+			};
 		},
 
 		onResize: function() {
@@ -77,8 +75,6 @@ define([
 			this.isClosed = false;
 			this.onResize();
 			this.zoomTo(this.startPosition);
-			
-			
 		},
 
 		zoomTo: function(position) {
@@ -87,7 +83,7 @@ define([
 			}
 		},
 
-		onClose: function () {
+		onClose: function() {
 			this.isClosed = true;
 		}
 	});

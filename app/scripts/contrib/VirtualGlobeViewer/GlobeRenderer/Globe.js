@@ -40,22 +40,12 @@ define([
 		// });
 		// globe.setBaseImagery(osmLayer);
 
-		var blueMarbleLayer = new GlobWeb.WMSLayer({
-			baseUrl: "http://demonstrator.telespazio.com/wmspub",
-			layers: "BlueMarble",
-			opacity: 0.1
-		});
-		this.globe.setBaseImagery(blueMarbleLayer);
-
-		// var eoxLayer = new GlobWeb.WMTSLayer({
-		// 	baseUrl: "http://c.maps.eox.at/tiles/wmts",
-		// 	style: "default",
-		// 	layer: "terrain_wgs84",
-		// 	format: "image/png",
-		// 	matrixSet: "WGS84"
+		// var blueMarbleLayer = new GlobWeb.WMSLayer({
+		// 	baseUrl: "http://demonstrator.telespazio.com/wmspub",
+		// 	layers: "BlueMarble",
+		// 	opacity: 0.1
 		// });
-		// eoxLayer.opacity(0.5);
-		// this.globe.addLayer(eoxLayer);
+		// this.globe.setBaseImagery(blueMarbleLayer);
 	};
 
 	var convertFromOpenLayers = function(ol_geometry, altitude) {
@@ -115,19 +105,27 @@ define([
 		}
 	};
 
-	Globe.prototype.setProduct = function(desc) {
-		if (desc.type == 'OSMLayer') {
-			var osmLayer = new GlobWeb.OSMLayer({
-				baseUrl: "http://tile.openstreetmap.org"
+	Globe.prototype.selectProduct = function(model, isBaseLayer) {
+		if (model.get('view').protocol === 'WMTS') {
+			var layer = new GlobWeb.WMTSLayer({
+				baseUrl: model.get('view').urls[0],
+				style: model.get('view').style,
+				layer: model.get('view').id,
+				format: model.get('view').format,
+				matrixSet: model.get('view').matrixSet
 			});
-			this.globe.setBaseImagery(osmLayer);
+		} else if (model.get('view').protocol === 'WMS') {
+			var layer = new GlobWeb.WMSLayer({
+				baseUrl: model.get('view').urls[0],
+				layers: model.get('view').id
+			});
+		}
+
+		if (isBaseLayer) {
+			this.globe.setBaseImagery(layer);
 		} else {
-			var blueMarbleLayer = new GlobWeb.WMSLayer({
-				baseUrl: "http://demonstrator.telespazio.com/wmspub",
-				layers: "BlueMarble",
-				opacity: 0.1
-			});
-			this.globe.setBaseImagery(blueMarbleLayer);
+			// FIXXME: not working correctly yet
+			this.globe.addLayer(layer);
 		}
 	};
 
