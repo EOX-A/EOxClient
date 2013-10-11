@@ -9,6 +9,7 @@
 			'regions/DialogRegion', 'regions/UIRegion',
 			'layouts/LayerControlLayout',
 			'layouts/ToolControlLayout',
+			'core/SplitView/WindowView',
 			'communicator',
 			'jquery', 'backbone.marionette',
 			'controller/ContentController',
@@ -17,7 +18,7 @@
 		],
 
 		function(Backbone, globals, DialogRegion,
-			UIRegion, LayerControlLayout, ToolControlLayout, Communicator) {
+			UIRegion, LayerControlLayout, ToolControlLayout, WindowView, Communicator) {
 
 			var Application = Backbone.Marionette.Application.extend({
 				initialize: function(options) {},
@@ -306,26 +307,19 @@
 				// are already registered and can be requested to populate the GUI.
 				setupGui: function() {
 
-					this.module('WindowView').start();
-					var windowController = this.module('WindowView').createController();//Communicator.reqres.request('core:get:windowmodule').createController();
-					this.main.show(windowController.getView());
-					var vgv = this.module('VirtualGlobeViewer').createController();
-					var map = this.module('MapViewer').createController();
-
-					windowController.registerViews({
-						'vgv': vgv.getView(),
-						'map': map.getView()
-					});
-
-					windowController.showViewInRegion('map', 'viewport');
-
-
-
-
-
-					/*
 					// Starts the SplitView module and registers it with the Communicator.
 					this.module('SplitView').start();
+					var splitview = this.module('SplitView').createController();
+					this.main.show(splitview.getView());
+
+					splitview.setSinglescreen();
+					//splitview.showViewInRegion('ul', 'viewport');
+
+					// Register the views which are available to the SplitView with an Id.
+					/*splitview.registerViews({
+						'view1': windowView1,
+						'view2': windowView2
+					});
 
 					// Retrieves the SplitView module and creates a new splitted view.
 					//var splitview = this.module('SplitView').createController();
@@ -334,25 +328,40 @@
 					// OpenLayers.Map fails to initialize if its div is not within the DOM.
 					this.main.show(splitview.getView());
 
+					// Configure the SplitView:
+					splitview.setSplitscreen();
+					//splitview.setSinglescreen('left'); 
+
+
+					// Set the views into the desired areas of the SplitView
+					splitview.showViewInRegion('view1', 'left');
+					splitview.showViewInRegion('view2', 'right');
+
+					
+					//this.main.show(windowController.getView());
+
 					var vgv = this.module('VirtualGlobeViewer').createController();
 					var map = this.module('MapViewer').createController();
 
-					// Register the views which are available to the SplitView with an Id.
-					splitview.registerViews({
+					windowView1.registerViews({
 						'vgv': vgv.getView(),
 						'map': map.getView()
 					});
+					windowView1.showViewInRegion('map', 'viewport');
 
-					// Set the views into the desired areas of the SplitView.
-					splitController.showViewInRegion('map', 'left');
-					splitController.showViewInRegion('vgv', 'right');
-					splitview.showViewInRegion('map', 'left');
-					splitview.showViewInRegion('vgv', 'right');
 
-					// Configure the SplitView:
-					//splitController.setSplitscreen();
-					//splitController.setFullscreen('left'); 
-					*/
+
+					var vgv2 = this.module('VirtualGlobeViewer').createController();
+					var map2 = this.module('MapViewer').createController();
+					windowView2.registerViews({
+						'vgv': vgv2.getView(),
+						'map': map2.getView()
+					});
+					windowView2.showViewInRegion('map', 'viewport');*/
+
+
+					
+					
 				}
 			});
 

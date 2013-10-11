@@ -22,6 +22,10 @@ hr {
 html, body {
 	height: 100%;
 	width: 100%;
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
 
 	// overflow: hidden;
 }
@@ -155,8 +159,8 @@ ul, li {
 	position: relative;
 }
 
-#OpenLayers_Control_Zoom_5 {
-	top: 50px;
+.olControlZoom {
+	top: 50px !important;
 }
 
 .tab-header {

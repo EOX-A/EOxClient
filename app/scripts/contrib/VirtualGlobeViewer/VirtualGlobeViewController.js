@@ -13,9 +13,23 @@ define([
 			this.id = opts.id;
 			this.startPosition = opts.startPosition;
 
-			this.globeView = new VirtualGlobeView({
-				startPosition: opts.startPosition
-			});
+			this.position = {
+				center: [74, 15],
+				distance: 10000000,	
+				duration: 1000,
+				tilt: 45
+			};
+
+			if(!opts.startPosition){
+				this.globeView = new VirtualGlobeView({
+					startPosition: this.position
+				});
+			}else{
+				this.globeView = new VirtualGlobeView({
+					startPosition: opts.startPosition
+				});
+			}
+
 
 			this.listenTo(Communicator.mediator, 'selection:changed', this.addAreaOfInterest);
 			this.listenTo(Communicator.mediator, 'router:setUrl', this.zoomTo);

@@ -15,33 +15,18 @@ define([
 		},
 
 		regions: {
-			left: '.leftpane > .viewport',
-			right: '.rightpane > .viewport'
+			view1: '.view1 > .viewport',
+			view2: '.view2 > .viewport',
+			view3: '.view3 > .viewport',
+			view4: '.view4 > .viewport'
 		},
 
 		ui: {
-			leftgui: '.leftpane > .gui',
-			rightgui: '.rightpane > .gui',
-			leftpane: '.leftpane',
-			rightpane: '.rightpane',
-			fullscreenBtn: '.fullscreenbutton',
-			splitscreenBtn: '.splitscreenbutton'
+			view1: '.view1',
+			view2: '.view2',
+			view3: '.view3',
+			view4: '.view4'
 		},
-
-		// FIXXME: replace with 'triggers' and let the controller decide what to do on a click on the buttons!
-		/*events: {
-			'click .leftpane .fullscreen-btn': function() {
-				this.setFullscreen('left');
-			},
-
-			'click .rightpane .fullscreen-btn': function() {
-				this.setFullscreen('right');
-			},
-
-			'click .splitscreen-btn': function() {
-				this.setSplitscreen();
-			}
-		},*/
 
 		initialize: function() {
 			this.views = undefined;
@@ -70,35 +55,45 @@ define([
 		},
 
 		setFullscreen: function(regionid) {
-			if (regionid === 'left') {
-				this.ui.rightpane.addClass('disabled').removeClass('halfscreen');
-				this.ui.leftpane.addClass('fullscreen').removeClass('halfscreen');
 
-				this.ui.rightgui.addClass('disabled');
-			} else if (regionid === 'right') {
-				this.ui.leftpane.addClass('disabled').removeClass('halfscreen');
-				this.ui.rightpane.addClass('fullscreen').removeClass('halfscreen');
-
-				this.ui.leftgui.addClass('disabled');
-			} else {
-				alert('[SplitView::setFullscreen] Unknown regionid: ' + regionid);
-				return;
-			}
-
+			_.each(this.ui, function(desc, key){
+				this.ui[key].removeClass("halfscreen quarterscreen");
+				if(key == regionid){
+					this.ui[key].addClass('fullscreen');
+				}else{
+					this.ui[key].addClass('disabled');
+				}
+			}, this);
+			
 			this.updateViewSize();
 		},
 
+		setSingleScreen: function(){
+
+		},
+
 		setSplitscreen: function() {
-			this.ui.leftpane.removeClass('fullscreen disabled');
-			this.ui.rightpane.removeClass('fullscreen disabled');
 
-			this.ui.leftpane.addClass('halfscreen');
-			this.ui.rightpane.addClass('halfscreen');
 
-			this.ui.leftgui.removeClass('disabled');
-			this.ui.rightgui.removeClass('disabled');
-
+			_.each(this.ui, function(desc, key){
+				this.ui[key].addClass("disabled").removeClass("fullscreen quarterscreen");
+				if(key == 'view1' || key == 'view2'){
+					this.ui[key].addClass('halfscreen').removeClass("disabled");
+				}
+			}, this);
+			
 			this.updateViewSize();
+
+		},
+
+		setQuadscreen: function(){
+
+			_.each(this.ui, function(desc, key){
+				this.ui[key].removeClass("disabled fullscreen halfscreen").addClass("quarterscreen");
+			}, this);
+			
+			this.updateViewSize();
+
 		},
 
 		updateViewSize: function() {

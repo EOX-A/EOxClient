@@ -26,6 +26,7 @@ define([
 		});
 
 		this.createController = function(opts) {
+			console.log("Entered create Controller");
 			var id = undefined;
 			var startPosition = undefined;
 

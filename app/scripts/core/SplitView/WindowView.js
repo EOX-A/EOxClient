@@ -1,7 +1,8 @@
+
 define([
 	'backbone.marionette',
 	'hbs!tmpl/Window',
-], function(Marionette, WindowTmpl) {
+],function(Marionette, WindowTmpl) {
 
 	'use strict';
 
@@ -25,9 +26,13 @@ define([
 
 		events: {
 			'click .mapview-btn': function() {
+				//this.registerViews('map': this.module('MapViewer').createController().getView());
+				//this.showViewInRegion('map', 'viewport');
 			},
 
 			'click .globeview-btn': function() {
+				//this.registerViews('vgv': this.module('VirtualGlobeViewer').createController().getView());
+				//this.showViewInRegion('vgv', 'viewport');
 			},
 
 			'click .boxview-btn': function() {
@@ -38,29 +43,29 @@ define([
 		},
 
 		initialize: function() {
-			this.views = undefined;
+			//this.view = null;
 		},
 
-		registerViews: function(views) {
+		/*registerViews: function(views) {
 			this.views = views;
-		},
+		},*/
 
-		showViewInRegion: function(viewid, regionid) {
-			var region = this[regionid];
+		showView: function(view) {
+			/*var region = this[regionid];
 			if (!region) {
 				// FIXXME: replace with exception!
-				console.log('[SplitView::setView] Region "' + regionid + '" is not known. Valid regions are: FIXXME');
+				//console.log('[SplitView::setView] Region "' + regionid + '" is not known. Valid regions are: FIXXME');
 				return;
 			}
 
 			var view = this.views[viewid];
 			if (!view) {
 				// FIXXME: replace with exception!
-				console.log('[SplitView::setView] View "' + viewid + '" is not known. Valid views are: FIXXME');
+				//console.log('[SplitView::setView] View "' + viewid + '" is not known. Valid views are: FIXXME');
 				return;
-			}
+			}*/
 
-			region.show(view);
+			this.viewport.show(view);
 		}
 
 	});

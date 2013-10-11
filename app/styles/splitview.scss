@@ -4,9 +4,11 @@
 .splitview {
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
+	/*TODO: FIXME dual and quadscreen overflow by some pixels, remove this attribute*/
 }
 
-.splitview .leftpane, .splitview .rightpane {
+.view1, .view2, .view3, .view4 {
 	position: relative;
 }
 
@@ -27,6 +29,13 @@
 	height: 100%;
 }
 
+.splitview .quarterscreen {
+	display: inline-block;
+
+	width: 49.8%;
+	height: 49.8%;
+}
+
 .splitview .disabled {
 	display: none;
 	//width: 0;
@@ -41,25 +50,3 @@
 	@include rounded(4px);
 }
 
-.splitview .gui {
-	position: absolute;
-	z-index: $layer-gui;
-
-	background: rgba(255,255,255,0.4);
-	padding: 3px;
-	@include rounded(4px);
-}
-
-.splitview .leftpane .gui {
-	left: 8px;
-	top: 103px;
-}
-
-.splitview .rightpane .gui {
-	top: 50px;
-	right: 10px;
-}
-
-.splitview .fullscreen-btn {
-	margin-bottom: 2px;
-}
