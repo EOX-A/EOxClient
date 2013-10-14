@@ -13,14 +13,14 @@
     "baseLayers": [
       {
         "name": "Terrain Layer",
-        "id": "terrain_wgs84",
+        "id": "globcover",
         "protocol": "WMTS",
-        "urls": [ 
-          "http://a.maps.eox.at/tiles/wmts/",
-          "http://b.maps.eox.at/tiles/wmts/",
-          "http://c.maps.eox.at/tiles/wmts/",
-          "http://d.maps.eox.at/tiles/wmts/",
-          "http://e.maps.eox.at/tiles/wmts/" 
+        "urls": [
+          "http://a.tiles.maps.eox.at/wmts/",
+          "http://b.tiles.maps.eox.at/wmts/",
+          "http://c.tiles.maps.eox.at/wmts/",
+          "http://d.tiles.maps.eox.at/wmts/",
+          "http://e.tiles.maps.eox.at/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -41,12 +41,12 @@
         "name": "Blue Marble",
         "id": "bluemarble_wgs84",
         "protocol": "WMTS",
-        "urls": [ 
-          "http://a.maps.eox.at/tiles/wmts/",
-          "http://b.maps.eox.at/tiles/wmts/",
-          "http://c.maps.eox.at/tiles/wmts/",
-          "http://d.maps.eox.at/tiles/wmts/",
-          "http://e.maps.eox.at/tiles/wmts/" 
+        "urls": [
+          "http://a.tiles.maps.eox.at/wmts/",
+          "http://b.tiles.maps.eox.at/wmts/",
+          "http://c.tiles.maps.eox.at/wmts/",
+          "http://d.tiles.maps.eox.at/wmts/",
+          "http://e.tiles.maps.eox.at/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -257,7 +257,7 @@
     {
       "id":"ToolIcon",
       "template":"hbs!tmpl/ToolIcon"
-    }       
+    }
   ],
 
   "selectionTools":[
@@ -300,7 +300,7 @@
       "enabled":false,
       "active":false
     }
-    
+
   ]
 
 }
