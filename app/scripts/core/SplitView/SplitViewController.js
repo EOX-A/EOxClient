@@ -14,17 +14,13 @@ define([
 			this.view = new SplitView();
 			this.connectToView();
 
-			this.tlview = new WindowView();
-			this.trview = new WindowView();
-			this.blview = new WindowView();
-			this.brview = new WindowView();
-
-			this.view.registerViews({
-				tl:this.tlview,
-				tr:this.trview,
-				bl:this.blview,
-				br:this.brview,
-			});
+			this.windowViews = {
+				tl:new WindowView(),
+				tr:new WindowView(),
+				bl:new WindowView(),
+				br:new WindowView()
+			};
+			this.view.registerViews(this.windowViews);
 		},
 
 		getView: function() {
@@ -39,6 +35,7 @@ define([
 			this.listenTo(Communicator.mediator, "layout:switch:singleview", this.setSinglescreen);
 			this.listenTo(Communicator.mediator, "layout:switch:splitview", this.setSplitscreen);
 			this.listenTo(Communicator.mediator, "layout:switch:quadview", this.setQuadscreen);
+			this.listenTo(Communicator.mediator, "window:view:change", this.onChangeView);
 
 		},
 
@@ -52,7 +49,7 @@ define([
 		setSinglescreen: function() {
 			this.view.showViewInRegion('tl','view1');
 			this.view.setFullscreen('view1');
-			this.tlview.showView(App.module('MapViewer').createController({id:'1'}).getView());
+			this.windowViews.tl.showView(App.module('MapViewer').createController({id:'1'}).getView());
 		},
 
 		setSplitscreen: function() {
@@ -61,8 +58,8 @@ define([
 			this.view.showViewInRegion('tr','view2');
 			this.view.setSplitscreen();
 
-			this.tlview.showView(App.module('MapViewer').createController({id:'2'}).getView());
-			this.trview.showView(App.module('VirtualGlobeViewer').createController({id:'3'}).getView());
+			this.windowViews.tl.showView(App.module('MapViewer').createController({id:'2'}).getView());
+			this.windowViews.tr.showView(App.module('VirtualGlobeViewer').createController({id:'3'}).getView());
 
 			
 		},
@@ -75,10 +72,19 @@ define([
 			this.view.showViewInRegion('br','view4');
 			this.view.setQuadscreen();
 
-			this.tlview.showView(App.module('MapViewer').createController({id:'4'}).getView());
-			this.trview.showView(App.module('VirtualGlobeViewer').createController({id:'5'}).getView());
-			this.blview.showView(App.module('MapViewer').createController({id:'6'}).getView());
-			this.brview.showView(App.module('VirtualGlobeViewer').createController({id:'7'}).getView());
+			this.windowViews.tl.showView(App.module('MapViewer').createController({id:'4'}).getView());
+			this.windowViews.tr.showView(App.module('VirtualGlobeViewer').createController({id:'5'}).getView());
+			this.windowViews.bl.showView(App.module('MapViewer').createController({id:'6'}).getView());
+			this.windowViews.br.showView(App.module('VirtualGlobeViewer').createController({id:'7'}).getView());
+		},
+
+		onChangeView: function(options){
+			_.each(this.windowViews, function(view){
+				if(view === options.window){
+					view.showView(App.module(options.viewer).createController().getView());
+				}
+			}, this);
+
 		}
 	});
 
