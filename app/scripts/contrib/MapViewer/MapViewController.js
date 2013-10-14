@@ -56,6 +56,10 @@ define([
 
 		getStartPosition: function() {
 			return this.startPosition;
+		},
+
+		isActive: function(){
+			return !this.mapView.isClosed;
 		}
 	});
 

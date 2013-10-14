@@ -24,6 +24,7 @@ define([
 
 		initialize: function(opts) {
 			this.startPosition = opts.startPosition;
+			this.isClosed = true;
 
 			if (typeof this.startPosition === 'undefined') {
 				this.startPosition = {
@@ -72,15 +73,22 @@ define([
 		onShow: function() {
 			if (!this.globe) {
 				this.createGlobe();
-				this.onResize();
-				this.zoomTo(this.startPosition);
 			}
+			this.isClosed = false;
+			this.onResize();
+			this.zoomTo(this.startPosition);
+			
+			
 		},
 
 		zoomTo: function(position) {
 			if (this.globe) {
 				this.globe.zoomTo(position);
 			}
+		},
+
+		onClose: function () {
+			this.isClosed = true;
 		}
 	});
 

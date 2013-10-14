@@ -59,6 +59,10 @@ define([
 
 		getStartPosition: function() {
 			return this.startPosition;
+		},
+
+		isActive: function() {
+			return !this.globeView.isClosed;
 		}
 	});
 

@@ -43,6 +43,15 @@ define([
 				};
 			}
 
+			// Go through instances and return first free one
+			for (var contr in this.instances) {
+				if(!this.instances[contr].isActive()){
+					console.log("Free globe viewer returned " +contr);
+					return this.instances[contr];
+				}
+			};
+
+			// If there are no free insances create a new one
 			if (typeof id === 'undefined') {
 				id = 'VirtualGlobeViewer.' + this.idx++;
 			}

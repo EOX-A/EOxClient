@@ -49,7 +49,7 @@ define([
 		setSinglescreen: function() {
 			this.view.showViewInRegion('tl','view1');
 			this.view.setFullscreen('view1');
-			this.windowViews.tl.showView(App.module('MapViewer').createController({id:'1'}).getView());
+			this.windowViews.tl.showView(App.module('MapViewer').createController().getView());
 		},
 
 		setSplitscreen: function() {
@@ -58,8 +58,8 @@ define([
 			this.view.showViewInRegion('tr','view2');
 			this.view.setSplitscreen();
 
-			this.windowViews.tl.showView(App.module('MapViewer').createController({id:'2'}).getView());
-			this.windowViews.tr.showView(App.module('VirtualGlobeViewer').createController({id:'3'}).getView());
+			this.windowViews.tl.showView(App.module('MapViewer').createController().getView());
+			this.windowViews.tr.showView(App.module('VirtualGlobeViewer').createController().getView());
 
 			
 		},
@@ -72,10 +72,10 @@ define([
 			this.view.showViewInRegion('br','view4');
 			this.view.setQuadscreen();
 
-			this.windowViews.tl.showView(App.module('MapViewer').createController({id:'4'}).getView());
-			this.windowViews.tr.showView(App.module('VirtualGlobeViewer').createController({id:'5'}).getView());
-			this.windowViews.bl.showView(App.module('MapViewer').createController({id:'6'}).getView());
-			this.windowViews.br.showView(App.module('VirtualGlobeViewer').createController({id:'7'}).getView());
+			this.windowViews.tl.showView(App.module('MapViewer').createController().getView());
+			this.windowViews.tr.showView(App.module('VirtualGlobeViewer').createController().getView());
+			this.windowViews.bl.showView(App.module('MapViewer').createController().getView());
+			this.windowViews.br.showView(App.module('VirtualGlobeViewer').createController().getView());
 		},
 
 		onChangeView: function(options){

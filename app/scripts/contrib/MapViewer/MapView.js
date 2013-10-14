@@ -14,6 +14,7 @@ define(['backbone.marionette',
 
 			initialize: function() {
 				this.map = undefined;
+				this.isClosed = true;
 
 				$(window).resize(function() {
 					if (this.map) {
@@ -100,6 +101,8 @@ define(['backbone.marionette',
 				if (!this.map) {
 					this.createMap();
 				}
+				this.isClosed = false;
+				this.onResize();
 				return this;
 			},
 
@@ -263,6 +266,10 @@ define(['backbone.marionette',
 				// TODO: How to handle multiple draws etc has to be thought of
 				// as well as what exactly is comunicated out
 				Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
+			},
+
+			onClose: function(){
+				this.isClosed = true;
 			}
 		});
 
