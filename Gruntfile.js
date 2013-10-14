@@ -288,6 +288,20 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        'bower_components/**'
+                    ]
+                }, {
+                    expand: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        'templates/**'
+                    ]
+                }, {
+                    expand: true,
                     dot: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
@@ -328,7 +342,8 @@ module.exports = function (grunt) {
                 exclude: ['modernizr']
             },
             all: {
-                rjsConfig: '<%= yeoman.app %>/scripts/main.js'
+                //rjsConfig: '<%= yeoman.app %>/scripts/main.js'
+                rjsConfig: '<%= yeoman.app %>/scripts/init.js'
             }
         }
     });
