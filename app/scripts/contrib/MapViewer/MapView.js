@@ -32,9 +32,18 @@ define(['backbone.marionette',
 					fallThrough: true
 				});
 
-				this.map.events.register("moveend", this.map, function(data) {
+				/*this.map.events.register("moveend", this.map, function(data) {
 					this.model.set({
 						'center': [data.object.center.lon, data.object.center.lat],
+						'zoom': data.object.zoom
+					});
+				}.bind(this));*/
+
+				this.map.events.register("move", this.map, function(data) {
+					//console.log(data.object.getCenter());
+					var center = data.object.getCenter();
+					this.model.set({
+						'center': [center.lon, center.lat],
 						'zoom': data.object.zoom
 					});
 				}.bind(this));

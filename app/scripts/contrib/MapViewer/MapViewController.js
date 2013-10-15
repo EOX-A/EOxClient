@@ -51,6 +51,11 @@ define([
 					y: model.get('center')[1],
 					l: model.get('zoom')
 				});
+				Communicator.mediator.trigger("map:center", {
+					x: model.get('center')[0],
+					y: model.get('center')[1],
+					l: model.get('zoom')
+				});
 			});
 		},
 
