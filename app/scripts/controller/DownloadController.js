@@ -41,6 +41,7 @@
 	    },
 
 	    onTimeChange: function(time) {
+	    	console.log(time);
 	        this.model.set('ToI',time);
             this.checkDownload();
 		},

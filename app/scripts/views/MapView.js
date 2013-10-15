@@ -26,6 +26,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
+					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 
 					// Add layers for different selection methods
 					this.pointLayer = new OpenLayers.Layer.Vector("Point Layer");
@@ -232,6 +233,18 @@ define(['backbone',
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
 					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
+				},
+
+				onTimeChange: function (time) {
+					var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
+					
+					globals.products.each(function(product) {
+						if(product.get("timeSlider")){
+							var productLayer = this.map.getLayersByName(product.get("name"))[0];
+				      		productLayer.mergeNewParams({'time':string});
+						}
+				     
+				    }, this);
 				}
 			});
 			return {"MapView":MapView};

@@ -68,14 +68,14 @@
       {
         "name": "PanEuropean Fractional Snow Cover",
         "visible": false,
+        "timeSlider": true,
         "view": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "WMS",
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default",
-          "time":"2011-02-14T00:00:00Z/2011-02-15T00:00:00Z"
+          "style": "default"
         },
         "download": {
           "id": "daily_FSC_PanEuropean_Optical",
@@ -86,14 +86,14 @@
       {
         "name": "PanEuropean Snow Water Equivalent",
         "visible": false,
+        "timeSlider": true,
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "WMS",
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default",
-          "time":"2011-02-14T00:00:00Z/2011-02-15T00:00:00Z"
+          "style": "default"
         },
         "download": {
           "id": "daily_SWE_PanEuropean_Microwave",
@@ -104,6 +104,7 @@
       {
         "name": "SRTM",
         "visible": false,
+        "timeSlider": false,
         "view": {
           "id": "SRTM8bit_mosaic",
           "protocol": "WMS",
@@ -191,6 +192,17 @@
         ]
       }
     ]
+  },
+
+  "timeSlider": {
+    "domain": {
+      "start": "2012-07-01T00:00:00Z",
+      "end": "2013-07-01T00:00:00Z"
+    },
+    "brush": {
+       "start": "2013-06-05T00:00:00Z",
+      "end": "2013-06-08T00:00:00Z"
+    }
   },
 
 

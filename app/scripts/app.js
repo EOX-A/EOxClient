@@ -104,6 +104,8 @@
 						new m.LayerModel({
 							name: products.name,
 							visible: products.visible,
+							timeSlider: products.timeSlider,
+							time: products.time,
 							view:{
 								id : products.view.id,
 								protocol: products.view.protocol,
@@ -123,8 +125,7 @@
 								isphericalMercator: products.view.isphericalMercator,
 								isBaseLayer: false,
 								wrapDateLine: products.view.wrapDateLine,
-								zoomOffset: products.view.zoomOffset,
-								time: products.view.time
+								zoomOffset: products.view.zoomOffset
 							},
 							download: {
 								id : products.download.id,
@@ -255,7 +256,7 @@
                 this.toolLayout = new ToolControlLayout();
 
 
-                this.timeSliderView = new v.TimeSliderView();
+                this.timeSliderView = new v.TimeSliderView(config.timeSlider);
                 this.bottomBar.show(this.timeSliderView);
 
 
