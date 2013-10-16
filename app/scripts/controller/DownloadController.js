@@ -29,19 +29,20 @@
 		onChangeLayer: function (options) {
 	        if (!options.isBaseLayer){
 	            var layer = globals.products.find(function(model) { return model.get('name') == options.name; });
-	            var products = this.model.get('products');
-	        	if(options.visible){
-	        		products[layer.get('download').id] = layer;    
-	          	}else{
-	            	delete products[layer.get('download').id];
-	          	}
-	          	this.model.set('products', products);
+	            if (layer) { // Layer will be empty if it is an overlay layer
+					var products = this.model.get('products');
+		        	if(options.visible){
+		        		products[layer.get('download').id] = layer;    
+		          	}else{
+		            	delete products[layer.get('download').id];
+		          	}
+		          	this.model.set('products', products);
+	            }
 	        }
         	this.checkDownload();
 	    },
 
 	    onTimeChange: function(time) {
-	    	console.log(time);
 	        this.model.set('ToI',time);
             this.checkDownload();
 		},

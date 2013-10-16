@@ -15,7 +15,11 @@
 		var LayerControlLayout = Backbone.Marionette.Layout.extend({
 
 			template: {type: 'handlebars', template: LayerControlTmpl},
-			regions: {baseLayers: "#baseLayers", products: "#products"},
+			regions: {
+				baseLayers: "#baseLayers",
+				products: "#products",
+				overlays: "#overlays"
+			},
 			className: "well layercontrol",
 
 			initialize: function(options) {

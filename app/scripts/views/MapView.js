@@ -69,6 +69,11 @@ define(['backbone',
 						this.map.addLayer(this.createLayer(product));
 					}, this);
 
+					// Go through all products and add them to the map
+					globals.overlays.each(function(overlay){
+						this.map.addLayer(this.createLayer(overlay));
+					}, this);
+
 					// Order (sort) the product layers based on collection order
 					this.onSortProducts();
 
@@ -114,7 +119,7 @@ define(['backbone',
 						        wrapDateLine: layer.wrapDateLine,
 						        zoomOffset: layer.zoomOffset,
 						        visible: layerdesc.get("visible"),
-						        time: layer.time
+						        time: layerdesc.time
 							});
 							break;
 
@@ -144,7 +149,7 @@ define(['backbone',
 							        isBaseLayer: layer.isBaseLayer,
 							        wrapDateLine: layer.wrapDateLine,
 							        zoomOffset: layer.zoomOffset,
-							        visibility: layerdesc.get("visible"),
+							        visibility: layerdesc.get("visible")
 							    }
 							);
 							break;
@@ -165,8 +170,14 @@ define(['backbone',
 						globals.baseLayers.find(function(model) { return model.get('name') == options.name; }).set("visible", true);
 						this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
 					}else{
-						globals.products.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
+						var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+						if (product){
+							product.set("visible", options.visible);
+						}else{
+							globals.overlays.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
+						}
 						this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
+						
 					}
 				},
 

@@ -137,6 +137,39 @@
 					console.log("Added product " + products.view.id );
 				}, this);
 
+				//Overlays are loaded and added to the global collection
+				_.each(config.mapConfig.overlays, function(overlay) {
+					
+					globals.overlays.add(
+						new m.LayerModel({
+							name: overlay.name,
+							visible: overlay.visible,
+							view: {
+								id : overlay.id,
+								urls : overlay.urls,
+								protocol: overlay.protocol,
+								projection: overlay.projection,
+								attribution: overlay.attribution,
+								matrixSet: overlay.matrixSet,
+								style: overlay.style,
+								format: overlay.format,
+								resolutions: overlay.resolutions,
+								maxExtent: overlay.maxExtent,	
+								gutter: overlay.gutter,
+								buffer: overlay.buffer,
+								units: overlay.units,
+								transitionEffect: overlay.transitionEffect,
+								isphericalMercator: overlay.isphericalMercator,
+								isBaseLayer: false,
+								wrapDateLine: overlay.wrapDateLine,
+								zoomOffset: overlay.zoomOffset,
+								time: overlay.time
+							}
+						})
+					);
+					console.log("Added overlay " + overlay.id );
+				}, this);
+
 
 				// Create map view and execute show of its region
 				this.map.show(new v.MapView({el: $("#map")}));
@@ -195,6 +228,17 @@
                 		className: "ui-state-default checkbox"
                 	}),
                 	className: "sortable"
+                });
+
+                this.overlaysView = new v.BaseLayerSelectionView({
+                	collection:globals.overlays,
+                	itemView: v.LayerItemView.extend({
+                		template: {
+                			type:'handlebars',
+                			template: t.CheckBoxLayer},
+                		className: "checkbox"
+                	}),
+                	className: "check"
                 });
 
                 // Create layout that will hold the child views

@@ -15,12 +15,11 @@
 			name: '',
 			timeSlider: false,
 			time: null,
+			visible: null,
 			view: {
 				id : '',
 				protocol: '',
 				urls : [],
-
-				visible: null,
 				style: 'default',
 				isBaseLayer: null,
 				attribution: '',
