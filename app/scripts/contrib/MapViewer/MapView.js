@@ -12,9 +12,10 @@ define(['backbone.marionette',
 
 			model: new MapModel.MapModel(),
 
-			initialize: function() {
+			initialize: function(options) {
 				this.map = undefined;
 				this.isClosed = true;
+				this.tileManager = options.tileManager;
 
 				$(window).resize(function() {
 					if (this.map) {
@@ -29,7 +30,8 @@ define(['backbone.marionette',
 				this.$el.attr('id', 'map');
 				this.map = new OpenLayers.Map({
 					div: this.el,
-					fallThrough: true
+					fallThrough: true,
+					tileManager: this.tileManager
 				});
 
 				/*this.map.events.register("moveend", this.map, function(data) {
@@ -49,22 +51,19 @@ define(['backbone.marionette',
 				}.bind(this));
 
 				// Add layers for different selection methods
-				this.pointLayer = new OpenLayers.Layer.Vector("Point Layer");
-				this.lineLayer = new OpenLayers.Layer.Vector("Line Layer");
-				this.polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
-				this.boxLayer = new OpenLayers.Layer.Vector("Box layer");
-
-				this.map.addLayers([this.pointLayer, this.lineLayer, this.polygonLayer, this.boxLayer]);
+				this.vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
+				
+				this.map.addLayers([this.vectorLayer]);
 				this.map.addControl(new OpenLayers.Control.MousePosition());
 
 				this.drawControls = {
-					pointSelection: new OpenLayers.Control.DrawFeature(this.pointLayer,
+					pointSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.Point),
-					lineSelection: new OpenLayers.Control.DrawFeature(this.lineLayer,
+					lineSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.Path),
-					polygonSelection: new OpenLayers.Control.DrawFeature(this.polygonLayer,
+					polygonSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.Polygon),
-					bboxSelection: new OpenLayers.Control.DrawFeature(this.boxLayer,
+					bboxSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.RegularPolygon, {
 							handlerOptions: {
 								sides: 4,

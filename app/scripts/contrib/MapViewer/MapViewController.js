@@ -17,9 +17,11 @@ define([
 		initialize: function(opts) {
 			this.id = opts.id;
 			this.startPosition = opts.startPosition;
+			this.tileManager = new OpenLayers.TileManager();
 
 			this.mapView = new MapView({
-				startPosition: opts.startPosition
+				startPosition: opts.startPosition,
+				tileManager: this.tileManager
 			});
 
 			this.connectToView();
