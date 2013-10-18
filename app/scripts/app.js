@@ -106,6 +106,7 @@
 							visible: products.visible,
 							timeSlider: products.timeSlider,
 							time: products.time,
+							opacity: 1,
 							view:{
 								id : products.view.id,
 								protocol: products.view.protocol,
@@ -235,7 +236,7 @@
                 	itemView: v.LayerItemView.extend({
                 		template: {
                 			type:'handlebars',
-                			template: t.CheckBoxLayer},
+                			template: t.CheckBoxOverlayLayer},
                 		className: "checkbox"
                 	}),
                 	className: "check"

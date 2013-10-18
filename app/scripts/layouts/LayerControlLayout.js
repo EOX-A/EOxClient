@@ -22,12 +22,24 @@
 			},
 			className: "well layercontrol",
 
+			events: {
+
+			},
+
 			initialize: function(options) {
 			},
 
 			onShow: function(view){
 		    	this.$('.close').on("click", _.bind(this.onClose, this));
-		    	this.$el.draggable({ containment: "#content" , scroll: false});
+		    	this.$el.draggable({ 
+		    		containment: "#content" ,
+		    		scroll: false,
+		    		start: function(event, ui) {
+						$( ".ui-slider" ).detach();
+						$('.icon-adjust').toggleClass('active')
+						$('.icon-adjust').popover('hide');
+					},
+		    	});
 		    },
 
 			onClose: function() {

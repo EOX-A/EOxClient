@@ -287,6 +287,10 @@
     {
       "id":"ToolIcon",
       "template":"hbs!tmpl/ToolIcon"
+    },
+    {
+      "id":"CheckBoxOverlayLayer",
+      "template":"hbs!tmpl/CheckBoxOverlayLayer"
     }
   ],
 

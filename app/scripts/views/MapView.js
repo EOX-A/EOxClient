@@ -23,6 +23,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
 					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
 					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
+					this.listenTo(Communicator.mediator, "productCollection:updateOpacity", this.onUpdateOpacity);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
@@ -185,6 +186,15 @@ define(['backbone',
 				      this.map.setLayerIndex(productLayer, index);
 				    }, this);
 				    console.log("Map products sorted");
+				},
+
+				onUpdateOpacity: function(options) {
+					var layer = this.map.getLayersByName(options.model.get("name"))[0];
+					if (layer){
+						layer.setOpacity(options.value);
+					}
+					
+
 				},
 
 				onSelectionActivated: function(arg){

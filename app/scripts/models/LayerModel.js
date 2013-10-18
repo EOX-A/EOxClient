@@ -16,6 +16,7 @@
 			timeSlider: false,
 			time: null,
 			visible: null,
+			opacity: 0,
 			view: {
 				id : '',
 				protocol: '',
