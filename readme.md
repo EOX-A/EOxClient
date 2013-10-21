@@ -1,6 +1,6 @@
-# EOxClient
+# DREAM-Client
 
-The EOxClient focuses on creating a webclient for map applications, which allows easy customization through a centralized configuration concept.
+The DREAM-Client focuses on creating a webclient for map applications, which allows easy customization through a centralized configuration concept.
 
 ## Technologies used
 
