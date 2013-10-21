@@ -28,6 +28,8 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
+					this.listenTo(Communicator.mediator, 'selection:changed', this.onSelectionChanged);
+					
 
 					// Add layers for different selection methods
 					this.vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
@@ -251,6 +253,12 @@ define(['backbone',
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
 					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
+				},
+
+				onSelectionChanged: function (geometry) {
+					for(key in this.drawControls) {
+		               this.drawControls[key].deactivate();	                    
+	                }	
 				},
 
 				onTimeChange: function (time) {

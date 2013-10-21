@@ -16,6 +16,8 @@
             	this.listenTo(Communicator.mediator, "dialog:open:about", this.onDialogOpenAbout);
             	this.listenTo(Communicator.mediator, "ui:open:layercontrol", this.onLayerControlOpen);
             	this.listenTo(Communicator.mediator, "ui:open:toolselection", this.onToolSelectionOpen);
+            	this.listenTo(Communicator.mediator, "dialog:open:downloadSelection", this.onDwonloadSelectionOpen);
+            	
 			},
 
 			onDialogOpenAbout: function(event){
@@ -33,6 +35,9 @@
 				App.rightSideBar.show(App.toolLayout);
 				App.toolLayout.selection.show(App.selectionToolsView);
 				App.toolLayout.visualization.show(App.visualizationToolsView);
+			},
+			onDwonloadSelectionOpen: function (event) {
+				App.rightSideBar.show(App.downloadSelectionView);
 			}
 		});
 		return new ContentController();

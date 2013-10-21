@@ -67,57 +67,57 @@
     ],
     "products": [
       {
-        "name": "PanEuropean Fractional Snow Cover",
+        "name": "MERIS FRS L1",
         "visible": false,
         "timeSlider": true,
         "view": {
-          "id": "daily_FSC_PanEuropean_Optical",
+          "id": "MERIS_FRS_L1_view",
           "protocol": "WMS",
           "urls": [
-              "http://neso.cryoland.enveo.at/cryoland/ows"
+              "http://data.eox.at/instance01/ows"
           ],
           "style": "default"
         },
         "download": {
-          "id": "daily_FSC_PanEuropean_Optical",
+          "id": "MERIS_FRS_L1",
           "protocol": "EOWCS",
-          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
+          "url": "http://data.eox.at/instance01/ows"
         }
       },
       {
-        "name": "PanEuropean Snow Water Equivalent",
+        "name": "ASAR IMM L1",
         "visible": false,
         "timeSlider": true,
         "view": {
-          "id": "daily_SWE_PanEuropean_Microwave",
+          "id": "ASAR_IMM_L1_view",
           "protocol": "WMS",
           "urls": [
-              "http://neso.cryoland.enveo.at/cryoland/ows"
+              "http://data.eox.at/instance01/ows"
           ],
           "style": "default"
         },
         "download": {
-          "id": "daily_SWE_PanEuropean_Microwave",
+          "id": "ASAR_IMM_L1",
           "protocol": "EOWCS",
-          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
+          "url": "http://data.eox.at/instance01/ows"
         }
       },
       {
-        "name": "SRTM",
+        "name": "MERIS FR L1 EUSC",
         "visible": false,
-        "timeSlider": false,
+        "timeSlider": true,
         "view": {
-          "id": "SRTM8bit_mosaic",
+          "id": "MERIS_FR__L1_EUSC_view",
           "protocol": "WMS",
           "urls": [
-              "http://earthserver.eox.at/open/ows"
+              "http://data.eox.at/instance01/ows"
           ],
           "style": "default"
         },
         "download": {
-          "id": "SRTM_mosaic",
+          "id": "MERIS_FR__L1_EUSC",
           "protocol": "EOWCS",
-          "url": "http://earthserver.eox.at/open/ows"
+          "url": "http://data.eox.at/instance01/ows"
         }
       }
     ],
@@ -180,34 +180,21 @@
   ],
 
   "navBarConfig": {
-    "title" : "EOxClient",
+    "title" : "DREAM",
     "url" : "http://www.eox.at",
     "items" : [
       {
-        "name" : "Layer Controls",
+        "name" : "Layers",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl"
       },
       {
-        "name" : "Tools",
-        "eventToRaise" : "ui:open:toolselection",
-        "template" : "ToolSelection"
+        "name" : "Download",
+        "eventToRaise" : "dialog:open:downloadSelection"
       },
       {
         "name" : "About",
-        "eventToRaise" : "dialog:open:about",
-        "subitems" : [
-          {
-          "name" : "Info",
-          "eventToRaise" : "dialog:open:info",
-          "template" : "info"
-          },
-          {
-          "name" : "Help",
-          "eventToRaise" : "dialog:open:help",
-          "template" : "help"
-          }
-        ]
+        "eventToRaise" : "dialog:open:about"
       }
     ]
   },
@@ -235,7 +222,8 @@
     "views/TimeSliderView",
     "views/ToolSelectionView",
     "views/ToolItemView",
-    "views/DownloadView"
+    "views/DownloadView",
+    "views/DownloadSelectionView"
   ],
 
   "models":[
@@ -328,10 +316,10 @@
     },
     {
       "id":"download",
-      "eventToRaise":"dialog:open:download",
-      "description": "WCS Download Tool for specific selections",
+      "eventToRaise":"dialog:open:downloadSelection",
+      "description": "WCS Download selection Tool",
       "icon":"icon-download-alt",
-      "enabled":false,
+      "enabled":true,
       "active":false
     }
 

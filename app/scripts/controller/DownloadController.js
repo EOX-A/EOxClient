@@ -39,12 +39,12 @@
 		          	this.model.set('products', products);
 	            }
 	        }
-        	this.checkDownload();
+        	//this.checkDownload();
 	    },
 
 	    onTimeChange: function(time) {
 	        this.model.set('ToI',time);
-            this.checkDownload();
+            //this.checkDownload();
 		},
 
 	    onSelectionChange: function(selection) {
@@ -55,7 +55,7 @@
 	        }else{
 	          this.model.set('AoI', null);
 	        }
-            this.checkDownload();
+            //this.checkDownload();
 		},
 
 		checkDownload: function() {

@@ -308,7 +308,7 @@
 				//this.router = new Router({views: this.views, regions: this.regions});
 
 
-				//this.downloadView = new v.DownloadView();
+				this.downloadSelectionView = new v.DownloadSelectionView();
 				
 								
 			}
