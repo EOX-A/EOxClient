@@ -235,13 +235,13 @@ define(['backbone',
 		                    }
 
 		                }
-		                this.polygonLayer.addFeatures(features);
+		                this.vectorLayer.addFeatures(features);
 		                this.map.zoomToExtent(bounds);
 					}
 				},
 
 				onExportGeoJSON: function() {		
-					var geojsonstring = this.geojson.write(this.polygonLayer.features, true);
+					var geojsonstring = this.geojson.write(this.vectorLayer.features, true);
 					
 					var blob = new Blob([geojsonstring], {type: "text/plain;charset=utf-8"});
 					saveAs(blob, "selection.geojson");
