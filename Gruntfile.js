@@ -283,17 +283,40 @@ module.exports = function (grunt) {
                 }]
             }
         },
+
+        uglify : {
+            dist : {
+                files: [
+                {
+                  expand: true,     // Enable dynamic expansion.
+                  cwd: '<%= yeoman.app %>/scripts',      // Src matches are relative to this path.
+                  src: ['**/*.js'], // Actual pattern(s) to match.
+                  dest: '<%= yeoman.dist %>/scripts/',   // Destination path prefix.
+                  ext: '.js',   // Dest filepaths will have this extension.
+                },
+              ]
+            }
+        },
+
         // Put files not handled in other tasks here
         copy: {
             dist: {
-                files: [{
+                files: [
+                {
                     expand: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
                     src: [
                         'bower_components/**'
                     ]
-                }, {
+                },{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        'scripts/*.json'
+                    ]
+                },{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
@@ -378,7 +401,7 @@ module.exports = function (grunt) {
         'cssmin',
         'uglify',
         'copy:dist',
-        'rev',
+        //'rev',
         'usemin'
     ]);
 
