@@ -1,0 +1,60 @@
+{
+
+  "products": [
+    {
+      "name": "MERIS FRS L1",
+      "visible": false,
+      "timeSlider": true,
+      "view": {
+        "id": "MERIS_FRS_L1_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "MERIS_FRS_L1",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "ASAR IMM L1",
+      "visible": false,
+      "timeSlider": true,
+      "view": {
+        "id": "ASAR_IMM_L1_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "ASAR_IMM_L1",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "MERIS FR L1 EUSC",
+      "visible": false,
+      "timeSlider": true,
+      "view": {
+        "id": "MERIS_FR__L1_EUSC_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "MERIS_FR__L1_EUSC",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    }
+  ]
+
+}
