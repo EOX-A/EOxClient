@@ -10,7 +10,7 @@
     ],
     "center": [13.41,52.52],
     "zoom": 5,
-    "dataconfigurl" : "scripts/data.json",
+    "dataconfigurl" : "data.json",
     "baseLayers": [
       {
         "name": "Terrain Layer",
@@ -146,8 +146,8 @@
 
   "timeSlider": {
     "domain": {
-      "start": "2012-07-01T00:00:00Z",
-      "end": "2013-07-01T00:00:00Z"
+      "start": "1999-01-01T00:00:00Z",
+      "end": "2015-01-01T00:00:00Z"
     },
     "brush": {
        "start": "2013-06-05T00:00:00Z",

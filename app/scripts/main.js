@@ -26,7 +26,7 @@
 		'regionManager',
 		'jquery',
 		'jqueryui',
-		"text!config.json",
+		"text!../config.json",
 		"util",
 		"libcoverage"
 	],
@@ -34,7 +34,7 @@
 
 		
 
-		$.get("scripts/config.json", function(values) {
+		$.get("config.json", function(values) {
 
 			var origvalues = values;
 
