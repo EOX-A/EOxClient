@@ -23,10 +23,12 @@
       },
       onShow: function(view) {
 
+        this.listenTo(Communicator.mediator, 'date:selection:change', this.onDateSelectionChange);
+
         var selectionstart = new Date(this.options.brush.start);
         var selectionend = new Date(this.options.brush.end);
 
-        var slider = new TimeSlider(this.el, {
+        this.slider = new TimeSlider(this.el, {
 
           domain: {
             start: new Date(this.options.domain.start),
@@ -44,6 +46,10 @@
 
       onChangeTime: function(evt){
         Communicator.mediator.trigger('time:change', evt.originalEvent.detail);
+      },
+      
+      onDateSelectionChange: function(opt) {
+        this.slider.select(opt.start, opt.end);
       }
 
     });

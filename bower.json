@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "sass-bootstrap": "~2.3.0",
+    "bootstrap-datepicker": "~1.2.0",
     "jquery": "~1.10.0",
     "jquery-ui": "~1.10.3",
     "requirejs": "~2.1.5",

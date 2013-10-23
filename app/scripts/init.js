@@ -28,6 +28,9 @@
                 deps: ['jquery'],
                 exports: 'jquery'
             },
+            "bootstrap-datepicker": {
+                deps: ['bootstrap']
+            },
             libcoverage: {
                 deps: ['backbone']/*,
                 exports: 'WCS'*/
@@ -55,6 +58,8 @@
 
             /* alias the bootstrap js lib */
             bootstrap: 'vendor/bootstrap',
+
+            "bootstrap-datepicker": '../bower_components/bootstrap-datepicker/js/bootstrap-datepicker',
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
             text: '../bower_components/requirejs-text/text',

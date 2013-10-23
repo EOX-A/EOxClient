@@ -9,10 +9,11 @@
     	'globals',
 		'app',
 		'views/DownloadView',
+		'views/DownloadSelectionView',
     	'models/DownloadModel'
 	],
 
-	function( Backbone, Communicator, globals, App, v, m ) {
+	function( Backbone, Communicator, globals, App, v, ds, m ) {
 
 		var DownloadController = Backbone.Marionette.Controller.extend({
 			model: new m.DownloadModel(),
@@ -24,6 +25,7 @@
 	        this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 	        this.listenTo(Communicator.mediator, "selection:changed", this.onSelectionChange);
 	        this.listenTo(Communicator.mediator, "dialog:open:download", this.onDownloadToolOpen);
+	        this.listenTo(Communicator.mediator, "dialog:open:downloadSelection", this.onDwonloadSelectionOpen);
 		},
 
 		onChangeLayer: function (options) {
@@ -76,7 +78,13 @@
             }else{
               App.viewContent.close();
             }
-          }
+        },
+
+		onDwonloadSelectionOpen: function (event) {
+			//App.rightSideBar.show(App.downloadSelectionView);
+			App.viewContent.show(new ds.DownloadSelectionView({model:this.model}));
+		}
+
 		});
 		return new DownloadController();
 	});

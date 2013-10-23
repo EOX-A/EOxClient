@@ -303,12 +303,6 @@
 
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
                 this.bottomBar.show(this.timeSliderView);
-
-
-				//this.router = new Router({views: this.views, regions: this.regions});
-
-
-				this.downloadSelectionView = new v.DownloadSelectionView();
 				
 								
 			}
