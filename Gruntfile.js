@@ -313,6 +313,7 @@ module.exports = function (grunt) {
                         'bower_components/jquery/jquery.min.js',
                         'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
                         "bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css",
+                        "bower_components/jquery-ui/themes/smoothness/images/*.png",
                         'bower_components/jquery-ui/ui/minified/jquery-ui.slider.min.js',
                         'bower_components/backbone-amd/backbone-min.js',
                         'bower_components/underscore-amd/underscore-min.js',
@@ -329,6 +330,14 @@ module.exports = function (grunt) {
                         'bower_components/require-handlebars-plugin/hbs/json2.js',
                         'bower_components/require-handlebars-plugin/hbs.js',
                         'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
+                        'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js'
+                    ]
+                },{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/bower_components/jquery-ui/themes/smoothness/images/',
+                    dest: '<%= yeoman.dist %>/styles/images/',
+                    src: [
+                        "*.{png,gif}",
                     ]
                 },{
                     expand: true,
