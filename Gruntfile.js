@@ -306,8 +306,28 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
+                    // If new bower components are installed they have to be added to this list
                     src: [
-                        'bower_components/**'
+                        'bower_components/requirejs/require.js',
+                        'bower_components/jquery/jquery.min.js',
+                        'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
+                        "bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css",
+                        'bower_components/jquery-ui/ui/minified/jquery-ui.slider.min.js',
+                        'bower_components/backbone-amd/backbone-min.js',
+                        'bower_components/underscore-amd/underscore-min.js',
+                        'bower_components/d3/d3.min.js',
+                        'bower_components/d3.TimeSlider/d3.timeslider.min.js',
+                        'bower_components/libcoverage/libcoverage.min.js',
+                        'bower_components/filesaver/FileSaver.js',                    
+                        'bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min.js',
+                        'bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min.js', 
+                        'bower_components/backbone.babysitter/lib/amd/backbone.babysitter.min.js',
+                        'bower_components/requirejs-text/text.js',
+                        'bower_components/require-handlebars-plugin/Handlebars.js',
+                        'bower_components/require-handlebars-plugin/hbs/i18nprecompile.js',
+                        'bower_components/require-handlebars-plugin/hbs/json2.js',
+                        'bower_components/require-handlebars-plugin/hbs.js',
+                        'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
                     ]
                 },{
                     expand: true,
