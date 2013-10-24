@@ -62,14 +62,19 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
     grunt server 
     ```
 
-    point your browser of port 9000 of your computer and start to hack the code. 
-    The browser view refreshes itself automatically reflecting the 
-    code changes made. 
+    and point your browser of port 9000 of your computer. 
+
+If you managed to reach this the last step you can start to hack the code. 
+The browser view refreshes itself automatically reflecting the code changes made. 
+
 
 ## How to deploy the server 
 
 0.  Create deployment package: 
 
+    ```
+    grunt server 
+    ```
 
 0.  Put the content of the deployment package to your server and make sure
     the web server can access the `index.html` file. 
