@@ -17,3 +17,11 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
 * [jQuery](http://jquery.com/)
 * [Backbone](http://backbonejs.org/)
 * [Backbone Marionette](http://marionettejs.com/)
+
+## How to setup development environmet 
+
+0.  Get the code from GitHup [DREAM Client repository](https://github.com/DREAM-ODA-OS/ODAClient)
+
+    ```
+    git clone git@github.com:DREAM-ODA-OS/ODAClient.git
+    ```
