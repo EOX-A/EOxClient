@@ -18,10 +18,58 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
 * [Backbone](http://backbonejs.org/)
 * [Backbone Marionette](http://marionettejs.com/)
 
-## How to setup development environmet 
+## How to setup development environmet (on a Linux machine)
 
-0.  Get the code from GitHup [DREAM Client repository](https://github.com/DREAM-ODA-OS/ODAClient)
+0.  Get the code from GitHub [DREAM Client repository](https://github.com/DREAM-ODA-OS/ODAClient):
 
     ```
     git clone git@github.com:DREAM-ODA-OS/ODAClient.git
     ```
+
+    or
+
+    ```
+    git clone https://github.com/DREAM-ODA-OS/ODAClient.git
+    ```
+
+0.  Install development enviroment: 
+
+    Make sure [Node.js](http://nodejs.org) and [NPM](https://npmjs.org) are installed
+    on your machine and run:
+
+    ```
+    cd ./ODAClient
+    sudo npm install -g grunt-cli
+    sudo npm install -g bower 
+    npm install 
+    ```
+
+    These commands install the needed Node.js packages. In case of any trouble try to use 
+    reasonable recent version of Node.js. Also note that newer versions of Node.js contain 
+    the NPM already bundled in the baseline installation. 
+
+0.  Install client dependencies:  
+
+    The required JavaScript frameworks can be installed by: 
+
+    ```
+    bower install
+    ```
+
+0.  Start the [Grunt](http://gruntjs.com/) development server:
+
+    ```
+    grunt server 
+    ```
+
+    point your browser of port 9000 of your computer and start to hack the code. 
+    The browser view refreshes itself automatically reflecting the 
+    code changes made. 
+
+## How to deploy the server 
+
+0.  Create deployment package: 
+
+
+0.  Put the content of the deployment package to your server and make sure
+    the web server can access the `index.html` file. 
