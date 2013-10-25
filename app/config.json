@@ -68,8 +68,8 @@
 
     "overlays": [
        {
-        "name": "Streets",
-        "id": "overlay_streets_wgs84",
+        "name": "borders & labels",
+        "id": "overlay",
         "protocol": "WMTS",
         "visible": true,
         "urls": [
