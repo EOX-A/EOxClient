@@ -8,7 +8,7 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
 
 * [Yo](https://github.com/yeoman/yo) : scaffolds out the application, writing the Grunt configuration and pulling in relevant Grunt tasks that you might need for your build.
 * [Grunt](http://gruntjs.com/) : which allows building, previewing and testing the project
-* [Bower](http://bower.io/) : which allows managing of dependencies and automatic download, thus making the application easily extendable.
+* [Bower](http://bower.io/) : which allows managing of dependencies and automatic download, thus making the application easily extendible.
 
 ## Libraries used
 
@@ -73,8 +73,12 @@ The browser view refreshes itself automatically reflecting the code changes made
 0.  Create deployment package: 
 
     ```
-    grunt server 
+    grunt build
     ```
+
+    This command creates `dist` directory containing the produced deployment 
+    version. This directory should be then packed by some archiving tool (`zip`, `tar`, `cpio` ... etc.)
+    creating the deployment package.
 
 0.  Put the content of the deployment package to your server and make sure
     the web server can access the `index.html` file. 
