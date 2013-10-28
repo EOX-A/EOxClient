@@ -13,23 +13,24 @@ define([
 		initialize: function(opts) {
 			this.id = opts.id;
 			this.startPosition = opts.startPosition;
-			if (typeof this.startPosition === 'undefined') {
-				this.startPosition = {
-					center: [74, 15],
-					distance: 10000000,
-					duration: 1000,
-					tilt: 45
-				};
+
+			this.position = {
+				center: [74, 15],
+				distance: 10000000,	
+				duration: 1000,
+				tilt: 45
+			};
+
+			if(!opts.startPosition){
+				this.globeView = new VirtualGlobeView({
+					startPosition: this.position
+				});
+			}else{
+				this.globeView = new VirtualGlobeView({
+					startPosition: opts.startPosition
+				});
 			}
 
-			var startProduct = globals.baseLayers.find(function(model) {
-				return model.get('name') === 'Terrain Layer';
-			});
-
-			this.globeView = new VirtualGlobeView({
-				startPosition: opts.startPosition,
-				startProduct: startProduct
-			});
 
 			this.connectToView();
 		},
