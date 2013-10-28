@@ -54,6 +54,12 @@ define([
 				layerModel = globals.products.find(function(model) {
 					return model.get('name') === opts.name;
 				});
+
+				if (!layerModel) {
+					layerModel = globals.overlays.find(function(model) {
+						return model.get('name') === opts.name;
+					});
+				}
 			}
 
 			if (typeof layerModel === 'undefined') {
