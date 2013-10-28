@@ -50,11 +50,11 @@ define([
 			this.listenTo(Communicator.mediator, 'time:change', _.bind(this.mapView.onTimeChange, this.mapView));
 
 			this.mapView.listenTo(this.mapView.model, 'change', function(model, options) {
-				Communicator.mediator.trigger("router:setUrl", {
+				/*Communicator.mediator.trigger("router:setUrl", {
 					x: model.get('center')[0],
 					y: model.get('center')[1],
 					l: model.get('zoom')
-				});
+				});*/
 				Communicator.mediator.trigger("map:center", {
 					x: model.get('center')[0],
 					y: model.get('center')[1],

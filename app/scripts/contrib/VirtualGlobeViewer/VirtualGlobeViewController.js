@@ -31,8 +31,13 @@ define([
 				startProduct: startProduct
 			});
 
+			this.connectToView();
+		},
+
+		connectToView: function () {
 			this.listenTo(Communicator.mediator, 'selection:changed', this.addAreaOfInterest);
-			this.listenTo(Communicator.mediator, 'router:setUrl', this.zoomTo);
+			this.listenTo(Communicator.mediator, 'map:setUrl', this.zoomTo);
+			this.listenTo(Communicator.mediator, 'map:center', this.onMapCenter);
 			this.listenTo(Communicator.mediator, 'map:layer:change', this.selectProduct);
 		},
 
@@ -78,6 +83,35 @@ define([
 				center: [pos.x, pos.y],
 				distance: 10000000,
 				duration: 1000,
+				tilt: 45
+			}
+			this.globeView.zoomTo(position);
+		},
+
+		onMapCenter: function (pos) {
+			var dis = 0;
+			switch (pos.l){
+				case 0: dis = 50000000; break;
+				case 1: dis = 30000000; break;
+				case 2: dis = 18000000; break;
+				case 3: dis = 9000000; break;
+				case 4: dis = 4800000; break;
+				case 5: dis = 2400000; break;
+				case 6: dis = 1200000; break;
+				case 7: dis = 700000; break;
+				case 8: dis = 300000; break;
+				case 9: dis = 80000; break;
+				case 10: dis = 30000; break;
+				case 11: dis = 9000; break;
+				case 12: dis = 7000; break;
+				case 13: dis = 5000; break;
+				case 14: dis = 4000; break;
+			}
+
+			var position = {
+				center: [pos.x, pos.y],
+				distance: dis,
+				duration: 100,
 				tilt: 45
 			}
 			this.globeView.zoomTo(position);

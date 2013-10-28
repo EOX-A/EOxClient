@@ -38,7 +38,7 @@ define([
 				startPosition = {
 					center: [15, 47],
 					distance: 0,
-					duration: 3000,
+					duration: 100,
 					tilt: 40
 				};
 			}
@@ -47,6 +47,7 @@ define([
 			for (var contr in this.instances) {
 				if(!this.instances[contr].isActive()){
 					console.log("Free globe viewer returned " +contr);
+					this.instances[contr].connectToView();
 					return this.instances[contr];
 				}
 			};

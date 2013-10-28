@@ -44,6 +44,7 @@ define([
 			for (var contr in this.instances) {
 				if(!this.instances[contr].isActive()){
 					console.log("Free map viewer returned " +contr);
+					this.instances[contr].connectToView();
 					return this.instances[contr];
 				}
 			};
