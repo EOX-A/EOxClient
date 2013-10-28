@@ -88,6 +88,11 @@ define(['backbone.marionette',
 					this.map.addLayer(this.createLayer(product));
 				}, this);
 
+				// Go through all products and add them to the map
+                globals.overlays.each(function(overlay){
+                    this.map.addLayer(this.createLayer(overlay));
+                }, this);
+
 				// Order (sort) the product layers based on collection order
 				this.onSortProducts();
 
@@ -146,7 +151,7 @@ define(['backbone.marionette',
 							wrapDateLine: layer.wrapDateLine,
 							zoomOffset: layer.zoomOffset,
 							visible: layerdesc.get("visible"),
-							time: layer.time
+							time: layerdesc.get("time")
 						});
 						break;
 
@@ -157,7 +162,7 @@ define(['backbone.marionette',
 								layers: layer.id,
 								transparent: "true",
 								format: "image/png",
-								time: layer.time
+								time: layerdesc.get("time")
 							}, {
 								format: 'image/png',
 								matrixSet: layer.matrixSet,
@@ -193,20 +198,21 @@ define(['backbone.marionette',
 			},
 
 			changeLayer: function(options) {
-				if (options.isBaseLayer) {
-					globals.baseLayers.forEach(function(model, index) {
-						model.set("visible", false);
-					});
-					globals.baseLayers.find(function(model) {
-						return model.get('name') == options.name;
-					}).set("visible", true);
-					this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
-				} else {
-					globals.products.find(function(model) {
-						return model.get('name') == options.name;
-					}).set("visible", options.visible);
-					this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
-				}
+				if (options.isBaseLayer){
+	                globals.baseLayers.forEach(function(model, index) {
+	                    model.set("visible", false);
+	                });
+	                globals.baseLayers.find(function(model) { return model.get('name') == options.name; }).set("visible", true);
+	                this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
+                }else{
+                    var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+                    if (product){
+                            product.set("visible", options.visible);
+                    }else{
+                            globals.overlays.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
+                    }
+                    this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
+                }
 			},
 
 			onSortProducts: function(productLayers) {
@@ -217,6 +223,13 @@ define(['backbone.marionette',
 				}, this);
 				console.log("Map products sorted");
 			},
+
+			onUpdateOpacity: function(options) {
+                var layer = this.map.getLayersByName(options.model.get("name"))[0];
+                if (layer){
+                        layer.setOpacity(options.value);
+                }
+            },
 
 			onSelectionActivated: function(arg) {
 				if (arg.active) {
@@ -276,18 +289,21 @@ define(['backbone.marionette',
 				Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
 			},
 
+			onTimeChange: function () {
+                               
+                globals.products.each(function(product) {
+                    if(product.get("timeSlider")){
+                        var productLayer = this.map.getLayersByName(product.get("name"))[0];
+                      	productLayer.mergeNewParams({'time':product.get('time')});
+                    }
+                 
+                }, this);
+            },
+
 			onClose: function(){
 				this.isClosed = true;
 			}
 		});
-
-		// this._myView = undefined;
-		// Communicator.registerEventHandler("viewer:show:map", function() {
-		// 	if (!this._myView) {
-		// 		this._myView = new MapView();
-		// 	}
-		// 	App.map.show(this._myView);
-		// }.bind(this));
 
 		return MapView;
 	});

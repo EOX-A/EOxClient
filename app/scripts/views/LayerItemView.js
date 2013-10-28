@@ -12,11 +12,40 @@
 			tagName: "li",
 			events: {
 				'drop' : 'drop',
-				'change': 'onChange'
+				'change': 'onChange',
+				'click .icon-adjust': 'onOpenSlider',
+				'slide .ui-slider': 'onOpacityAdjust'
 			},
 
 			initialize: function(options) {
+
+				this.$slider = $('<div>').slider({
+			        range: "max",
+			        max: 100,
+			        min: 0
+			    });
+			    this.$slider.width(100);
 			}, 
+			onShow: function(view){
+
+				$( ".sortable" ).sortable({
+					revert: true,
+					delay: 90,
+					start: function(event, ui) {
+						$( ".ui-slider" ).detach();
+						$('.icon-adjust').toggleClass('active')
+						$('.icon-adjust').popover('hide');
+					},
+					stop: function(event, ui) {
+						ui.item.trigger('drop', ui.item.index());
+		        	}
+			    });
+
+			    $('.icon-adjust').popover({
+        			trigger: 'manual'
+    			});
+			},
+			
 
 			onChange: function(evt){
                 var isBaseLayer = false;
@@ -28,6 +57,27 @@
 
             drop: function(event, index) {
 		        Communicator.mediator.trigger('productCollection:updateSort', {model:this.model, position:index});
+		    },
+
+		    onOpenSlider: function(evt){
+
+		    	if (this.$('.icon-adjust').toggleClass('active').hasClass('active')) {
+		            this.$('.icon-adjust').popover('show');
+		            this.$('.popover-content')
+		                .empty()
+		                .append(this.$slider);
+		            this.$( ".ui-slider" ).slider( "option", "value", this.model.get("opacity") * 100 );
+
+
+		        } else {
+		            this.$slider.detach();
+		            this.$('.icon-adjust').popover('hide');
+		        }
+		    },
+
+		    onOpacityAdjust: function(evt, ui) {
+		    	this.model.set("opacity", ui.value/100);
+		    	Communicator.mediator.trigger('productCollection:updateOpacity', {model:this.model, value:ui.value/100});
 		    }
 
 		});

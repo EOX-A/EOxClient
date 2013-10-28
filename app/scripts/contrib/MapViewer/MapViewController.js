@@ -43,9 +43,11 @@ define([
 			this.listenTo(Communicator.mediator, "map:center", _.bind(this.mapView.centerMap, this.mapView));
 			this.listenTo(Communicator.mediator, "map:layer:change", _.bind(this.mapView.changeLayer, this.mapView));
 			this.listenTo(Communicator.mediator, "productCollection:sortUpdated", _.bind(this.mapView.onSortProducts, this.mapView));
+			this.listenTo(Communicator.mediator, "productCollection:updateOpacity", _.bind(this.mapView.onUpdateOpacity, this.mapView));
 			this.listenTo(Communicator.mediator, "selection:activated", _.bind(this.mapView.onSelectionActivated, this.mapView));
 			this.listenTo(Communicator.mediator, "map:load:geojson", _.bind(this.mapView.onLoadGeoJSON, this.mapView));
 			this.listenTo(Communicator.mediator, "map:export:geojson", _.bind(this.mapView.onExportGeoJSON, this.mapView));
+			this.listenTo(Communicator.mediator, 'time:change', _.bind(this.mapView.onTimeChange, this.mapView));
 
 			this.mapView.listenTo(this.mapView.model, 'change', function(model, options) {
 				Communicator.mediator.trigger("router:setUrl", {

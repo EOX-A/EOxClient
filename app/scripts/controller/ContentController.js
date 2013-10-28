@@ -27,6 +27,7 @@
                 App.leftSideBar.show(App.layout);
                 App.layout.baseLayers.show(App.baseLayerView);
                 App.layout.products.show(App.productsView);
+                App.layout.overlays.show(App.overlaysView);
 			},
 			onToolSelectionOpen: function(event){
 				App.rightSideBar.show(App.toolLayout);

@@ -66,14 +66,15 @@
           var set = new EOCoverageSet([]);
           var options = {};
 
-          if(product.get('view').time){
+          if(product.get('timeSlider')){
             options = {
                 subsetTime: [
                   getISODateTimeString(this.model.get("ToI").start), 
                   getISODateTimeString(this.model.get("ToI").end)
                 ]
             };
-          }
+          } //TODO: Check what to set if timeslider not activated
+          
           options.subsetCRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
           var bbox = this.model.get("AoI").getBounds();
           options.subsetX = [bbox.left, bbox.right];
