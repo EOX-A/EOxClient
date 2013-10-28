@@ -5,46 +5,66 @@
     'backbone',
     'communicator',
     'timeslider',
+    'globals',
     'underscore',
     'd3'
   ],
-  function( Backbone, Communicator, timeslider) {
+  function( Backbone, Communicator, timeslider, globals) {
     var TimeSliderView = Backbone.Marionette.ItemView.extend({
       id: 'timeslider',
       events: {
         'selectionChanged': 'onChangeTime'
       },
+      initialize: function(options){
+        this.options = options;
+      },
+
       render: function(options){
 
       },
       onShow: function(view) {
-        var selectionstart = new Date("2013-06-05T00:00:00Z");
-        var selectionend = new Date("2013-06-08T00:00:00Z");
+
+        var selectionstart = new Date(this.options.brush.start);
+        var selectionend = new Date(this.options.brush.end);
+
         var slider = new TimeSlider(this.el, {
 
           domain: {
-            start: new Date("2012-07-01T00:00:00Z"),
-            end: new Date("2013-07-01T00:00:00Z")
+            start: new Date(this.options.domain.start),
+            end: new Date(this.options.domain.end)
           },
           brush: {
             start: selectionstart,
             end: selectionend
           },
-          datasets: [
-            {
-              id: 'img2012',
-              color: 'red',
-              data: function(start, end) {
-                return [];
-              }
-            }
-          ]
+          datasets: []
         });
-        Communicator.mediator.trigger('time:change', {start:selectionstart, end:selectionend});
+
+        var string = getISODateTimeString(selectionstart) + "/"+ getISODateTimeString(selectionend);
+        
+        globals.products.each(function(product) {
+            if(product.get("timeSlider")){
+                product.set('time', string);
+            }
+         
+        }, this);
+
+        Communicator.mediator.trigger('time:change');
       }, 
 
       onChangeTime: function(evt){
-        Communicator.mediator.trigger('time:change', evt.originalEvent.detail);
+        
+        var string = getISODateTimeString(evt.originalEvent.detail.start) + "/"+ getISODateTimeString(evt.originalEvent.detail.end);
+        
+        globals.products.each(function(product) {
+            if(product.get("timeSlider")){
+                product.set('time', string);
+            }
+         
+        }, this);
+
+        Communicator.mediator.trigger('time:change');
+         
       }
 
     });

@@ -13,12 +13,9 @@
         <!-- build:css({.tmp,app}) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/bootstrap.icon-large.min.css">
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" href="bower_components/d3.TimeSlider/d3.timeslider.min.css" />
-        
         <link rel="stylesheet" type="text/css" href="bower_components/rectangularboxviewer/js-ext/jquery-ui/themes/base/jquery-ui.css">
         <!-- endbuild -->
-
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
@@ -37,6 +34,11 @@
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+
+        <!-- build:js scripts/main.js -->
+        <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
+        <!-- endbuild -->
+
 
         <div id="content">
             <div id="main"></div>

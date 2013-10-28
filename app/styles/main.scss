@@ -10,6 +10,18 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 @import "rectangularboxviewer";
 @import "window";
 
+#preloadedImages {
+       width: 0px;
+       height: 0px;
+       display: inline;
+       background-image: url(path/to/image1.png);
+       background-image: url(path/to/image2.png);
+       background-image: url(path/to/image3.png);
+       background-image: url(path/to/image4.png);
+       background-image: url();
+}
+
+
 .hero-unit {
     margin: 50px auto 0 auto;
     width: 300px;
@@ -95,9 +107,20 @@ ul, li {
     padding:0;
 }
 
+/*.checkbox {
+	padding-right: 20px;
+}*/
+
 #products li {
    padding:5px 0 5px 25px;
 }
+
+.check {
+   padding:0;
+   margin-left:5px;
+}
+
+
 
 #baseLayers ul {
 	margin:0;
@@ -182,6 +205,16 @@ ul, li {
 	padding: 2px;
 	font-size: 13px;
 }
+
+// Possible changes to mouse position display
+/*div .olControlMousePosition {
+	font-size: 16px !important;
+	margin-right: 2%;
+	font-weight:bold;
+   	-webkit-text-fill-color: white;
+   	-webkit-text-stroke-width: 1px;
+   	-webkit-text-stroke-color: black;
+}*/
 
 
 

@@ -96,44 +96,79 @@
 						console.log("Added baselayer " + baselayer.id);
 					}, this);
 
-					//Productsare loaded and added to the global collection
+					//Products are loaded and added to the global collection
 					_.each(config.mapConfig.products, function(products) {
 
 						globals.products.add(
 							new m.LayerModel({
-								name: products.name,
-								visible: products.visible,
-								view: {
-									id: products.view.id,
-									protocol: products.view.protocol,
-									urls: products.view.urls,
-									visualization: products.view.visualization,
-									projection: products.view.projection,
-									attribution: products.view.attribution,
-									matrixSet: products.view.matrixSet,
-									style: products.view.style,
-									format: products.view.format,
-									resolutions: products.view.resolutions,
-									maxExtent: products.view.maxExtent,
-									gutter: products.view.gutter,
-									buffer: products.view.buffer,
-									units: products.view.units,
-									transitionEffect: products.view.transitionEffect,
-									isphericalMercator: products.view.isphericalMercator,
-									isBaseLayer: false,
-									wrapDateLine: products.view.wrapDateLine,
-									zoomOffset: products.view.zoomOffset,
-									time: products.view.time
-								},
-								download: {
-									id: products.download.id,
-									protocol: products.download.protocol,
-									url: products.download.url
-								}
-							})
+                                name: products.name,
+                                visible: products.visible,
+                                timeSlider: products.timeSlider,
+                                time: products.time,
+                                opacity: 1,
+                                view:{
+                                    id : products.view.id,
+                                    protocol: products.view.protocol,
+                                    urls : products.view.urls,
+                                    visualization: products.view.visualization,
+                                    projection: products.view.projection,
+                                    attribution: products.view.attribution,
+                                    matrixSet: products.view.matrixSet,
+                                    style: products.view.style,
+                                    format: products.view.format,
+                                    resolutions: products.view.resolutions,
+                                    maxExtent: products.view.maxExtent,        
+                                    gutter: products.view.gutter,
+                                    buffer: products.view.buffer,
+                                    units: products.view.units,
+                                    transitionEffect: products.view.transitionEffect,
+                                    isphericalMercator: products.view.isphericalMercator,
+                                    isBaseLayer: false,
+                                    wrapDateLine: products.view.wrapDateLine,
+                                    zoomOffset: products.view.zoomOffset
+                                },
+                                download: {
+                                    id : products.download.id,
+                                    protocol: products.download.protocol,
+                                    url : products.download.url
+                                }
+                        	})
 						);
 						console.log("Added product " + products.view.id);
 					}, this);
+
+				 	//Overlays are loaded and added to the global collection
+                    _.each(config.mapConfig.overlays, function(overlay) {
+                            
+                        globals.overlays.add(
+                            new m.LayerModel({
+                                name: overlay.name,
+                                visible: overlay.visible,
+                                view: {
+                                    id : overlay.id,
+                                    urls : overlay.urls,
+                                    protocol: overlay.protocol,
+                                    projection: overlay.projection,
+                                    attribution: overlay.attribution,
+                                    matrixSet: overlay.matrixSet,
+                                    style: overlay.style,
+                                    format: overlay.format,
+                                    resolutions: overlay.resolutions,
+                                    maxExtent: overlay.maxExtent,        
+                                    gutter: overlay.gutter,
+                                    buffer: overlay.buffer,
+                                    units: overlay.units,
+                                    transitionEffect: overlay.transitionEffect,
+                                    isphericalMercator: overlay.isphericalMercator,
+                                    isBaseLayer: false,
+                                    wrapDateLine: overlay.wrapDateLine,
+                                    zoomOffset: overlay.zoomOffset,
+                                    time: overlay.time
+                                }
+                            })
+                        );
+                        console.log("Added overlay " + overlay.id );
+                    }, this);
 
 					// If Navigation Bar is set in configuration go trhough the 
 					// defined elements creating a item collection to rendered
@@ -170,6 +205,7 @@
 							el: "#viewContent"
 						})
 					});
+
 					this.DialogContentView = new v.ContentView({
 						template: {
 							type: 'handlebars',
@@ -205,6 +241,17 @@
 						}),
 						className: "sortable"
 					});
+
+					this.overlaysView = new v.BaseLayerSelectionView({
+                        collection:globals.overlays,
+                        itemView: v.LayerItemView.extend({
+                            template: {
+                                type:'handlebars',
+                                template: t.CheckBoxOverlayLayer},
+                            className: "checkbox"
+                        }),
+                        className: "check"
+                	});
 
 					// Create layout that will hold the child views
 					this.layout = new LayerControlLayout();
@@ -292,15 +339,11 @@
 					// Create layout to hold collection views
 					this.toolLayout = new ToolControlLayout();
 
-
-					this.timeSliderView = new v.TimeSliderView();
+					this.timeSliderView = new v.TimeSliderView(config.timeSlider);
 					this.bottomBar.show(this.timeSliderView);
 
-
-					//this.router = new Router({views: this.views, regions: this.regions});
-
-
-					//this.downloadView = new v.DownloadView();				
+					
+		
 				},
 
 				// The GUI is setup after the application is started. Therefore all modules
@@ -313,63 +356,6 @@
 					this.main.show(splitview.getView());
 
 					splitview.setSinglescreen();
-					//splitview.showViewInRegion('ul', 'viewport');
-
-					// Register the views which are available to the SplitView with an Id.
-					/*splitview.registerViews({
-						'view1': windowView1,
-						'view2': windowView2
-					});
-
-					// Retrieves the SplitView module and creates a new splitted view.
-					//var splitview = this.module('SplitView').createController();
-
-					// Be sure to insert the view into the DOM before adding the child view. E.g.
-					// OpenLayers.Map fails to initialize if its div is not within the DOM.
-					this.main.show(splitview.getView());
-
-					// Configure the SplitView:
-					splitview.setSplitscreen();
-					//splitview.setSinglescreen('left'); 
-
-
-					// Set the views into the desired areas of the SplitView
-					splitview.showViewInRegion('view1', 'left');
-					splitview.showViewInRegion('view2', 'right');
-
-					
-					//this.main.show(windowController.getView());
-
-					var vgv = this.module('VirtualGlobeViewer').createController();
-					var map = this.module('MapViewer').createController();
-
-					windowView1.registerViews({
-						'vgv': vgv.getView(),
-						'map': map.getView()
-					});
-					windowView1.showViewInRegion('map', 'viewport');
-
-
-
-					var vgv2 = this.module('VirtualGlobeViewer').createController();
-					var map2 = this.module('MapViewer').createController();
-					windowView2.registerViews({
-						'vgv': vgv2.getView(),
-						'map': map2.getView()
-					});
-					windowView2.showViewInRegion('map', 'viewport');*/
-
-
-					
-					
-				},
-
-				// Initially sets the products to be displayed.
-				selectInitialProducts: function() {
-					Communicator.mediator.trigger('map:layer:change', {
-						name: "Terrain Layer",
-						isBaseLayer: true
-					});
 				}
 			});
 

@@ -12,9 +12,10 @@ define(['backbone.marionette',
 
 			model: new MapModel.MapModel(),
 
-			initialize: function() {
+			initialize: function(options) {
 				this.map = undefined;
 				this.isClosed = true;
+				this.tileManager = options.tileManager;
 
 				$(window).resize(function() {
 					if (this.map) {
@@ -29,33 +30,40 @@ define(['backbone.marionette',
 				this.$el.attr('id', 'map');
 				this.map = new OpenLayers.Map({
 					div: this.el,
-					fallThrough: true
+					fallThrough: true,
+					tileManager: this.tileManager
 				});
 
-				this.map.events.register("moveend", this.map, function(data) {
+				/*this.map.events.register("moveend", this.map, function(data) {
 					this.model.set({
 						'center': [data.object.center.lon, data.object.center.lat],
+						'zoom': data.object.zoom
+					});
+				}.bind(this));*/
+
+				this.map.events.register("move", this.map, function(data) {
+					//console.log(data.object.getCenter());
+					var center = data.object.getCenter();
+					this.model.set({
+						'center': [center.lon, center.lat],
 						'zoom': data.object.zoom
 					});
 				}.bind(this));
 
 				// Add layers for different selection methods
-				this.pointLayer = new OpenLayers.Layer.Vector("Point Layer");
-				this.lineLayer = new OpenLayers.Layer.Vector("Line Layer");
-				this.polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
-				this.boxLayer = new OpenLayers.Layer.Vector("Box layer");
-
-				this.map.addLayers([this.pointLayer, this.lineLayer, this.polygonLayer, this.boxLayer]);
+				this.vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
+				
+				this.map.addLayers([this.vectorLayer]);
 				this.map.addControl(new OpenLayers.Control.MousePosition());
 
 				this.drawControls = {
-					pointSelection: new OpenLayers.Control.DrawFeature(this.pointLayer,
+					pointSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.Point),
-					lineSelection: new OpenLayers.Control.DrawFeature(this.lineLayer,
+					lineSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.Path),
-					polygonSelection: new OpenLayers.Control.DrawFeature(this.polygonLayer,
+					polygonSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.Polygon),
-					bboxSelection: new OpenLayers.Control.DrawFeature(this.boxLayer,
+					bboxSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
 						OpenLayers.Handler.RegularPolygon, {
 							handlerOptions: {
 								sides: 4,
@@ -79,6 +87,11 @@ define(['backbone.marionette',
 				globals.products.each(function(product) {
 					this.map.addLayer(this.createLayer(product));
 				}, this);
+
+				// Go through all products and add them to the map
+                globals.overlays.each(function(overlay){
+                    this.map.addLayer(this.createLayer(overlay));
+                }, this);
 
 				// Order (sort) the product layers based on collection order
 				this.onSortProducts();
@@ -138,7 +151,7 @@ define(['backbone.marionette',
 							wrapDateLine: layer.wrapDateLine,
 							zoomOffset: layer.zoomOffset,
 							visible: layerdesc.get("visible"),
-							time: layer.time
+							time: layerdesc.get("time")
 						});
 						break;
 
@@ -149,7 +162,7 @@ define(['backbone.marionette',
 								layers: layer.id,
 								transparent: "true",
 								format: "image/png",
-								time: layer.time
+								time: layerdesc.get("time")
 							}, {
 								format: 'image/png',
 								matrixSet: layer.matrixSet,
@@ -185,20 +198,21 @@ define(['backbone.marionette',
 			},
 
 			changeLayer: function(options) {
-				if (options.isBaseLayer) {
-					globals.baseLayers.forEach(function(model, index) {
-						model.set("visible", false);
-					});
-					globals.baseLayers.find(function(model) {
-						return model.get('name') == options.name;
-					}).set("visible", true);
-					this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
-				} else {
-					globals.products.find(function(model) {
-						return model.get('name') == options.name;
-					}).set("visible", options.visible);
-					this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
-				}
+				if (options.isBaseLayer){
+	                globals.baseLayers.forEach(function(model, index) {
+	                    model.set("visible", false);
+	                });
+	                globals.baseLayers.find(function(model) { return model.get('name') == options.name; }).set("visible", true);
+	                this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
+                }else{
+                    var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+                    if (product){
+                            product.set("visible", options.visible);
+                    }else{
+                            globals.overlays.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
+                    }
+                    this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
+                }
 			},
 
 			onSortProducts: function(productLayers) {
@@ -209,6 +223,13 @@ define(['backbone.marionette',
 				}, this);
 				console.log("Map products sorted");
 			},
+
+			onUpdateOpacity: function(options) {
+                var layer = this.map.getLayersByName(options.model.get("name"))[0];
+                if (layer){
+                        layer.setOpacity(options.value);
+                }
+            },
 
 			onSelectionActivated: function(arg) {
 				if (arg.active) {
@@ -268,18 +289,21 @@ define(['backbone.marionette',
 				Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
 			},
 
+			onTimeChange: function () {
+                               
+                globals.products.each(function(product) {
+                    if(product.get("timeSlider")){
+                        var productLayer = this.map.getLayersByName(product.get("name"))[0];
+                      	productLayer.mergeNewParams({'time':product.get('time')});
+                    }
+                 
+                }, this);
+            },
+
 			onClose: function(){
 				this.isClosed = true;
 			}
 		});
-
-		// this._myView = undefined;
-		// Communicator.registerEventHandler("viewer:show:map", function() {
-		// 	if (!this._myView) {
-		// 		this._myView = new MapView();
-		// 	}
-		// 	App.map.show(this._myView);
-		// }.bind(this));
 
 		return MapView;
 	});

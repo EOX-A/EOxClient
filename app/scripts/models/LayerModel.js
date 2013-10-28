@@ -13,12 +13,14 @@
 
 		var LayerModel = Backbone.Model.extend({
 			name: '',
+			timeSlider: false,
+			time: null,
+			visible: null,
+			opacity: 0,
 			view: {
 				id : '',
 				protocol: '',
 				urls : [],
-
-				visible: null,
 				style: 'default',
 				isBaseLayer: null,
 				attribution: '',
@@ -34,7 +36,6 @@
 				isphericalMercator: null,
 				wrapDateLine: null,
 				zoomOffset: null,
-				time: null
 			},
 
 			download: {
