@@ -34,7 +34,10 @@
             },
             filesaver: {
                 exports: 'saveAs'
-            }
+            },
+            lm:{
+                exports: 'lm'
+            },
         },
 
         paths: {
@@ -47,6 +50,7 @@
             timeslider: '../bower_components/d3.TimeSlider/d3.timeslider.min',
             libcoverage: '../bower_components/libcoverage/libcoverage.min',
             filesaver: '../bower_components/filesaver/FileSaver',
+            lm: '../bower_components/lm.js/lm',
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',

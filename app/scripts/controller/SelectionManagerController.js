@@ -19,7 +19,7 @@
 
 	    initialize: function(options){
 	      	this.model.set('selections', []);
-	        this.listenTo(Communicator.mediator, "selection:changed", this.onSelectionChange);
+	        this.listenTo(Communicator.mediator, "selection:changed:json", this.onSelectionChange);
 	        this.listenTo(Communicator.mediator, "ui:open:selectionManager", this.onSelectionManagerOpen);
 		},
 

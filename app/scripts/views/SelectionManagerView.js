@@ -7,10 +7,12 @@
 		'backbone',
 		'communicator',
 		'hbs!tmpl/SelectionManager',
-		'underscore'
+		'hbs!tmpl/SelectionTemplate',
+		'underscore',
+		'lm'
 	],
 
-	function( Backbone, Communicator, SelectionManagerTmpl ) {
+	function( Backbone, Communicator, SelectionManagerTmpl, SelectionTemplate ) {
 
 		var SelectionManagerView = Backbone.Marionette.ItemView.extend({
 			tagName: "div",
@@ -18,18 +20,35 @@
 			template: {type: 'handlebars', template: SelectionManagerTmpl},
 
 			initialize: function(options) {
+
+				/*localStorage.setObject = [
+					{id:1, name:"test1", date:"2013"},
+					{id:2, name:"test2", date:"2013"},
+					{id:3, name:"test3", date:"2013"}
+				];*/
+
 			},
 
 			onShow: function (view){
 				this.$('.close').on("click", _.bind(this.onClose, this));
         		this.$el.draggable({ containment: "#content" , scroll: false});
+
+
+        		//console.log(localStorage.getItem('selections'));
+        		_.each(localStorage.getObject('selections'), function(selection) {
+        			console.log(selection);
+					var $html = $(SelectionTemplate(selection));
+					$('#selectionList').append($html);
+				}, this);
 			},
+
+
 
 			events: {
 		        "change #upload-selection": "onUploadSelectionChanged",
 		        "click #btn-export-selection": "onExportSelectionClicked",
 		        "click #btn-save-selection": "onSaveSelectionClicked",
-		        'change input[type="checkbox"]': "onSelectionSelected"
+		        'change input[type="radio"]': "onSelectionSelected"
 	      	},
 
 	      	onUploadSelectionChanged: function(evt) {
@@ -46,6 +65,18 @@
 	      	},
 
 	      	onSaveSelectionClicked: function() {
+	      		var selections = localStorage.getObject('selections');
+	      		var selectedfeatures = this.model.get('selections');
+
+	      		for(var i in selectedfeatures){
+	      			//features = console.log(selectedfeatures[i].components[0].components);
+	      			_.extend(features, selectedfeatures[i]);
+	      		}
+	      		console.log(features);
+	      		_.extend(selections, features);
+	      		//
+	      		
+	      		localStorage.setObject('selections', selections);
 
 	      	},
 
