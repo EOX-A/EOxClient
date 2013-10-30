@@ -49,7 +49,7 @@
          
         }, this);
 
-        Communicator.mediator.trigger('time:change');
+        Communicator.mediator.trigger('time:change', {start:selectionstart, end:selectionend});
       }, 
 
       onChangeTime: function(evt){
@@ -63,7 +63,7 @@
          
         }, this);
 
-        Communicator.mediator.trigger('time:change');
+        Communicator.mediator.trigger('time:change', evt.originalEvent.detail);
          
       }
 

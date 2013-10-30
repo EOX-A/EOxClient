@@ -53,16 +53,15 @@ ul, li {
 }
 
 .download{
-	display: block;
-	position: absolute;
-	top: 120px;
-	left: 15%;
 	margin:0px auto;
-	left:0;
-	right:0;
 	width: 750px;
+	left:50%;
+	margin-left: -375px;
 	padding: 0;
-	font-size: 12px;
+	font-size: 11px;
+	position: absolute;
+  	z-index: $layer-gui;
+	top: 120px;
 }
 
 #div-downloads {
@@ -131,10 +130,15 @@ ul, li {
    padding:5px 0 5px 25px;
 }
 
-
 #content {
 	height: 100%;
 	width: 100%;
+}
+
+#viewContent {
+	/*position: relative;
+	height: 100%;
+	width: 100%;*/
 }
 
 #main {
@@ -164,22 +168,12 @@ ul, li {
 /*
  * Time Slider
  */
-/*#timeslider {
-  position: fixed;
-  bottom: 2em;
-  width: 90%;
-  padding: 0 5%;
-}*/
 
 #timeslider svg.timeslider {
   position: relative;
   z-index: $layer-gui;
   
   height: 3em;
-}
-
-#viewContent{
-	position: relative;
 }
 
 .olControlZoom {
