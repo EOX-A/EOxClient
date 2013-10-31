@@ -37,6 +37,12 @@
             },
             filesaver: {
                 exports: 'saveAs'
+            },
+            timeslider: {
+                deps: ['d3']
+            },
+            timeslider_plugins: {
+                deps: ['timeslider', 'libcoverage']
             }
         },
 
@@ -48,6 +54,7 @@
             underscore: '../bower_components/underscore-amd/underscore-min',
             d3: '../bower_components/d3/d3.min',
             timeslider: '../bower_components/d3.TimeSlider/d3.timeslider.min',
+            timeslider_plugins: '../bower_components/d3.TimeSlider/d3.timeslider.plugins.min',
             libcoverage: '../bower_components/libcoverage/libcoverage.min',
             filesaver: '../bower_components/filesaver/FileSaver',
 

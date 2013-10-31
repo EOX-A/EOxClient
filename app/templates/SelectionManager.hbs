@@ -6,8 +6,15 @@
   <div class="modal-body" id="selection-list">
   </div>
   <div class="modal-footer">
-    <input type="file" id="upload-selection">(Upload Selection)</input>
-    <button class="btn" id="btn-export-selection">Export Selection</button>
-    <button class="btn" id="btn-save-selection">Save Selection</button>
+   <div id="fileupload" >
+    <div class="myfileupload-buttonbar ">
+      <label class="btn myui-button">
+        <span >Upload Selection</span>
+        <input id="upload-selection" type="file" name="files[]" />
+      </label>
+      <button class="btn" id="btn-export-selection">Export Selection</button>
+      <button class="btn" id="btn-save-selection">Save Selection</button>
+    </div>
+   </div>
   </div>
 </div>
