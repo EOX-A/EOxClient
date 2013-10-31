@@ -32,17 +32,18 @@
 			onShow: function (view){
 				this.$('.close').on("click", _.bind(this.onClose, this));
         		this.$el.draggable({ containment: "#content" , scroll: false});
+        		this.renderList();
+        		
+			},
 
-
-        		//console.log(localStorage.getItem('selections'));
-        		_.each(localStorage.getObject('selections'), function(selection) {
-        			console.log(selection);
+			renderList: function() {
+				$('#selectionList').empty();
+				_.each(localStorage.getObject('selections'), function(selection, i) {
+        			_.extend(selection, {id:i});
 					var $html = $(SelectionTemplate(selection));
 					$('#selectionList').append($html);
 				}, this);
 			},
-
-
 
 			events: {
 		        "change #upload-selection": "onUploadSelectionChanged",
@@ -65,23 +66,26 @@
 	      	},
 
 	      	onSaveSelectionClicked: function() {
-	      		var selections = localStorage.getObject('selections');
-	      		var selectedfeatures = this.model.get('selections');
 
-	      		for(var i in selectedfeatures){
-	      			//features = console.log(selectedfeatures[i].components[0].components);
-	      			_.extend(features, selectedfeatures[i]);
-	      		}
-	      		console.log(features);
-	      		_.extend(selections, features);
-	      		//
-	      		
-	      		localStorage.setObject('selections', selections);
+	      		var selec_name = prompt("Please enter a name for the selection","Selection");
+				if (selec_name!=null && selec_name!="") {
+					var selections = localStorage.getObject('selections');
+		      		if (!selections)
+		      			selections = [];
 
+		      		var gjson = Communicator.reqres.request('get:selection:json');
+		      		console.log(new Date());
+		      		if(gjson != "" && gjson != null){
+		      			selections.push({name: selec_name, date: new Date().toUTCString(), content: gjson});
+		      			localStorage.setObject('selections', selections);
+		      			this.renderList();
+		      		}
+				}
 	      	},
 
-	      	onSelectionSelected: function() {
-
+	      	onSelectionSelected: function(evt) {
+	      		var index = $('input[type=radio]:checked').val();
+	      		Communicator.mediator.trigger("map:load:geojson", localStorage.getObject('selections')[index].content);
 	      	},
 
 	      	onClose: function(){
