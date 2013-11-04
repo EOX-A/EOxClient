@@ -20,13 +20,6 @@
 			template: {type: 'handlebars', template: SelectionManagerTmpl},
 
 			initialize: function(options) {
-
-				/*localStorage.setObject = [
-					{id:1, name:"test1", date:"2013"},
-					{id:2, name:"test2", date:"2013"},
-					{id:3, name:"test3", date:"2013"}
-				];*/
-
 			},
 
 			onShow: function (view){
@@ -49,6 +42,7 @@
 		        "change #upload-selection": "onUploadSelectionChanged",
 		        "click #btn-export-selection": "onExportSelectionClicked",
 		        "click #btn-save-selection": "onSaveSelectionClicked",
+		        "click .icon-minus-sign": "onDeleteSelection",
 		        'change input[type="radio"]': "onSelectionSelected"
 	      	},
 
@@ -81,6 +75,20 @@
 		      			this.renderList();
 		      		}
 				}
+	      	},
+
+	      	onDeleteSelection: function (evt) {
+	      		var $target = $(evt.target);
+	      		var index = $target.parent().find("input").val();
+	      		if (index > -1){
+	      			var selections = localStorage.getObject('selections');
+		      		if (selections){
+		      			selections.splice(index,1);
+		      			console.log(selections);
+		      			localStorage.setObject('selections', selections);
+		      			this.renderList();
+		      		}
+	      		}
 	      	},
 
 	      	onSelectionSelected: function(evt) {
