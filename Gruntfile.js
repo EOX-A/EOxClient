@@ -317,6 +317,7 @@ module.exports = function (grunt) {
                         'bower_components/underscore-amd/underscore-min.js',
                         'bower_components/d3/d3.min.js',
                         'bower_components/d3.TimeSlider/d3.timeslider.min.js',
+                        'bower_components/d3.TimeSlider/d3.timeslider.plugins.min.js',
                         'bower_components/libcoverage/libcoverage.min.js',
                         'bower_components/filesaver/FileSaver.js',                    
                         'bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min.js',
