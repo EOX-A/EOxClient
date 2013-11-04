@@ -1,6 +1,6 @@
-# DREAM-Client
+# ODA Client
 
-The DREAM-Client focuses on creating a webclient for map applications, which allows easy customization through a centralized configuration concept.
+The On-line Data Access (ODA) client provides simple web-base user inteface to the ODA Server.
 
 ## Technologies used
 
@@ -68,7 +68,7 @@ If you managed to reach this the last step you can start to hack the code.
 The browser view refreshes itself automatically reflecting the code changes made. 
 
 
-## How to deploy the server 
+## How to deploy the code on a the server 
 
 0.  Create deployment package: 
 
