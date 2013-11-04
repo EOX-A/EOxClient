@@ -40,7 +40,7 @@
         }
       },
       {
-        "name": "GISAT Landsat",
+        "name": "GISAT Landsat [EUSC-B]",
         "visible": false,
         "timeSlider": true,
         "color":"red",
@@ -59,12 +59,12 @@
         }
       },
     {
-      "name": "MERIS FRS L1",
+      "name": "MERIS FR L1 [EUSC-A]",
       "visible": false,
       "timeSlider": true,
-      "color":"purple",
+      "color":"cyan",
       "view": {
-        "id": "MERIS_FRS_L1_view",
+        "id": "MERIS_FR__L1_EUSC_view",
         "protocol": "WMS",
         "urls": [
             "http://data.eox.at/instance01/ows"
@@ -72,13 +72,13 @@
         "style": "default"
       },
       "download": {
-        "id": "MERIS_FRS_L1",
+        "id": "MERIS_FR__L1_EUSC",
         "protocol": "EOWCS",
         "url": "http://data.eox.at/instance01/ows"
       }
     },
     {
-      "name": "ASAR IMM L1",
+      "name": "ASAR IMM L1 [NLR]",
       "visible": false,
       "timeSlider": true,
       "color":"black",
@@ -97,12 +97,12 @@
       }
     },
     {
-      "name": "MERIS FR L1 EUSC",
+      "name": "MERIS FRS L1 [NLR]",
       "visible": false,
       "timeSlider": true,
-      "color":"cyan",
+      "color":"purple",
       "view": {
-        "id": "MERIS_FR__L1_EUSC_view",
+        "id": "MERIS_FRS_L1_view",
         "protocol": "WMS",
         "urls": [
             "http://data.eox.at/instance01/ows"
@@ -110,7 +110,45 @@
         "style": "default"
       },
       "download": {
-        "id": "MERIS_FR__L1_EUSC",
+        "id": "MERIS_FRS_L1",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "ASAR IMM L1 - ALL (previews only)",
+      "visible": false,
+      "timeSlider": true,
+      "color":"black",
+      "view": {
+        "id": "ASAR_IMM_L1_ALL_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "ASAR_IMM_L1_ALL_view",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "MERIS FRS L1 - ALL (previews only)",
+      "visible": false,
+      "timeSlider": true,
+      "color":"purple",
+      "view": {
+        "id": "MERIS_FRS_L1_ALL_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "MERIS_FRS_L1_ALL_view",
         "protocol": "EOWCS",
         "url": "http://data.eox.at/instance01/ows"
       }
