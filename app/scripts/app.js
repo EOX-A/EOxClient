@@ -21,6 +21,8 @@
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
+                // clear permanent local storage 
+                localStorage.clear()
 			},
 
 			configure: function(config) {
