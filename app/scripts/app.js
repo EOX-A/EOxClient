@@ -105,6 +105,7 @@
 							name: products.name,
 							visible: products.visible,
 							timeSlider: products.timeSlider,
+							color: products.color,
 							time: products.time,
 							opacity: 1,
 							view:{
