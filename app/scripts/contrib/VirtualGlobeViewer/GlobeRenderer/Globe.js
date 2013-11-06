@@ -24,6 +24,7 @@ define([
 		});
 
 		this.aoiLayer = undefined;
+		this.layerCache = {};
 
 		this.navigation = new GlobWeb.Navigation(this.globe, {
 			inertia: true
@@ -105,28 +106,87 @@ define([
 		}
 	};
 
-	Globe.prototype.selectProduct = function(model, isBaseLayer) {
-		if (model.get('view').protocol === 'WMTS') {
-			var layer = new GlobWeb.WMTSLayer({
-				baseUrl: model.get('view').urls[0],
-				style: model.get('view').style,
-				layer: model.get('view').id,
-				format: model.get('view').format,
-				matrixSet: model.get('view').matrixSet
-			});
-		} else if (model.get('view').protocol === 'WMS') {
-			var layer = new GlobWeb.WMSLayer({
-				baseUrl: model.get('view').urls[0],
-				layers: model.get('view').id
-			});
+	Globe.prototype.addProduct = function(model, isBaseLayer) {
+		var layerDesc = this.layerCache[model.get('name')];
+		var layer = undefined;
+
+		if (typeof layerDesc === 'undefined') {
+			if (model.get('view').protocol === 'WMTS') {
+				layer = new GlobWeb.WMTSLayer({
+					baseUrl: model.get('view').urls[0],
+					style: model.get('view').style,
+					layer: model.get('view').id,
+					format: model.get('view').format,
+					matrixSet: model.get('view').matrixSet,
+					time: model.get('time'), // Note: time is only defined on compatible products
+					transparent: "true"
+				});
+			} else if (model.get('view').protocol === 'WMS') {
+				layer = new GlobWeb.WMSLayer({
+					baseUrl: model.get('view').urls[0],
+					layers: model.get('view').id,
+					time: model.get('time'), // Note: time is only defined on compatible products
+					transparent: "true"
+				});
+			}
+
+			// Register the layer to the internal cache for removal or for changing the timespan later on:
+			this.layerCache[model.get('name')] = {
+				productName: model.get('name'),
+				layer: layer,
+				timeSupport: (model.get('time')) ? true : false,
+				isBaseLayer: isBaseLayer
+			}
+
+			console.log('[Globe.selectProduct] added product "' + model.get('name') + '" to the cache.');
+		} else {
+			layer = layerDesc.layer;
+			console.log('[Globe.selectProduct] retrieved product "' + model.get('name') + '" from the cache.');
 		}
 
 		if (isBaseLayer) {
 			this.globe.setBaseImagery(layer);
 		} else {
-			// FIXXME: not working correctly yet
 			this.globe.addLayer(layer);
 		}
+	};
+
+	Globe.prototype.getLayerDescFromCache = function(layer_name) {
+		// body...
+	};
+
+	Globe.prototype.removeProduct = function(model, isBaseLayer) {
+		console.log('removeProduct: ' + model.get('name'));
+
+		if (isBaseLayer) {
+			this.globe.setBaseImagery(null);
+		} else {
+			var desc = this.getLayerDescFromCache(model.get('name'));
+			this.globe.removeLayer(desc.layer);
+		}
+	};
+
+	Globe.prototype.setTimeSpanOnLayers = function(newTimeSpan) {
+		var updated_layer_descs = [];
+
+		_.each(this.layerCache, function(layerDesc, name) {
+			if (layerDesc.timeSupport) {
+				var isotimespan = getISODateTimeString(newTimeSpan.start) + '/' + getISODateTimeString(newTimeSpan.end);
+				layerDesc.layer.setTime(isotimespan);
+				updated_layer_descs.push(layerDesc);
+				//console.log('[Globe.setTimeSpanOnLayers] setting new timespan on "' + layerDesc.productName + '": ' + isotimespan);
+			}
+		});
+
+		_.each(updated_layer_descs, function(desc, idx) {
+			if (desc.isBaseLayer) {
+				this.globe.setBaseImagery(desc.layer);
+			} else {
+				// FIXXME: is there an update() functionality somewhere?
+				this.globe.removeLayer(desc.layer);
+				this.globe.addLayer(desc.layer);
+			}
+		}.bind(this));
 	};
 
 	Globe.prototype.updateViewport = function() {

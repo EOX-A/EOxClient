@@ -48,11 +48,18 @@ define([
 			this.globe.addAreaOfInterest(geojson);
 		},
 
-		selectProduct: function(model, isBaseLayer) {
+		onLayerChange: function(model, isBaseLayer, isVisible) {
+			if (isVisible) {
+				this.globe.addProduct(model, isBaseLayer, isVisible);
+				console.log("[GlobeView::onLayerChange] selected " + model.get("name"));
+			} else {
+				this.globe.removeProduct(model, isBaseLayer, isVisible);
+				console.log("[GlobeView::onLayerChange] deselected " + model.get("name"));
+			}
+		},
 
-			this.globe.selectProduct(model, isBaseLayer);
-
-			console.log("[GlobeView::selectProduct] selected " + model.get("name"));
+		setTimeSpanOnLayers: function(time) {
+			this.globe.setTimeSpanOnLayers(time);
 		},
 
 		createGlobe: function() {
@@ -60,7 +67,7 @@ define([
 				canvas: this.el
 			});
 			if (typeof this.startProduct !== 'undefined') {
-				this.globe.selectProduct(this.startProduct, true);
+				this.globe.addProduct(this.startProduct, true);
 			};
 		},
 
