@@ -38,7 +38,8 @@ define([
 			this.listenTo(Communicator.mediator, 'selection:changed', this.addAreaOfInterest);
 			this.listenTo(Communicator.mediator, 'map:setUrl', this.zoomTo);
 			this.listenTo(Communicator.mediator, 'map:center', this.onMapCenter);
-			this.listenTo(Communicator.mediator, 'map:layer:change', this.selectProduct);
+			this.listenTo(Communicator.mediator, 'map:layer:change', this.onLayerChange);
+			this.listenTo(Communicator.mediator, 'time:change', this.onTimeChanged);
 		},
 
 		getView: function(id) {
@@ -49,7 +50,7 @@ define([
 			this.region.show(this.globeView);
 		},
 
-		selectProduct: function(opts) {
+		onLayerChange: function(opts) {
 			var layerModel = undefined;
 			if (opts.isBaseLayer) {
 				layerModel = globals.baseLayers.find(function(model) {
@@ -71,7 +72,11 @@ define([
 				throw Error('Product ' + opts.name + ' is unknown!');
 			}
 
-			this.globeView.selectProduct(layerModel, opts.isBaseLayer);
+			this.globeView.onLayerChange(layerModel, opts.isBaseLayer, opts.isVisible);
+		},
+
+		onTimeChanged: function(time) {
+			this.globeView.setTimeSpanOnLayers(time);
 		},
 
 		addAreaOfInterest: function(geojson) {
