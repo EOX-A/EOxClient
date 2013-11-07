@@ -28,7 +28,7 @@ ul, li {
 }
 
 /*
- * Panels
+ * Panels & Modals
  */
 .panel .close {
   float: right;
@@ -36,7 +36,7 @@ ul, li {
   font-size: 1.2em;
 }
 
-.panel .no-label {
+.panel .no-label, .modal .no-label {
   float: left;
   margin: -.55em 0 0 -.6em;
   font-size: 1em;
