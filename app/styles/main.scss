@@ -12,12 +12,6 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
        background-image: url();
 }
 
-
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-}
-
 hr {
 	margin: 9px 0 9px 0px;
 }
@@ -31,40 +25,6 @@ ul, li {
  	list-style-type: none;
     list-style-position:inside;
 
-}
-
-#modal-start-download {
-  width: 750px;
-}
-
-.download{
-	display: block;
-	position: absolute;
-	top: 120px;
-	left: 50%;
-	margin-left: -375px;
-	width: 750px;
-	padding: 0;
-	font-size: 12px;
-}
-
-#div-downloads {
-	display: none;
-}
-
-.selectionManager{
-	display: block;
-	position: absolute;
-	top: 120px;
-	left: 50%;
-	margin-left: -270px;
-	width: 540px;
-	padding: 0;
-	font-size: 12px;
-}
-
-.popover {
-  position: fixed;
 }
 
 /*
@@ -171,6 +131,12 @@ button[active=active] {
   font-size: 1em;
   position: relative;
 }
+
+
+/*
+ * Old Styles
+ */
+
 #content {
 	height: 100%;
 	width: 100%;
@@ -273,6 +239,33 @@ button[active=active] {
    	-webkit-text-stroke-color: black;
 }*/
 
+.hero-unit {
+    margin: 50px auto 0 auto;
+    width: 300px;
+}
+
+#modal-start-download {
+  width: 750px;
+}
+
+.download{
+  display: block;
+  position: absolute;
+  top: 120px;
+  left: 15%;
+  margin:0px auto;
+  left:0;
+  right:0;
+  width: 750px;
+  padding: 0;
+  font-size: 12px;
+}
+
+#div-downloads {
+  display: none;
+}
 
 
-
+.popover {
+  position: fixed;
+}
