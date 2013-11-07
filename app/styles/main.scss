@@ -71,17 +71,26 @@ ul, li {
   position: fixed;
 }
 
-.toolcontrol {
-	top: 120px;
-	right: 2%;
-	padding: 2px;
-	float: right;
-
+/*
+ * Panels
+ */
+.panel .close {
+  float: right;
+  margin: -.5em -.7em 0 0;
+  font-size: 1.2em;
 }
 
-.toolcontrol ul {
-	margin:0;
-    padding:0;
+.panel .no-label {
+  float: left;
+  margin: -.55em 0 0 -.6em;
+  font-size: 1em;
+}
+
+/*
+ * Buttons
+ */
+button[active=active] {
+  background-color: #ccc;
 }
 
 /*
@@ -119,11 +128,6 @@ ul, li {
     font-size: .9em;
     position: absolute;
 }
-.layercontrol .close {
-    float: right;
-    margin: -.5em -.7em 0 0;
-    font-size: 1.2em;
-}
 .layercontrol ul {
     margin: .4em 0 .4em 1.5em;
     padding: 0;
@@ -137,6 +141,28 @@ ul, li {
 }
 .fa-sort {
     cursor: ns-resize;
+}
+
+/*
+ * Tool control
+ */
+.toolcontrol {
+  top: 10em;
+  right: 3em;
+  font-size: .9em;
+  position: relative;
+  float: right;
+}
+.toolcontrol .panel-heading h3 {
+  text-align: center;
+  font-size: 1.8em;
+}
+.toolcontrol .panel-body {
+  text-align: center;
+  padding: .3em .3em .1em .4em;
+}
+.toolcontrol .btn-group-vertical {
+  margin-bottom: .5em;
 }
 
 #content {

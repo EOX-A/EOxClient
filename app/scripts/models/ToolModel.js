@@ -11,7 +11,6 @@
 			enabled: true,
 			icon:"",
 			type:""
-			
 		});
 		return {'ToolModel':ToolModel};
 	});

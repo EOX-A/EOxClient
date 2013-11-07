@@ -16,7 +16,7 @@
 
 			template: {type: 'handlebars', template: ToolControlTmpl},
 			regions: {selection: "#selection", visualization: "#visualization"},
-			className: "well toolcontrol",
+			className: "panel panel-default toolcontrol",
 
 			initialize: function(options) {
 			},
