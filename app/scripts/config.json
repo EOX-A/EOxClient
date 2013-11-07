@@ -186,7 +186,7 @@
     "url" : "http://www.eox.at",
     "items" : [
       {
-        "name" : "Layer Controls",
+        "name" : "Layers",
         "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl"
