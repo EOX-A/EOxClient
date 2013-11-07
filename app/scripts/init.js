@@ -57,11 +57,11 @@
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',
-            'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min', 
+            'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min',
             'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter.min',
 
             /* alias the bootstrap js lib */
-            bootstrap: 'vendor/bootstrap',
+            bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
             text: '../bower_components/requirejs-text/text',

@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.0.0",
   "dependencies": {
-    "sass-bootstrap": "~2.3.0",
     "jquery": "~1.10.0",
     "jquery-ui": "~1.10.3",
     "requirejs": "~2.1.5",
@@ -18,7 +17,8 @@
     "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.4/libcoverage.js.v0.1.4.zip",
     "d3": "~3.3.5",
     "filesaver": "https://github.com/eligrey/FileSaver.js.git",
-    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.5/d3.TimeSlider.v0.0.5.zip"
+    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.5/d3.TimeSlider.v0.0.5.zip",
+    "bootstrap": "~3.0.1"
   },
   "devDependencies": {}
 }
