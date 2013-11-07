@@ -19,6 +19,7 @@
     "filesaver": "https://github.com/eligrey/FileSaver.js.git",
     "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.7/d3.TimeSlider.v0.0.7.zip",
     "lm.js": "madhums/lm.js#~0.1.0"
+    "bootstrap": "~3.0.1"
   },
   "devDependencies": {}
 }
