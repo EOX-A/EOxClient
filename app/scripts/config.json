@@ -126,7 +126,7 @@
     "overlays": [
        {
         "name": "Streets",
-        "id": "overlay_streets_wgs84",
+        "id": "overlay",
         "protocol": "WMTS",
         "visible": true,
         "urls": [
@@ -187,16 +187,19 @@
     "items" : [
       {
         "name" : "Layer Controls",
+        "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl"
       },
       {
         "name" : "Tools",
+        "icon" : "fa-wrench",
         "eventToRaise" : "ui:open:toolselection",
         "template" : "ToolSelection"
       },
       {
         "name" : "About",
+        "icon" : "fa-info-circle",
         "eventToRaise" : "dialog:open:about",
         "subitems" : [
           {

@@ -6,9 +6,10 @@
 	function( Backbone, Communicator ) {
 		var NavBarItemModel = Backbone.Model.extend({
 			name: "",
+			icon: "",
 			content: "",
 			eventToRaise: ""
-			
+
 		});
 		return {'NavBarItemModel':NavBarItemModel};
 	});
