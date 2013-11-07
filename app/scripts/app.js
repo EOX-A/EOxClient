@@ -207,8 +207,16 @@
 				this.addRegions({dialogRegion: DialogRegion.extend({el: "#viewContent"})});
 				this.DialogContentView = new v.ContentView({
 					template: {type: 'handlebars', template: t.Info},
-					className: "modal hide fade",
-					attributes: {"data-keyboard":"false", "data-backdrop":"static"}
+                    id: "about",
+                    className: "modal fade",
+                    attributes: {
+                        role: "dialog",
+                        tabindex: "-1",
+                        "aria-labelledby": "about-title",
+                        "aria-hidden": true,
+                        "data-keyboard": false,
+                        "data-backdrop": "static"
+                    }
 				});
 
 				// Create the views - these are Marionette.CollectionViews that render ItemViews
