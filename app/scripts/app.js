@@ -228,7 +228,7 @@
                 		template: {
                 			type:'handlebars',
                 			template: t.CheckBoxLayer},
-                		className: "ui-state-default checkbox"
+                		className: "checkbox"
                 	}),
                 	className: "sortable"
                 });

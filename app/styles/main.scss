@@ -84,38 +84,60 @@ ul, li {
     padding:0;
 }
 
-
-
-
-#products ul {
-	margin:0;
-    padding:0;
+/*
+ * Icon groups
+ */
+.icon-group {
+    float: right;
+}
+.icon-group i {
+    display: inline-block;
 }
 
-/*.checkbox {
-	padding-right: 20px;
-}*/
-
-#products li {
-   padding:5px 0 5px 25px;
+/*
+ * Draggable Elements
+ */
+.ui-draggable .panel-heading {
+    cursor: move;
 }
 
-.check {
-   padding:0;
-   margin-left:5px;
+/*
+ * Sortable Elements
+ */
+.sortable-placeholder {
+    display: block;
+    height: 2em;
 }
 
-
-
-#baseLayers ul {
-	margin:0;
-    padding:0;
+/*
+ * Layer control styles
+ */
+.layercontrol {
+    width: 20em;
+    top: 10em;
+    left: 3em;
+    font-size: .9em;
+    position: absolute;
 }
-
-#baseLayers li {
-   padding:5px 0 5px 25px;
+.layercontrol .close {
+    float: right;
+    margin: -.5em -.7em 0 0;
+    font-size: 1.2em;
 }
-
+.layercontrol ul {
+    margin: .4em 0 .4em 1.5em;
+    padding: 0;
+}
+.layercontrol li {
+    margin: .2em 0 .8em 0;
+    padding: 0;
+}
+.layercontrol ul input {
+    margin-top: 2px;
+}
+.fa-sort {
+    cursor: ns-resize;
+}
 
 #content {
 	height: 100%;
@@ -182,16 +204,6 @@ ul, li {
 .sidepane {
 	width: 100px;
 	height: 100px;
-}
-
-.layercontrol {
-	width: 260px;
-	top: 120px;
-	left: 2%;
-	padding: 2px;
-	font-size: 13px;
-	float: left;
-
 }
 
 /* Style to change the upload button appearance */
