@@ -1,8 +1,6 @@
 $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 
-@import 'sass-bootstrap/lib/bootstrap';
-
 #preloadedImages {
        width: 0px;
        height: 0px;
@@ -32,7 +30,7 @@ html, body {
 ul, li {
  	list-style-type: none;
     list-style-position:inside;
-    
+
 }
 
 #modal-start-download {
@@ -135,14 +133,14 @@ ul, li {
 }
 
 #topBar {
-	
+
 }
 
 #bottomBar {
 	bottom: 10px;
 	position: absolute;
 	width: 96%;
-	left: 2%;	
+	left: 2%;
 }
 
 /*
