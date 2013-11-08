@@ -57,7 +57,11 @@
 
         this.listenTo(this.coverages, "reset", this.onCoveragesReset);
         this.$('.close').on("click", _.bind(this.onClose, this));
-        this.$el.draggable({ containment: "#content" , scroll: false});
+        this.$el.draggable({ 
+          containment: "#content",
+          scroll: false,
+          handle: '.panel-heading'
+        });
 
         var $downloadList = this.$("#download-list");
         $downloadList.children().remove();
