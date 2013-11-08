@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.0.0",
   "dependencies": {
-    "sass-bootstrap": "~2.3.0",
     "jquery": "~1.10.0",
     "jquery-ui": "~1.10.3",
     "requirejs": "~2.1.5",
@@ -15,11 +14,13 @@
     "backbone.babysitter": "~0.0.6",
     "require-handlebars-plugin": "~0.4.0",
     "backbone.marionette.handlebars": "~0.2.0",
-    "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.2/libcoverage.js.v0.1.2.zip",
+    "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.4/libcoverage.js.v0.1.4.zip",
     "d3": "~3.3.5",
     "filesaver": "https://github.com/eligrey/FileSaver.js.git",
     "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.7/d3.TimeSlider.v0.0.7.zip",
-    "lm.js": "madhums/lm.js#~0.1.0"
+    "lm.js": "madhums/lm.js#~0.1.0",
+    "bootstrap": "~3.0.1",
+    "font-awesome": "~4.0.3"
   },
   "devDependencies": {}
 }
