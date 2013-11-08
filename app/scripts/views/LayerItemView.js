@@ -31,7 +31,8 @@
 				$( ".sortable" ).sortable({
 					revert: true,
 					delay: 90,
-					containment: ".layercontrol .panel-body" ,
+					containment: ".layercontrol .panel-body",
+					axis: "y",
 					forceHelperSize: true,
 					forcePlaceHolderSize: true,
 					placeholder: "sortable-placeholder",
