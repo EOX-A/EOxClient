@@ -55,25 +55,11 @@ button[active=active] {
 }
 
 /*
- * Icon groups
- */
-.icon-group {
-    float: right;
-}
-.icon-group i {
-    display: inline-block;
-}
-
-/*
- * Draggable Elements
+ * Draggable & Sortable Elements
  */
 .ui-draggable .panel-heading {
     cursor: move;
 }
-
-/*
- * Sortable Elements
- */
 .sortable-placeholder {
     display: block;
     height: 2em;
@@ -90,15 +76,30 @@ button[active=active] {
     position: absolute;
 }
 .layercontrol ul {
-    margin: .4em 0 .4em 1.5em;
+    margin: 0 0 1em 1.5em;
     padding: 0;
+}
+#baseLayers ul {
+  margin-bottom: 0;
+}
+#baseLayers li {
+  margin-bottom: 0;
+  margin-top: .2em;
 }
 .layercontrol li {
     margin: .2em 0 .8em 0;
-    padding: 0;
+    padding: 0 0 0 .6em;
 }
 .layercontrol ul input {
     margin-top: 2px;
+}
+.layercontrol .sortable-layer {
+  margin: .3em -.5em 0 -2em;
+  padding: 0;
+}
+.layercontrol .sortable-layer .form-control {
+  font-size: 1em;
+  line-height: 1.1em;
 }
 .fa-sort {
     cursor: ns-resize;

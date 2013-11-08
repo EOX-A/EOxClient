@@ -236,7 +236,7 @@
                 		template: {
                 			type:'handlebars',
                 			template: t.CheckBoxLayer},
-                		className: "checkbox"
+                		className: "sortable-layer"
                 	}),
                 	className: "sortable"
                 });
