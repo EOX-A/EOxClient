@@ -20,7 +20,7 @@
 				products: "#products",
 				overlays: "#overlays"
 			},
-			className: "panel panel-default layercontrol",
+			className: "panel panel-default layercontrol not-selectable",
 			events: {},
 
 			initialize: function(options) {
