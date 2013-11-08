@@ -214,7 +214,7 @@
                         tabindex: "-1",
                         "aria-labelledby": "about-title",
                         "aria-hidden": true,
-                        "data-keyboard": false,
+                        "data-keyboard": true,
                         "data-backdrop": "static"
                     }
 				});
