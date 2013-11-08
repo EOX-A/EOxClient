@@ -17,7 +17,7 @@
 				this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 				this.listenTo(Communicator.mediator, "ui:close", this.onDialogClose);
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
-			}, 
+			},
 
 			onClick: function(evt){
 				if(this.model.get('enabled')){
@@ -62,8 +62,14 @@
             		this.model.set({enabled: arg.enabled});
             		this.render();
             	}
+            },
+            onRender: function () {
+                if(this.$el.is("div")) {
+                    this.setElement($(this.$el.children()[0]).unwrap());
+                } else if(this.$el.is("button")) {
+                    this.setElement($(this.$el.children()[0]).unwrap());
+                }
             }
-
 		});
 		return {'ToolItemView':ToolItemView};
 	});
