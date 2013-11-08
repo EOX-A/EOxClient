@@ -1,6 +1,7 @@
 $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 
+/* Not used right now ;)
 #preloadedImages {
        width: 0px;
        height: 0px;
@@ -11,11 +12,11 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
        background-image: url(path/to/image4.png);
        background-image: url();
 }
+*/
 
-hr {
-	margin: 9px 0 9px 0px;
-}
-
+/*
+ * Basic styles
+ */
 html, body {
 	height: 100%;
 	width: 100%;
@@ -23,9 +24,13 @@ html, body {
 
 ul, li {
  	list-style-type: none;
-    list-style-position:inside;
-
+  list-style-position: inside;
 }
+
+hr {
+  margin: 1em 0;
+}
+
 
 /*
  * Panels & Modals
