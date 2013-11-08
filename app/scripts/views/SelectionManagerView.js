@@ -16,7 +16,7 @@
 
 		var SelectionManagerView = Backbone.Marionette.ItemView.extend({
 			tagName: "div",
-      		className: "panel panel-default selectionManager",
+      		className: "panel panel-default selectionManager not-selectable",
 			template: {type: 'handlebars', template: SelectionManagerTmpl},
 
 			initialize: function(options) {
@@ -24,17 +24,21 @@
 
 			onShow: function (view){
 				this.$('.close').on("click", _.bind(this.onClose, this));
-        		this.$el.draggable({ containment: "#content" , scroll: false});
+        		this.$el.draggable({ 
+        			containment: "#content",
+        			scroll: false,
+        			handle: '.panel-heading'
+        		});
         		this.renderList();
         		
 			},
 
 			renderList: function() {
-				$('#selectionList').empty();
+				$('#selection-list').empty();
 				_.each(localStorage.getObject('selections'), function(selection, i) {
         			_.extend(selection, {id:i});
 					var $html = $(SelectionTemplate(selection));
-					$('#selectionList').append($html);
+					$('#selection-list').append($html);
 				}, this);
 			},
 
@@ -42,7 +46,7 @@
 		        "change #upload-selection": "onUploadSelectionChanged",
 		        "click #btn-export-selection": "onExportSelectionClicked",
 		        "click #btn-save-selection": "onSaveSelectionClicked",
-		        "click .icon-minus-sign": "onDeleteSelection",
+		        "click .delete-selection": "onDeleteSelection",
 		        'change input[type="radio"]': "onSelectionSelected"
 	      	},
 
@@ -79,7 +83,7 @@
 
 	      	onDeleteSelection: function (evt) {
 	      		var $target = $(evt.target);
-	      		var index = $target.parent().find("input").val();
+	      		var index = $target.parent().parent().parent().find("input").val();
 	      		if (index > -1){
 	      			var selections = localStorage.getObject('selections');
 		      		if (selections){

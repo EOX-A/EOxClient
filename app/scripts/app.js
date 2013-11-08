@@ -196,7 +196,7 @@
 						{template: t.NavBar({
 							title: config.navBarConfig.title,
 							url: config.navBarConfig.url}),
-						className:"navbar navbar-inverse navbar-fixed-top",
+						className:"navbar navbar-inverse navbar-fixed-top not-selectable",
 						itemView: v.NavBarItemView, tag: "div",
 						collection: navBarItemCollection}));
 
