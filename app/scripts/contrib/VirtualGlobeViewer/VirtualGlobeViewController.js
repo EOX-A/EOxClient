@@ -40,7 +40,8 @@ define([
 			this.listenTo(Communicator.mediator, 'map:setUrl', this.zoomTo);
 			this.listenTo(Communicator.mediator, 'map:center', this.onMapCenter);
 			this.listenTo(Communicator.mediator, 'map:layer:change', this.onLayerChange);
-			this.listenTo(Communicator.mediator, 'time:change', this.onTimeChanged);
+			this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
+                                  this.listenTo(Communicator.mediator, 'productCollection:updateOpacity', this.onOpacityChange);
 		},
 
 		getView: function(id) {
@@ -51,32 +52,41 @@ define([
 			this.region.show(this.globeView);
 		},
 
-		onLayerChange: function(opts) {
-			var layerModel = undefined;
-			if (opts.isBaseLayer) {
-				layerModel = globals.baseLayers.find(function(model) {
-					return model.get('name') === opts.name;
-				});
-			} else {
-				layerModel = globals.products.find(function(model) {
-					return model.get('name') === opts.name;
-				});
+                       getLayerModel: function(options) {
+                        var layerModel = undefined;
+                            if (options.isBaseLayer) {
+                                layerModel = globals.baseLayers.find(function(model) {
+                                    return model.get('name') === options.name;
+                                });
+                            } else {
+                                layerModel = globals.products.find(function(model) {
+                                    return model.get('name') === options.name;
+                                });
 
-				if (!layerModel) {
-					layerModel = globals.overlays.find(function(model) {
-						return model.get('name') === opts.name;
-					});
-				}
-			}
+                                if (!layerModel) {
+                                    layerModel = globals.overlays.find(function(model) {
+                                        return model.get('name') === options.name;
+                                    });
+                                }
+                            }
 
-			if (typeof layerModel === 'undefined') {
-				throw Error('Product ' + opts.name + ' is unknown!');
-			}
+                            if (typeof layerModel === 'undefined') {
+                                throw Error('Product ' + options.name + ' is unknown!');
+                            }
 
-			this.globeView.onLayerChange(layerModel, opts.isBaseLayer, opts.isVisible);
+                            return layerModel;
+                       },
+
+		onLayerChange: function(options) {
+			var layerModel = this.getLayerModel(options); // options: { name: 'xy', isBaseLayer: 'true/false'}
+			this.globeView.onLayerChange(layerModel, options.isBaseLayer, options.visible);
 		},
 
-		onTimeChanged: function(time) {
+                       onOpacityChange: function(options) {
+                            this.globeView.onOpacityChange(options.model.get('name'), options.value);
+                       },
+
+		onTimeChange: function(time) {
 			this.globeView.setTimeSpanOnLayers(time);
 		},
 
