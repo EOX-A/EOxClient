@@ -58,6 +58,10 @@ define([
 			}
 		},
 
+                       onOpacityChange: function(layer_name, opacity) {
+                            this.globe.onOpacityChange(layer_name, opacity);
+                        },
+
 		setTimeSpanOnLayers: function(time) {
 			this.globe.setTimeSpanOnLayers(time);
 		},

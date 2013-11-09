@@ -151,20 +151,18 @@ define([
 		}
 	};
 
-	Globe.prototype.getLayerDescFromCache = function(layer_name) {
-		// body...
-	};
+    Globe.prototype.removeProduct = function(model, isBaseLayer) {
+        console.log('removeProduct: ' + model.get('name') + " (baseLayer: " + isBaseLayer + ")");
 
-	Globe.prototype.removeProduct = function(model, isBaseLayer) {
-		console.log('removeProduct: ' + model.get('name'));
-
-		if (isBaseLayer) {
-			this.globe.setBaseImagery(null);
-		} else {
-			var desc = this.getLayerDescFromCache(model.get('name'));
-			this.globe.removeLayer(desc.layer);
-		}
-	};
+        if (isBaseLayer) {
+            this.globe.setBaseImagery(null);
+        } else {
+            var layerDesc = this.layerCache[model.get('name')];
+            if (typeof layerDesc !== 'undefined') {
+                this.globe.removeLayer(layerDesc.layer);
+            }
+        }
+    };
 
 	Globe.prototype.setTimeSpanOnLayers = function(newTimeSpan) {
 		var updated_layer_descs = [];
@@ -203,6 +201,13 @@ define([
 	Globe.prototype.zoomTo = function(pos) {
 		this.navigation.zoomTo(pos.center, pos.distance, pos.duration, pos.tilt);
 	};
+
+    Globe.prototype.onOpacityChange = function(layer_name, opacity) {
+        var layerDesc = this.layerCache[layer_name];
+        if (typeof layerDesc !== 'undefined') {
+            layerDesc.layer.opacity(opacity);
+        }
+    };
 
 	return Globe;
 });
