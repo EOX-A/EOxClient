@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>EOxClient by EOX-A</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>EOxClient</h1>
+        <h2>A webclient for map applications, which allows easy customization through a centralized configuration concept.</h2>
+        <a href="https://github.com/EOX-A/EOxClient" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="eoxclient" class="anchor" href="#eoxclient"><span class="octicon octicon-link"></span></a>EOxClient</h1>
+
+<p>The EOxClient focuses on creating a webclient for map applications, which allows easy customization through a centralized configuration concept.</p>
+
+<h2>
+<a name="technologies-used" class="anchor" href="#technologies-used"><span class="octicon octicon-link"></span></a>Technologies used</h2>
+
+<p>The application uses <a href="http://yeoman.io/">Yeoman</a> which integrates:</p>
+
+<ul>
+<li>
+<a href="https://github.com/yeoman/yo">Yo</a> : scaffolds out the application, writing the Grunt configuration and pulling in relevant Grunt tasks that you might need for your build.</li>
+<li>
+<a href="http://gruntjs.com/">Grunt</a> : which allows building, previewing and testing the project</li>
+<li>
+<a href="http://bower.io/">Bower</a> : which allows managing of dependencies and automatic download, thus making the application easily extendable.</li>
+</ul><h2>
+<a name="libraries-used" class="anchor" href="#libraries-used"><span class="octicon octicon-link"></span></a>Libraries used</h2>
+
+<ul>
+<li><a href="http://requirejs.org/">require</a></li>
+<li><a href="http://underscorejs.org/">Underscore</a></li>
+<li><a href="http://jquery.com/">jQuery</a></li>
+<li><a href="http://backbonejs.org/">Backbone</a></li>
+<li><a href="http://marionettejs.com/">Backbone Marionette</a></li>
+</ul><h2>
+<a name="development-environment-linux-based" class="anchor" href="#development-environment-linux-based"><span class="octicon octicon-link"></span></a>Development environment (Linux based)</h2>
+
+<ol>
+<li>
+<p>Get the code from GitHub <a href="https://github.com/EOX-A/EOxClient.git">EOxClient repository</a>:</p>
+
+<div class="highlight highlight-bash"><pre>git clone git@github.com:EOX-A/EOxClient.git
+</pre></div>
+</li>
+<li>
+<p>Install development enviroment: </p>
+
+<p>Make sure <a href="http://nodejs.org">Node.js</a> and <a href="https://npmjs.org">NPM</a> are installed
+on your machine and run:</p>
+
+<div class="highlight highlight-bash"><pre><span class="nb">cd</span> ./EOxClient
+sudo npm install -g grunt-cli
+sudo npm install -g bower 
+npm install 
+</pre></div>
+
+<p>These commands install the needed Node.js packages. In case of any trouble try to use 
+reasonable recent version of Node.js. Also note that newer versions of Node.js contain 
+the NPM already bundled in the baseline installation. </p>
+</li>
+<li>
+<p>Install client dependencies:  </p>
+
+<p>The required JavaScript librabries can be installed by: </p>
+
+<div class="highlight highlight-bash"><pre>bower install
+</pre></div>
+</li>
+<li>
+<p>Start the <a href="http://gruntjs.com/">Grunt</a> development server:</p>
+
+<div class="highlight highlight-bash"><pre>grunt server 
+</pre></div>
+
+<p>this should automatically open a the client on your default web browser, if not point your browser to localhost:9000. </p>
+</li>
+</ol><p>If you managed to reach this the last step you can start to hack the code. 
+The development server by grunt watches for saved changes in the code and will update the page automatically.</p>
+
+<h2>
+<a name="deploy-on-a-server" class="anchor" href="#deploy-on-a-server"><span class="octicon octicon-link"></span></a>Deploy on a server</h2>
+
+<ol>
+<li>
+<p>Create deployment package: </p>
+
+<div class="highlight highlight-bash"><pre>grunt build
+</pre></div>
+
+<p>This command creates <code>dist</code> directory containing the produced deployment 
+version. This directory should be then packed by some archiving tool (<code>zip</code>, <code>tar</code>, <code>cpio</code> ... etc.)
+creating the deployment package.</p>
+</li>
+<li><p>Put the content of the deployment package to your server and make sure
+the web server can access the <code>index.html</code> file. </p></li>
+</ol>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/EOX-A/EOxClient/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/EOX-A/EOxClient/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/EOX-A/EOxClient"></a> is maintained by <a href="https://github.com/EOX-A">EOX-A</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
