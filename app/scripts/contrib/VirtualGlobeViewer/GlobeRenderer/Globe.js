@@ -131,6 +131,9 @@ define([
                 });
             }
 
+            // set initial opacity:
+            layer.opacity(model.get('opacity'));
+
             // Register the layer to the internal cache for removal or for changing the timespan later on:
             this.layerCache[model.get('name')] = {
                 productName: model.get('name'),
