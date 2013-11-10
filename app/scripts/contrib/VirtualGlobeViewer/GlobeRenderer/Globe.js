@@ -25,6 +25,7 @@ define([
 
         this.aoiLayer = undefined;
         this.layerCache = {};
+        this.overlayLayers = [];
 
         this.navigation = new GlobWeb.Navigation(this.globe, {
             inertia: true
@@ -135,12 +136,12 @@ define([
             layer.opacity(model.get('opacity'));
 
             // Register the layer to the internal cache for removal or for changing the timespan later on:
-            this.layerCache[model.get('name')] = {
-                productName: model.get('name'),
+            layerDesc = {
+                model: model,
                 layer: layer,
-                timeSupport: (model.get('time')) ? true : false,
                 isBaseLayer: isBaseLayer
-            }
+            };
+            this.layerCache[model.get('name')] = layerDesc;
 
             console.log('[Globe.addLayer] added layer "' + model.get('name') + '" to the cache.');
         } else {
@@ -152,7 +153,32 @@ define([
             this.globe.setBaseImagery(layer);
         } else {
             this.globe.addLayer(layer);
+            this.overlayLayers.push(layerDesc);
         }
+    };
+
+    Globe.prototype.sortOverlayLayers = function() {
+        // Copy the current overlay layers into an array, sorted by the ordinal parameter:
+        var sortedOverlayLayers = _.sortBy(this.overlayLayers, function(desc) {
+            return desc.model.get('ordinal');
+        });
+
+        // Remove the current overlay layers (setting this.overlayLayers.length = 0):
+        this.removeAllOverlays();
+
+        _.each(sortedOverlayLayers, function(desc) {
+            this.addLayer(desc.model, desc.isBaseLayer);
+        }.bind(this));
+    };
+
+    Globe.prototype.removeAllOverlays = function() {
+        _.each(this.overlayLayers, function(desc, idx) {
+            if (!desc.isBaseLayer) {
+                this.globe.removeLayer(desc.layer);
+            }
+        }.bind(this));
+
+        this.overlayLayers.length = 0;
     };
 
     Globe.prototype.removeLayer = function(model, isBaseLayer) {

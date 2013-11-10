@@ -31,7 +31,7 @@ define([
                 startProduct: startProduct
             });
 
-            this.setupFromAppContext();
+            this.setLayersFromAppContext();
             this.connectToView();
 
             this.baseSetupDone = false;
@@ -40,25 +40,25 @@ define([
         /** Adds the layers selected in the GUI and performs their setup (opacity, sorting oder, etc.).
          *  Layers are either baselayers, products or overlays.
          */
-        setupFromAppContext: function() {
+        setLayersFromAppContext: function() {
             globals.baseLayers.each(function(model) {
                 if (model.get('visible')) {
                     this.globeView.addInitialLayer(model, true);
-                    console.log('[VirtualGlobeViewController::setupFromAppContext] added baselayer "' + '"');
+                    console.log('[VirtualGlobeViewController::setLayersFromAppContext] added baselayer "' + model.get('name') + '"');
                 };
             }.bind(this));
 
             globals.products.each(function(model) {
                 if (model.get('visible')) {
                     this.globeView.addInitialLayer(model, false);
-                    console.log('[VirtualGlobeViewController::setupFromAppContext] added products "' + '"');
+                    console.log('[VirtualGlobeViewController::setLayersFromAppContext] added products "' + model.get('name') + '"');
                 }
             }.bind(this));
 
             globals.overlays.each(function(model) {
                 if (model.get('visible')) {
                     this.globeView.addInitialLayer(model, false);
-                    console.log('[VirtualGlobeViewController::setupFromAppContext] added overlays "' + '"');
+                    console.log('[VirtualGlobeViewController::setLayersFromAppContext] added overlays "' + model.get('name') + '"');
                 }
             }.bind(this));
         },
@@ -70,6 +70,7 @@ define([
             this.listenTo(Communicator.mediator, 'map:layer:change', this.onLayerChange);
             this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
             this.listenTo(Communicator.mediator, 'productCollection:updateOpacity', this.onOpacityChange);
+            this.listenTo(Communicator.mediator, 'productCollection:sortUpdated', this.onSortChange);
         },
 
         getView: function(id) {
@@ -103,6 +104,10 @@ define([
             }
 
             return layerModel;
+        },
+
+        onSortChange: function() {
+            this.globeView.sortOverlayLayers();
         },
 
         onLayerChange: function(options) {

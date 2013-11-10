@@ -36,7 +36,6 @@ define([
             };
 
             this.initialLayers = {};
-            this.startProduct = opts.startProduct;
 
             $(window).resize(function() {
                 if (this.globe) {
@@ -82,6 +81,10 @@ define([
             this.globe.setTimeSpanOnLayers(time);
         },
 
+        sortOverlayLayers: function() {
+            this.globe.sortOverlayLayers();
+        },
+
         createGlobe: function() {
             this.globe = new Globe({
                 canvas: this.el
@@ -91,6 +94,7 @@ define([
                 _.each(this.initialLayers, function(desc, name) {
                     this.globe.addLayer(desc.model, desc.isBaseLayer);
                 }.bind(this));
+                this.sortOverlayLayers();
                 this.initialLayerSetupDone = true;
             }
         },
