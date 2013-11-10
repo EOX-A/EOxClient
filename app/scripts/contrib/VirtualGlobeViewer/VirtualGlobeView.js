@@ -63,6 +63,10 @@ define([
             this.globe.removeLayer(model, isBaseLayer);
         },
 
+        removeAllOverlays: function() {
+            this.globe.removeAllOverlays();
+        },
+
         onLayerChange: function(model, isBaseLayer, isVisible) {
             if (isVisible) {
                 this.addLayer(model, isBaseLayer);
@@ -77,12 +81,20 @@ define([
             this.globe.onOpacityChange(layer_name, opacity);
         },
 
-        setTimeSpanOnLayers: function(time) {
+        onTimeChange: function(time) {
             this.globe.setTimeSpanOnLayers(time);
         },
 
         sortOverlayLayers: function() {
             this.globe.sortOverlayLayers();
+        },
+
+        initLayers: function() {
+            this.globe.clearCache();
+            _.each(this.initialLayers, function(desc, name) {
+                this.globe.addLayer(desc.model, desc.isBaseLayer);
+            }.bind(this));
+            this.sortOverlayLayers();
         },
 
         createGlobe: function() {
@@ -91,10 +103,7 @@ define([
             });
 
             if (!this.initialLayerSetupDone) {
-                _.each(this.initialLayers, function(desc, name) {
-                    this.globe.addLayer(desc.model, desc.isBaseLayer);
-                }.bind(this));
-                this.sortOverlayLayers();
+                this.initLayers();
                 this.initialLayerSetupDone = true;
             }
         },

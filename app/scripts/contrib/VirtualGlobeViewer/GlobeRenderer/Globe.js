@@ -111,6 +111,8 @@ define([
         var layerDesc = this.layerCache[model.get('name')];
         var layer = undefined;
 
+        console.log('time: ' + model.get('time'));
+
         if (typeof layerDesc === 'undefined') {
             if (model.get('view').protocol === 'WMTS') {
                 layer = new GlobWeb.WMTSLayer({
@@ -194,28 +196,33 @@ define([
         }
     };
 
-    Globe.prototype.setTimeSpanOnLayers = function(newTimeSpan) {
-        var updated_layer_descs = [];
-
-        _.each(this.layerCache, function(layerDesc, name) {
-            if (layerDesc.timeSupport) {
-                var isotimespan = getISODateTimeString(newTimeSpan.start) + '/' + getISODateTimeString(newTimeSpan.end);
-                layerDesc.layer.setTime(isotimespan);
-                updated_layer_descs.push(layerDesc);
-                //console.log('[Globe.setTimeSpanOnLayers] setting new timespan on "' + layerDesc.productName + '": ' + isotimespan);
-            }
-        });
-
-        _.each(updated_layer_descs, function(desc, idx) {
-            if (desc.isBaseLayer) {
-                this.globe.setBaseImagery(desc.layer);
-            } else {
-                // FIXXME: is there an update() functionality somewhere?
-                this.globe.removeLayer(desc.layer);
-                this.globe.addLayer(desc.layer);
-            }
-        }.bind(this));
+    Globe.prototype.clearCache = function() {
+        this.layerCache = {};
     };
+
+    // FIXXME: Implement GlobWeb::BaseLayer::setTime() for that to work
+    // Globe.prototype.setTimeSpanOnLayers = function(newTimeSpan) {
+    //     var updated_layer_descs = [];
+
+    //     _.each(this.layerCache, function(layerDesc, name) {
+    //         if (layerDesc.timeSupport) {
+    //             var isotimespan = getISODateTimeString(newTimeSpan.start) + '/' + getISODateTimeString(newTimeSpan.end);
+    //             layerDesc.layer.setTime(isotimespan);
+    //             updated_layer_descs.push(layerDesc);
+    //             //console.log('[Globe.setTimeSpanOnLayers] setting new timespan on "' + layerDesc.productName + '": ' + isotimespan);
+    //         }
+    //     });
+
+    //     _.each(updated_layer_descs, function(desc, idx) {
+    //         if (desc.isBaseLayer) {
+    //             this.globe.setBaseImagery(desc.layer);
+    //         } else {
+    //             // FIXXME: is there an update() functionality somewhere?
+    //             this.globe.removeLayer(desc.layer);
+    //             this.globe.addLayer(desc.layer);
+    //         }
+    //     }.bind(this));
+    // };
 
     Globe.prototype.updateViewport = function() {
         // FIXXME: the height/width has to be set explicitly after setting the

@@ -120,7 +120,13 @@ define([
         },
 
         onTimeChange: function(time) {
-            this.globeView.setTimeSpanOnLayers(time);
+            // FIXXME: currently all overlay layers are destroyed and recreated with the new time set. This
+            // should be changed to set the new time on existing layers in the Globe's layerChache.
+            // this.globeView.onTimeChange(time);
+
+            this.globeView.removeAllOverlays();
+            this.setLayersFromAppContext();
+            this.globeView.initLayers();
         },
 
         addAreaOfInterest: function(geojson) {
