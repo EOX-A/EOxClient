@@ -360,16 +360,7 @@
 					this.main.show(splitview.getView());
 
 					splitview.setSinglescreen();
-				},
-
-				// // Initially sets the products to be displayed.
-				// selectInitialProducts: function() {
-				// 	Communicator.mediator.trigger('map:layer:change', {
-				// 		// name: "Blue Marble",
-				// 		name: "Terrain Layer",
-				// 		isBaseLayer: true
-				// 	});
-				// }
+				}
 			});
 
 			return new Application();

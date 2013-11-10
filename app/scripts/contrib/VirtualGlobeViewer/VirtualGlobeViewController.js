@@ -33,23 +33,34 @@ define([
 
             this.setupFromAppContext();
             this.connectToView();
+
+            this.baseSetupDone = false;
         },
 
-        /** Adds the layers selected in the GUI and performs their setup (opacity, sorting oder, etc.)
+        /** Adds the layers selected in the GUI and performs their setup (opacity, sorting oder, etc.).
+         *  Layers are either baselayers, products or overlays.
          */
         setupFromAppContext: function() {
+            globals.baseLayers.each(function(model) {
+                if (model.get('visible')) {
+                    this.globeView.addInitialLayer(model, true);
+                    console.log('[VirtualGlobeViewController::setupFromAppContext] added baselayer "' + '"');
+                };
+            }.bind(this));
 
-            var layerModel = globals.baseLayers.find(function(model) {
-                console.log('ordinal: ' + model.get('ordinal'));
-            });
+            globals.products.each(function(model) {
+                if (model.get('visible')) {
+                    this.globeView.addInitialLayer(model, false);
+                    console.log('[VirtualGlobeViewController::setupFromAppContext] added products "' + '"');
+                }
+            }.bind(this));
 
-            layerModel = globals.products.find(function(model) {
-                console.log('ordinal: ' + model.get('ordinal'));
-            });
-
-            layerModel = globals.overlays.find(function(model) {
-                console.log('ordinal: ' + model.get('ordinal'));
-            });
+            globals.overlays.each(function(model) {
+                if (model.get('visible')) {
+                    this.globeView.addInitialLayer(model, false);
+                    console.log('[VirtualGlobeViewController::setupFromAppContext] added overlays "' + '"');
+                }
+            }.bind(this));
         },
 
         connectToView: function() {
