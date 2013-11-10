@@ -71,6 +71,7 @@ define([
             if (isVisible) {
                 this.addLayer(model, isBaseLayer);
                 console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
+                console.log('ordinal: '+ model.get('ordinal'));
             } else {
                 this.removeLayer(model, isBaseLayer);
                 console.log('[GlobeView::onLayerChange] deselected ' + model.get('name'));
