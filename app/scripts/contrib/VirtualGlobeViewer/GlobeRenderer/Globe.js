@@ -1,155 +1,156 @@
 define([
-	'virtualglobeviewer/GlobWeb',
-	'openlayers' // FIXXME: replace OpenLayers with generic format!
+    'virtualglobeviewer/GlobWeb',
+    'openlayers' // FIXXME: replace OpenLayers with generic format!
 ], function(GlobWeb, OpenLayers) {
 
-	'use strict';
+    'use strict';
 
-	function Globe(options) {
-		this.canvas = $(options.canvas);
+    function Globe(options) {
+        this.canvas = $(options.canvas);
 
-		if (!this.canvas) {
-			alert('[Globe::constructor] Please define a canvas element!. Aborting Globe construction...')
-			return;
-		}
+        if (!this.canvas) {
+            alert('[Globe::constructor] Please define a canvas element!. Aborting Globe construction...')
+            return;
+        }
 
-		this.globe = new GlobWeb.Globe({
-			canvas: options.canvas,
-			lighting: false,
-			tileErrorTreshold: 3,
-			continuousRendering: false,
-			backgroundColor: [0, 0, 0, 0],
-			// backgroundColor: [0.8, 0.8, 0.8, 1],
-			shadersPath: "../bower_components/virtualglobeviewer/shaders/"
-		});
+        this.globe = new GlobWeb.Globe({
+            canvas: options.canvas,
+            lighting: false,
+            tileErrorTreshold: 3,
+            continuousRendering: false,
+            backgroundColor: [0, 0, 0, 0],
+            // backgroundColor: [0.8, 0.8, 0.8, 1],
+            shadersPath: "../bower_components/virtualglobeviewer/shaders/"
+        });
 
-		this.aoiLayer = undefined;
-		this.layerCache = {};
+        this.aoiLayer = undefined;
+        this.layerCache = {};
 
-		this.navigation = new GlobWeb.Navigation(this.globe, {
-			inertia: true
-		});
+        this.navigation = new GlobWeb.Navigation(this.globe, {
+            inertia: true
+        });
 
-		// Add stats
-		// var stats = new GlobWeb.Stats(globe, {
-		// 	element: 'fps',
-		// 	verbose: false
-		// });
+        // Add stats
+        // var stats = new GlobWeb.Stats(globe, {
+        // 	element: 'fps',
+        // 	verbose: false
+        // });
 
-		// var osmLayer = new GlobWeb.OSMLayer({
-		// 	baseUrl: "http://tile.openstreetmap.org"
-		// });
-		// globe.setBaseImagery(osmLayer);
+        // var osmLayer = new GlobWeb.OSMLayer({
+        // 	baseUrl: "http://tile.openstreetmap.org"
+        // });
+        // globe.setBaseImagery(osmLayer);
 
-		// var blueMarbleLayer = new GlobWeb.WMSLayer({
-		// 	baseUrl: "http://demonstrator.telespazio.com/wmspub",
-		// 	layers: "BlueMarble",
-		// 	opacity: 0.1
-		// });
-		// this.globe.setBaseImagery(blueMarbleLayer);
-	};
+        // var blueMarbleLayer = new GlobWeb.WMSLayer({
+        // 	baseUrl: "http://demonstrator.telespazio.com/wmspub",
+        // 	layers: "BlueMarble",
+        // 	opacity: 0.1
+        // });
+        // this.globe.setBaseImagery(blueMarbleLayer);
+    };
 
-	var convertFromOpenLayers = function(ol_geometry, altitude) {
-		var verts = ol_geometry.getVertices();
+    var convertFromOpenLayers = function(ol_geometry, altitude) {
+        var verts = ol_geometry.getVertices();
 
-		var coordinates = [];
-		for (var idx = 0; idx < verts.length; ++idx) {
-			var p = [];
+        var coordinates = [];
+        for (var idx = 0; idx < verts.length; ++idx) {
+            var p = [];
 
-			p.push(verts[idx].x);
-			p.push(verts[idx].y);
-			p.push(altitude);
+            p.push(verts[idx].x);
+            p.push(verts[idx].y);
+            p.push(altitude);
 
-			coordinates.push(p);
-		}
-		var p = [];
+            coordinates.push(p);
+        }
+        var p = [];
 
-		p.push(verts[0].x);
-		p.push(verts[0].y);
-		p.push(altitude);
-		coordinates.push(p);
+        p.push(verts[0].x);
+        p.push(verts[0].y);
+        p.push(altitude);
+        coordinates.push(p);
 
-		return coordinates;
-	};
+        return coordinates;
+    };
 
-	Globe.prototype.addAreaOfInterest = function(geojson) {
-		if (!this.aoiLayer) {
-			this.aoiLayer = new GlobWeb.VectorLayer({
-				style: style,
-				opacity: 1
-			});
-			this.globe.addLayer(this.aoiLayer);
-		}
+    Globe.prototype.addAreaOfInterest = function(geojson) {
+        if (!this.aoiLayer) {
+            this.aoiLayer = new GlobWeb.VectorLayer({
+                style: style,
+                opacity: 1
+            });
+            this.globe.addLayer(this.aoiLayer);
+        }
 
-		if (geojson) {
-			var style = new GlobWeb.FeatureStyle({
-				fillColor: [1, 0.5, 0.1, 0.5],
-				strokeColor: [1, 0.5, 0.1, 1],
-				extrude: true,
-				fill: true
-			});
+        if (geojson) {
+            var style = new GlobWeb.FeatureStyle({
+                fillColor: [1, 0.5, 0.1, 0.5],
+                strokeColor: [1, 0.5, 0.1, 1],
+                extrude: true,
+                fill: true
+            });
 
-			var altitude = 30000;
-			var coordinates = convertFromOpenLayers(geojson, altitude);
+            var altitude = 30000;
+            var coordinates = convertFromOpenLayers(geojson, altitude);
 
-			var selection0 = {
-				"geometry": {
-					"type": "Polygon",
-					"coordinates": coordinates
-				},
-				"properties": {
-					"style": style
-				}
-			};
+            var selection0 = {
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": coordinates
+                },
+                "properties": {
+                    "style": style
+                }
+            };
 
-			this.aoiLayer.addFeature(selection0);
-		}
-	};
+            this.aoiLayer.addFeature(selection0);
+        }
+    };
 
-	Globe.prototype.addProduct = function(model, isBaseLayer) {
-		var layerDesc = this.layerCache[model.get('name')];
-		var layer = undefined;
+    Globe.prototype.addProduct = function(model, isBaseLayer) {
+        var layerDesc = this.layerCache[model.get('name')];
+        var layer = undefined;
 
-		if (typeof layerDesc === 'undefined') {
-			if (model.get('view').protocol === 'WMTS') {
-				layer = new GlobWeb.WMTSLayer({
-					baseUrl: model.get('view').urls[0],
-					style: model.get('view').style,
-					layer: model.get('view').id,
-					format: model.get('view').format,
-					matrixSet: model.get('view').matrixSet,
-					time: model.get('time'), // Note: time is only defined on compatible products
-					transparent: "true"
-				});
-			} else if (model.get('view').protocol === 'WMS') {
-				layer = new GlobWeb.WMSLayer({
-					baseUrl: model.get('view').urls[0],
-					layers: model.get('view').id,
-					time: model.get('time'), // Note: time is only defined on compatible products
-					transparent: "true"
-				});
-			}
+        if (typeof layerDesc === 'undefined') {
+            if (model.get('view').protocol === 'WMTS') {
+                layer = new GlobWeb.WMTSLayer({
+                    baseUrl: model.get('view').urls[0],
+                    style: model.get('view').style,
+                    layer: model.get('view').id,
+                    format: model.get('view').format,
+                    matrixSet: model.get('view').matrixSet,
+                    time: model.get('time'), // Note: time is only defined on compatible products
+                    transparent: "true"
+                });
 
-			// Register the layer to the internal cache for removal or for changing the timespan later on:
-			this.layerCache[model.get('name')] = {
-				productName: model.get('name'),
-				layer: layer,
-				timeSupport: (model.get('time')) ? true : false,
-				isBaseLayer: isBaseLayer
-			}
+            } else if (model.get('view').protocol === 'WMS') {
+                layer = new GlobWeb.WMSLayer({
+                    baseUrl: model.get('view').urls[0],
+                    layers: model.get('view').id,
+                    time: model.get('time'), // Note: time is only defined on compatible products
+                    transparent: "true"
+                });
+            }
 
-			console.log('[Globe.selectProduct] added product "' + model.get('name') + '" to the cache.');
-		} else {
-			layer = layerDesc.layer;
-			console.log('[Globe.selectProduct] retrieved product "' + model.get('name') + '" from the cache.');
-		}
+            // Register the layer to the internal cache for removal or for changing the timespan later on:
+            this.layerCache[model.get('name')] = {
+                productName: model.get('name'),
+                layer: layer,
+                timeSupport: (model.get('time')) ? true : false,
+                isBaseLayer: isBaseLayer
+            }
 
-		if (isBaseLayer) {
-			this.globe.setBaseImagery(layer);
-		} else {
-			this.globe.addLayer(layer);
-		}
-	};
+            console.log('[Globe.selectProduct] added product "' + model.get('name') + '" to the cache.');
+        } else {
+            layer = layerDesc.layer;
+            console.log('[Globe.selectProduct] retrieved product "' + model.get('name') + '" from the cache.');
+        }
+
+        if (isBaseLayer) {
+            this.globe.setBaseImagery(layer);
+        } else {
+            this.globe.addLayer(layer);
+        }
+    };
 
     Globe.prototype.removeProduct = function(model, isBaseLayer) {
         console.log('removeProduct: ' + model.get('name') + " (baseLayer: " + isBaseLayer + ")");
@@ -164,43 +165,43 @@ define([
         }
     };
 
-	Globe.prototype.setTimeSpanOnLayers = function(newTimeSpan) {
-		var updated_layer_descs = [];
+    Globe.prototype.setTimeSpanOnLayers = function(newTimeSpan) {
+        var updated_layer_descs = [];
 
-		_.each(this.layerCache, function(layerDesc, name) {
-			if (layerDesc.timeSupport) {
-				var isotimespan = getISODateTimeString(newTimeSpan.start) + '/' + getISODateTimeString(newTimeSpan.end);
-				layerDesc.layer.setTime(isotimespan);
-				updated_layer_descs.push(layerDesc);
-				//console.log('[Globe.setTimeSpanOnLayers] setting new timespan on "' + layerDesc.productName + '": ' + isotimespan);
-			}
-		});
+        _.each(this.layerCache, function(layerDesc, name) {
+            if (layerDesc.timeSupport) {
+                var isotimespan = getISODateTimeString(newTimeSpan.start) + '/' + getISODateTimeString(newTimeSpan.end);
+                layerDesc.layer.setTime(isotimespan);
+                updated_layer_descs.push(layerDesc);
+                //console.log('[Globe.setTimeSpanOnLayers] setting new timespan on "' + layerDesc.productName + '": ' + isotimespan);
+            }
+        });
 
-		_.each(updated_layer_descs, function(desc, idx) {
-			if (desc.isBaseLayer) {
-				this.globe.setBaseImagery(desc.layer);
-			} else {
-				// FIXXME: is there an update() functionality somewhere?
-				this.globe.removeLayer(desc.layer);
-				this.globe.addLayer(desc.layer);
-			}
-		}.bind(this));
-	};
+        _.each(updated_layer_descs, function(desc, idx) {
+            if (desc.isBaseLayer) {
+                this.globe.setBaseImagery(desc.layer);
+            } else {
+                // FIXXME: is there an update() functionality somewhere?
+                this.globe.removeLayer(desc.layer);
+                this.globe.addLayer(desc.layer);
+            }
+        }.bind(this));
+    };
 
-	Globe.prototype.updateViewport = function() {
-		// FIXXME: the height/width has to be set explicitly after setting the
-		// the new css class. Why?
-		this.globe.renderContext.canvas.width = this.canvas.width();
-		this.globe.renderContext.canvas.height = this.canvas.height();
+    Globe.prototype.updateViewport = function() {
+        // FIXXME: the height/width has to be set explicitly after setting the
+        // the new css class. Why?
+        this.globe.renderContext.canvas.width = this.canvas.width();
+        this.globe.renderContext.canvas.height = this.canvas.height();
 
-		// Adjust the globe's aspect ration and redraw:
-		this.globe.renderContext.updateViewDependentProperties();
-		this.globe.refresh();
-	};
+        // Adjust the globe's aspect ration and redraw:
+        this.globe.renderContext.updateViewDependentProperties();
+        this.globe.refresh();
+    };
 
-	Globe.prototype.zoomTo = function(pos) {
-		this.navigation.zoomTo(pos.center, pos.distance, pos.duration, pos.tilt);
-	};
+    Globe.prototype.zoomTo = function(pos) {
+        this.navigation.zoomTo(pos.center, pos.distance, pos.duration, pos.tilt);
+    };
 
     Globe.prototype.onOpacityChange = function(layer_name, opacity) {
         var layerDesc = this.layerCache[layer_name];
@@ -209,7 +210,7 @@ define([
         }
     };
 
-	return Globe;
+    return Globe;
 });
 
 
