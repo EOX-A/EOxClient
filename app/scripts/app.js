@@ -97,11 +97,13 @@
 					}, this);
 
 					//Products are loaded and added to the global collection
+                                                        var ordinal = 0;
 					_.each(config.mapConfig.products, function(products) {
 						globals.products.add(
 							new m.LayerModel({
 								name: products.name,
 								visible: products.visible,
+                                                                                         ordinal: ordinal,
 								timeSlider: products.timeSlider,
 								//time: products.time, // Is set in TimeSliderView on time change.
 								opacity: 1,
@@ -133,6 +135,7 @@
 								}
 							})
 						);
+                                                                   ++ordinal;
 						console.log("Added product " + products.view.id);
 					}, this);
 
@@ -143,6 +146,7 @@
 							new m.LayerModel({
 								name: overlay.name,
 								visible: overlay.visible,
+                                                                                         ordinal: ordinal,
 								view: {
 									id: overlay.id,
 									urls: overlay.urls,
@@ -169,7 +173,7 @@
 						console.log("Added overlay " + overlay.id);
 					}, this);
 
-					// If Navigation Bar is set in configuration go trhough the 
+					// If Navigation Bar is set in configuration go trhough the
 					// defined elements creating a item collection to rendered
 					// by the marionette collection view
 					if (config.navBarConfig) {
@@ -197,7 +201,7 @@
 
 					};
 
-					// Added region to test combination of backbone 
+					// Added region to test combination of backbone
 					// functionality combined with jQuery UI
 					this.addRegions({
 						dialogRegion: DialogRegion.extend({
