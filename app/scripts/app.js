@@ -359,7 +359,6 @@
 				this.main.show(splitview.getView());
 
 				splitview.setSinglescreen();
-
 				// Show Timsliderview after creating modules to
 				// set the selected time correctly to the products
 				this.bottomBar.show(this.timeSliderView);

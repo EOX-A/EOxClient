@@ -34,12 +34,12 @@
 	function ( Backbone, App, Communicator ) {
 
 		// window.onerror = function(msg, url, line) {
-		// 	//TODO, FIXME: DS: This is only a preliminary catch for a specific 
-		// 	// error inside of the x3dom library, this has to be removed!!! 
+		// 	//TODO, FIXME: DS: This is only a preliminary catch for a specific
+		// 	// error inside of the x3dom library, this has to be removed!!!
 		// 	var suppressErrorAlert = false;
 		//   	if ( msg.indexOf( "Uncaught TypeError" ) > -1 ) {
 		// 	  suppressErrorAlert = true;
-		// 	} 
+		// 	}
 		//    return suppressErrorAlert;
 		// };
 
@@ -62,7 +62,7 @@
 		// }
 
 		$.get("scripts/config.json", function(values) {
-			
+
 			// Configure Debug options
 			setuplogging(values.debug);
 
@@ -118,12 +118,11 @@
 					}
 
 					this.setupGui();
-					// this.selectInitialProducts();
-				});	
+				});
 
 				App.start();
-			});				
+			});
 		});
-		
+
 	});
 }).call( this );

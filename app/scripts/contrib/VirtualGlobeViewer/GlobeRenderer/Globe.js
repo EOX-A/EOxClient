@@ -106,7 +106,7 @@ define([
         }
     };
 
-    Globe.prototype.addProduct = function(model, isBaseLayer) {
+    Globe.prototype.addLayer = function(model, isBaseLayer) {
         var layerDesc = this.layerCache[model.get('name')];
         var layer = undefined;
 
@@ -142,10 +142,10 @@ define([
                 isBaseLayer: isBaseLayer
             }
 
-            console.log('[Globe.selectProduct] added product "' + model.get('name') + '" to the cache.');
+            console.log('[Globe.addLayer] added layer "' + model.get('name') + '" to the cache.');
         } else {
             layer = layerDesc.layer;
-            console.log('[Globe.selectProduct] retrieved product "' + model.get('name') + '" from the cache.');
+            console.log('[Globe.addLayer] retrieved layer "' + model.get('name') + '" from the cache.');
         }
 
         if (isBaseLayer) {
@@ -155,8 +155,8 @@ define([
         }
     };
 
-    Globe.prototype.removeProduct = function(model, isBaseLayer) {
-        console.log('removeProduct: ' + model.get('name') + " (baseLayer: " + isBaseLayer + ")");
+    Globe.prototype.removeLayer = function(model, isBaseLayer) {
+        console.log('removeLayer: ' + model.get('name') + " (baseLayer: " + isBaseLayer + ")");
 
         if (isBaseLayer) {
             this.globe.setBaseImagery(null);

@@ -35,6 +35,7 @@ define([
                 }
             };
 
+            this.initialLayers = {};
             this.startProduct = opts.startProduct;
 
             $(window).resize(function() {
@@ -44,17 +45,31 @@ define([
             }.bind(this));
         },
 
+        addInitialLayer: function(model, isBaseLayer) {
+            this.initialLayers[model.get('name')] = {
+                model: model,
+                isBaseLayer: isBaseLayer
+            };
+        },
+
         addAreaOfInterest: function(geojson) {
             this.globe.addAreaOfInterest(geojson);
         },
 
+        addLayer: function(model, isBaseLayer) {
+            this.globe.addLayer(model, isBaseLayer);
+        },
+
+        removeLayer: function(model, isBaseLayer) {
+            this.globe.removeLayer(model, isBaseLayer);
+        },
+
         onLayerChange: function(model, isBaseLayer, isVisible) {
             if (isVisible) {
-                this.globe.addProduct(model, isBaseLayer, isVisible);
+                this.addLayer(model, isBaseLayer);
                 console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
-                console.log('ordinal: '+ model.get('ordinal'));
             } else {
-                this.globe.removeProduct(model, isBaseLayer, isVisible);
+                this.removeLayer(model, isBaseLayer);
                 console.log('[GlobeView::onLayerChange] deselected ' + model.get('name'));
             }
         },
@@ -71,9 +86,13 @@ define([
             this.globe = new Globe({
                 canvas: this.el
             });
-            if (typeof this.startProduct !== 'undefined') {
-                this.globe.addProduct(this.startProduct, true);
-            };
+
+            if (!this.initialLayerSetupDone) {
+                _.each(this.initialLayers, function(desc, name) {
+                    this.globe.addLayer(desc.model, desc.isBaseLayer);
+                }.bind(this));
+                this.initialLayerSetupDone = true;
+            }
         },
 
         onResize: function() {
