@@ -1,20 +1,20 @@
 define([
-	'backbone.marionette',
-	'app',
-	'./VirtualGlobeViewController'
+    'backbone.marionette',
+    'app',
+    './VirtualGlobeViewController'
 ], function(Marionette, App, Communicator, VirtualGlobeViewController) {
 
-	'use strict';
+    'use strict';
 
-	var VirtualGlobeViewRouterController = function(globe_controller) {
-		this.globe_controller = globe_controller;
-	};
+    var VirtualGlobeViewRouterController = function(globe_controller) {
+        this.globe_controller = globe_controller;
+    };
 
-	_.extend(VirtualGlobeViewRouterController.prototype, {
-		show: function() {
-			this.globe_controller.show();
-		}
-	});
+    _.extend(VirtualGlobeViewRouterController.prototype, {
+        show: function() {
+            this.globe_controller.show();
+        }
+    });
 
-	return VirtualGlobeViewRouterController;
+    return VirtualGlobeViewRouterController;
 });
