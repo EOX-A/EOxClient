@@ -105,6 +105,7 @@ define([
 
             if (!this.initialLayerSetupDone) {
                 this.initLayers();
+                this.sortOverlayLayers();
                 this.initialLayerSetupDone = true;
             }
         },
