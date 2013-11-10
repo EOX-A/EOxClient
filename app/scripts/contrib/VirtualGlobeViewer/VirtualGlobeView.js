@@ -51,10 +51,11 @@ define([
         onLayerChange: function(model, isBaseLayer, isVisible) {
             if (isVisible) {
                 this.globe.addProduct(model, isBaseLayer, isVisible);
-                console.log("[GlobeView::onLayerChange] selected " + model.get("name"));
+                console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
+                console.log('ordinal: '+ model.get('ordinal'));
             } else {
                 this.globe.removeProduct(model, isBaseLayer, isVisible);
-                console.log("[GlobeView::onLayerChange] deselected " + model.get("name"));
+                console.log('[GlobeView::onLayerChange] deselected ' + model.get('name'));
             }
         },
 

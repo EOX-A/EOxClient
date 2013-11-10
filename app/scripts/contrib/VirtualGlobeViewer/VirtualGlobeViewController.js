@@ -34,7 +34,25 @@ define([
 			}
 
 
+            this.setupFromAppContext();
             this.connectToView();
+        },
+
+        /** Adds the layers selected in the GUI and performs their setup (opacity, sorting oder, etc.)
+         */
+        setupFromAppContext: function() {
+
+            var layerModel = globals.baseLayers.find(function(model) {
+                console.log('ordinal: ' + model.get('ordinal'));
+            });
+
+            layerModel = globals.products.find(function(model) {
+                console.log('ordinal: ' + model.get('ordinal'));
+            });
+
+            layerModel = globals.overlays.find(function(model) {
+                console.log('ordinal: ' + model.get('ordinal'));
+            });
         },
 
         connectToView: function() {
