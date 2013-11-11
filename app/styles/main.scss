@@ -56,6 +56,7 @@ hr {
   font-size: 1em;
 }
 
+
 /*
  * Buttons
  */
@@ -153,6 +154,11 @@ button[active=active] {
 
 #btn-start-download {
   float: right;
+}
+
+.selectionManager .panel-body, .download .panel-body {
+  max-height: 15em;
+  overflow: auto;
 }
 
 /*
