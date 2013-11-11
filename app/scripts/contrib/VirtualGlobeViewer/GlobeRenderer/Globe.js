@@ -129,6 +129,7 @@ define([
                 layer = new GlobWeb.WMSLayer({
                     baseUrl: model.get('view').urls[0],
                     layers: model.get('view').id,
+                    format: model.get('view').format,
                     time: model.get('time'), // Note: time is only defined on compatible products
                     transparent: "true"
                 });
@@ -169,15 +170,14 @@ define([
         this.removeAllOverlays();
 
         _.each(sortedOverlayLayers, function(desc) {
+            console.log('sort: adding layer with ordinal: ' + desc.model.get('ordinal'));
             this.addLayer(desc.model, desc.isBaseLayer);
         }.bind(this));
     };
 
     Globe.prototype.removeAllOverlays = function() {
         _.each(this.overlayLayers, function(desc, idx) {
-            if (!desc.isBaseLayer) {
                 this.globe.removeLayer(desc.layer);
-            }
         }.bind(this));
 
         this.overlayLayers.length = 0;
@@ -192,6 +192,8 @@ define([
             var layerDesc = this.layerCache[model.get('name')];
             if (typeof layerDesc !== 'undefined') {
                 this.globe.removeLayer(layerDesc.layer);
+                var idx = _.indexOf(this.overlayLayers, layerDesc);
+                this.overlayLayers.splice(idx, 1);
             }
         }
     };
