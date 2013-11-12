@@ -129,6 +129,10 @@ define([
 
         onClose: function() {
             this.isClosed = true;
+        },
+
+        dumpLayerConfig: function() {
+            this.globe.dumpLayerConfig();
         }
     });
 

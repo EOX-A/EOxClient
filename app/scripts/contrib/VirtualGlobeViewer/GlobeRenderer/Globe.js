@@ -178,6 +178,10 @@ define([
         if (isBaseLayer) {
             this.globe.setBaseImagery(layer);
         } else {
+            // FIXXME: when adding a layer the 'ordinal' has to be considered!
+            // Unfortunately GlobWeb does not seem to have a layer ordering mechanism,
+            // therefore we have to remove all layers and readd the in the correct order.
+            // This results in flickering when adding a layer and should be fixed within GlobWeb.
             this.globe.addLayer(layer);
             this.overlayLayers.push(layerDesc);
         }
@@ -269,6 +273,15 @@ define([
         if (typeof layerDesc !== 'undefined') {
             layerDesc.layer.opacity(opacity);
         }
+    };
+
+    Globe.prototype.dumpLayerConfig = function() {
+        _.each(this.overlayLayers, function(desc) {
+            console.log('-------------------------------------------------');
+            console.log('Layer: ' + desc.model.get('name'));
+            console.log('   ordinal: ' + desc.model.get('ordinal'));
+            console.log('   opacity: ' + desc.layer.opacity());
+        }.bind(this));
     };
 
     return Globe;

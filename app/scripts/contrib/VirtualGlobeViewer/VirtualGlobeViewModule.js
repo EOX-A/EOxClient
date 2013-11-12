@@ -78,6 +78,11 @@ define([
                     l: undefined
                 });
             });
+
+            // REMOVE: only for debugging...
+            keypress.combo("d", function() {
+                controller.dumpLayerConfig();
+            });
         };
     });
 });
