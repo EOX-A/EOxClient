@@ -118,7 +118,8 @@
           "urls": [
               "http://earthserver.eox.at/open/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "SRTM_mosaic",
@@ -340,7 +341,7 @@
       "enabled":true,
       "active":false
     }
-    
+
   ],
 
   "visualizationModes":[
@@ -368,7 +369,7 @@
       "enabled":true,
       "active":false
     }
-    
+
   ]
 
 }

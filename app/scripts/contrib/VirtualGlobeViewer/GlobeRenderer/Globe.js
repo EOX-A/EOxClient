@@ -107,32 +107,55 @@ define([
         }
     };
 
+    Globe.prototype.createCommonLayerOptionsFromModel = function(model) {
+        var opts = {};
+
+        opts.baseUrl = model.get('view').urls[0];
+
+        opts.style = ''; // MapProxy needs a style argument, even if its empty
+        if (model.get('view').style) {
+            opts.style = model.get('view').style;
+        }
+
+        var layer = model.get('view').id;
+
+        if (model.get('view').protocol === 'WMS') {
+            opts.layers = layer;
+        } else {
+            opts.layer = layer;
+        }
+
+        opts.format = model.get('view').format || 'image/jpeg';
+
+        if (model.get('time')) {
+            opts.time = model.get('time');
+        }
+
+        if (model.get('time')) {
+            opts.time = model.get('time')
+        }
+
+        if (opts.format === 'image/png') {
+            opts.transparent = true;
+        }
+
+        return opts;
+    };
+
     Globe.prototype.addLayer = function(model, isBaseLayer) {
         var layerDesc = this.layerCache[model.get('name')];
         var layer = undefined;
 
-        console.log('time: ' + model.get('time'));
-
         if (typeof layerDesc === 'undefined') {
-            if (model.get('view').protocol === 'WMTS') {
-                layer = new GlobWeb.WMTSLayer({
-                    baseUrl: model.get('view').urls[0],
-                    style: model.get('view').style,
-                    layer: model.get('view').id,
-                    format: model.get('view').format,
-                    matrixSet: model.get('view').matrixSet,
-                    time: model.get('time'), // Note: time is only defined on compatible products
-                    transparent: "true"
-                });
+            var opts = this.createCommonLayerOptionsFromModel(model);
 
-            } else if (model.get('view').protocol === 'WMS') {
-                layer = new GlobWeb.WMSLayer({
-                    baseUrl: model.get('view').urls[0],
-                    layers: model.get('view').id,
-                    format: model.get('view').format,
-                    time: model.get('time'), // Note: time is only defined on compatible products
-                    transparent: "true"
+            if (model.get('view').protocol === 'WMTS') {
+                var layer_opts = _.extend(opts, {
+                    matrixSet: model.get('view').matrixSet,
                 });
+                layer = new GlobWeb.WMTSLayer(layer_opts);
+            } else if (model.get('view').protocol === 'WMS') {
+                layer = new GlobWeb.WMSLayer(opts);
             }
 
             // set initial opacity:
@@ -177,7 +200,7 @@ define([
 
     Globe.prototype.removeAllOverlays = function() {
         _.each(this.overlayLayers, function(desc, idx) {
-                this.globe.removeLayer(desc.layer);
+            this.globe.removeLayer(desc.layer);
         }.bind(this));
 
         this.overlayLayers.length = 0;
