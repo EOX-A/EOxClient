@@ -48,7 +48,8 @@ module.exports = function (grunt) {
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                    '<%= yeoman.app %>/scripts/config.json'
+                    '<%= yeoman.app %>/scripts/config.json',
+                	'<%= yeoman.app %>/templates/{,*/}*.hbs'
                 ]
             }
         },
@@ -164,11 +165,11 @@ module.exports = function (grunt) {
                 generatedImagesDir: '.tmp/images/generated',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
+                fontsDir: '<%= yeoman.app %>/fonts',
                 importPath: '<%= yeoman.app %>/bower_components',
                 httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/styles/fonts',
+                httpFontsPath: '/fonts',
                 relativeAssets: false
             },
             dist: {},
@@ -311,19 +312,20 @@ module.exports = function (grunt) {
                     src: [
                         'bower_components/requirejs/require.js',
                         'bower_components/jquery/jquery.min.js',
+                        'bower_components/jquery/jquery.min.map',
                         'bower_components/jquery-ui/ui/minified/jquery-ui.min.js',
                         "bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css",
-                        "bower_components/jquery-ui/themes/smoothness/images/*.png",
                         'bower_components/jquery-ui/ui/minified/jquery-ui.slider.min.js',
                         'bower_components/backbone-amd/backbone-min.js',
+                        'bower_components/backbone-amd/backbone-min.map',
                         'bower_components/underscore-amd/underscore-min.js',
                         'bower_components/d3/d3.min.js',
                         'bower_components/d3.TimeSlider/d3.timeslider.min.js',
                         'bower_components/d3.TimeSlider/d3.timeslider.plugins.min.js',
                         'bower_components/libcoverage/libcoverage.min.js',
-                        'bower_components/filesaver/FileSaver.js',                    
+                        'bower_components/filesaver/FileSaver.js',
                         'bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min.js',
-                        'bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min.js', 
+                        'bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min.js',
                         'bower_components/backbone.babysitter/lib/amd/backbone.babysitter.min.js',
                         'bower_components/requirejs-text/text.js',
                         'bower_components/require-handlebars-plugin/Handlebars.js',
@@ -331,14 +333,26 @@ module.exports = function (grunt) {
                         'bower_components/require-handlebars-plugin/hbs/json2.js',
                         'bower_components/require-handlebars-plugin/hbs.js',
                         'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
-                        'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js'
+                        'bower_components/bootstrap/dist/*/*',
+                        'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js',
+                        'bower_components/lm.js/lm.js'
                     ]
                 },{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/bower_components/jquery-ui/themes/smoothness/images/',
-                    dest: '<%= yeoman.dist %>/styles/images/',
+                    flatten: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>/fonts/',
                     src: [
-                        "*.{png,gif}",
+                        'bower_components/*/fonts/*',
+                    ]
+                },{
+                    expand: true,
+                    flatten: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>/images/',
+                    src: [
+                        'bower_components/*/images/*',
+                        'bower_components/*/img/*',
                     ]
                 },{
                     expand: true,

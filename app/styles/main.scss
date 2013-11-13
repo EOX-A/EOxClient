@@ -1,8 +1,7 @@
 $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 
-@import 'sass-bootstrap/lib/bootstrap';
-
+/* Not used right now ;)
 #preloadedImages {
        width: 0px;
        height: 0px;
@@ -13,17 +12,11 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
        background-image: url(path/to/image4.png);
        background-image: url();
 }
+*/
 
-
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-}
-
-hr {
-	margin: 9px 0 9px 0px;
-}
-
+/*
+ * Basic styles
+ */
 html, body {
 	height: 100%;
 	width: 100%;
@@ -31,93 +24,170 @@ html, body {
 
 ul, li {
  	list-style-type: none;
-    list-style-position:inside;
-    
+  list-style-position: inside;
 }
 
-#modal-start-download {
-  width: 750px;
+hr {
+  margin: 1em 0;
 }
 
-.download{
-	display: block;
-	position: absolute;
-	top: 120px;
-	left: 15%;
-	margin:0px auto;
-	left:0;
-	right:0;
-	width: 750px;
-	padding: 0;
-	font-size: 12px;
-}
-
-#div-downloads {
-	display: none;
-}
-
-.selectionManager{
-	display: block;
-	position: absolute;
-	top: 120px;
-	left: 15%;
-	margin:0px auto;
-	left:0;
-	right:0;
-	width: 750px;
-	padding: 0;
-	font-size: 12px;
-}
-
-.popover {
-  position: fixed;
-}
-
-.toolcontrol {
-	top: 120px;
-	right: 2%;
-	padding: 2px;
-	float: right;
-
-}
-
-.toolcontrol ul {
-	margin:0;
-    padding:0;
+.not-selectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 
-
-
-#products ul {
-	margin:0;
-    padding:0;
+/*
+ * Panels & Modals
+ */
+.panel .close {
+  float: right;
+  margin: -.5em -.7em 0 0;
+  font-size: 1.2em;
 }
 
-/*.checkbox {
-	padding-right: 20px;
-}*/
-
-#products li {
-   padding:5px 0 5px 25px;
-}
-
-.check {
-   padding:0;
-   margin-left:5px;
+.panel .no-label, .modal .no-label {
+  float: left;
+  margin: -.55em 0 0 -.6em;
+  font-size: 1em;
 }
 
 
+/*
+ * Form controls
+ */
+button[active=active] {
+  background-color: #ccc;
+}
 
+.fixed-sized-addon {
+    min-width:5em;
+    text-align:left;
+}
+
+/*
+ * Draggable & Sortable Elements
+ */
+.ui-draggable .panel-heading {
+    cursor: move;
+}
+.sortable-placeholder {
+    display: block;
+    height: 2em;
+}
+
+/*
+ * Layer control styles
+ */
+.layercontrol {
+    width: 23.5em;
+    top: 10em;
+    left: 3em;
+    font-size: .9em;
+    position: absolute;
+}
+.layercontrol ul {
+    margin: 0 0 1em 1.5em;
+    padding: 0;
+}
 #baseLayers ul {
-	margin:0;
-    padding:0;
+  margin-bottom: 0;
 }
-
 #baseLayers li {
-   padding:5px 0 5px 25px;
+  margin-bottom: 0;
+  margin-top: .2em;
+}
+.layercontrol li {
+    margin: .2em 0 .8em 0;
+    padding: 0 0 0 .6em;
+}
+.layercontrol ul input {
+    margin-top: 2px;
+}
+.layercontrol .sortable-layer {
+  margin: .3em -.5em 0 -2em;
+  padding: 0;
+}
+.layercontrol .sortable-layer .form-control {
+  font-size: 1em;
+  line-height: 1.1em;
+}
+.fa-sort {
+    cursor: ns-resize;
 }
 
+/*
+ * Tool control
+ */
+.toolcontrol {
+  top: 10em;
+  right: 3em;
+  font-size: .9em;
+  position: relative;
+  float: right;
+}
+.toolcontrol .panel-heading h3 {
+  text-align: center;
+  font-size: 1.8em;
+}
+.toolcontrol .panel-body {
+  text-align: center;
+  padding: .3em .3em .1em .4em;
+}
+.toolcontrol .btn-group-vertical {
+  margin-bottom: .5em;
+}
+
+/*
+ * Selection Manager, Download Manager
+ */
+.selectionManager, .download {
+  width: 50em;
+  top: 10em;
+  left: 50%;
+  margin: 0 0 0 -25em;
+  font-size: 1em;
+  position: absolute;
+}
+.selectionManager .input-group {
+  margin: .3em 0;
+}
+
+#btn-start-download {
+  float: right;
+}
+
+.selectionManager .panel-body, .download .panel-body {
+  max-height: 15em;
+  overflow: auto;
+}
+
+/*
+ * Download Selection Panel
+ */
+ .downloadselection {
+  width: 20em;
+  top: 10em;
+  right: 3em;
+  font-size: .9em;
+  position: relative;
+  float: right;
+ }
+
+.downloadselection .input-group {
+  margin: .3em 0;
+}
+
+.downloadselection .btn-group {
+  margin-top: .6em;
+}
+/*
+ * Old Styles
+ */
 
 #content {
 	height: 100%;
@@ -139,14 +209,14 @@ ul, li {
 }
 
 #topBar {
-	
+
 }
 
 #bottomBar {
 	bottom: 10px;
 	position: absolute;
 	width: 96%;
-	left: 2%;	
+	left: 2%;
 }
 
 /*
@@ -174,7 +244,7 @@ ul, li {
 }
 
 #OpenLayers_Control_Zoom_5 {
-	top: 50px;
+	top: 60px;
 }
 
 .tab-header {
@@ -184,16 +254,6 @@ ul, li {
 .sidepane {
 	width: 100px;
 	height: 100px;
-}
-
-.layercontrol {
-	width: 260px;
-	top: 120px;
-	left: 2%;
-	padding: 2px;
-	font-size: 13px;
-	float: left;
-
 }
 
 /* Style to change the upload button appearance */
@@ -231,15 +291,13 @@ ul, li {
    	-webkit-text-stroke-color: black;
 }*/
 
-.downloadselection {
-	display: block;
-	position: absolute;
-	top: 120px;
-	float: right;
-	right: 50px;
-	width: 200px;
+.hero-unit {
+    margin: 50px auto 0 auto;
+    width: 300px;
 }
 
-
+#div-downloads {
+  display: none;
+}
 
 

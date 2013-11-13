@@ -13,8 +13,8 @@
 
 		var ToolSelectionView = Backbone.Marionette.CollectionView.extend({
 
-			tagName: "ul",
-			className: "toolcontrolview",
+			tagName: "div",
+			className: "btn-group-vertical",
 
 			initialize: function(options) {
 			},

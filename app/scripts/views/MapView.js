@@ -33,6 +33,8 @@ define(['backbone',
 					
 					
 
+					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
+
 					// Add layers for different selection methods
 					this.vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
 
@@ -225,6 +227,7 @@ define(['backbone',
 				},
 
 				onLoadGeoJSON: function (data) {
+					this.vectorLayer.removeAllFeatures();
 					var features = this.geojson.read(data);
 					var bounds;
 		            if(features) {
@@ -290,6 +293,10 @@ define(['backbone',
 						}
 				     
 				    }, this);
+				},
+
+				onGetGeoJSON: function () {
+					return this.geojson.write(this.vectorLayer.features, true);
 				}
 			});
 			return {"MapView":MapView};

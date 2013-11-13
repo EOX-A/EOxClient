@@ -16,7 +16,7 @@
 		var DownloadSelectionView = Backbone.Marionette.CompositeView.extend({  
 
 			tagName: "div",
-			className: "well downloadselection",
+			className: "panel panel-default downloadselection not-selectable",
 			template: {type: 'handlebars', template: DownloadSelectionTmpl},
 			events: {
 				'click #btn-draw-bbox':'onBBoxClick',
@@ -41,14 +41,23 @@
 				this.$('.close').on("click", _.bind(this.onClose, this));
 				this.$el.draggable({ 
 		    		containment: "#content" ,
-		    		scroll: false
+		    		scroll: false,
+		    		handle: '.panel-heading'
 		    	});
 
-		    	this.$('#div-date-begin').datepicker({autoclose: true});
-		    	this.$('#div-date-begin').datepicker('update', this.model.get('ToI').start);
+		    	this.$('#div-date-begin input[type="text"]').datepicker({autoclose: true, format: "dd/mm/yyyy"});
+		    	this.$('#div-date-begin input[type="text"]').datepicker('update', this.model.get('ToI').start);
+		    	this.$('#div-date-begin input[type="text"]').datepicker('setDate', this.model.get('ToI').start);
 
-		    	this.$('#div-date-end').datepicker({autoclose: true});
-		    	this.$('#div-date-end').datepicker('update', this.model.get('ToI').end);
+		    	this.$('#div-date-end input[type="text"]').datepicker({autoclose: true, format: "dd/mm/yyyy"});
+		    	this.$('#div-date-end input[type="text"]').datepicker('update', this.model.get('ToI').end);
+
+				$(document).on('touch click', '#div-date-begin .input-group-addon', function(e){
+				    $('input[type="text"]', $(this).parent()).focus();
+				});
+				$(document).on('touch click', '#div-date-end .input-group-addon', function(e){
+				    $('input[type="text"]', $(this).parent()).focus();
+				});
 
 			},
 
@@ -73,14 +82,14 @@
 			},
 
 			onTimeChange: function (time) {
-		    	this.$('#div-date-begin').datepicker('update', this.model.get('ToI').start);
-		    	this.$('#div-date-end').datepicker('update', this.model.get('ToI').end);
+		    	this.$('#div-date-begin input[type="text"]').datepicker('update', this.model.get('ToI').start);
+		    	this.$('#div-date-end input[type="text"]').datepicker('update', this.model.get('ToI').end);
 			},
 
 			onChangeDate: function (evt) {
 				var opt = {
-					start: this.$('#div-date-begin').datepicker('getDate'),
-					end: this.$('#div-date-end').datepicker('getDate')
+					start: this.$('#div-date-begin input[type="text"]').datepicker('getDate'),
+					end: this.$('#div-date-end input[type="text"]').datepicker('getDate')
 				};
 				Communicator.mediator.trigger('date:selection:change', opt);
 			},

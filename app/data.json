@@ -40,7 +40,7 @@
         }
       },
       {
-        "name": "GISAT Landsat [EUSC-B]",
+        "name": "GISAT Landsat (EUSC-B)",
         "visible": false,
         "timeSlider": true,
         "color":"red",
@@ -59,7 +59,7 @@
         }
       },
     {
-      "name": "MERIS FR L1 [EUSC-A]",
+      "name": "MERIS FR L1 (EUSC-A)",
       "visible": false,
       "timeSlider": true,
       "color":"cyan",
@@ -78,7 +78,7 @@
       }
     },
     {
-      "name": "ASAR IMM L1 [NLR]",
+      "name": "ASAR IMM L1 (NLR)",
       "visible": false,
       "timeSlider": true,
       "color":"black",
@@ -97,7 +97,7 @@
       }
     },
     {
-      "name": "MERIS FRS L1 [NLR]",
+      "name": "MERIS FRS L1 (NLR)",
       "visible": false,
       "timeSlider": true,
       "color":"purple",

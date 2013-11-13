@@ -26,15 +26,24 @@
 			onLayerControlOpen: function(event){
 				//We have to render the layout before we can
                 //call show() on the layout's regions
-                App.leftSideBar.show(App.layout);
-                App.layout.baseLayers.show(App.baseLayerView);
-                App.layout.products.show(App.productsView);
-                App.layout.overlays.show(App.overlaysView);
+                if (_.isUndefined(App.layout.isClosed) || App.layout.isClosed) {
+				  	App.leftSideBar.show(App.layout);
+	                App.layout.baseLayers.show(App.baseLayerView);
+	                App.layout.products.show(App.productsView);
+	                App.layout.overlays.show(App.overlaysView);
+				} else {
+					App.layout.close();
+                }
+               
 			},
 			onToolSelectionOpen: function(event){
-				App.rightSideBar.show(App.toolLayout);
-				App.toolLayout.selection.show(App.selectionToolsView);
-				App.toolLayout.visualization.show(App.visualizationToolsView);
+				if (_.isUndefined(App.toolLayout.isClosed) || App.toolLayout.isClosed) {
+					App.rightSideBar.show(App.toolLayout);
+					App.toolLayout.selection.show(App.selectionToolsView);
+					App.toolLayout.visualization.show(App.visualizationToolsView);
+				} else {
+					App.toolLayout.close();
+				}
 			}
 		});
 		return new ContentController();

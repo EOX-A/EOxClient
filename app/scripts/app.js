@@ -68,7 +68,7 @@
 
 				//Base Layers are loaded and added to the global collection
 				_.each(config.mapConfig.baseLayers, function(baselayer) {
-					
+
 					globals.baseLayers.add(
 						new m.LayerModel({
 							name: baselayer.name,
@@ -83,7 +83,7 @@
 								style: baselayer.style,
 								format: baselayer.format,
 								resolutions: baselayer.resolutions,
-								maxExtent: baselayer.maxExtent,	
+								maxExtent: baselayer.maxExtent,
 								gutter: baselayer.gutter,
 								buffer: baselayer.buffer,
 								units: baselayer.units,
@@ -101,7 +101,7 @@
 
 				//Productsare loaded and added to the global collection
 				_.each(config.mapConfig.products, function(products) {
-					
+
 					globals.products.add(
 						new m.LayerModel({
 							name: products.name,
@@ -121,7 +121,7 @@
 								style: products.view.style,
 								format: products.view.format,
 								resolutions: products.view.resolutions,
-								maxExtent: products.view.maxExtent,	
+								maxExtent: products.view.maxExtent,
 								gutter: products.view.gutter,
 								buffer: products.view.buffer,
 								units: products.view.units,
@@ -143,7 +143,7 @@
 
 				//Overlays are loaded and added to the global collection
 				_.each(config.mapConfig.overlays, function(overlay) {
-					
+
 					globals.overlays.add(
 						new m.LayerModel({
 							name: overlay.name,
@@ -158,7 +158,7 @@
 								style: overlay.style,
 								format: overlay.format,
 								resolutions: overlay.resolutions,
-								maxExtent: overlay.maxExtent,	
+								maxExtent: overlay.maxExtent,
 								gutter: overlay.gutter,
 								buffer: overlay.buffer,
 								units: overlay.units,
@@ -178,7 +178,7 @@
 				// Create map view and execute show of its region
 				this.map.show(new v.MapView({el: $("#map")}));
 
-				// If Navigation Bar is set in configuration go trhough the 
+				// If Navigation Bar is set in configuration go trhough the
 				// defined elements creating a item collection to rendered
 				// by the marionette collection view
 				if (config.navBarConfig) {
@@ -189,6 +189,7 @@
 						navBarItemCollection.add(
 							new m.NavBarItemModel({
 								name:list_item.name,
+                                icon:list_item.icon,
 								eventToRaise:list_item.eventToRaise
 							}));
 					}, this);
@@ -197,19 +198,27 @@
 						{template: t.NavBar({
 							title: config.navBarConfig.title,
 							url: config.navBarConfig.url}),
-						className:"navbar navbar-fixed-top transparent", 
+						className:"navbar navbar-inverse navbar-fixed-top not-selectable",
 						itemView: v.NavBarItemView, tag: "div",
 						collection: navBarItemCollection}));
 
 				};
 
-				// Added region to test combination of backbone 
+				// Added region to test combination of backbone
 				// functionality combined with jQuery UI
 				this.addRegions({dialogRegion: DialogRegion.extend({el: "#viewContent"})});
-				this.DialogContentView = new v.ContentView({ 
+				this.DialogContentView = new v.ContentView({
 					template: {type: 'handlebars', template: t.Info},
-					className: "modal hide fade",
-					attributes: {"data-keyboard":"false", "data-backdrop":"static"} 
+                    id: "about",
+                    className: "modal fade",
+                    attributes: {
+                        role: "dialog",
+                        tabindex: "-1",
+                        "aria-labelledby": "about-title",
+                        "aria-hidden": true,
+                        "data-keyboard": true,
+                        "data-backdrop": "static"
+                    }
 				});
 
 				// Create the views - these are Marionette.CollectionViews that render ItemViews
@@ -219,7 +228,7 @@
                 		template: {
                 			type:'handlebars',
                 			template: t.BulletLayer},
-                		className: "radio" 
+                		className: "radio"
                 	})
                 });
 
@@ -229,7 +238,7 @@
                 		template: {
                 			type:'handlebars',
                 			template: t.CheckBoxLayer},
-                		className: "ui-state-default checkbox"
+                		className: "sortable-layer"
                 	}),
                 	className: "sortable"
                 });
@@ -277,7 +286,7 @@
 								type: "tool"
 							}));
 				}, this);
-                
+
                 // Create Collection Views to hold set of views for selection tools
                 this.visualizationToolsView = new v.ToolSelectionView({
                 	collection:visualizationToolsCollection,
@@ -306,8 +315,14 @@
 
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
                 this.bottomBar.show(this.timeSliderView);
-				
-								
+
+
+				//this.router = new Router({views: this.views, regions: this.regions});
+
+
+				//this.downloadView = new v.DownloadView();
+
+
 			}
 
 

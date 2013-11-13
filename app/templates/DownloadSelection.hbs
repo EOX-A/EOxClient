@@ -1,39 +1,57 @@
+<div class="panel-heading">
+    <button type="button" class="close"><i class="fa fa-times-circle"></i></button>
+    <h3 class="panel-title"><i class="fa fa-fw fa-download"></i> Download</h3>
+</div>
 
-  <button type="button" class="close">&times;</button>
-  <h4>Download</h4>
+<div class="panel-body"">
 
-  <div class="input-prepend">
-    <span class="add-on input-label-small">Min X</span>
-    <input type="text" class="span2" placeholder="min-x" id="txt-minx">
-  </div><br />
-  <div class="input-prepend">
-    <span class="add-on input-label-small">Min Y</span>
-    <input type="text" class="span2" placeholder="min-y" id="txt-miny">
-  </div><br />
-  <div class="input-prepend">
-    <span class="add-on input-label-small">Max X</span>
-    <input type="text" class="span2" placeholder="max-x" id="txt-maxx">
-  </div><br />
-  <div class="input-prepend">
-    <span class="add-on input-label-small">Max Y</span>
-    <input type="text" class="span2" placeholder="max-y" id="txt-maxy">
-  </div><br />
-  <div class="btn-group" style="width:100%;">
-    <button class="btn" id="btn-draw-bbox" style="width:85%">Draw Bounding Box</button>
-    <button class="btn" id="btn-clear-bbox" style="width:15%">&times;</button>
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Min X</span>
+    <input type="text" class="form-control" placeholder="min-x" id="txt-minx">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Min Y</span>
+    <input type="text" class="form-control" placeholder="min-y" id="txt-miny">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Max X</span>
+    <input type="text" class="form-control" placeholder="max-x" id="txt-maxx">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Max Y</span>
+    <input type="text" class="form-control" placeholder="max-y" id="txt-maxy">
+  </div>
+
+  <div class="btn-group input-group-level btn-block" style="width:100%;">
+    <button type="button" class="btn btn-default" id="btn-draw-bbox" style="width:85%;">Draw Bounding Box</button>
+    <button type="button" class="btn btn-default" id="btn-clear-bbox" style="width:15%;"><i class="fa fa-trash-o"></i></button>
   </div>
 
     
   <h6>Date Range</h6>
-  <div id="div-date-begin" class="input-prepend input-append date" data-date-format="yyyy-mm-dd" >
-    <span class="add-on input-label-small">Start</span>
-    <input type="text" class="span2" placeholder="begin time" id="txt-date-begin">
-    <span class="add-on"><i class="icon-calendar"></i></span>
-  </div><br />
-  <div id="div-date-end" class="input-prepend input-append date" data-date-format="yyyy-mm-dd" >
-    <span class="add-on input-label-small">End</span>
-    <input type="text" class="span2" placeholder="end time" id="txt-date-end">
-    <span class="add-on"><i class="icon-calendar"></i></span>
+
+  <div class="input-group input-prepend input-append date" id="div-date-begin">
+    <span class="input-group-addon fixed-sized-addon">Start</span>
+    <input type="text" class="form-control" placeholder="begin time" id="txt-date-begin">
+    <span class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+    </span>
   </div>
-  <h6>Download</h6>
-  <button class="btn btn-block btn-primary" id="btn-download"  href="#modal-start-download" data-toggle="modal"><i class="icon-white icon-download-alt"></i>Download</button>
+
+  <div class="input-group input-prepend input-append date" id="div-date-end">
+    <span class="input-group-addon fixed-sized-addon">End</span>
+    <input type="text" class="form-control" placeholder="end time" id="txt-date-end">
+    <span class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+    </span>
+  </div>
+
+
+
+</div>
+<div class="panel-footer">
+  <button class="btn btn-block btn-primary" id="btn-download"  href="#modal-start-download"><i class="icon-white icon-download-alt"></i>Download</button>
+</div>

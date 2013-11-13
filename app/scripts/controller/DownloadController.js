@@ -17,15 +17,17 @@
 
 		var DownloadController = Backbone.Marionette.Controller.extend({
 			model: new m.DownloadModel(),
+			view: null,
 
 	    initialize: function(options){
-	        //App.downloadView.model = this.model;
 	      	this.model.set('products', {});
 	        this.listenTo(Communicator.mediator, "map:layer:change", this.onChangeLayer);
 	        this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 	        this.listenTo(Communicator.mediator, "selection:changed", this.onSelectionChange);
 	        this.listenTo(Communicator.mediator, "dialog:open:download", this.onDownloadToolOpen);
 	        this.listenTo(Communicator.mediator, "dialog:open:downloadSelection", this.onDwonloadSelectionOpen);
+
+	        this.view = new ds.DownloadSelectionView({model:this.model});
 		},
 
 		onChangeLayer: function (options) {
@@ -41,12 +43,10 @@
 		          	this.model.set('products', products);
 	            }
 	        }
-        	//this.checkDownload();
 	    },
 
 	    onTimeChange: function(time) {
 	        this.model.set('ToI',time);
-            //this.checkDownload();
 		},
 
 	    onSelectionChange: function(selection) {
@@ -57,7 +57,6 @@
 	        }else{
 	          this.model.set('AoI', null);
 	        }
-            //this.checkDownload();
 		},
 
 		checkDownload: function() {
@@ -73,7 +72,6 @@
 
 		onDownloadToolOpen: function(toOpen) {
             if(toOpen){
-              //App.downloadView.model = this.model;
               App.viewContent.show(new v.DownloadView({model:this.model}));
             }else{
               App.viewContent.close();
@@ -81,8 +79,11 @@
         },
 
 		onDwonloadSelectionOpen: function (event) {
-			//App.rightSideBar.show(App.downloadSelectionView);
-			App.viewContent.show(new ds.DownloadSelectionView({model:this.model}));
+			if (_.isUndefined(this.view.isClosed) || this.view.isClosed) {	
+				App.viewContent.show(this.view);
+			}else{
+				this.view.close();
+			}
 		}
 
 		});

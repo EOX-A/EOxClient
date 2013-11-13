@@ -1,18 +1,15 @@
-<div id="start-download">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h5>Download</h5>
-  </div>
-  <div class="modal-body" id="download-list">
-
-  </div>
-  <div class="modal-footer">
+<div class="panel-heading">
+    <button type="button" class="close"><i class="fa fa-times-circle"></i></button>
+    <h3 class="panel-title"><i class="fa fa-fw fa-download"></i> Download Manager</h3>
+</div>
+<div class="panel-body" id="download-list"></div>
+<div class="panel-footer">
+  <p>
     <select class="input-small" id="select-output-format">
       <option value="image/tiff" selected>GeoTIFF</option>
       <option value="image/jpeg">JPEG</option>
       <option value="image/png">PNG</option>
     </select>
-
     <select class="input-medium" id="select-output-crs" style="width:380px">
       <option value="epsg:4326" selected>Geog. Lat/Lon / WGS84 (EPSG:4326)</option>
       <option value="epsg:3034">ETRS-LCC (EPSG:3034)</option>
@@ -27,10 +24,10 @@
       <option value="epsg:32633">UTM 33N / WGS84 (EPSG:32633)</option>
       <option value="epsg:32643">UTM 43N / WGS84 (EPSG:32643)</option>
     </select>
-
-    <button class="btn" id="btn-select-all-coverages">Select All</button>
-    <button class="btn" id="btn-invert-coverage-selection">Invert Selection</button>
-<p></p>
-    <button class="btn btn-primary" id="btn-start-download" disabled="disabled">Start Download</button>
-  </div>
+  </p>
+  <p>
+    <button type="button" class="btn btn-primary" id="btn-start-download" disabled="disabled"><i class="fa fa-fw fa-download"></i> Start Download</button>
+    <button type="button" class="btn btn-default" id="btn-select-all-coverages"><i class="fa fa-fw fa-check-square"></i> Select All</button>
+    <button type="button" class="btn btn-default" id="btn-invert-coverage-selection"><i class="fa fa-fw fa-check-square-o"></i> Invert Selection</button>
+  </p>
 </div>
