@@ -1,0 +1,158 @@
+{
+
+  "products": [
+      {
+        "name": "CESBIO Landsat 5",
+        "visible": false,
+        "timeSlider": true,
+        "color":"green",
+        "view": {
+          "id": "Landsat5_RGB_view",
+          "protocol": "WMS",
+          "urls": [
+              "http://data.eox.at/instance00/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "Landsat5_2A",
+          "protocol": "EOWCS",
+          "url": "http://data.eox.at/instance00/ows"
+        }
+      },
+      {
+        "name": "CESBIO Landsat 7",
+        "visible": false,
+        "timeSlider": true,
+        "color":"blue",
+        "view": {
+          "id": "Landsat7_RGB_view",
+          "protocol": "WMS",
+          "urls": [
+              "http://data.eox.at/instance00/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "Landsat7_2A",
+          "protocol": "EOWCS",
+          "url": "http://data.eox.at/instance00/ows"
+        }
+      },
+      {
+        "name": "GISAT Landsat (EUSC-B)",
+        "visible": false,
+        "timeSlider": true,
+        "color":"red",
+        "view": {
+          "id": "GISAT_SimS2_RGB_view",
+          "protocol": "WMS",
+          "urls": [
+              "http://data.eox.at/instance00/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "GISAT_SimS2",
+          "protocol": "EOWCS",
+          "url": "http://data.eox.at/instance00/ows"
+        }
+      },
+    {
+      "name": "MERIS FR L1 (EUSC-A)",
+      "visible": false,
+      "timeSlider": true,
+      "color":"cyan",
+      "view": {
+        "id": "MERIS_FR__L1_EUSC_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "MERIS_FR__L1_EUSC",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "ASAR IMM L1 (NLR)",
+      "visible": false,
+      "timeSlider": true,
+      "color":"black",
+      "view": {
+        "id": "ASAR_IMM_L1_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "ASAR_IMM_L1",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "MERIS FRS L1 (NLR)",
+      "visible": false,
+      "timeSlider": true,
+      "color":"purple",
+      "view": {
+        "id": "MERIS_FRS_L1_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "MERIS_FRS_L1",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "ASAR IMM L1 - ALL (previews only)",
+      "visible": false,
+      "timeSlider": true,
+      "color":"black",
+      "view": {
+        "id": "ASAR_IMM_L1_ALL_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "ASAR_IMM_L1_ALL_view",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    },
+    {
+      "name": "MERIS FRS L1 - ALL (previews only)",
+      "visible": false,
+      "timeSlider": true,
+      "color":"purple",
+      "view": {
+        "id": "MERIS_FRS_L1_ALL_view",
+        "protocol": "WMS",
+        "urls": [
+            "http://data.eox.at/instance01/ows"
+        ],
+        "style": "default"
+      },
+      "download": {
+        "id": "MERIS_FRS_L1_ALL_view",
+        "protocol": "EOWCS",
+        "url": "http://data.eox.at/instance01/ows"
+      }
+    }
+  ]
+
+}

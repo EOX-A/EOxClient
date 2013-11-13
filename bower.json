@@ -20,7 +20,11 @@
     "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.7/d3.TimeSlider.v0.0.7.zip",
     "lm.js": "madhums/lm.js#~0.1.0",
     "bootstrap": "~3.0.1",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.0.3",
+    "bootstrap-datepicker": "eternicode/bootstrap-datepicker#1.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "bootstrap": "~3.0.1"
+  }
 }

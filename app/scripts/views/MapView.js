@@ -28,6 +28,10 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
+					this.listenTo(Communicator.mediator, 'selection:changed', this.onSelectionChanged);
+					this.listenTo(Communicator.mediator, 'selection:bbox:changed', this.onSelectionBBoxChanged);
+					
+					
 
 					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
@@ -254,6 +258,29 @@ define(['backbone',
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
 					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
+				},
+
+				onSelectionBBoxChanged: function (values) {
+					this.vectorLayer.removeAllFeatures();
+
+					var points = [
+					    new OpenLayers.Geometry.Point(values.left, values.bottom),
+					    new OpenLayers.Geometry.Point(values.left, values.top),
+					    new OpenLayers.Geometry.Point(values.right, values.top),
+					    new OpenLayers.Geometry.Point(values.right, values.bottom)
+					];
+					var ring = new OpenLayers.Geometry.LinearRing(points);
+					var polygon = new OpenLayers.Geometry.Polygon([ring]);
+
+					var feature = new OpenLayers.Feature.Vector(polygon);
+					this.vectorLayer.addFeatures([feature]);
+					
+				},
+
+				onSelectionChanged: function (geometry) {
+					for(key in this.drawControls) {
+		               this.drawControls[key].deactivate();	                    
+	                }	
 				},
 
 				onTimeChange: function (time) {

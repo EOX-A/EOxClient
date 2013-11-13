@@ -58,10 +58,15 @@ hr {
 
 
 /*
- * Buttons
+ * Form controls
  */
 button[active=active] {
   background-color: #ccc;
+}
+
+.fixed-sized-addon {
+    min-width:5em;
+    text-align:left;
 }
 
 /*
@@ -79,7 +84,7 @@ button[active=active] {
  * Layer control styles
  */
 .layercontrol {
-    width: 20em;
+    width: 23.5em;
     top: 10em;
     left: 3em;
     font-size: .9em;
@@ -161,6 +166,25 @@ button[active=active] {
   overflow: auto;
 }
 
+/*
+ * Download Selection Panel
+ */
+ .downloadselection {
+  width: 20em;
+  top: 10em;
+  right: 3em;
+  font-size: .9em;
+  position: relative;
+  float: right;
+ }
+
+.downloadselection .input-group {
+  margin: .3em 0;
+}
+
+.downloadselection .btn-group {
+  margin-top: .6em;
+}
 /*
  * Old Styles
  */
@@ -277,6 +301,3 @@ button[active=active] {
 }
 
 
-.popover {
-  position: fixed;
-}

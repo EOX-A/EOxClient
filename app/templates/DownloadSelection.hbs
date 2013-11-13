@@ -1,0 +1,57 @@
+<div class="panel-heading">
+    <button type="button" class="close"><i class="fa fa-times-circle"></i></button>
+    <h3 class="panel-title"><i class="fa fa-fw fa-download"></i> Download</h3>
+</div>
+
+<div class="panel-body"">
+
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Min X</span>
+    <input type="text" class="form-control" placeholder="min-x" id="txt-minx">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Min Y</span>
+    <input type="text" class="form-control" placeholder="min-y" id="txt-miny">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Max X</span>
+    <input type="text" class="form-control" placeholder="max-x" id="txt-maxx">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon fixed-sized-addon">Max Y</span>
+    <input type="text" class="form-control" placeholder="max-y" id="txt-maxy">
+  </div>
+
+  <div class="btn-group input-group-level btn-block" style="width:100%;">
+    <button type="button" class="btn btn-default" id="btn-draw-bbox" style="width:85%;">Draw Bounding Box</button>
+    <button type="button" class="btn btn-default" id="btn-clear-bbox" style="width:15%;"><i class="fa fa-trash-o"></i></button>
+  </div>
+
+    
+  <h6>Date Range</h6>
+
+  <div class="input-group input-prepend input-append date" id="div-date-begin">
+    <span class="input-group-addon fixed-sized-addon">Start</span>
+    <input type="text" class="form-control" placeholder="begin time" id="txt-date-begin">
+    <span class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+    </span>
+  </div>
+
+  <div class="input-group input-prepend input-append date" id="div-date-end">
+    <span class="input-group-addon fixed-sized-addon">End</span>
+    <input type="text" class="form-control" placeholder="end time" id="txt-date-end">
+    <span class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+    </span>
+  </div>
+
+
+
+</div>
+<div class="panel-footer">
+  <button class="btn btn-block btn-primary" id="btn-download"  href="#modal-start-download"><i class="icon-white icon-download-alt"></i>Download</button>
+</div>

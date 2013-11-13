@@ -25,6 +25,7 @@
       },
       onShow: function(view) {
 
+        this.listenTo(Communicator.mediator, 'date:selection:change', this.onDateSelectionChange);
         this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
 
         var selectionstart = new Date(this.options.brush.start);
@@ -52,6 +53,10 @@
       onChangeTime: function(evt){
         Communicator.mediator.trigger('time:change', evt.originalEvent.detail);
       },
+      
+      onDateSelectionChange: function(opt) {
+        this.slider.select(opt.start, opt.end);
+      },
 
       changeLayer: function (options) {
         if (!options.isBaseLayer){
@@ -60,13 +65,13 @@
             if(options.visible && product.get('timeSlider')){
               this.slider.addDataset(
                 {
-                  id: product.get('download').id,
+                  id: product.get('view').id,
                   color: product.get('color'),
-                  data: new TimeSlider.Plugin.EOWCS({ url: product.get('download').url, eoid: product.get('download').id, dataset: product.get('download').id })
+                  data: new TimeSlider.Plugin.WMS({ url: product.get('view').urls[0], eoid: product.get('view').id, dataset: product.get('view').id })
                 }
               );
             }else{
-              this.slider.removeDataset(product.get('download').id);
+              this.slider.removeDataset(product.get('view').id);
             }
           }
         }

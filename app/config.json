@@ -10,7 +10,7 @@
     ],
     "center": [13.41,52.52],
     "zoom": 5,
-
+    "dataconfigurl" : "data.json",
     "baseLayers": [
       {
         "name": "Terrain Layer",
@@ -65,67 +65,10 @@
         "zoomOffset": 0
       }
     ],
-    "products": [
-      {
-        "name": "PanEuropean Fractional Snow Cover",
-        "visible": false,
-        "timeSlider": true,
-        "color":"green",
-        "view": {
-          "id": "daily_FSC_PanEuropean_Optical",
-          "protocol": "WMS",
-          "urls": [
-              "http://neso.cryoland.enveo.at/cryoland/ows"
-          ],
-          "style": "default"
-        },
-        "download": {
-          "id": "daily_FSC_PanEuropean_Optical",
-          "protocol": "EOWCS",
-          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
-        }
-      },
-      {
-        "name": "PanEuropean Snow Water Equivalent",
-        "visible": false,
-        "timeSlider": true,
-        "color":"red",
-        "view": {
-          "id": "daily_SWE_PanEuropean_Microwave",
-          "protocol": "WMS",
-          "urls": [
-              "http://neso.cryoland.enveo.at/cryoland/ows"
-          ],
-          "style": "default"
-        },
-        "download": {
-          "id": "daily_SWE_PanEuropean_Microwave",
-          "protocol": "EOWCS",
-          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
-        }
-      },
-      {
-        "name": "SRTM",
-        "visible": false,
-        "timeSlider": false,
-        "view": {
-          "id": "SRTM8bit_mosaic",
-          "protocol": "WMS",
-          "urls": [
-              "http://earthserver.eox.at/open/ows"
-          ],
-          "style": "default"
-        },
-        "download": {
-          "id": "SRTM_mosaic",
-          "protocol": "EOWCS",
-          "url": "http://earthserver.eox.at/open/ows"
-        }
-      }
-    ],
+
     "overlays": [
        {
-        "name": "Streets",
+        "name": "borders & labels",
         "id": "overlay",
         "protocol": "WMTS",
         "visible": true,
@@ -182,49 +125,41 @@
   ],
 
   "navBarConfig": {
-    "title" : "EOxClient",
-    "url" : "http://www.eox.at",
+    "title" : "DREAM::ODA",
+    "url" : "https://github.com/DREAM-ODA-OS/ODAClient",
     "items" : [
       {
         "name" : "Layers",
-        "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl"
       },
       {
-        "name" : "Tools",
-        "icon" : "fa-wrench",
-        "eventToRaise" : "ui:open:toolselection",
-        "template" : "ToolSelection"
+        "name" : "Download",
+        "eventToRaise" : "dialog:open:downloadSelection"
+      },
+      {
+        "name" : "Ingestion",
+        "eventToRaise" : "dialog:open:about"
+      },
+      {
+        "name" : "Quality",
+        "eventToRaise" : "dialog:open:about"
       },
       {
         "name" : "About",
-        "icon" : "fa-info-circle",
-        "eventToRaise" : "dialog:open:about",
-        "subitems" : [
-          {
-          "name" : "Info",
-          "eventToRaise" : "dialog:open:info",
-          "template" : "info"
-          },
-          {
-          "name" : "Help",
-          "eventToRaise" : "dialog:open:help",
-          "template" : "help"
-          }
-        ]
+        "eventToRaise" : "dialog:open:about"
       }
     ]
   },
 
   "timeSlider": {
     "domain": {
-      "start": "2012-07-01T00:00:00Z",
-      "end": "2013-07-01T00:00:00Z"
+      "start": "1999-01-01T00:00:00Z",
+      "end": "2015-01-01T00:00:00Z"
     },
     "brush": {
-       "start": "2013-06-05T00:00:00Z",
-      "end": "2013-06-08T00:00:00Z"
+       "start": "2010-01-10T00:00:00Z",
+      "end": "2011-01-10T00:00:00Z"
     }
   },
 
@@ -240,7 +175,8 @@
     "views/TimeSliderView",
     "views/ToolSelectionView",
     "views/ToolItemView",
-    "views/DownloadView"
+    "views/DownloadView",
+    "views/DownloadSelectionView"
   ],
 
   "models":[
@@ -333,10 +269,10 @@
     },
     {
       "id":"download",
-      "eventToRaise":"dialog:open:download",
-      "description": "WCS Download Tool for specific selections",
+      "eventToRaise":"dialog:open:downloadSelection",
+      "description": "WCS Download selection Tool",
       "icon":"icon-download-alt",
-      "enabled":false,
+      "enabled":true,
       "active":false
     }
 

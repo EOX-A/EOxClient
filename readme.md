@@ -1,6 +1,6 @@
-# EOxClient
+# ODA Client
 
-The EOxClient focuses on creating a webclient for map applications, which allows easy customization through a centralized configuration concept.
+The On-line Data Access (ODA) client provides simple web-base user inteface to the ODA Server.
 
 ## Technologies used
 
@@ -8,7 +8,7 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
 
 * [Yo](https://github.com/yeoman/yo) : scaffolds out the application, writing the Grunt configuration and pulling in relevant Grunt tasks that you might need for your build.
 * [Grunt](http://gruntjs.com/) : which allows building, previewing and testing the project
-* [Bower](http://bower.io/) : which allows managing of dependencies and automatic download, thus making the application easily extendable.
+* [Bower](http://bower.io/) : which allows managing of dependencies and automatic download, thus making the application easily extendible.
 
 ## Libraries used
 
@@ -20,10 +20,16 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
 
 ## How to setup development environmet (on a Linux machine)
 
-0.  Get the code from GitHub [EOxClient repository](https://github.com/EOX-A/EOxClient.git):
+0.  Get the code from GitHub [DREAM Client repository](https://github.com/DREAM-ODA-OS/ODAClient):
 
     ```
-    git clone git@github.com:EOX-A/EOxClient.git
+    git clone git@github.com:DREAM-ODA-OS/ODAClient.git
+    ```
+
+    or
+
+    ```
+    git clone https://github.com/DREAM-ODA-OS/ODAClient.git
     ```
 
 0.  Install development enviroment: 
@@ -32,7 +38,7 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
     on your machine and run:
 
     ```
-    cd ./EOxClient
+    cd ./ODAClient
     sudo npm install -g grunt-cli
     sudo npm install -g bower 
     npm install 
@@ -44,7 +50,7 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
 
 0.  Install client dependencies:  
 
-    The required JavaScript librabries can be installed by: 
+    The required JavaScript frameworks can be installed by: 
 
     ```
     bower install
@@ -56,10 +62,10 @@ The application uses [Yeoman](http://yeoman.io/) which integrates:
     grunt server 
     ```
 
-    this should automatically open a the client on your default web browser, if not point your browser to localhost:9000. 
+    and point your browser of port 9000 of your computer. 
 
 If you managed to reach this the last step you can start to hack the code. 
-The development server by grunt watches for saved changes in the code and will update the page automatically.
+The browser view refreshes itself automatically reflecting the code changes made. 
 
 
 ## How to deploy the code on a the server 

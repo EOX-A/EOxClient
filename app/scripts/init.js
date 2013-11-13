@@ -9,6 +9,7 @@
         /* starting point for application */
         deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'main'],
 
+
         shim: {
             /*jqueryui: 'jquery',*/
             handlebars: {
@@ -56,6 +57,7 @@
             libcoverage: '../bower_components/libcoverage/libcoverage.min',
             filesaver: '../bower_components/filesaver/FileSaver',
             lm: '../bower_components/lm.js/lm',
+            "bootstrap-datepicker": "../bower_components/bootstrap-datepicker/js/bootstrap-datepicker",
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',

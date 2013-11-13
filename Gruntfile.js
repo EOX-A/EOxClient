@@ -49,7 +49,7 @@ module.exports = function (grunt) {
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= yeoman.app %>/scripts/config.json',
-                '<%= yeoman.app %>/templates/{,*/}*.hbs'
+                	'<%= yeoman.app %>/templates/{,*/}*.hbs'
                 ]
             }
         },
@@ -67,7 +67,8 @@ module.exports = function (grunt) {
             options: {
                 port: 9000,
                 // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                //hostname: 'localhost'
+                hostname: '0.0.0.0'
             },
             livereload: {
                 options: {
@@ -333,7 +334,7 @@ module.exports = function (grunt) {
                         'bower_components/require-handlebars-plugin/hbs.js',
                         'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
                         'bower_components/bootstrap/dist/*/*',
-                        'bower_components/font-awesome/css/*',
+                        'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js',
                         'bower_components/lm.js/lm.js'
                     ]
                 },{
@@ -358,7 +359,7 @@ module.exports = function (grunt) {
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
                     src: [
-                        'scripts/*.json'
+                        '*.json'
                     ]
                 },{
                     expand: true,

@@ -16,11 +16,13 @@
 		'router'
 	],
 
-	function( Backbone, Communicator, globals, DialogRegion,
+	function( Backbone, Communicator, globals, DialogRegion, 
 			  UIRegion, LayerControlLayout, ToolControlLayout ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
+                // clear permanent local storage 
+                localStorage.clear()
 			},
 
 			configure: function(config) {
