@@ -8,9 +8,10 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 @import "mapviewer";
 @import "virtualglobeviewer";
 @import "rectangularboxviewer";
+@import "analyticsviewer";
 @import "window";
 
-#preloadedImages {
+/*#preloadedImages {
        width: 0px;
        height: 0px;
        display: inline;
@@ -19,7 +20,7 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
        background-image: url(path/to/image3.png);
        background-image: url(path/to/image4.png);
        background-image: url();
-}
+}*/
 
 
 .hero-unit {
