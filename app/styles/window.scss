@@ -1,13 +1,6 @@
 @import "partials/rounded";
 @import "defaults";
 
-#rotate {  
-  -webkit-transform:rotate(-90deg);
-  -moz-transform:rotate(-90deg);
-  -o-transform:rotate(-90deg);
-  /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
-  -ms-transform:rotate(-90deg);        
-}
 
 .viewport {
 	width: 100%;
@@ -23,7 +16,7 @@
 .gui {
 	position: absolute;
 	left: 8px;
-	top: 103px;
+	top: 115px;
 	z-index: $layer-gui;
 	background: rgba(255,255,255,0.4);
 	padding: 3px;
@@ -32,4 +25,17 @@
 
 .mapview-btn, .globeview-btn, .boxview-btn {
 	margin-bottom: 2px;
+}
+
+.highlight {
+	padding: 4px;
+	width: 22px;
+	
+
+	background: rgba(0, 60, 136, 0.5);
+	@include rounded(4px);
+}
+
+.highlight i{
+	color: white;
 }

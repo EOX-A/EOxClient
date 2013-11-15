@@ -30,13 +30,13 @@
 				var m = {};	//models
 				var t = {};	//templates
 
-					// Application regions are loaded and added to the Marionette Application
-					_.each(config.regions, function(region) {
-						var obj = {};
-						obj[region.name] = "#" + region.name;
-						this.addRegions(obj);
-						//console.log("Added region " + obj[region.name]);
-					}, this);
+				// Application regions are loaded and added to the Marionette Application
+				_.each(config.regions, function(region) {
+					var obj = {};
+					obj[region.name] = "#" + region.name;
+					this.addRegions(obj);
+					//console.log("Added region " + obj[region.name]);
+				}, this);
 
 				//Load all configured views
 				_.each(config.views, function(viewDef) {
@@ -283,6 +283,21 @@
 								type: "tool"
 							}));
 				}, this);
+
+				// Define collection of visualization modes
+                var visualizationModesCollection = new m.ToolCollection();
+                _.each(config.visualizationModes, function(visMode) {
+                    visualizationModesCollection.add(
+                        new m.ToolModel({
+                            id: visMode.id,
+                            eventToRaise: visMode.eventToRaise,
+                            description: visMode.description,
+                            icon: visMode.icon,
+                            enabled: visMode.enabled,
+                            active: visMode.active,
+                            type: "vis_mode"
+                        }));
+                }, this);	
                 
                 // Create Collection Views to hold set of views for selection tools
                 this.visualizationToolsView = new v.ToolSelectionView({
@@ -302,6 +317,18 @@
                 			type:'handlebars',
                 			template: t.ToolIcon}
                 	})
+                });
+
+
+                // Create Collection Views to hold set of views for visualization modes
+                this.visualizationModesView = new v.ToolSelectionView({
+                    collection: visualizationModesCollection,
+                    itemView: v.ToolItemView.extend({
+                        template: {
+                            type: 'handlebars',
+                            template: t.ToolIcon
+                        }
+                    })
                 });
 
 
