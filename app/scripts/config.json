@@ -74,6 +74,7 @@
         "name": "PanEuropean Fractional Snow Cover",
         "visible": false,
         "timeSlider": true,
+        "color":"green",
         "view": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "WMS",
@@ -92,6 +93,7 @@
         "name": "PanEuropean Snow Water Equivalent",
         "visible": false,
         "timeSlider": true,
+        "color":"red",
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "WMS",
@@ -128,7 +130,7 @@
     "overlays": [
        {
         "name": "Streets",
-        "id": "overlay_streets_wgs84",
+        "id": "overlay",
         "protocol": "WMTS",
         "visible": true,
         "urls": [
@@ -185,22 +187,23 @@
 
   "navBarConfig": {
     "title" : "V-MANIP",
-    "url" : "https://v-manip.eox.at/",
-    "title" : "V-MANIP",
-    "url" : "https://v-manip.eox.at/",
+    "url" : "http://www.v-manip.eox.at",
     "items" : [
       {
         "name" : "Layers",
+        "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl"
       },
       {
         "name" : "Tools",
+        "icon" : "fa-wrench",
         "eventToRaise" : "ui:open:toolselection",
         "template" : "ToolSelection"
       },
       {
         "name" : "About",
+        "icon" : "fa-info-circle",
         "eventToRaise" : "dialog:open:about",
         "subitems" : [
           {

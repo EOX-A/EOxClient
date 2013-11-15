@@ -15,15 +15,19 @@
 		var ToolControlLayout = Backbone.Marionette.Layout.extend({
 
 			template: {type: 'handlebars', template: ToolControlTmpl},
-			regions: {selection: "#selection", visualization: "#visualization", mapmode:"#mapmode"},
-			className: "well toolcontrol",
+			regions: {selection: "#selection", visualization: "#visualization"},
+			className: "panel panel-default toolcontrol not-selectable",
 
 			initialize: function(options) {
 			},
 
 			onShow: function(view){
 		    	this.$('.close').on("click", _.bind(this.onClose, this));
-		    	this.$el.draggable({ containment: "#content" , scroll: false});
+		    	this.$el.draggable({ 
+		    		containment: "#content",
+		    		scroll: false,
+		    		handle: '.panel-heading'
+	    		});
 		    },
 
 			onClose: function() {

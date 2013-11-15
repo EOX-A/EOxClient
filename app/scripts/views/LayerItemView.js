@@ -13,7 +13,7 @@
 			events: {
 				'drop' : 'drop',
 				'change': 'onChange',
-				'click .icon-adjust': 'onOpenSlider',
+				'click .fa-adjust': 'onOpenSlider',
 				'slide .ui-slider': 'onOpacityAdjust'
 			},
 
@@ -25,27 +25,33 @@
 			        min: 0
 			    });
 			    this.$slider.width(100);
-			}, 
+			},
 			onShow: function(view){
 
 				$( ".sortable" ).sortable({
 					revert: true,
 					delay: 90,
+					containment: ".layercontrol .panel-body",
+					axis: "y",
+					forceHelperSize: true,
+					forcePlaceHolderSize: true,
+					placeholder: "sortable-placeholder",
+					handle: '.fa-sort',
 					start: function(event, ui) {
 						$( ".ui-slider" ).detach();
-						$('.icon-adjust').toggleClass('active')
-						$('.icon-adjust').popover('hide');
+						$('.fa-adjust').toggleClass('active')
+						$('.fa-adjust').popover('hide');
 					},
 					stop: function(event, ui) {
 						ui.item.trigger('drop', ui.item.index());
 		        	}
 			    });
 
-			    $('.icon-adjust').popover({
+			    $('.fa-adjust').popover({
         			trigger: 'manual'
     			});
 			},
-			
+
 
 			onChange: function(evt){
                 var isBaseLayer = false;
@@ -61,8 +67,8 @@
 
 		    onOpenSlider: function(evt){
 
-		    	if (this.$('.icon-adjust').toggleClass('active').hasClass('active')) {
-		            this.$('.icon-adjust').popover('show');
+		    	if (this.$('.fa-adjust').toggleClass('active').hasClass('active')) {
+		            this.$('.fa-adjust').popover('show');
 		            this.$('.popover-content')
 		                .empty()
 		                .append(this.$slider);
@@ -71,7 +77,7 @@
 
 		        } else {
 		            this.$slider.detach();
-		            this.$('.icon-adjust').popover('hide');
+		            this.$('.fa-adjust').popover('hide');
 		        }
 		    },
 
