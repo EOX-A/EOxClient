@@ -187,6 +187,7 @@ button[active=active] {
 	height: 100%;
 	width: 100%;
 	position: absolute;
+  padding-top: 50px
 }
 
 #leftSideBar {
@@ -232,9 +233,9 @@ button[active=active] {
 	position: relative;
 }
 
-#OpenLayers_Control_Zoom_5 {
+/*#OpenLayers_Control_Zoom_5 {
 	top: 60px;
-}
+}*/
 
 .tab-header {
 	 cursor: pointer;
@@ -292,4 +293,14 @@ button[active=active] {
 
 .popover {
   position: fixed;
+}
+
+
+/*
+ * About info screen
+ */
+
+.modal-body-about .row {
+  margin-top: 15px;
+  text-align: center;
 }
