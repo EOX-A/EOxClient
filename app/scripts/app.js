@@ -9,6 +9,7 @@
 		'regions/DialogRegion','regions/UIRegion',
 		'layouts/LayerControlLayout',
 		'layouts/ToolControlLayout',
+		'controller/TimeSliderController',
 		'jquery', 'backbone.marionette',
 		'controller/ContentController',
 		'controller/DownloadController',
@@ -17,7 +18,7 @@
 	],
 
 	function( Backbone, Communicator, globals, DialogRegion,
-			  UIRegion, LayerControlLayout, ToolControlLayout ) {
+			  UIRegion, LayerControlLayout, ToolControlLayout, TimeSliderController ) {
 
 		var Application = Backbone.Marionette.Application.extend({
 			initialize: function(options) {
@@ -28,6 +29,8 @@
 				var v = {}; //views
 				var m = {};	//models
 				var t = {};	//templates
+
+
 
 				// Application regions are loaded and added to the Marionette Application
 				_.each(config.regions, function(region) {
@@ -305,25 +308,18 @@
                 	})
                 });
 
-
-
                 // Create layout to hold collection views
                 this.toolLayout = new ToolControlLayout();
 
 
-                this.timeSliderView = new v.TimeSliderView(config.timeSlider);
-                this.bottomBar.show(this.timeSliderView);
-
-
-				//this.router = new Router({views: this.views, regions: this.regions});
-
-
-				//this.downloadView = new v.DownloadView();
-
-
+				
+				
+				this.timeSliderController = new TimeSliderController(config.timeSlider);
+				//TimeSliderController.configureTimeSlider(config.timeSlider);
+				//Communicator.mediator.trigger('timeslider:setup', config.timeSlider);
 			}
 
-
+			
 
 		});
 

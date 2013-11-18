@@ -11,22 +11,19 @@
     'd3'
   ],
   function( Backbone, Communicator, timeslider, timeslider_plugins, globals) {
-    var TimeSliderView = Backbone.Marionette.ItemView.extend({
+    var TimeSliderView = Backbone.View.extend({
       id: 'timeslider',
       events: {
         'selectionChanged': 'onChangeTime'
       },
       initialize: function(options){
         this.options = options;
+
+        
       },
 
-      render: function(options){
-
-      },
-      onShow: function(view) {
-
-        this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
-
+      onShow: function(view){
+        this.$el.empty();
         var selectionstart = new Date(this.options.brush.start);
         var selectionend = new Date(this.options.brush.end);
 
@@ -47,11 +44,19 @@
         });
 
         Communicator.mediator.trigger('time:change', {start:selectionstart, end:selectionend});
-      }, 
+      },
 
       onChangeTime: function(evt){
         Communicator.mediator.trigger('time:change', evt.originalEvent.detail);
       },
+
+      addDataset: function(dataset){
+        this.slider.addDataset(dataset);
+      },
+
+      removeDataset: function(productid){
+        this.slider.removeDataset(productid);
+      }/*,
 
       changeLayer: function (options) {
         if (!options.isBaseLayer){
@@ -70,7 +75,7 @@
             }
           }
         }
-      }
+      }*/
 
     });
     return {'TimeSliderView':TimeSliderView};
