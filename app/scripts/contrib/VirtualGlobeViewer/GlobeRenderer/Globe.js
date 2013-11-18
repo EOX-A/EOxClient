@@ -31,6 +31,13 @@ define([
             inertia: true
         });
 
+        var srtmElevationWCSGlobal = new GlobWeb.WCSElevationLayer({
+           baseUrl: "http://earthserver.eox.at/cgi-bin/mapserv?map=/var/www/dem/dem.map",
+             coverage: "GTOPO30",
+             version: "2.0.0"
+         });
+        this.globe.setBaseElevation(srtmElevationWCSGlobal);
+
         // Add stats
         // var stats = new GlobWeb.Stats(globe, {
         // 	element: 'fps',
