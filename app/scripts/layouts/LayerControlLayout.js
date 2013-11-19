@@ -20,24 +20,22 @@
 				products: "#products",
 				overlays: "#overlays"
 			},
-			className: "well layercontrol",
-
-			events: {
-
-			},
+			className: "panel panel-default layercontrol not-selectable",
+			events: {},
 
 			initialize: function(options) {
 			},
 
 			onShow: function(view){
 		    	this.$('.close').on("click", _.bind(this.onClose, this));
-		    	this.$el.draggable({ 
+		    	this.$el.draggable({
+		    		handle: '.panel-heading',
 		    		containment: "#content" ,
 		    		scroll: false,
 		    		start: function(event, ui) {
 						$( ".ui-slider" ).detach();
-						$('.icon-adjust').toggleClass('active')
-						$('.icon-adjust').popover('hide');
+						$('.fa-adjust').toggleClass('active')
+						$('.fa-adjust').popover('hide');
 					},
 		    	});
 		    },

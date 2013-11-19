@@ -255,6 +255,7 @@ define(['backbone.marionette',
 			},
 
 			onLoadGeoJSON: function(data) {
+				this.vectorLayer.removeAllFeatures();
 				var features = this.geojson.read(data);
 				var bounds;
 				if (features) {
@@ -269,7 +270,7 @@ define(['backbone.marionette',
 						}
 
 					}
-					this.polygonLayer.addFeatures(features);
+					this.vectorLayer.addFeatures(features);
 					this.map.zoomToExtent(bounds);
 				}
 			},
@@ -282,6 +283,10 @@ define(['backbone.marionette',
 				});
 				saveAs(blob, "selection.geojson");
 			},
+
+			onGetGeoJSON: function () {
+                return this.geojson.write(this.vectorLayer.features, true);
+            },
 
 			onDone: function(evt) {
 				// TODO: How to handle multiple draws etc has to be thought of
