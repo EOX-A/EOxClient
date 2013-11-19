@@ -3,7 +3,8 @@ define([
 	'app',
 	'communicator',
 	'./MapViewController',
-	'./MapViewRouter'
+	'./MapViewRouter',
+	'keypress'
 ], function(Marionette, App, Communicator, MapViewController, MapViewRouterController) {
 
 	'use strict';

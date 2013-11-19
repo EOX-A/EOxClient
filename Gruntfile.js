@@ -334,7 +334,9 @@ module.exports = function (grunt) {
                         'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
                         'bower_components/bootstrap/dist/*/*',
                         'bower_components/font-awesome/css/*',
-                        'bower_components/lm.js/lm.js'
+                        'bower_components/lm.js/lm.js',
+                        'bower_components/virtualglobeviewer/src/*',
+                        'bower_components/Keypress/keypress.js'
                     ]
                 },{
                     expand: true,
