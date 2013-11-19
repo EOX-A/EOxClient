@@ -336,16 +336,9 @@
                 // Create layout to hold collection views
                 this.toolLayout = new ToolControlLayout();
 
-
+                // Instance timeslider view
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
-                this.bottomBar.show(this.timeSliderView);
-
-
-				//this.router = new Router({views: this.views, regions: this.regions});
-
-
-				//this.downloadView = new v.DownloadView();
-				
+                
 								
 			},
 
@@ -359,6 +352,11 @@
 				this.main.show(splitview.getView());
 
 				splitview.setSinglescreen();
+
+				// Show Timsliderview after creating modules to
+				// set the selected time correctly to the products
+				this.bottomBar.show(this.timeSliderView);
+
 			}
 
 

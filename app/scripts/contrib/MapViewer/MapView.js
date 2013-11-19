@@ -151,7 +151,7 @@ define(['backbone.marionette',
 	                        wrapDateLine: layer.wrapDateLine,
 	                        zoomOffset: layer.zoomOffset,
 	                        visible: layerdesc.get("visible"),
-	                        time: layerdesc.time
+	                        time: layerdesc.get('time')
                         });
                     break;
 
@@ -163,7 +163,7 @@ define(['backbone.marionette',
                                 layers: layer.id,
                                 transparent: "true",
                                 format: "image/png",
-                                time: layer.time
+                                time: layerdesc.get('time')
                             },
                             {
                                 format: 'image/png',
@@ -298,12 +298,11 @@ define(['backbone.marionette',
 
 			onTimeChange: function (time) {
 
-				console.log(time);
-
 				var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
                                         
 	            globals.products.each(function(product) {
                     if(product.get("timeSlider")){
+                    	product.set("time",string);
                         var productLayer = this.map.getLayersByName(product.get("name"))[0];
                       	productLayer.mergeNewParams({'time':string});
                     }
