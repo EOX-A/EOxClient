@@ -124,69 +124,71 @@ define(['backbone.marionette',
 			},
 
 			//method to create layer depending on protocol
-			//setting possible description attributes
-			createLayer: function(layerdesc) {
-				var return_layer = null;
-				var layer = layerdesc.get('view');
+            //setting possible description attributes
+            createLayer: function (layerdesc) {
+                var return_layer = null;
+                var layer = layerdesc.get('view');
 
-				switch (layer.protocol) {
-					case "WMTS":
-						return_layer = new OpenLayers.Layer.WMTS({
-							name: layerdesc.get("name"),
-							layer: layer.id,
-							protocol: layer.protocol,
-							url: layer.urls,
-							matrixSet: layer.matrixSet,
-							style: layer.style,
-							format: layer.format,
-							maxExtent: layer.maxExtent,
-							resolutions: layer.resolutions,
-							projection: layer.projection,
-							gutter: layer.gutter,
-							buffer: layer.buffer,
-							units: layer.units,
-							transitionEffect: layer.transitionEffect,
-							isphericalMercator: layer.isphericalMercator,
-							isBaseLayer: layer.isBaseLayer,
-							wrapDateLine: layer.wrapDateLine,
-							zoomOffset: layer.zoomOffset,
-							visible: layerdesc.get("visible"),
-							time: layerdesc.get("time")
-						});
-						break;
+                switch(layer.protocol){
+                    case "WMTS":
+                        return_layer = new OpenLayers.Layer.WMTS({
+                            name: layerdesc.get("name"),
+	                        layer: layer.id,
+	                        protocol: layer.protocol,
+	                        url: layer.urls,
+	                        matrixSet: layer.matrixSet,
+	                        style: layer.style,
+	                        format: layer.format,
+	                        maxExtent: layer.maxExtent,
+	                        resolutions: layer.resolutions,
+	                        projection: layer.projection,
+	                        gutter: layer.gutter,
+	                        buffer: layer.buffer,
+	                        units: layer.units,
+	                        transitionEffect: layer.transitionEffect,
+	                        isphericalMercator: layer.isphericalMercator,
+	                        isBaseLayer: layer.isBaseLayer,
+	                        wrapDateLine: layer.wrapDateLine,
+	                        zoomOffset: layer.zoomOffset,
+	                        visible: layerdesc.get("visible"),
+	                        time: layerdesc.get('time')
+                        });
+                    break;
 
-					case "WMS":
-						return_layer = new OpenLayers.Layer.WMS(
-							layerdesc.get("name"),
-							layer.urls[0], {
-								layers: layer.id,
-								transparent: "true",
-								format: "image/png",
-								time: layerdesc.get("time")
-							}, {
-								format: 'image/png',
-								matrixSet: layer.matrixSet,
-								style: layer.style,
-								format: layer.format,
-								maxExtent: layer.maxExtent,
-								resolutions: layer.resolutions,
-								projection: layer.projection,
-								gutter: layer.gutter,
-								buffer: layer.buffer,
-								units: layer.units,
-								transitionEffect: layer.transitionEffect,
-								isphericalMercator: layer.isphericalMercator,
-								isBaseLayer: layer.isBaseLayer,
-								wrapDateLine: layer.wrapDateLine,
-								zoomOffset: layer.zoomOffset,
-								visibility: layerdesc.get("visible"),
-							}
-						);
-						break;
+                    case "WMS":
+                        return_layer = new OpenLayers.Layer.WMS(
+                            layerdesc.get("name"),
+                            layer.urls[0],
+                            {
+                                layers: layer.id,
+                                transparent: "true",
+                                format: "image/png",
+                                time: layerdesc.get('time')
+                            },
+                            {
+                                format: 'image/png',
+                                matrixSet: layer.matrixSet,
+                                style: layer.style,
+                                format: layer.format,
+                                maxExtent: layer.maxExtent,
+                                resolutions: layer.resolutions,
+                                projection: layer.projection,
+                                gutter: layer.gutter,
+                                buffer: layer.buffer,
+                                units: layer.units,
+                                transitionEffect: layer.transitionEffect,
+                                isphericalMercator: layer.isphericalMercator,
+                                isBaseLayer: layer.isBaseLayer,
+                                wrapDateLine: layer.wrapDateLine,
+                                zoomOffset: layer.zoomOffset,
+                                visibility: layerdesc.get("visible")
+                            }
+                        );
+                    break;
 
-				};
-				return return_layer;
-			},
+                };
+                return return_layer;                
+            },
 
 			centerMap: function(data) {
 				this.map.setCenter(new OpenLayers.LonLat(data.x, data.y), data.l);
@@ -255,6 +257,7 @@ define(['backbone.marionette',
 			},
 
 			onLoadGeoJSON: function(data) {
+				this.vectorLayer.removeAllFeatures();
 				var features = this.geojson.read(data);
 				var bounds;
 				if (features) {
@@ -269,7 +272,7 @@ define(['backbone.marionette',
 						}
 
 					}
-					this.polygonLayer.addFeatures(features);
+					this.vectorLayer.addFeatures(features);
 					this.map.zoomToExtent(bounds);
 				}
 			},
@@ -283,21 +286,27 @@ define(['backbone.marionette',
 				saveAs(blob, "selection.geojson");
 			},
 
+			onGetGeoJSON: function () {
+                return this.geojson.write(this.vectorLayer.features, true);
+            },
+
 			onDone: function(evt) {
 				// TODO: How to handle multiple draws etc has to be thought of
 				// as well as what exactly is comunicated out
 				Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
 			},
 
-			onTimeChange: function () {
-                               
-                globals.products.each(function(product) {
+			onTimeChange: function (time) {
+
+				var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
+                                        
+	            globals.products.each(function(product) {
                     if(product.get("timeSlider")){
+                    	product.set("time",string);
                         var productLayer = this.map.getLayersByName(product.get("name"))[0];
-                      	productLayer.mergeNewParams({'time':product.get('time')});
+                      	productLayer.mergeNewParams({'time':string});
                     }
-                 
-                }, this);
+	            }, this);
             },
 
 			onClose: function(){

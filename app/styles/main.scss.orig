@@ -10,9 +10,13 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 @import "analyticsviewer";
 @import "window";
 
+<<<<<<< HEAD
+/*#preloadedImages {
+=======
 
 /* Not used right now ;)
 #preloadedImages {
+>>>>>>> 0bcb9962d5f7ecc4cdf168bef433a29b89430e73
        width: 0px;
        height: 0px;
        display: inline;
@@ -21,19 +25,23 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
        background-image: url(path/to/image3.png);
        background-image: url(path/to/image4.png);
        background-image: url();
+<<<<<<< HEAD
+}*/
+=======
 }
 */
+>>>>>>> 0bcb9962d5f7ecc4cdf168bef433a29b89430e73
 
 /*
  * Basic styles
  */
 html, body {
-  height: 100%;
-  width: 100%;
+	height: 100%;
+	width: 100%;
 }
 
 ul, li {
-  list-style-type: none;
+ 	list-style-type: none;
   list-style-position: inside;
 }
 
@@ -180,14 +188,14 @@ button[active=active] {
  */
 
 #content {
-  height: 100%;
-  width: 100%;
+	height: 100%;
+	width: 100%;
 }
 
 #main {
-  height: 100%;
-  width: 100%;
-  position: absolute;
+	height: 100%;
+	width: 100%;
+	position: absolute;
   padding-top: 50px
 }
 
@@ -200,14 +208,14 @@ button[active=active] {
 }
 
 #topBar {
-  
+	
 }
 
 #bottomBar {
-  bottom: 10px;
-  position: absolute;
-  width: 96%;
-  left: 2%; 
+	bottom: 10px;
+	position: absolute;
+	width: 96%;
+	left: 2%;	
 }
 
 /*
@@ -223,28 +231,28 @@ button[active=active] {
 #timeslider svg.timeslider {
   height: 4em;
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 #viewContent{
-  position: relative;
+	position: relative;
 }
 
 /*#OpenLayers_Control_Zoom_5 {
-  top: 60px;
+	top: 60px;
 }*/
 
 .tab-header {
-   cursor: pointer;
+	 cursor: pointer;
 }
 
 .sidepane {
-  width: 100px;
-  height: 100px;
+	width: 100px;
+	height: 100px;
 }
 
 /* Style to change the upload button appearance */
@@ -274,12 +282,12 @@ button[active=active] {
 
 // Possible changes to mouse position display
 /*div .olControlMousePosition {
-  font-size: 16px !important;
-  margin-right: 2%;
-  font-weight:bold;
-    -webkit-text-fill-color: white;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+	font-size: 16px !important;
+	margin-right: 2%;
+	font-weight:bold;
+   	-webkit-text-fill-color: white;
+   	-webkit-text-stroke-width: 1px;
+   	-webkit-text-stroke-color: black;
 }*/
 
 .hero-unit {

@@ -75,6 +75,7 @@
         "name": "PanEuropean Fractional Snow Cover",
         "visible": false,
         "timeSlider": true,
+        "color":"green",
         "view": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "WMS",
@@ -94,6 +95,7 @@
         "name": "PanEuropean Snow Water Equivalent",
         "visible": false,
         "timeSlider": true,
+        "color":"red",
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "WMS",
@@ -132,7 +134,7 @@
     "overlays": [
        {
         "name": "Streets",
-        "id": "overlay_streets_wgs84",
+        "id": "overlay",
         "protocol": "WMTS",
         "visible": true,
         "urls": [
@@ -189,22 +191,23 @@
 
   "navBarConfig": {
     "title" : "V-MANIP",
-    "url" : "https://v-manip.eox.at/",
-    "title" : "V-MANIP",
-    "url" : "https://v-manip.eox.at/",
+    "url" : "http://www.v-manip.eox.at",
     "items" : [
       {
         "name" : "Layers",
+        "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl"
       },
       {
         "name" : "Tools",
+        "icon" : "fa-wrench",
         "eventToRaise" : "ui:open:toolselection",
         "template" : "ToolSelection"
       },
       {
         "name" : "About",
+        "icon" : "fa-info-circle",
         "eventToRaise" : "dialog:open:about",
         "subitems" : [
           {
@@ -307,22 +310,22 @@
     {
       "id":"pointSelection",
       "description": "Allows selection of Points in Map",
-      "icon":"icon-screenshot"
+      "icon":"icon-large icon-screenshot"
     },
     {
       "id":"lineSelection",
       "description": "Allows selection of Lines in Map",
-      "icon":"icon-vector-path-line"
+      "icon":"icon-large icon-vector-path-line"
     },
     {
       "id":"polygonSelection",
       "description": "Allows selection of Polygons in Map",
-      "icon":"icon-vector-path-polygon"
+      "icon":"icon-large icon-vector-path-polygon"
     },
     {
       "id":"bboxSelection",
       "description": "Allows drawing a bounding box selection in Map",
-      "icon":"icon-vector-path-square"
+      "icon":"icon-large icon-vector-path-square"
     }
   ],
 
@@ -331,14 +334,14 @@
       "id":"download",
       "eventToRaise":"dialog:open:download",
       "description": "WCS Download Tool for specific selections",
-      "icon":"icon-download-alt",
+      "icon":"fa fa-download fa-2x",
       "enabled":false,
       "active":false
     }, {
       "id":"selectionManager",
       "eventToRaise":"ui:open:selectionManager",
       "description": "Allows importing, exporting and saving selections",
-      "icon":"icon-edit",
+      "icon":"fa fa-edit fa-2x",
       "enabled":true,
       "active":false
     }
@@ -350,7 +353,7 @@
       "id":"SingleView",
       "eventToRaise":"layout:switch:singleview",
       "description": "Single view of map",
-      "icon":"icon-stop",
+      "icon":"fa fa-stop fa-2x",
       "enabled":true,
       "active":true
     },
@@ -358,7 +361,7 @@
       "id":"SplitView",
       "eventToRaise":"layout:switch:splitview",
       "description": "Splits screen to visualize two maps side by side",
-      "icon":"icon-pause",
+      "icon":"fa fa-pause fa-2x",
       "enabled":true,
       "active":false
     },
@@ -366,7 +369,7 @@
       "id":"QuadView",
       "eventToRaise":"layout:switch:quadview",
       "description": "Splits screen into four windows displaying one map on each corner",
-      "icon":"icon-th-large",
+      "icon":"fa fa-th-large fa-2x",
       "enabled":true,
       "active":false
     }

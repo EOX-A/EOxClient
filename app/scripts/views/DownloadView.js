@@ -30,7 +30,8 @@
 
     var DownloadView = Backbone.Marionette.ItemView.extend({
       tagName: "div",
-      className: "well download",
+      id: "modal-start-download",
+      className: "panel panel-default download",
       template: {
           type: 'handlebars',
           template: DownloadTmpl
@@ -50,18 +51,22 @@
       initialize: function(options) {
 
         this.coverages = new Backbone.Collection([]);
-        
+
       },
       onShow: function(view){
 
         this.listenTo(this.coverages, "reset", this.onCoveragesReset);
         this.$('.close').on("click", _.bind(this.onClose, this));
-        this.$el.draggable({ containment: "#content" , scroll: false});
-        
+        this.$el.draggable({ 
+          containment: "#content",
+          scroll: false,
+          handle: '.panel-heading'
+        });
+
         var $downloadList = this.$("#download-list");
         $downloadList.children().remove();
-        
-        
+
+
         var coverageSets = _.map(this.model.get('products'), function(product, key) {
           var set = new EOCoverageSet([]);
           var options = {};
@@ -69,12 +74,12 @@
           if(product.get('timeSlider')){
             options = {
                 subsetTime: [
-                  getISODateTimeString(this.model.get("ToI").start), 
+                  getISODateTimeString(this.model.get("ToI").start),
                   getISODateTimeString(this.model.get("ToI").end)
                 ]
             };
           } //TODO: Check what to set if timeslider not activated
-          
+
           options.subsetCRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
           var bbox = this.model.get("AoI").getBounds();
           options.subsetX = [bbox.left, bbox.right];
@@ -84,10 +89,10 @@
           set.url = WCS.EO.KVP.describeEOCoverageSetURL(product.get('download').url, key, options);
           return set;
         }, this);
-        
+
         // dispatch WCS DescribeEOCoverageSet requests
         var deferreds = _.invoke(coverageSets, "fetch");
-        
+
         $.when.apply($, deferreds).done(_.bind(function() {
 
 
@@ -106,7 +111,7 @@
         // select all coverages
         this.$('input[type="checkbox"]').prop("checked", true).trigger("change");
       },
-      
+
       onInvertCoverageSelectionClicked: function() {
         this.$('input[type="checkbox"]').each(function() {
           var $this = $(this);
@@ -116,7 +121,7 @@
 
       onCoveragesReset: function() {
         var $downloadList = this.$("#download-list");
-        
+
         this.coverages.each(function(coverage) {
           var coverageJSON = coverage.toJSON();
           var $html = $(SelectCoverageListItemTmpl(coverageJSON));
@@ -153,8 +158,8 @@
         // format + outputcrs
         options.format = this.$("#select-output-format").val();
         options.outputCRS = this.$("#select-output-crs").val();
-        
-        // apply mask parameter if polygon is not a square 
+
+        // apply mask parameter if polygon is not a square
         // (described by 5 points, first and last the same)
         var components = this.model.get("AoI").components[0].components;
         if(components.length>5){
@@ -165,7 +170,7 @@
           });
           options.mask = coords.join(" ");
         }
-        
+
 
         this.$('input[type="checkbox"]').each(_.bind(function(index) {
           if ($('input[type="checkbox"]')[index].checked){
@@ -173,12 +178,12 @@
             var xml = getCoverageXML(model.get('coverageId'), options);
 
             var owsUrl = model.get('url').split('?')[0] + '?';
-            
+
             var $form = $(CoverageDownloadPostTmpl({
               url: owsUrl, xml: xml}));
             $downloads.append($form);
-            _.delay(function() { 
-            $form.submit(); 
+            _.delay(function() {
+            $form.submit();
             }, index * 1000);
           }
         }, this));
