@@ -130,7 +130,9 @@ define(['backbone.marionette',
 
 			changeLayer: function(options) {},
 			onSortProducts: function(productLayers) {},
-			onSelectionActivated: function(arg) {},
+			onSelectionChanged: function(feature) {
+				console.log(feature);
+			},
 			onTimeChange: function () {},
 
 			onClose: function(){
