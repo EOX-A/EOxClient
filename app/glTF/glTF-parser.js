@@ -261,7 +261,7 @@ var global = window;
                 }
 
                 if (this.handleLoadCompleted) {
-                    this.handleLoadCompleted(success);
+                    this.handleLoadCompleted(success, this._state.userInfo.rootObj);
                 }
 
             }
@@ -349,6 +349,9 @@ var global = window;
                                         "options" : options,
                                         "categoryIndex" : startCategory,
                                         "categoryState" : { "index" : "0" } };
+                        if (typeof options === 'function') {
+                            self.handleLoadCompleted = options;
+                        }
                         self._handleState();
                     }
                 });
