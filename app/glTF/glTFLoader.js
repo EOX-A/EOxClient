@@ -368,7 +368,7 @@ define([
 
                 var technique = description.instanceTechnique;
                 var texture = technique.values.diffuse;
-                if (texture) {
+                if (typeof texture === 'string') {
                     var imageEntry = this.globWebResources.getEntry(texture);
                     if (imageEntry) {
                         var imageID = imageEntry.description.source;
@@ -377,7 +377,7 @@ define([
                     }
                 }
 
-                var diffuseColor = !texturePath ? technique.values.diffuse.value : null;
+                var diffuseColor = !texturePath ? technique.values.diffuse : null;
                 var transparency = technique.values.transparency ? technique.values.transparency.value : 1.0;
 
                 var material = new SceneGraph.Material();
