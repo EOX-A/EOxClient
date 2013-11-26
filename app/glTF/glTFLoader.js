@@ -152,29 +152,53 @@ define([
     GeometryLoaderProxy.prototype.setIndexArray = function(indexArray) {
         var mesh = this.geometry.mesh;        
         mesh.indexArray = indexArray;
-
+        
+        // NOTE: necessary for for rendering in SceneGraph.Mesh.render:
         mesh.indices = [];
         for (i = 0, l = indexArray.length; i < l; i += 1) {
             mesh.indices.push(indexArray[i]);
-            // console.log("indices: " + indexArray[i]);
+            //console.log("indices: " + indexArray[i]);
         }
 
         // FIXXME: make this variable!
         mesh.numElements = 3;
     };
 
-    GeometryLoaderProxy.prototype.setVertexArray = function(vertexArray, createVertexArrayInHostMemory) {
+    GeometryLoaderProxy.prototype.setVertexArray = function(vertexArray) {
         var mesh = this.geometry.mesh;
         mesh.vertexArray = vertexArray;
         
         // NOTE: necessary for bounding box calculation of SceneGraph.Node:
         mesh.vertices = [];
-        for (i = 0, l = vertexArray.length; i < l; i += 1) {
+        for (i = 0, l = vertexArray.length; i < l; ++i) {
             mesh.vertices.push(vertexArray[i]);
-            // console.log("vertices: " + vertexArray[i]);
+            //console.log("vertices: " + vertexArray[i]);
         }
     };
 
+    GeometryLoaderProxy.prototype.setNormalArray = function(normalArray) {
+        var mesh = this.geometry.mesh;
+        mesh.normalArray = normalArray;
+        
+//         mesh.normals = [];
+//         for (i = 0, l = normalArray.length; i < l; ++i) {
+//             mesh.normals.push(normalArray[i]);
+//             //console.log("normals: " + normalArray[i]);
+//         }
+    };
+         
+
+    GeometryLoaderProxy.prototype.setTexCoordArray = function(texCoordArray) {
+        var mesh = this.geometry.mesh;
+        mesh.texCoordArray = texCoordArray;
+        
+//         mesh.texCoords = [];
+//         for (i = 0, l = texCoordArray.length; i < l; ++i) {
+//             mesh.texCoords.push(texCoordArray[i]);
+//             //console.log("texCoords: " + texCoordArray[i]);
+//         }
+    };         
+     
     // Delegate for processing index buffers
     var IndicesDelegate = function() {};
 
@@ -227,33 +251,24 @@ define([
         if (!type) {
             throw Error();
         }
-
+        // FIXXME: The loader is not yet capable of loading the main buffer ("bufferView.buffer", e.g. "duck.bin")
+        // and offset into it here. Currently the buffers are loaded in different requests but with the "range" header
+        // attribute set accordingly. Therefore the byteOffset is always set to 0 here:
+        var byteOffset = 0;//attribute.byteOffset;
+        
         if (semantic == "POSITION") {
-            // FIXXME: The loader is not yet capable of loading the main buffer ("bufferView.buffer", e.g. "duck.bin")
-            // and offset into it here. Currently the buffers are loaded in different requests but with the "range" header
-            // attribute set accordingly. Therefore the byteOffset is always set to 0 here:
-            var byteOffset = 0;//attribute.byteOffset;
             // TODO: Should be easy to take strides into account here  
             floatArray = new Float32Array(glResource, byteOffset, attribute.count * componentsPerElementForGLType(type));            
             geo_proxy.setVertexArray(floatArray);
         }
-        // else if (semantic == "NORMAL") {
-        //     geometry.mesh.normals = [];
-        //     window.test = glResource;
-        //     floatArray = new Float32Array(glResource, attribute.byteOffset, attribute.count * componentsPerElementForGLType(type));
-        //     for (i = 0, l = floatArray.length; i < l; i += 3) {
-        //         mesh.normals.push([floatArray[i], floatArray[i + 1], floatArray[i + 2]]);
-        //         console.log("normals: " + floatArray[i]);
-        //     }
-        // }
-        // FIXXME: add UV semantics
-        // else if ((semantic == "TEXCOORD_0") || (semantic == "TEXCOORD" )) {
-        //     mesh.uvs = [];
-        //     floatArray = new Float32Array(glResource, 0, attribute.count * componentsPerElementForGLType(type));
-        //     for(i = 0, l = floatArray.length; i < l; i += 2) {
-        //         mesh.uvs.push( new THREE.UV( floatArray[i], floatArray[i+1] ) );
-        //     }
-        // }
+        else if (semantic == "NORMAL") {
+            floatArray = new Float32Array(glResource, byteOffset, attribute.count * componentsPerElementForGLType(type));
+            geo_proxy.setNormalArray(floatArray);
+        }
+        else if ((semantic == "TEXCOORD_0") || (semantic == "TEXCOORD" )) {
+            floatArray = new Float32Array(glResource, byteOffset, attribute.count * componentsPerElementForGLType(type));
+            geo_proxy.setTexCoordArray(floatArray);
+        }
 
         geo_proxy.loadedAttributes++;
         geo_proxy.checkFinished();
@@ -326,7 +341,7 @@ define([
 
         handleImage: {
             value: function(entryID, description, userInfo) {
-                console.log('handleImage: adding ' + entryID);
+//                 console.log('handleImage: adding ' + entryID);
                 this.globWebResources.setEntry(entryID, null, description);
                 return true;
             }
@@ -334,7 +349,7 @@ define([
 
         handleTexture: {
             value: function(entryID, description, userInfo) {
-                console.log('handleTextures: adding ' + entryID);
+//                 console.log('handleTextures: adding ' + entryID);
                 this.globWebResources.setEntry(entryID, null, description);
                 return true;
             }
@@ -375,7 +390,7 @@ define([
                 }
 
                 this.globWebResources.setEntry(entryID, material, description);
-
+                
                 return true;
             }
         },
