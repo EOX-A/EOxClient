@@ -386,7 +386,8 @@ define([
                 }
 
                 if (texturePath) {
-                    material.texture = new SceneGraph.Texture(texturePath);
+                    // The 'false' parameter prevents the internal horizontal flipping of the image:
+                    material.texture = new SceneGraph.Texture(texturePath, false);
                 }
 
                 this.globWebResources.setEntry(entryID, material, description);
