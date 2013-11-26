@@ -18,11 +18,10 @@
  ***************************************/
 
 define([
-    '../bower_components/virtualglobeviewer/src/SceneGraph/SceneGraph',
+    'virtualglobeviewer/SceneGraph/SceneGraph',
     './helpers/resource-manager',
     './glTF-parser',
     './helpers/glMatrix'
-    // 'webgl-tf-deprecated.js'
 ], function(SceneGraph, ResourceManager, glTFParser) {
 
     // var categoriesDepsOrder = ["buffers", "bufferViews", "images",  "videos", "samplers", "textures", "shaders",

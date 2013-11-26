@@ -1,7 +1,10 @@
 define([
     'virtualglobeviewer/GlobWeb',
+    'virtualglobeviewer/SceneGraph/SceneGraph',
+    'virtualglobeviewer/SceneGraph/Renderer',
+    './glTFLoader',
     'openlayers' // FIXXME: replace OpenLayers with generic format!
-], function(GlobWeb, OpenLayers) {
+], function(GlobWeb, SceneGraph, SceneGraphRenderer, GlobWebGLTFLoader, OpenLayers) {
 
     'use strict';
 
@@ -18,9 +21,8 @@ define([
             lighting: false,
             tileErrorTreshold: 3,
             continuousRendering: false,
-            backgroundColor: [0, 0, 0, 0],
-            // backgroundColor: [0.8, 0.8, 0.8, 1],
-            shadersPath: "../bower_components/virtualglobeviewer/shaders/"
+            backgroundColor: [0.2, 0.2, 0.2, 1],
+            shadersPath: "/bower_components/virtualglobeviewer/shaders/"
         });
 
         this.aoiLayer = undefined;
@@ -30,6 +32,26 @@ define([
         this.navigation = new GlobWeb.Navigation(this.globe, {
             inertia: true
         });
+
+        var sgRenderer;
+        var renderContext = this.globe.renderContext;
+        
+        var loader = Object.create(GlobWebGLTFLoader);
+        loader.initWithPath("/glTF/model/vcurtains/gltf/test.json");
+
+        var onLoadedCallback = function(success, rootObj) {
+            sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
+                minNear: 0.0001,
+                far: 6,
+                fov: 45,
+                enableAlphaBlending: true
+            });
+            renderContext.addRenderer(sgRenderer);   
+        };
+
+        loader.load({
+            rootObj: new SceneGraph.Node()
+        }, onLoadedCallback);
 
         // Add stats
         // var stats = new GlobWeb.Stats(globe, {
