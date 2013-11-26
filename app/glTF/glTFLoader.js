@@ -229,8 +229,12 @@ define([
         }
 
         if (semantic == "POSITION") {
-            // TODO: Should be easy to take strides into account here            
-            floatArray = new Float32Array(glResource, attribute.byteOffset, attribute.count * componentsPerElementForGLType(type));            
+            // FIXXME: The loader is not yet capable of loading the main buffer ("bufferView.buffer", e.g. "duck.bin")
+            // and offset into it here. Currently the buffers are loaded in different requests but with the "range" header
+            // attribute set accordingly. Therefore the byteOffset is always set to 0 here:
+            var byteOffset = 0;//attribute.byteOffset;
+            // TODO: Should be easy to take strides into account here  
+            floatArray = new Float32Array(glResource, byteOffset, attribute.count * componentsPerElementForGLType(type));            
             geo_proxy.setVertexArray(floatArray);
         }
         // else if (semantic == "NORMAL") {
