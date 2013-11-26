@@ -57,11 +57,11 @@ define([
             case 35666:
                 return 'FLOAT_VEC4';
             case 35675:
-                return 'FLOAT_MAT3'; 
+                return 'FLOAT_MAT3';
             case 35676:
-                return 'FLOAT_MAT4';   
+                return 'FLOAT_MAT4';
             case 35678:
-                return 'SAMPLER_2D';              
+                return 'SAMPLER_2D';
         }
     }
 
@@ -119,6 +119,62 @@ define([
         this._entries = {};
     };
 
+    // Helper object to encapsulate the loading of a SceneGraph.Geometry/Mesh over the network:
+    function GeometryLoaderProxy(geometry) {
+        this.totalAttributes = 0;
+        this.loadedAttributes = 0;
+
+        // GlobWeb's SceneGraph.Geometry object:
+        this.geometry = geometry;
+    };
+
+    GeometryLoaderProxy.prototype.setMesh = function(mesh) {
+        this.geometry.mesh = mesh;
+    };
+
+    GeometryLoaderProxy.prototype.setMaterial = function(material) {
+        this.geometry.material = material;
+    };
+
+    GeometryLoaderProxy.prototype.checkFinished = function() {
+        var mesh = this.geometry.mesh;
+        if (mesh.indexArray &&
+            mesh.vertexArray &&
+            (this.totalAttributes === this.loadedAttributes)) {
+
+            mesh.isLoaded = true;
+            return true;
+        }
+
+        return false;
+    };
+
+    GeometryLoaderProxy.prototype.setIndexArray = function(indexArray) {
+        var mesh = this.geometry.mesh;        
+        mesh.indexArray = indexArray;
+
+        mesh.indices = [];
+        for (i = 0, l = indexArray.length; i < l; i += 1) {
+            mesh.indices.push(indexArray[i]);
+            // console.log("indices: " + indexArray[i]);
+        }
+
+        // FIXXME: make this variable!
+        mesh.numElements = 3;
+    };
+
+    GeometryLoaderProxy.prototype.setVertexArray = function(vertexArray, createVertexArrayInHostMemory) {
+        var mesh = this.geometry.mesh;
+        mesh.vertexArray = vertexArray;
+        
+        // NOTE: necessary for bounding box calculation of SceneGraph.Node:
+        mesh.vertices = [];
+        for (i = 0, l = vertexArray.length; i < l; i += 1) {
+            mesh.vertices.push(vertexArray[i]);
+            // console.log("vertices: " + vertexArray[i]);
+        }
+    };
+
     // Delegate for processing index buffers
     var IndicesDelegate = function() {};
 
@@ -132,25 +188,18 @@ define([
     };
 
     IndicesDelegate.prototype.resourceAvailable = function(glResource, ctx) {
-        var geometry = ctx.mesh;
-        geometry.mesh.indexArray = glResource;
+        var geo_proxy = ctx.geoLoaderProxy;
+        geo_proxy.setIndexArray(glResource, true);
+        geo_proxy.checkFinished();
 
-        geometry.mesh.indices = [];
-        for (i = 0, l = glResource.length; i < l; i += 1) {
-            geometry.mesh.indices.push(glResource[i]);
-            // console.log("indices: " + glResource[i]);
-        }        
-        // mesh.checkFinished();    
-
-        geometry.mesh.numElements = 3;
         return true;
     };
 
     var indicesDelegate = new IndicesDelegate();
 
-    var IndicesContext = function(indices, mesh) {
+    var IndicesContext = function(indices, geoLoaderProxy) {
         this.indices = indices;
-        this.mesh = mesh;
+        this.geoLoaderProxy = geoLoaderProxy;
     };
 
     // Delegate for processing vertex attribute buffers
@@ -166,7 +215,7 @@ define([
     };
 
     VertexAttributeDelegate.prototype.resourceAvailable = function(glResource, ctx) {
-        var geometry = ctx.mesh; // NOTE: glTF calls it mesh, GlobWeb calls it geometry
+        var geo_proxy = ctx.geoLoaderProxy;
         var attribute = ctx.attribute;
         var semantic = ctx.semantic;
         var floatArray;
@@ -180,21 +229,10 @@ define([
         }
 
         if (semantic == "POSITION") {
-            geometry.mesh.vertices = [];
-            // TODO: Should be easy to take strides into account here
-            floatArray = new Float32Array(glResource, attribute.byteOffset, attribute.count * componentsPerElementForGLType(type));
-
-            geometry.mesh.vertexArray = floatArray;
-
-            // for (i = 0, l = floatArray.length; i < l; i += 3) {
-            //     geometry.mesh.vertices.push([floatArray[i], floatArray[i + 1], floatArray[i + 2]]);
-            //     console.log("vertices: " + floatArray[i]);
-            // }
-            for (i = 0, l = floatArray.length; i < l; i += 1) {
-                geometry.mesh.vertices.push(floatArray[i]);
-                // console.log("vertices: " + floatArray[i]);
-            }            
-        } 
+            // TODO: Should be easy to take strides into account here            
+            floatArray = new Float32Array(glResource, attribute.byteOffset, attribute.count * componentsPerElementForGLType(type));            
+            geo_proxy.setVertexArray(floatArray);
+        }
         // else if (semantic == "NORMAL") {
         //     geometry.mesh.normals = [];
         //     window.test = glResource;
@@ -213,18 +251,18 @@ define([
         //     }
         // }
 
-        // FIXXME: necessary for our case?
-        // mesh.loadedAttributes++;
-        // mesh.checkFinished();
+        geo_proxy.loadedAttributes++;
+        geo_proxy.checkFinished();
+
         return true;
     };
 
     var vertexAttributeDelegate = new VertexAttributeDelegate();
 
-    var VertexAttributeContext = function(attribute, semantic, mesh) {
+    var VertexAttributeContext = function(attribute, semantic, geoLoaderProxy) {
         this.attribute = attribute;
         this.semantic = semantic;
-        this.mesh = mesh;
+        this.geoLoaderProxy = geoLoaderProxy;
     };
 
     var GlobWebGLTFLoader = Object.create(glTFParser, {
@@ -363,9 +401,14 @@ define([
 
         handleMesh: {
             value: function(entryID, description, userInfo) {
+
+                // Create the Geometry holding Mesh and Material after it is fully loaded:
                 var geometry = new SceneGraph.Geometry();
                 this.globWebResources.setEntry(entryID, geometry, description);
-                // console.log('[handleMesh] added entryID: ' + entryID);
+
+                // Create the GeometryLoaderProxy to keep track if the SceneGraph.Geometry  is fully loaded:
+                var geo_proxy = new GeometryLoaderProxy(geometry);
+
                 var primitivesDescription = description.primitives;
                 if (!primitivesDescription) {
                     //FIXME: not implemented in delegate
@@ -373,6 +416,7 @@ define([
                     return false;
                 }
 
+                // Iterate through primitives making up the mesh and build up the mesh structure for the GlobWeb renderer:
                 for (var i = 0; i < primitivesDescription.length; i++) {
                     var primitiveDescription = primitivesDescription[i];
 
@@ -390,17 +434,17 @@ define([
                         var indicesEntry = this.globWebResources.getEntry(indicesID);
                         indicesEntry = indicesEntry.description;
                         indicesEntry.id = indicesID;
-                        var indicesContext = new IndicesContext(indicesEntry, geometry);
+                        var indicesContext = new IndicesContext(indicesEntry, geo_proxy);
                         // var alreadyProcessedIndices = this.globWebResources.binaryManager.getResource(primitiveDescription.indices, indicesDelegate, indicesContext);
                         var alreadyProcessedIndices = this.globWebResources.binaryManager.getResource(indicesEntry, indicesDelegate, indicesContext);
                         /*if(alreadyProcessedIndices) {
                             indicesDelegate.resourceAvailable(alreadyProcessedIndices, indicesContext);
-                        }*/
+                        }*/ 
 
                         // Load Vertex Attributes
                         var allSemantics = Object.keys(primitiveDescription.attributes);
                         allSemantics.forEach(function(semantic) {
-                            //geometry.totalAttributes++;
+                            geo_proxy.totalAttributes++;
 
                             var attribute;
                             var attributeID = primitiveDescription.attributes[semantic];
@@ -422,7 +466,7 @@ define([
                             //     attribute = attributeEntry.object;
                             // }
 
-                            var attribContext = new VertexAttributeContext(attributeEntry, semantic, geometry);
+                            var attribContext = new VertexAttributeContext(attributeEntry, semantic, geo_proxy);
 
                             var alreadyProcessedAttribute = this.globWebResources.binaryManager.getResource(attributeEntry, vertexAttributeDelegate, attribContext);
                             /*if(alreadyProcessedAttribute) {

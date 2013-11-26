@@ -55,8 +55,8 @@ require([
 
     var loader = Object.create(GlobWebGLTFLoader);
     loader.initWithPath("./model/duck/duck.json");
-    // loader.initWithPath("./model/box/box.json");
-    // loader.initWithPath("./model/vcurtains/gltf/test.json");
+//     loader.initWithPath("./model/box/box.json");
+//     loader.initWithPath("./model/vcurtains/gltf/test.json");
 
     var onLoadedCallback = function(success, rootObj) {
         // if (success) {
@@ -67,12 +67,9 @@ require([
         // console.log('rootObj:');
         // console.dir(rootObj);
 
-        // FIXXME: At this time the resources are not necessarily fetched. The timeout is a quick hack for testing...
-        setTimeout(function() {
-            nav.node = rootObj;
-            sgRenderer = new SceneGraphRenderer(renderContext, rootObj);
-            console.log('Starting to render');
-        }, 1000);
+        nav.node = rootObj;
+        sgRenderer = new SceneGraphRenderer(renderContext, rootObj);
+        console.log('Starting to render');
     };
 
     loader.load({
