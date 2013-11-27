@@ -81,7 +81,8 @@
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "daily_FSC_PanEuropean_Optical",
@@ -100,7 +101,8 @@
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "daily_SWE_PanEuropean_Microwave",
@@ -118,7 +120,8 @@
           "urls": [
               "http://earthserver.eox.at/open/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "SRTM_mosaic",
@@ -341,7 +344,7 @@
       "enabled":true,
       "active":false
     }
-    
+
   ],
 
   "visualizationModes":[
@@ -369,7 +372,7 @@
       "enabled":true,
       "active":false
     }
-    
+
   ]
 
 }

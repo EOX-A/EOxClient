@@ -16,7 +16,7 @@ define([
 
 			this.position = {
 				center: [74, 15],
-				distance: 10000000,	
+				distance: 10000000,
 				duration: 1000,
 				tilt: 45
 			};
@@ -209,6 +209,10 @@ define([
 
         isActive: function() {
             return !this.globeView.isClosed;
+        },
+
+        dumpLayerConfig: function() {
+            this.globeView.dumpLayerConfig();
         }
     });
 

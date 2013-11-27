@@ -71,7 +71,6 @@ define([
             if (isVisible) {
                 this.addLayer(model, isBaseLayer);
                 console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
-                console.log('ordinal: '+ model.get('ordinal'));
             } else {
                 this.removeLayer(model, isBaseLayer);
                 console.log('[GlobeView::onLayerChange] deselected ' + model.get('name'));
@@ -105,7 +104,7 @@ define([
 
             if (!this.initialLayerSetupDone) {
                 this.initLayers();
-                this.sortOverlayLayers();
+                this.sortOverlayLayers(); // FIXXME: necessary?
                 this.initialLayerSetupDone = true;
             }
         },
@@ -131,6 +130,10 @@ define([
 
         onClose: function() {
             this.isClosed = true;
+        },
+
+        dumpLayerConfig: function() {
+            this.globe.dumpLayerConfig();
         }
     });
 

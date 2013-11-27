@@ -33,6 +33,13 @@ define([
             inertia: true
         });
 
+        var srtmElevationWCSGlobal = new GlobWeb.WCSElevationLayer({
+           baseUrl: "http://earthserver.eox.at/cgi-bin/mapserv?map=/var/www/dem/dem.map",
+             coverage: "GTOPO30",
+             version: "2.0.0"
+         });
+        this.globe.setBaseElevation(srtmElevationWCSGlobal);
+
         var sgRenderer;
         var renderContext = this.globe.renderContext;
         
@@ -58,18 +65,6 @@ define([
         // 	element: 'fps',
         // 	verbose: false
         // });
-
-        // var osmLayer = new GlobWeb.OSMLayer({
-        // 	baseUrl: "http://tile.openstreetmap.org"
-        // });
-        // globe.setBaseImagery(osmLayer);
-
-        // var blueMarbleLayer = new GlobWeb.WMSLayer({
-        // 	baseUrl: "http://demonstrator.telespazio.com/wmspub",
-        // 	layers: "BlueMarble",
-        // 	opacity: 0.1
-        // });
-        // this.globe.setBaseImagery(blueMarbleLayer);
     };
 
     var convertFromOpenLayers = function(ol_geometry, altitude) {
@@ -129,31 +124,55 @@ define([
         }
     };
 
+    Globe.prototype.createCommonLayerOptionsFromModel = function(model) {
+        var opts = {};
+
+        opts.baseUrl = model.get('view').urls[0];
+
+        opts.style = ''; // MapProxy needs a style argument, even if its empty
+        if (model.get('view').style) {
+            opts.style = model.get('view').style;
+        }
+
+        var layer = model.get('view').id;
+
+        if (model.get('view').protocol === 'WMS') {
+            opts.layers = layer;
+        } else {
+            opts.layer = layer;
+        }
+
+        opts.format = model.get('view').format || 'image/jpeg';
+
+        if (model.get('time')) {
+            opts.time = model.get('time');
+        }
+
+        if (model.get('time')) {
+            opts.time = model.get('time')
+        }
+
+        if (opts.format === 'image/png') {
+            opts.transparent = true;
+        }
+
+        return opts;
+    };
+
     Globe.prototype.addLayer = function(model, isBaseLayer) {
         var layerDesc = this.layerCache[model.get('name')];
         var layer = undefined;
 
-        console.log('time: ' + model.get('time'));
-
         if (typeof layerDesc === 'undefined') {
-            if (model.get('view').protocol === 'WMTS') {
-                layer = new GlobWeb.WMTSLayer({
-                    baseUrl: model.get('view').urls[0],
-                    style: model.get('view').style,
-                    layer: model.get('view').id,
-                    format: model.get('view').format,
-                    matrixSet: model.get('view').matrixSet,
-                    time: model.get('time'), // Note: time is only defined on compatible products
-                    transparent: "true"
-                });
+            var opts = this.createCommonLayerOptionsFromModel(model);
 
-            } else if (model.get('view').protocol === 'WMS') {
-                layer = new GlobWeb.WMSLayer({
-                    baseUrl: model.get('view').urls[0],
-                    layers: model.get('view').id,
-                    time: model.get('time'), // Note: time is only defined on compatible products
-                    transparent: "true"
+            if (model.get('view').protocol === 'WMTS') {
+                var layer_opts = _.extend(opts, {
+                    matrixSet: model.get('view').matrixSet,
                 });
+                layer = new GlobWeb.WMTSLayer(layer_opts);
+            } else if (model.get('view').protocol === 'WMS') {
+                layer = new GlobWeb.WMSLayer(opts);
             }
 
             // set initial opacity:
@@ -176,6 +195,10 @@ define([
         if (isBaseLayer) {
             this.globe.setBaseImagery(layer);
         } else {
+            // FIXXME: when adding a layer the 'ordinal' has to be considered!
+            // Unfortunately GlobWeb does not seem to have a layer ordering mechanism,
+            // therefore we have to remove all layers and readd the in the correct order.
+            // This results in flickering when adding a layer and should be fixed within GlobWeb.
             this.globe.addLayer(layer);
             this.overlayLayers.push(layerDesc);
         }
@@ -191,15 +214,14 @@ define([
         this.removeAllOverlays();
 
         _.each(sortedOverlayLayers, function(desc) {
+            console.log('sort: adding layer with ordinal: ' + desc.model.get('ordinal'));
             this.addLayer(desc.model, desc.isBaseLayer);
         }.bind(this));
     };
 
     Globe.prototype.removeAllOverlays = function() {
         _.each(this.overlayLayers, function(desc, idx) {
-            if (!desc.isBaseLayer) {
-                this.globe.removeLayer(desc.layer);
-            }
+            this.globe.removeLayer(desc.layer);
         }.bind(this));
 
         this.overlayLayers.length = 0;
@@ -214,6 +236,8 @@ define([
             var layerDesc = this.layerCache[model.get('name')];
             if (typeof layerDesc !== 'undefined') {
                 this.globe.removeLayer(layerDesc.layer);
+                var idx = _.indexOf(this.overlayLayers, layerDesc);
+                this.overlayLayers.splice(idx, 1);
             }
         }
     };
@@ -266,6 +290,15 @@ define([
         if (typeof layerDesc !== 'undefined') {
             layerDesc.layer.opacity(opacity);
         }
+    };
+
+    Globe.prototype.dumpLayerConfig = function() {
+        _.each(this.overlayLayers, function(desc) {
+            console.log('-------------------------------------------------');
+            console.log('Layer: ' + desc.model.get('name'));
+            console.log('   ordinal: ' + desc.model.get('ordinal'));
+            console.log('   opacity: ' + desc.layer.opacity());
+        }.bind(this));
     };
 
     return Globe;
