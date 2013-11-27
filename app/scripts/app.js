@@ -346,7 +346,7 @@
                 // Instance timeslider view
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
                 
-								
+						}		
 			},
 
 			// The GUI is setup after the application is started. Therefore all modules
