@@ -13,38 +13,38 @@ define([
 		this.startsWithParent = true;
 
 		this.on('start', function(options) {
-			var controller = new RectangularBoxViewController();
+            this.instances = {};
+            this.idx = 0;
 
-			registerWithCommunicator(controller);
-			// FIXXME: Routing system has to be reworked to integrate it with multiple views!
-			//setupRouter(controller);
+            console.log('[VirtualGlobeViewer] Finished module initialization');
+        });			
 
-			console.log('[RectangularBoxViewer] Finished module initialization');
+        this.createController = function(opts) {
+            console.log("Entered create Controller");
+            var id = undefined;
 
-		});
+            if (typeof opts !== 'undefined') {
+                id = opts.id;
+            }
 
-		var registerWithCommunicator = function(rbv_controller) {
-			Communicator.registerEventHandler("viewer:show:rectangularboxviewer", function() {
-				Backbone.history.navigate("rbv", {
-					trigger: true
-				});
-			});
+            // Go through instances and return first free one
+            for (var contr in this.instances) {
+                if (!this.instances[contr].isActive()) {
+                    console.log("Free RB viewer returned " + contr);
+                    //this.instances[contr].connectToView();
+                    return this.instances[contr];
+                }
+            };
 
-			Communicator.registerEventHandler("viewer:hide:rectangularboxviewer", function() {
-				rbv_controller.hide();
-			});			
-		};
+            // If there are no free insances create a new one
+            if (typeof id === 'undefined') {
+                id = 'RectangularBoxViewer.' + this.idx++;
+            }
 
-		var setupRouter = function(rbv_controller) {
-			var Router = Backbone.Marionette.AppRouter.extend({
-				appRoutes: {
-					"rbv": "show"
-				}
-			});
+            var controller = new RectangularBoxViewController();
+            this.instances[id] = controller;
 
-			new Router({
-				controller: new RectangularBoxViewRouter(rbv_controller)
-			});
-		};
+            return controller;	
+        };
 	});
 });
