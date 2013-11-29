@@ -60,13 +60,25 @@
 
 		checkDownload: function() {
 	      	// Check that all necessary selections are available
-	        if(this.model.get('ToI') != null &&
-	           this.model.get('AoI') != null &&
-	           _.size(this.model.get('products')) > 0){
-	          Communicator.mediator.trigger('selection:enabled', {id:"download", enabled:true} );
-	        }else{
-	          Communicator.mediator.trigger('selection:enabled', {id:"download", enabled:false} );
-	        }
+	      	var download_available = false;
+
+	      	if(_.size(this.model.get('products')) > 0){
+	      		_.each(this.model.get('products'), function(product){
+	      			if (product.timeSlider){
+	      				if(this.model.get('ToI') != null &&
+	           			   this.model.get('AoI') != null)
+	      					download_available = true;
+	      			} else {
+	      				if(this.model.get('AoI') != null)
+	      					download_available = true;
+	      			}	
+	      		}, this);
+			}
+
+			if(download_available)
+				Communicator.mediator.trigger('selection:enabled', {id:"download", enabled:true} );
+			else
+				Communicator.mediator.trigger('selection:enabled', {id:"download", enabled:false} );
 	      },
 
 		onDownloadToolOpen: function(toOpen) {
