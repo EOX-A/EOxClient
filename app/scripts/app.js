@@ -74,6 +74,7 @@
 						new m.LayerModel({
 							name: baselayer.name,
 							visible: baselayer.visible,
+							attribution: baselayer.attribution,
 							view: {
 								id : baselayer.id,
 								urls : baselayer.urls,
@@ -117,7 +118,7 @@
 								urls : products.view.urls,
 								visualization: products.view.visualization,
 								projection: products.view.projection,
-								attribution: products.view.attribution,
+								attribution: products.attribution,
 								matrixSet: products.view.matrixSet,
 								style: products.view.style,
 								format: products.view.format,
@@ -149,6 +150,7 @@
 						new m.LayerModel({
 							name: overlay.name,
 							visible: overlay.visible,
+							attribution: overlay.attribution,
 							view: {
 								id : overlay.id,
 								urls : overlay.urls,

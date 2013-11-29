@@ -96,6 +96,7 @@ define(['backbone',
 				createLayer: function (layerdesc) {
 					var return_layer = null;
 					var layer = layerdesc.get('view');
+					console.log(layer.attribution);
 
 					switch(layer.protocol){
 						case "WMTS":
@@ -119,7 +120,8 @@ define(['backbone',
 						        wrapDateLine: layer.wrapDateLine,
 						        zoomOffset: layer.zoomOffset,
 						        visible: layerdesc.get("visible"),
-						        time: layerdesc.time
+						        time: layerdesc.time,
+						        attribution: layer.attribution
 							});
 							break;
 
@@ -149,7 +151,8 @@ define(['backbone',
 							        isBaseLayer: layer.isBaseLayer,
 							        wrapDateLine: layer.wrapDateLine,
 							        zoomOffset: layer.zoomOffset,
-							        visibility: layerdesc.get("visible")
+							        visibility: layerdesc.get("visible"),
+							        attribution: layer.attribution
 							    }
 							);
 							break;

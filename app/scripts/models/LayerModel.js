@@ -18,6 +18,7 @@
 			time: null,
 			visible: null,
 			opacity: 0,
+			attribution:'',
 			view: {
 				id : '',
 				protocol: '',
