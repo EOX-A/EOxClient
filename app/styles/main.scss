@@ -313,7 +313,9 @@ button[active=active] {
 // Possible changes to mouse position display
 div .olControlMousePosition {
   position: absolute;
+  display: block;
   bottom: 3px;
+  right: initial;
   left:10px;
   color: #eee;
   text-shadow: rgba(25,25,25,1) 0px 0px 4px;
@@ -323,7 +325,6 @@ div .olControlMousePosition {
   font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
   font-weight: normal;
   font-size: 0.8em;
-  width: 10em;
 	/*font-size: 16px !important;
 	margin-right: 2%;
 	font-weight:bold;
