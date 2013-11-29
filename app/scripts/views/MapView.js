@@ -66,7 +66,15 @@ define(['backbone',
 
 					// Go through all products and add them to the map
 					globals.products.each(function(product){
-						this.map.addLayer(this.createLayer(product));
+						
+						if(product.get('visible')){
+							product.set('visible', false);
+							this.map.addLayer(this.createLayer(product));
+							var options = { name: product.get('name'), isBaseLayer: false, visible: true };
+                			Communicator.mediator.trigger('map:layer:change', options);
+						}else{
+							this.map.addLayer(this.createLayer(product));
+						}
 					}, this);
 
 					// Go through all products and add them to the map
@@ -158,6 +166,7 @@ define(['backbone',
 							break;
 
 					};
+
 					return return_layer;		
 				},
 
