@@ -118,7 +118,7 @@
         },
         "download": {
           "id": "SRTM_mosaic",
-          "protocol": "EOWCS",
+          "protocol": "WCS",
           "url": "http://earthserver.eox.at/open/ows"
         }
       }

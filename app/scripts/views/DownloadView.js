@@ -66,9 +66,12 @@
         var $downloadList = this.$("#download-list");
         $downloadList.children().remove();
 
+        var coverageSets = [];
+        var WCScoverages = [];
 
-        var coverageSets = _.map(this.model.get('products'), function(product, key) {
-          var set = new EOCoverageSet([]);
+
+        _.each(this.model.get('products'), function(product, key) {
+
           var options = {};
 
           if(product.get('timeSlider')){
@@ -85,10 +88,34 @@
           options.subsetX = [bbox.left, bbox.right];
           options.subsetY = [bbox.bottom, bbox.top];
 
-          // TODO: Check for download protocol !
-          set.url = WCS.EO.KVP.describeEOCoverageSetURL(product.get('download').url, key, options);
-          return set;
+
+          switch (product.get('download').protocol) {
+            case 'EOWCS':
+              var set = new EOCoverageSet([]);
+              
+
+              set.url = WCS.EO.KVP.describeEOCoverageSetURL(product.get('download').url, key, options);
+              coverageSets.push(set);
+
+              break;
+
+            case 'WCS':
+
+              var wcsurl = WCS.Core.KVP.getCoverageURL(product.get('download').url, key, options);
+              console.log(key);
+              WCScoverages.push(
+                new Backbone.Model({
+                  coverageId: key,
+                  url: wcsurl
+                })
+              );
+
+              break;
+          }
+
+
         }, this);
+
 
         // dispatch WCS DescribeEOCoverageSet requests
         var deferreds = _.invoke(coverageSets, "fetch");
@@ -103,6 +130,10 @@
           });
 
           var coverage = _.flatten(_.pluck(coverageSets, "models"));
+          coverage = coverage.concat(WCScoverages);
+          //_.flatten(coverage, true);
+          console.log(WCScoverages);
+          console.log(coverage);
           this.coverages.reset(coverage);
         }, this));
       },
