@@ -25,7 +25,9 @@
     <!-- endbuild -->
 </head>
 <body>
-
+    <script>
+        function toggle(e) { e.style.display = (e.style.display == 'block' ? 'none' : 'block'); }
+    </script>
     <!--[if lt IE 7]>
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
@@ -46,6 +48,21 @@
     <!-- HIDDEN DOWNLOAD DIV -->
     <div id="div-downloads">
       <iframe name="iframe-download-post" id="iframe-download-post"></iframe>
+    </div>
+
+    <div id="terrain_attribution">
+        <p style="float: right"><a href="#" onclick="toggle(terrain_attribution)">&#215;</a></p>
+        <p>Terrain map data</p>
+        <ul>
+            <li>GTOPO30</li>
+            <li>SRTM &copy; <a href='http://nasa.gov'>NASA</a></li>
+            <li>EUDEM &copy; <a href='http://www.eea.europa.eu/'>EEA</a></li>
+            <li>CleanTOPO2 public domain</li>
+            <li>GlobCover &copy; <a href='http://esa.int'>ESA</a></li>
+            <li>NaturalEarth <a href='http://www.naturalearthdata.com/about/terms-of-use/'>public domain</a></li>
+            <li>OpenStreetMap &copy; <a href='http://www.openstreetmap.org'>OpenStreetMap contributors</a></li>
+        </ul>
+        <p>Terrain map design &copy; <a href='http://eox.at'>EOX IT Services GmbH</a></p>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

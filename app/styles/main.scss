@@ -256,16 +256,81 @@ button[active=active] {
     overflow: hidden;
 }
 
+/*
+ * Openlayers changes
+ */
+
+/*
+ * Tweaking OpenLayers
+ */
+.olControlAttribution {
+  position: absolute;
+  bottom: 0 !important; 
+  right: 0;
+  color: #eee;
+  text-shadow: rgba(25,25,25,1) 0px 0px 4px;
+  background-color: rgba(0, 60, 136, 0.5);
+  padding: 3px 3px 3px 6px;
+  border-radius: 4px 0 0 0;
+  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 0.8em;
+}
+
+.olControlAttribution :link, .olControlAttribution :visited  {
+  color: rgb(192,192,192);
+  text-decoration: underline;
+}
+
+/*
+ * Terrain Attribution
+ */
+#terrain_attribution {
+  position: absolute;
+  bottom: 2em;
+  right: .2em;
+  color: #eee;
+  text-shadow: rgba(25,25,25,1) 0px 0px 4px;
+  background-color: rgba(0, 60, 136, 0.6);
+  border-radius: 4px;
+  padding: 0 8px;
+  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 0.8em;
+  display: none;
+}
+#terrain_attribution :link, #terrain_attribution :visited {
+  color: rgb(192,192,192);
+  text-decoration: none;
+}
+#terrain_attribution h2 {
+  margin-bottom: .1em;
+}
+#terrain_attribution ul {
+  margin-top: .2em;
+}
 
 // Possible changes to mouse position display
-/*div .olControlMousePosition {
-	font-size: 16px !important;
+div .olControlMousePosition {
+  position: absolute;
+  bottom: 3px;
+  left:10px;
+  color: #eee;
+  text-shadow: rgba(25,25,25,1) 0px 0px 4px;
+  background-color: rgba(0, 60, 136, 0.6);
+  border-radius: 4px;
+  padding: 0 8px;
+  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 0.8em;
+  width: 10em;
+	/*font-size: 16px !important;
 	margin-right: 2%;
 	font-weight:bold;
    	-webkit-text-fill-color: white;
    	-webkit-text-stroke-width: 1px;
-   	-webkit-text-stroke-color: black;
-}*/
+   	-webkit-text-stroke-color: black;*/
+}
 
 .hero-unit {
     margin: 50px auto 0 auto;

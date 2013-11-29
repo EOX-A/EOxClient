@@ -17,7 +17,7 @@
         "id": "globcover",
         "protocol": "WMTS",
         "visible": true,
-        "attribution": "EOX1",
+        "attribution": "Terrain &copy; <a href='#' onClick='toggle(terrain_attribution)'>Various</a>",
         "urls": [
           "http://a.tiles.maps.eox.at/wmts/",
           "http://b.tiles.maps.eox.at/wmts/",
@@ -44,7 +44,6 @@
         "id": "bluemarble_wgs84",
         "protocol": "WMTS",
         "visible": false,
-        "attribution": "EOX2",
         "urls": [
           "http://a.tiles.maps.eox.at/wmts/",
           "http://b.tiles.maps.eox.at/wmts/",
@@ -73,7 +72,6 @@
         "visible": false,
         "timeSlider": true,
         "color":"green",
-        "attribution": "EOX3",
         "view": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "WMS",
@@ -93,7 +91,6 @@
         "visible": false,
         "timeSlider": true,
         "color":"red",
-        "attribution": "EOX4",
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "WMS",
@@ -112,7 +109,6 @@
         "name": "SRTM",
         "visible": true,
         "timeSlider": false,
-        "attribution": "EOX5",
         "view": {
           "id": "SRTM8bit_mosaic",
           "protocol": "WMS",
@@ -134,7 +130,6 @@
         "id": "overlay",
         "protocol": "WMTS",
         "visible": true,
-        "attribution": "EOX6",
         "urls": [
           "http://a.tiles.maps.eox.at/wmts/",
           "http://b.tiles.maps.eox.at/wmts/",
