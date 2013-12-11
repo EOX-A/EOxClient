@@ -107,7 +107,6 @@
 					}
 
 					this.setupGui();
-					this.selectInitialProducts();
 				});	
 
 				App.start();

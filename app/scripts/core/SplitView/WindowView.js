@@ -33,7 +33,7 @@ define([
 			},
 
 			'click .boxview-btn': function() {
-				var options = {window:this, viewer:'RectangularBoxViewer'};
+				var options = {window:this, viewer:'SliceViewer'};
 				Communicator.mediator.trigger('window:view:change', options);
 			},
 

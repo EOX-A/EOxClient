@@ -44,6 +44,12 @@
 			},
             keypress: {
                 exports: 'Keypress'
+            },
+            xtk: {
+                exports: 'X'
+            },
+            'xtk-gui': {
+                exports: 'dat'
             }
         },
 
@@ -89,8 +95,10 @@
 
             /* 3D viewer modules base libraries */
             virtualglobeviewer: "../bower_components/virtualglobeviewer/src",
-            x3dom: "http://www.x3dom.org/download/dev/x3dom",
-            keypress: '../bower_components/Keypress/keypress'
+            x3dom: "../scripts/vendor/x3dom-full.debug",
+            keypress: '../bower_components/Keypress/keypress',
+            xtk: '../scripts/vendor/xtk_edge',
+            'xtk-gui': '../scripts/vendor/xtk_xdat.gui'
         },
 
         hbs: {

@@ -5,7 +5,8 @@
   "modules": [
     "contrib/MapViewer/MapViewModule",
     "contrib/VirtualGlobeViewer/VirtualGlobeViewModule",
-    "contrib/RectangularBoxViewer/RectangularBoxViewModule"
+    "contrib/RectangularBoxViewer/RectangularBoxViewModule",
+    "contrib/SliceViewer/SliceViewModule"
   ],
 
   "mapConfig": {
