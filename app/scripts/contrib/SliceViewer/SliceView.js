@@ -62,21 +62,28 @@ define([
             // .. and attach the single-file dicom in .NRRD format
             // this works with gzip/gz/raw encoded NRRD files but XTK also supports other
             // formats like MGH/MGZ
-            // volume.file = 'http://x.babymri.org/?avf.nrrd';
+            // volume.file = 'data/avf.nrrd';
+            volume.file = 'data/H2O.nii.gz';
+            // volume.file = 'data/Pressure.nii.gz';
             // volume.file = 'data/Temperature.nii.gz';
-            volume.file = 'data/avf.nrrd';
 
-            // the segmentation is a X.mesh
-            var mesh = new X.mesh();
-            // .. and is loaded from a .VTK file
-            // mesh.file = 'http://x.babymri.org/?avf.vtk';
-            mesh.file = 'data/avf.vtk';
-            // we set the color to a lighter red
-            mesh.color = [0.7, 0.25, 0.25];
-            mesh.opacity = 0.7;
-            // and also set the visibility to false, since we add a 'load-on-demand'
-            // option for it
-            mesh.visible = false;
+            volume.volumeRendering = true;
+            volume.upperThreshold = 219;
+            volume.opacity = 0.3;
+            volume.minColor = [1,1,1];
+            volume.maxColor = [0,0,0];
+            //volume.reslicing = true;
+            
+            // //the segmentation is a X.mesh
+            // var mesh = new X.mesh();
+            // // .. and is loaded from a .VTK file
+            // mesh.file = 'data/avf.vtk';
+            // // we set the color to a lighter red
+            // mesh.color = [0.7, 0.25, 0.25];
+            // mesh.opacity = 0.7;
+            // // and also set the visibility to false, since we add a 'load-on-demand'
+            // // option for it
+            // mesh.visible = false;
 
             // only add the volume for now, the mesh gets loaded on request
             r.add(volume);
@@ -133,32 +140,32 @@ define([
                     volume.range[2] - 1);
                 volumegui.open();
 
-                // now we configure the gui for interacting with the X.mesh
-                var meshgui = gui.addFolder('Mesh');
-                // the visible controller shows/hides the volume but also loads the file on
-                // demand (only the first time)
-                var meshVisibleController = meshgui.add(mesh, 'visible');
-                // .. the mesh color
-                var meshColorController = meshgui.addColor(mesh, 'color');
-                meshgui.open();
+                // // now we configure the gui for interacting with the X.mesh
+                // var meshgui = gui.addFolder('Mesh');
+                // // the visible controller shows/hides the volume but also loads the file on
+                // // demand (only the first time)
+                // var meshVisibleController = meshgui.add(mesh, 'visible');
+                // // .. the mesh color
+                // var meshColorController = meshgui.addColor(mesh, 'color');
+                // meshgui.open();
 
-                // meshgui callbacks
-                meshVisibleController.onChange(function(value) {
+                // // meshgui callbacks
+                // meshVisibleController.onChange(function(value) {
 
-                    if (!meshWasLoaded) {
+                //     if (!meshWasLoaded) {
 
-                        // this only gets executed the first time to load the mesh, after we
-                        // just toggle the visibility
-                        r.add(mesh);
+                //         // this only gets executed the first time to load the mesh, after we
+                //         // just toggle the visibility
+                //         r.add(mesh);
 
-                        // we set the onShowtime function to a void since we don't want to
-                        // create the GUI again here
-                        //r.onShowtime = function() {};
+                //         // we set the onShowtime function to a void since we don't want to
+                //         // create the GUI again here
+                //         //r.onShowtime = function() {};
 
-                        // set the loaded flag
-                        meshWasLoaded = true;
-                    }
-                });
+                //         // set the loaded flag
+                //         meshWasLoaded = true;
+                //     }
+                // });
 
                 this.baseInitDone = true;
             }.bind(this);
