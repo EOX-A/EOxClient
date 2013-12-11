@@ -98,7 +98,7 @@ define([
                 var meshWasLoaded = false;
 
                 var gui = new dat.GUI({
-                    autoPlace: false
+                    autoPlace: true
                 });
 
                 //var customContainer = document.getElementById('my-gui-container');
