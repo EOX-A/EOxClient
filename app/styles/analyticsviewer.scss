@@ -1,6 +1,6 @@
 @import "defaults";
 
-.d3test {
+.d3canvas {
 	
 	background-color: #ffffff;
 
@@ -9,4 +9,18 @@
 
 	margin: 0px;
 	padding: 0;
+}
+
+.analytics {
+	width: 100%;
+	height: 100%;
+}
+
+.analytics .gui {
+	top:200px;
+}
+
+.analytics .highlight {
+	padding: 1px;
+	margin-top: 2px;
 }

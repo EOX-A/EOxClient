@@ -1,5 +1,6 @@
 $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
+$iconSpritePathGraphs: "../images/spritesheet.png";
 
 @import "base";
 @import "splitview";
@@ -9,6 +10,9 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 @import "rectangularboxviewer";
 @import "analyticsviewer";
 @import "window";
+@import "analyticsviewer";
+@import "stylesheet";
+
 
 
 /* Not used right now ;)
