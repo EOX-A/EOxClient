@@ -2938,6 +2938,10 @@ x3dom.States = function (x3dElem) {
 
         //Create list items
         for (var m in measurements) {
+            if (!measurements.hasOwnProperty(m)) {
+                continue;
+            }
+
             infoItem = document.createElement('li');
             infoItem.className = 'x3dom-states-item';
 
