@@ -4,7 +4,8 @@ define(['backbone.marionette',
 		'models/AnalyticsModel',
 		'globals',
 		'd3',
-		'analytics'
+		'analytics',
+		'box'
 	],
 	function(Marionette, Communicator, App, AnalyticsModel, globals) {
 
@@ -35,6 +36,8 @@ define(['backbone.marionette',
 			},
 
 			onShow: function() {
+				
+				this.delegateEvents();
 				this.isClosed = false;
 
 				this.$el.append(
