@@ -1,7 +1,10 @@
 define([
     'virtualglobeviewer/GlobWeb',
+    'virtualglobeviewer/SceneGraph/SceneGraph',
+    'virtualglobeviewer/SceneGraph/Renderer',
+    './glTFLoader',
     'openlayers' // FIXXME: replace OpenLayers with generic format!
-], function(GlobWeb, OpenLayers) {
+], function(GlobWeb, SceneGraph, SceneGraphRenderer, GlobWebGLTFLoader, OpenLayers) {
 
     'use strict';
 
@@ -18,9 +21,8 @@ define([
             lighting: false,
             tileErrorTreshold: 3,
             continuousRendering: false,
-            backgroundColor: [0, 0, 0, 0],
-            // backgroundColor: [0.8, 0.8, 0.8, 1],
-            shadersPath: "../bower_components/virtualglobeviewer/shaders/"
+            backgroundColor: [0.2, 0.2, 0.2, 1],
+            shadersPath: "/bower_components/virtualglobeviewer/shaders/"
         });
 
         this.aoiLayer = undefined;
@@ -31,23 +33,38 @@ define([
             inertia: true
         });
 
+        var srtmElevationWCSGlobal = new GlobWeb.WCSElevationLayer({
+           baseUrl: "http://earthserver.eox.at/cgi-bin/mapserv?map=/var/www/dem/dem.map",
+             coverage: "GTOPO30",
+             version: "2.0.0"
+         });
+        this.globe.setBaseElevation(srtmElevationWCSGlobal);
+
+        var sgRenderer;
+        var renderContext = this.globe.renderContext;
+        
+        var loader = Object.create(GlobWebGLTFLoader);
+        loader.initWithPath("/glTF/model/vcurtains/gltf/test.json");
+
+        var onLoadedCallback = function(success, rootObj) {
+            sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
+                minNear: 0.0001,
+                far: 6,
+                fov: 45,
+                enableAlphaBlending: true
+            });
+            renderContext.addRenderer(sgRenderer);   
+        };
+
+        loader.load({
+            rootObj: new SceneGraph.Node()
+        }, onLoadedCallback);
+
         // Add stats
         // var stats = new GlobWeb.Stats(globe, {
         // 	element: 'fps',
         // 	verbose: false
         // });
-
-        // var osmLayer = new GlobWeb.OSMLayer({
-        // 	baseUrl: "http://tile.openstreetmap.org"
-        // });
-        // globe.setBaseImagery(osmLayer);
-
-        // var blueMarbleLayer = new GlobWeb.WMSLayer({
-        // 	baseUrl: "http://demonstrator.telespazio.com/wmspub",
-        // 	layers: "BlueMarble",
-        // 	opacity: 0.1
-        // });
-        // this.globe.setBaseImagery(blueMarbleLayer);
     };
 
     var convertFromOpenLayers = function(ol_geometry, altitude) {

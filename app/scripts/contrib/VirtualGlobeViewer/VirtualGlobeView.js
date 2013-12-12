@@ -104,6 +104,7 @@ define([
 
             if (!this.initialLayerSetupDone) {
                 this.initLayers();
+                this.sortOverlayLayers(); // FIXXME: necessary?
                 this.initialLayerSetupDone = true;
             }
         },

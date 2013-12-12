@@ -1,10 +1,10 @@
-define([
+	define([
 	"backbone.marionette"
 ], function(Marionette) {
 
 	'use strict';
 
-	// X3DOM is initializing the X3D elements found in the DOM when the library is loaded. As their are errors when
+	// X3DOM is initializing the X3D elements found in the DOM when the library is loaded. As there are errors when
 	// creating the X3D element after the loading of the library and x3dom.reload() did not work as expected this
 	// X3DOMView takes care that there is always a X3D element in the DOM. However, the visual appeareance acts as
 	// you would expect from a Marionette view, regarding its showing and closing in regions.
@@ -24,6 +24,9 @@ define([
 
 	var X3DOMView = Marionette.View.extend({
 		initialize: function(options) {
+			// NOTE: necessary for SplitView
+			this.isClosed = true;
+
 			this.sceneIsInitialized = false;
 
 			$(window).resize(function() {
@@ -57,9 +60,21 @@ define([
 		},
 
 		onResize: function() {
+			var w = this.$x3del.parent().width();
+			var h = this.$x3del.parent().parent().height();
+
+			this.$x3del.width(w);
+			this.$x3del.height(h);
+			
+			console.log('x3dom w: ' + w);
+			console.log('x3dom h: ' + h);
+
+			// this.$x3del.width($(window).width());
+			// this.$x3del.height($(window).height());
+
 			// Hardcoded as this element is created by the x3dom environment:
-			$('.x3dom-canvas').attr("width", $(window).width() - 2);
-			$('.x3dom-canvas').attr("height", $(window).height() - 2);
+			$('.x3dom-canvas').attr("width", w);
+			$('.x3dom-canvas').attr("height", h);
 		},
 
 		hide: function() {
@@ -68,10 +83,6 @@ define([
 
 		show: function() {
 			this.$el.append(this.$x3del);
-
-			this.$x3del.width($(window).width());
-			this.$x3del.height($(window).height());
-
 			this.onResize();
 		},
 

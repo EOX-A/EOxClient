@@ -32,17 +32,6 @@
 		'core/SplitView/SplitViewModule'
 	],
 	function ( Backbone, App, Communicator ) {
-
-		window.onerror = function(msg, url, line) {
-			//TODO, FIXME: DS: This is only a preliminary catch for a specific
-			// error inside of the x3dom library, this has to be removed!!!
-			var suppressErrorAlert = false;
-		  	if ( msg.indexOf( "Uncaught TypeError" ) > -1 ) {
-			  suppressErrorAlert = true;
-		 	}
-		   return suppressErrorAlert;
-		};
-
 		// FIXXME: MH: that took me a while:
 		// document.getElementsByTagName() returns a NodeList. However, if x3dom.js is included together with OpenLayers.js
 		// it is magically returning an Array. The OpenLayers.Map constructor tries to access the returned value with ret.item(i),
@@ -62,7 +51,7 @@
 		// }
 
 		$.get("scripts/config.json", function(values) {
-
+			
 			// Configure Debug options
 			setuplogging(values.debug);
 

@@ -9,12 +9,42 @@ define([
 	'use strict';
 
 	var BoxView = X3DOMView.extend({
-		createScene: function() {
+		createSceneVolume: function() {
+			//var EarthServerGenericClient = EarthServerGenericClient || {};
+			EarthServerGenericClient.MainScene.setTimeLog(false);
+			EarthServerGenericClient.MainScene.addLightToScene(false);
+			//EarthServerGenericClient.MainScene.setBackground("0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57", "0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57");
+			EarthServerGenericClient.MainScene.setBackground("0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2", "0.9 1.5 1.57", "0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2", "0.9 1.5 1.57");
+
+			var volume = new EarthServerGenericClient.Model_LayerAndTime();
+			volume.setName("Volume");
+			volume.setURL("http://earthserver.services.meeo.it/petascope");
+			volume.setCoverage("MACC_Q_4326_1125");
+			volume.setCoverageTime("1203113");
+			volume.setLayers("1:7");
+			volume.setScale(1, 1, 1);
+			volume.setDataModifier(10000);
+
+			EarthServerGenericClient.MainScene.addModel(volume);
+			EarthServerGenericClient.MainScene.createScene('x3dScene', 'scene', 1, 0.8, 1);
+
+			EarthServerGenericClient.MainScene.createAxisLabels("Latitude", "Height", "Longitude");
+
+			var pb = new EarthServerGenericClient.createProgressBar("progressbar");
+			EarthServerGenericClient.MainScene.setProgressCallback(pb.updateValue);
+			pb = null;
+
+			EarthServerGenericClient.MainScene.createModels();
+			EarthServerGenericClient.MainScene.createUI('x3domUI');
+		},
+
+		createScene: function() {            
 			// basic setup:
 			EarthServerGenericClient.MainScene.setTimeLog(false); //TimeLogging: outputs time of loading and building the models to the console
 			EarthServerGenericClient.MainScene.addLightToScene(true); //Adds a light into the scene
 			// background of the render window
-			EarthServerGenericClient.MainScene.setBackground("0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57", "0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57");
+			//EarthServerGenericClient.MainScene.setBackground("0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57", "0.8 0.8 0.95 0.4 0.5 0.85 0.3 0.5 0.85 0.31 0.52 0.85", "0.9 1.5 1.57");
+			EarthServerGenericClient.MainScene.setBackground("0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2", "0.9 1.5 1.57", "0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2", "0.9 1.5 1.57");
 
 			// Onclick function example
 			EarthServerGenericClient.MainScene.OnClickFunction = function(modelIndex, hitPoint) {
@@ -95,7 +125,7 @@ define([
 
 			// create the scene: Cube has 60% height compared to width and length
 			// FIXXME: retrieve ids via options
-			EarthServerGenericClient.MainScene.createScene('x3dScene', 'theScene', 1, 0.6, 1);
+			EarthServerGenericClient.MainScene.createScene('x3dScene', 'scene', 1, 0.6, 1);
 
 			EarthServerGenericClient.MainScene.createAxisLabels("Latitude", "Height", "Longitude");
 
