@@ -3,9 +3,10 @@ define([
     'virtualglobeviewer/RenderContext',
     'virtualglobeviewer/SceneGraph/SceneGraph',
     'virtualglobeviewer/SceneGraph/Renderer',
+    'virtualglobeviewer/W3DSLayer',
     './glTFLoader',
     'openlayers' // FIXXME: replace OpenLayers with generic format!
-], function(GlobWeb, GlobWebRenderContext, SceneGraph, SceneGraphRenderer, GlobWebGLTFLoader, OpenLayers) {
+], function(GlobWeb, GlobWebRenderContext, SceneGraph, SceneGraphRenderer, W3DSLayer, GlobWebGLTFLoader, OpenLayers) {
 
     'use strict';
 
@@ -45,6 +46,7 @@ define([
          });
         this.globe.setBaseElevation(srtmElevationWCSGlobal);
 
+        // glTF loader test:
         var sgRenderer;
         var renderContext = this.globe.renderContext;
         
@@ -53,7 +55,7 @@ define([
 
         var onLoadedCallback = function(success, rootObj) {
             sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
-                minNear: 0.0001,
+                minNear: GlobWebRenderContext.minNear,
                 far: 6,
                 fov: 45,
                 enableAlphaBlending: true
@@ -64,6 +66,16 @@ define([
         loader.load({
             rootObj: new SceneGraph.Node()
         }, onLoadedCallback);
+
+        // W3DS layer test:
+        var w3dslayer = new W3DSLayer({
+                        baseUrl: "http://localhost/w3ds",
+                        layer: "adm_aeolus",
+                        format: "model/glTF",
+                        matrixSet: "WGS84",
+                        opacity: 0.7
+                });
+        this.globe.addLayer(w3dslayer);
 
         // Add stats
         // var stats = new GlobWeb.Stats(globe, {
