@@ -179,9 +179,6 @@
 
 
 					// If Navigation Bar is set in configuration go trhough the
-				// defined elements creating a item collection to rendered
-				// by the marionette collection view
-				if (config.navBarConfig) {
 					// defined elements creating a item collection to rendered
 					// by the marionette collection view
 					if (config.navBarConfig) {
@@ -345,9 +342,7 @@
 
                 // Instance timeslider view
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
-
-
-						}		
+	
 			},
 
 			// The GUI is setup after the application is started. Therefore all modules

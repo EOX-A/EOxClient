@@ -107,11 +107,11 @@
 					}
 
 					this.setupGui();
-				});	
+				});
 
 				App.start();
-			});				
+			});
 		});
-		
+
 	});
 }).call( this );

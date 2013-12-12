@@ -1,0 +1,24 @@
+
+.sprite {
+    background-image: url("../images/spritesheet.png");
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-box {
+    width: 22px;
+    height: 22px;
+    background-position: -5px -5px;
+}
+
+.sprite-parallel {
+    width: 22px;
+    height: 22px;
+    background-position: -37px -5px;
+}
+
+.sprite-scatter {
+    width: 22px;
+    height: 22px;
+    background-position: -69px -5px;
+}

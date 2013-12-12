@@ -6,7 +6,8 @@
     "contrib/MapViewer/MapViewModule",
     "contrib/VirtualGlobeViewer/VirtualGlobeViewModule",
     "contrib/RectangularBoxViewer/RectangularBoxViewModule",
-    "contrib/SliceViewer/SliceViewModule"
+    "contrib/SliceViewer/SliceViewModule",
+    "contrib/AnalyticsViewer/AnalyticsViewModule"
   ],
 
   "mapConfig": {

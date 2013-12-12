@@ -1,0 +1,27 @@
+@import "defaults";
+@import "../bower_components/analyticsviewer/app/styles/main";
+
+.d3canvas {
+	
+	background-color: #ffffff;
+
+	width: 100%;
+	height: 100%;
+
+	margin: 0px;
+	padding: 0;
+}
+
+.analytics {
+	width: 100%;
+	height: 100%;
+}
+
+.analytics .gui {
+	top:200px;
+}
+
+.analytics .highlight {
+	padding: 1px;
+	margin-top: 2px;
+}
