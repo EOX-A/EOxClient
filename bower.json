@@ -23,7 +23,7 @@
     "lm.js": "madhums/lm.js#~0.1.0",
     "bootstrap": "~3.0.1",
     "font-awesome": "~4.0.3",
-    "analyticsviewer": "git@github.com:v-manip/AnalyticsViewer.git"
+    "analyticsviewer": "https://github.com/v-manip/AnalyticsViewer.git"
   },
   "devDependencies": {
     "Keypress": "*"
