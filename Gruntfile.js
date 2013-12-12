@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                 tasks: ['coffee:test']
             },
             compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}', '<%= yeoman.app %>/bower_components/analyticsviewer/{,*/}*.{scss,sass}'],
+                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server']
             },
             livereload: {
@@ -293,7 +293,8 @@ module.exports = function (grunt) {
                   cwd: '<%= yeoman.app %>/scripts',      // Src matches are relative to this path.
                   src: ['**/*.js'], // Actual pattern(s) to match.
                   dest: '<%= yeoman.dist %>/scripts/',   // Destination path prefix.
-                  ext: '.js',   // Dest filepaths will have this extension.
+                  //ext: '.js',   // Dest filepaths will have this extension.
+                  //ext modifies file names if there is a point in them
                 },
               ]
             }
@@ -335,8 +336,15 @@ module.exports = function (grunt) {
                         'bower_components/bootstrap/dist/*/*',
                         'bower_components/font-awesome/css/*',
                         'bower_components/lm.js/lm.js',
-                        'bower_components/virtualglobeviewer/src/*',
-                        'bower_components/Keypress/keypress.js'
+                        'bower_components/virtualglobeviewer/src/{,*/}*.js',
+                        'bower_components/Keypress/keypress.js',
+                        'bower_components/analyticsviewer/app/scripts/analytics.js',
+                        'bower_components/analyticsviewer/app/scripts/box.js',
+                        'cars.csv',
+                        'data.tsv',
+                        'iris.csv',
+                        'FSC_filtered_new.csv',
+                        'data{,*/}*'
                     ]
                 },{
                     expand: true,
