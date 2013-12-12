@@ -1,10 +1,11 @@
 define([
     'virtualglobeviewer/GlobWeb',
+    'virtualglobeviewer/RenderContext',
     'virtualglobeviewer/SceneGraph/SceneGraph',
     'virtualglobeviewer/SceneGraph/Renderer',
     './glTFLoader',
     'openlayers' // FIXXME: replace OpenLayers with generic format!
-], function(GlobWeb, SceneGraph, SceneGraphRenderer, GlobWebGLTFLoader, OpenLayers) {
+], function(GlobWeb, GlobWebRenderContext, SceneGraph, SceneGraphRenderer, GlobWebGLTFLoader, OpenLayers) {
 
     'use strict';
 
@@ -16,6 +17,9 @@ define([
             return;
         }
 
+        // Set the near plane before instantiating the globe:
+        GlobWebRenderContext.minNear = 0.0001;
+
         this.globe = new GlobWeb.Globe({
             canvas: options.canvas,
             lighting: false,
@@ -24,7 +28,7 @@ define([
             backgroundColor: [0.2, 0.2, 0.2, 1],
             shadersPath: "/bower_components/virtualglobeviewer/shaders/"
         });
-
+        
         this.aoiLayer = undefined;
         this.layerCache = {};
         this.overlayLayers = [];
@@ -33,8 +37,9 @@ define([
             inertia: true
         });
 
+        // Elevation Layer:
         var srtmElevationWCSGlobal = new GlobWeb.WCSElevationLayer({
-           baseUrl: "http://data.eox.at/elevation",
+             baseUrl: "http://data.eox.at/elevation?",
              coverage: "ACE2",
              version: "2.0.0"
          });
