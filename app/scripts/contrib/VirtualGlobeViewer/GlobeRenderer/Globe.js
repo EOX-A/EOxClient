@@ -69,10 +69,10 @@ define([
 
         // W3DS layer test:
         var w3dslayer = new W3DSLayer({
-                        baseUrl: "http://localhost/w3ds",
-                        layer: "adm_aeolus",
-                        format: "model/glTF",
-                        matrixSet: "WGS84",
+                        baseUrl: 'http://localhost:38000/ows?',
+                        layer: 'adm_aeolus',
+                        format: 'model/gltf',
+                        matrixSet: 'WGS84',
                         opacity: 0.7
                 });
         this.globe.addLayer(w3dslayer);
