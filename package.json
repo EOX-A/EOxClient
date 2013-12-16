@@ -28,7 +28,8 @@
     "matchdep": "~0.1.1",
     "connect-livereload": "~0.2.0",
     "grunt-docco2": "",
-    "grunt-shell": "~0.3.1"
+    "grunt-shell": "~0.3.1",
+    "grunt-connect-proxy": "~0.1.6"
   },
   "engines": {
     "node": ">=0.8.0"

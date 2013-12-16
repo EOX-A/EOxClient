@@ -69,7 +69,7 @@ define([
 
         // W3DS layer test:
         var w3dslayer = new W3DSLayer({
-                        baseUrl: 'http://localhost:38000/ows?',
+                        baseUrl: 'http://localhost:9000/ows?',
                         layer: 'adm_aeolus',
                         format: 'model/gltf',
                         matrixSet: 'WGS84',
