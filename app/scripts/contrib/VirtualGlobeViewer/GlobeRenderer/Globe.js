@@ -46,26 +46,26 @@ define([
          });
         this.globe.setBaseElevation(srtmElevationWCSGlobal);
 
-        // glTF loader test:
-        var sgRenderer;
-        var renderContext = this.globe.renderContext;
+        // // glTF loader test:
+        // var sgRenderer;
+        // var renderContext = this.globe.renderContext;
         
-        var loader = Object.create(GlobWebGLTFLoader);
-        loader.initWithPath("/glTF/model/vcurtains/gltf/test.json");
+        // var loader = Object.create(GlobWebGLTFLoader);
+        // loader.initWithPath("/glTF/model/vcurtains/gltf/test.json");
 
-        var onLoadedCallback = function(success, rootObj) {
-            sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
-                minNear: GlobWebRenderContext.minNear,
-                far: 6,
-                fov: 45,
-                enableAlphaBlending: true
-            });
-            renderContext.addRenderer(sgRenderer);   
-        };
+        // var onLoadedCallback = function(success, rootObj) {
+        //     sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
+        //         minNear: GlobWebRenderContext.minNear,
+        //         far: 6,
+        //         fov: 45,
+        //         enableAlphaBlending: true
+        //     });
+        //     renderContext.addRenderer(sgRenderer);   
+        // };
 
-        loader.load({
-            rootObj: new SceneGraph.Node()
-        }, onLoadedCallback);
+        // loader.load({
+        //     rootObj: new SceneGraph.Node()
+        // }, onLoadedCallback);
 
         // W3DS layer test:
         var w3dslayer = new W3DSLayer({
