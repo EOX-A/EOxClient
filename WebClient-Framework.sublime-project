@@ -3,10 +3,6 @@
 	[
 		{
 			"name": "Webclient",
-			// "folder_exclude_patterns":
-			// [
-			// 	"bower_components"
-			// ],
 			"path": "app"
 		},
 		{
@@ -16,6 +12,9 @@
 		{
 			"name": "VirtualGlobeViewer",
 			"path": "app/bower_components/virtualglobeviewer/src"
+		},
+		{
+			"path": "/media/Daten/Projekte/vmanip/ngeo_b/vagrant/shares/v-manip-server/vmanip_server/mesh_cache"
 		}
 	]
 }
