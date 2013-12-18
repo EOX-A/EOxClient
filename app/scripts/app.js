@@ -13,6 +13,7 @@
 		'controller/ContentController',
 		'controller/DownloadController',
 		'controller/SelectionManagerController',
+		'controller/LoadingController',
 		'router'
 	],
 
@@ -319,6 +320,16 @@
 
 
 				//this.downloadView = new v.DownloadView();
+
+				//Communicator.mediator.trigger("progress:change", true);
+				$(document).ajaxStart(function() {
+				  Communicator.mediator.trigger("progress:change", true);
+				});
+
+				$(document).ajaxStop(function() {
+				  Communicator.mediator.trigger("progress:change", false);
+				});
+
 
 
 			}

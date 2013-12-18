@@ -40,6 +40,20 @@ hr {
   user-select: none;
 }
 
+body.wait *, body.wait {
+  cursor:wait !important;
+}
+
+/*// Initial loading spinner element
+#loadscreen{
+  width: 100%;
+  position: absolute;
+  top: 35%;
+  left: 0;
+  z-index: 5000;
+  text-align: center;
+}*/
+
 
 /*
  * Panels & Modals
