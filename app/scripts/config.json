@@ -13,8 +13,8 @@
 
     "baseLayers": [
       {
-        "name": "Terrain Layer",
-        "id": "globcover",
+        "name": "Terrain",
+        "id": "terrain",
         "protocol": "WMTS",
         "visible": true,
         "urls": [
@@ -40,7 +40,7 @@
       },
       {
         "name": "Blue Marble",
-        "id": "bluemarble_wgs84",
+        "id": "bluemarble",
         "protocol": "WMTS",
         "visible": false,
         "urls": [
