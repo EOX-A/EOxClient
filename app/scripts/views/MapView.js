@@ -12,6 +12,7 @@ define(['backbone',
 			var MapView = Backbone.View.extend({
 				
 				onShow: function() {
+					this.timeinterval = null;
 					this.map = new OpenLayers.Map({div: "map", fallThrough: true});
 					console.log("Created Map");
 
@@ -53,6 +54,37 @@ define(['backbone',
 	                        }
 	                    )
 	                };
+
+	                var that = this;
+
+	               OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+		                defaultHandlerOptions: {
+		                    'single': true,
+		                    'double': false,
+		                    'pixelTolerance': 0,
+		                    'stopSingle': false,
+		                    'stopDouble': false
+		                },
+
+		                initialize: function(options) {
+		                    this.handlerOptions = OpenLayers.Util.extend(
+		                        {}, this.defaultHandlerOptions
+		                    );
+		                    OpenLayers.Control.prototype.initialize.apply(
+		                        this, arguments
+		                    ); 
+		                    this.handler = new OpenLayers.Handler.Click(
+		                        this, {
+		                            'click': that.onMapClick
+		                        }, this.handlerOptions
+		                    );
+		                }
+
+		            });
+
+                    var click = new OpenLayers.Control.Click();
+	                this.map.addControl(click);
+	                click.activate();
 
 	                for(var key in this.drawControls) {
 	                    this.map.addControl(this.drawControls[key]);
@@ -250,6 +282,69 @@ define(['backbone',
 					}
 				},
 
+				onMapClick: function(e){
+					//console.log(e);
+					var active_products = globals.products.filter(function(model) { return model.get('visible'); });
+
+					var width = e.currentTarget.clientWidth;
+					var height = e.currentTarget.clientHeight;
+					var featurecount = 10;
+					var bbox = this.map.getExtent();
+
+
+					//var lonlat = this.map.getLonLatFromPixel(e.xy);
+					for (var i=0;i<active_products.length; ++i){
+
+
+						var req_url = active_products[i].get('view').urls[0];
+						var layer_id = active_products[i].get('view').id;
+						var request = 	req_url + '?' +
+										'LAYERS=' + layer_id + "&" +
+									  	'QUERY_LAYERS=' + layer_id + "&" +
+									  	'SERVICE=WMS&' +
+									  	'VERSION=1.3.0&' +
+									  	'REQUEST=GetFeatureInfo&' +
+									  	'BBOX=' + bbox.toBBOX() + '&' +
+									  	'FEATURE_COUNT=' + featurecount + '&' +
+									  	'HEIGHT=' + height + '&' +
+									  	'WIDTH=' + width + '&' +
+									  	'INFO_FORMAT=text/html&' +
+									  	'CRS=EPSG:4326&'+
+									  	'X=' + e.x + '&' +
+									  	'Y=' + e.y ;
+						console.log(request);
+
+						/*http://data.eox.at/instance00/ows?
+						LAYERS=Landsat5_RGB_view_outlines&
+						QUERY_LAYERS=Landsat5_RGB_view_outlines&
+						STYLES=&
+						SERVICE=WMS&
+						VERSION=1.3.0&
+						REQUEST=GetFeatureInfo&
+						BBOX=-13.252764%2C31.777617%2C28.912764%2C53.662383&
+						FEATURE_COUNT=10&
+						HEIGHT=996&
+						WIDTH=1919&
+						FORMAT=image%2Fpng&
+						INFO_FORMAT=text%2Fhtml&CRS=EPSG%3A4326&X=675&Y=415
+						*/
+
+						/*var strtime = getISODateTimeString(this.timeinterval.start) + "/"+ getISODateTimeString(this.timeinterval.end);
+						var strlonlat = lonlat.lon + lonlat.lat;*/
+						/*$.get( "ajax/test.html", function( data ) {
+						  $( ".result" ).html( data );
+						  alert( "Load was performed." );
+						});*/
+					}
+					/*var lonlat = this.map.getLonLatFromPixel(e.xy);
+	                    alert("You clicked near " + lonlat.lat + " N, " +
+                              + lonlat.lon + " E");*/
+				},
+
+				onGetFeatureResponse: function(evt){
+
+				},
+
 				onExportGeoJSON: function() {		
 					var geojsonstring = this.geojson.write(this.vectorLayer.features, true);
 					
@@ -264,6 +359,7 @@ define(['backbone',
 				},
 
 				onTimeChange: function (time) {
+					this.timeinterval = time;
 					var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
 					
 					globals.products.each(function(product) {
