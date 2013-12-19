@@ -64,6 +64,14 @@ div#preload {
   display: none;
 }
 
+// Error message element
+#error-messages{
+  position: absolute;
+  top: 60px;
+  width:40%;
+  left: 30%;
+}
+
 
 /*
  * Panels & Modals

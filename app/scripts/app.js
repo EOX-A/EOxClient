@@ -326,6 +326,16 @@
 				  Communicator.mediator.trigger("progress:change", false);
 				});
 
+				$(document).ajaxError(function( event, request, settings ) {
+					$("#error-messages").append(
+					  	'<div class="alert alert-warning alert-danger">'+
+						  '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+						  '<strong>Warning!</strong> Error response on HTTP ' + settings.type + ' to '+ settings.url.split("?")[0] +
+						'</div>'
+					);
+
+				});
+
 				// Remove loading screen when this point is reached in the script
 				$('#loadscreen').remove();
 
