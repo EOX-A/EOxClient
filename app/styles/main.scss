@@ -44,15 +44,25 @@ body.wait *, body.wait {
   cursor:wait !important;
 }
 
-/*// Initial loading spinner element
+// Initial loading spinner element
 #loadscreen{
   width: 100%;
+  height: 100%;
   position: absolute;
-  top: 35%;
   left: 0;
   z-index: 5000;
   text-align: center;
-}*/
+  opacity: 0.8;
+}
+
+#loadscreen i {
+  top: 35%;
+  position: absolute;
+}
+
+div #preload { 
+  display: none;
+}
 
 
 /*

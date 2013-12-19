@@ -316,12 +316,8 @@
                 this.bottomBar.show(this.timeSliderView);
 
 
-				//this.router = new Router({views: this.views, regions: this.regions});
-
-
-				//this.downloadView = new v.DownloadView();
-
-				//Communicator.mediator.trigger("progress:change", true);
+				// Add a trigger for ajax calls in order to display loading state
+				// in mouse cursor to give feedback to the user the client is busy
 				$(document).ajaxStart(function() {
 				  Communicator.mediator.trigger("progress:change", true);
 				});
@@ -330,7 +326,8 @@
 				  Communicator.mediator.trigger("progress:change", false);
 				});
 
-
+				// Remove loading screen when this point is reached in the script
+				$('#loadscreen').remove();
 
 			}
 

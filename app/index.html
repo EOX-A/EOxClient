@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-
+     
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css" />
@@ -23,6 +23,7 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+
 </head>
 <body>
 
@@ -43,12 +44,18 @@
         <div id="bottomBar"></div>
     </div>
 
-    <div id="loadscreen"> <i class="fa fa-cog fa-spin fa-4x"></i> </div>
+    <div id="loadscreen" class="modal-backdrop"> <i class="fa fa-cog fa-spin fa-4x"></i> </div>
 
     <!-- HIDDEN DOWNLOAD DIV -->
     <div id="div-downloads">
       <iframe name="iframe-download-post" id="iframe-download-post"></iframe>
     </div>
+
+
+    <div id="preload">
+       <img src="images/glyphicons.png" width="1" height="1" alt="Preload image" />
+    </div>
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--<script>
