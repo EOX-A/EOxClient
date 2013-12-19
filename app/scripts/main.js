@@ -31,6 +31,7 @@
 		"libcoverage"
 	],
 	function ( Backbone, App ) {
+
 		$.get("scripts/config.json", function(values) {
 			
 			// Configure Debug options

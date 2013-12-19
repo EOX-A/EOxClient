@@ -13,6 +13,7 @@
 		'controller/ContentController',
 		'controller/DownloadController',
 		'controller/SelectionManagerController',
+		'controller/LoadingController',
 		'router'
 	],
 
@@ -315,11 +316,18 @@
                 this.bottomBar.show(this.timeSliderView);
 
 
-				//this.router = new Router({views: this.views, regions: this.regions});
+				// Add a trigger for ajax calls in order to display loading state
+				// in mouse cursor to give feedback to the user the client is busy
+				$(document).ajaxStart(function() {
+				  Communicator.mediator.trigger("progress:change", true);
+				});
 
+				$(document).ajaxStop(function() {
+				  Communicator.mediator.trigger("progress:change", false);
+				});
 
-				//this.downloadView = new v.DownloadView();
-
+				// Remove loading screen when this point is reached in the script
+				$('#loadscreen').remove();
 
 			}
 
