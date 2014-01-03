@@ -14,7 +14,8 @@
 			'jquery', 'backbone.marionette',
 			'controller/ContentController',
 			'controller/DownloadController',
-			'controller/SelectionManagerController'
+			'controller/SelectionManagerController',
+			'controller/LoadingController'
 		],
 
 		function(Backbone, globals, DialogRegion,
@@ -175,7 +176,7 @@
 
 
 
-				// If Navigation Bar is set in configuration go trhough the 
+				// If Navigation Bar is set in configuration go trhough the
 				// defined elements creating a item collection to rendered
 				// by the marionette collection view
 				if (config.navBarConfig) {
@@ -356,6 +357,28 @@
 				// Show Timsliderview after creating modules to
 				// set the selected time correctly to the products
 				this.bottomBar.show(this.timeSliderView);
+
+			    // Add a trigger for ajax calls in order to display loading state
+                // in mouse cursor to give feedback to the user the client is busy
+                $(document).ajaxStart(function() {
+                  	Communicator.mediator.trigger("progress:change", true);
+                });
+
+                $(document).ajaxStop(function() {
+                  	Communicator.mediator.trigger("progress:change", false);
+                });
+
+                $(document).ajaxError(function( event, request, settings ) {
+                        $("#error-messages").append(
+                                  '<div class="alert alert-warning alert-danger">'+
+                                  '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                                  '<strong>Warning!</strong> Error response on HTTP ' + settings.type + ' to '+ settings.url.split("?")[0] +
+                                '</div>'
+                        );
+                });
+
+                // Remove loading screen when this point is reached in the script
+                $('#loadscreen').remove();
 
 			}
 

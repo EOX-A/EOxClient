@@ -107,7 +107,7 @@
 					}
 
 					this.setupGui();
-					this.selectInitialProducts();
+					//this.selectInitialProducts();
 				});	
 
 				App.start();

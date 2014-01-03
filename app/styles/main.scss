@@ -49,6 +49,39 @@ hr {
   user-select: none;
 }
 
+body.wait *, body.wait {
+  cursor:wait !important;
+}
+
+// Initial loading spinner element
+#loadscreen{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  z-index: 5000;
+  text-align: center;
+  opacity: 0.8;
+}
+
+#loadscreen i {
+  top: 35%;
+  position: absolute;
+}
+
+div#preload { 
+  display: none;
+}
+
+// Error message element
+#error-messages{
+  position: absolute;
+  top: 60px;
+  width:40%;
+  left: 30%;
+  z-index: $layer-gui;
+}
+
 
 /*
  * Panels & Modals
@@ -67,6 +100,10 @@ hr {
 
 .panel {
   z-index: $layer-gui;
+}
+
+.modal{
+  overflow-y: hidden !important; 
 }
 
 
@@ -206,7 +243,7 @@ button[active=active] {
 	bottom: 10px;
 	position: absolute;
 	width: 96%;
-	left: 2%;	
+	left: 2%;
 }
 
 /*
@@ -232,10 +269,6 @@ button[active=active] {
 #viewContent{
 	position: relative;
 }
-
-/*#OpenLayers_Control_Zoom_5 {
-	top: 60px;
-}*/
 
 .tab-header {
 	 cursor: pointer;
@@ -293,14 +326,4 @@ button[active=active] {
 
 .popover {
   position: fixed;
-}
-
-
-/*
- * About info screen
- */
-
-.modal-body-about .row {
-  margin-top: 15px;
-  text-align: center;
 }
