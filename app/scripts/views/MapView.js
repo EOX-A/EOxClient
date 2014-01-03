@@ -12,7 +12,7 @@ define(['backbone',
 			var MapView = Backbone.View.extend({
 				
 				onShow: function() {
-					this.timeinterval = null;
+					this.timeinterval = new Date();
 					this.map = new OpenLayers.Map({div: "map", fallThrough: true});
 					console.log("Created Map");
 
@@ -74,7 +74,7 @@ define(['backbone',
 		                        this, arguments
 		                    ); 
 		                    this.handler = new OpenLayers.Handler.Click(
-		                        this, {
+		                        that, {
 		                            'click': that.onMapClick
 		                        }, this.handlerOptions
 		                    );
@@ -290,6 +290,7 @@ define(['backbone',
 					var height = e.currentTarget.clientHeight;
 					var featurecount = 10;
 					var bbox = this.map.getExtent();
+					var strtime = getISODateTimeString(this.timeinterval.start) + "/"+ getISODateTimeString(this.timeinterval.end);
 
 
 					//var lonlat = this.map.getLonLatFromPixel(e.xy);
@@ -299,8 +300,8 @@ define(['backbone',
 						var req_url = active_products[i].get('view').urls[0];
 						var layer_id = active_products[i].get('view').id;
 						var request = 	req_url + '?' +
-										'LAYERS=' + layer_id + "&" +
-									  	'QUERY_LAYERS=' + layer_id + "&" +
+										'LAYERS=' + layer_id + "_outlines" + "&" +
+									  	'QUERY_LAYERS=' + layer_id + "_outlines" + "&" +
 									  	'SERVICE=WMS&' +
 									  	'VERSION=1.3.0&' +
 									  	'REQUEST=GetFeatureInfo&' +
@@ -311,7 +312,9 @@ define(['backbone',
 									  	'INFO_FORMAT=text/html&' +
 									  	'CRS=EPSG:4326&'+
 									  	'X=' + e.x + '&' +
-									  	'Y=' + e.y ;
+									  	'Y=' + e.y + '&' +
+									  	'TIME=' + strtime;
+									  	;
 						console.log(request);
 
 						/*http://data.eox.at/instance00/ows?
@@ -360,6 +363,7 @@ define(['backbone',
 
 				onTimeChange: function (time) {
 					this.timeinterval = time;
+					console.log(this.timeinterval);
 					var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
 					
 					globals.products.each(function(product) {
