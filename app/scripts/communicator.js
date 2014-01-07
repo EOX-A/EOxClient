@@ -17,7 +17,8 @@
 
 				// Allow of logging all events when debug activated
 				this.mediator.on("all", function(event){
-					console.log(event);
+					if(event != "progress:change")
+						console.log(event);
 				});
 
 				//create a req/res

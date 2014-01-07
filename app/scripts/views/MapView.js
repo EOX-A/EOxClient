@@ -29,6 +29,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
+					this.listenTo(Communicator.mediator, 'getfeatureinfo:response', this.onGetFeatureInfoResponse);
 
 					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
@@ -292,6 +293,7 @@ define(['backbone',
 					var bbox = this.map.getExtent();
 					var strtime = getISODateTimeString(this.timeinterval.start) + "/"+ getISODateTimeString(this.timeinterval.end);
 
+					console.log(this.map);
 
 					//var lonlat = this.map.getLonLatFromPixel(e.xy);
 					for (var i=0;i<active_products.length; ++i){
@@ -317,35 +319,17 @@ define(['backbone',
 									  	;
 						console.log(request);
 
-						/*http://data.eox.at/instance00/ows?
-						LAYERS=Landsat5_RGB_view_outlines&
-						QUERY_LAYERS=Landsat5_RGB_view_outlines&
-						STYLES=&
-						SERVICE=WMS&
-						VERSION=1.3.0&
-						REQUEST=GetFeatureInfo&
-						BBOX=-13.252764%2C31.777617%2C28.912764%2C53.662383&
-						FEATURE_COUNT=10&
-						HEIGHT=996&
-						WIDTH=1919&
-						FORMAT=image%2Fpng&
-						INFO_FORMAT=text%2Fhtml&CRS=EPSG%3A4326&X=675&Y=415
-						*/
-
-						/*var strtime = getISODateTimeString(this.timeinterval.start) + "/"+ getISODateTimeString(this.timeinterval.end);
-						var strlonlat = lonlat.lon + lonlat.lat;*/
-						/*$.get( "ajax/test.html", function( data ) {
-						  $( ".result" ).html( data );
-						  alert( "Load was performed." );
-						});*/
+						$.get( request, function(data) {
+						  Communicator.mediator.trigger("getfeatureinfo:response", data);
+						})
+						  .fail(function(data) {
+						    Communicator.mediator.trigger("getfeatureinfo:response", data);
+						  });
 					}
-					/*var lonlat = this.map.getLonLatFromPixel(e.xy);
-	                    alert("You clicked near " + lonlat.lat + " N, " +
-                              + lonlat.lon + " E");*/
 				},
 
-				onGetFeatureResponse: function(evt){
-
+				onGetFeatureInfoResponse: function(data){
+					console.log(data);
 				},
 
 				onExportGeoJSON: function() {		

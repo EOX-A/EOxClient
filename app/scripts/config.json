@@ -66,23 +66,23 @@
       }
     ],
     "products": [
-      {
-        "name": "PanEuropean Fractional Snow Cover",
+       {
+        "name": "ASAR IMM L1 (NLR)",
         "visible": false,
         "timeSlider": true,
-        "color":"green",
+        "color":"black",
         "view": {
-          "id": "daily_FSC_PanEuropean_Optical",
+          "id": "ASAR_IMM_L1_view",
           "protocol": "WMS",
           "urls": [
-              "http://neso.cryoland.enveo.at/cryoland/ows"
+              "http://data.eox.at/instance01/ows"
           ],
           "style": "default"
         },
         "download": {
-          "id": "daily_FSC_PanEuropean_Optical",
+          "id": "ASAR_IMM_L1",
           "protocol": "EOWCS",
-          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
+          "url": "http://data.eox.at/instance01/ows"
         }
       },
       {
