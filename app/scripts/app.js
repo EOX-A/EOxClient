@@ -92,7 +92,7 @@
 								isBaseLayer: true,
 								wrapDateLine: baselayer.wrapDateLine,
 								zoomOffset: baselayer.zoomOffset,
-								time: baselayer.time
+									//time: baselayer.time // Is set in TimeSliderView on time change.
 							}
 						})
 					);
@@ -100,43 +100,44 @@
 				}, this);
 
 				//Productsare loaded and added to the global collection
+                                                        var ordinal = 0;
 				_.each(config.mapConfig.products, function(products) {
-
 					globals.products.add(
 						new m.LayerModel({
 							name: products.name,
 							visible: products.visible,
+                            ordinal: ordinal,
 							timeSlider: products.timeSlider,
 							color: products.color,
-							time: products.time,
-							opacity: 1,
-							view:{
-								id : products.view.id,
-								protocol: products.view.protocol,
-								urls : products.view.urls,
-								visualization: products.view.visualization,
-								projection: products.view.projection,
-								attribution: products.view.attribution,
-								matrixSet: products.view.matrixSet,
-								style: products.view.style,
-								format: products.view.format,
-								resolutions: products.view.resolutions,
-								maxExtent: products.view.maxExtent,
-								gutter: products.view.gutter,
-								buffer: products.view.buffer,
-								units: products.view.units,
-								transitionEffect: products.view.transitionEffect,
-								isphericalMercator: products.view.isphericalMercator,
-								isBaseLayer: false,
-								wrapDateLine: products.view.wrapDateLine,
-								zoomOffset: products.view.zoomOffset
-							},
-							download: {
-								id : products.download.id,
-								protocol: products.download.protocol,
-								url : products.download.url
-							}
-						})
+							//time: products.time, // Is set in TimeSliderView on time change.
+								opacity: 1,
+								view: {
+									id: products.view.id,
+									protocol: products.view.protocol,
+									urls: products.view.urls,
+									visualization: products.view.visualization,
+									projection: products.view.projection,
+									attribution: products.view.attribution,
+									matrixSet: products.view.matrixSet,
+									style: products.view.style,
+									format: products.view.format,
+									resolutions: products.view.resolutions,
+									maxExtent: products.view.maxExtent,
+									gutter: products.view.gutter,
+									buffer: products.view.buffer,
+									units: products.view.units,
+									transitionEffect: products.view.transitionEffect,
+									isphericalMercator: products.view.isphericalMercator,
+									isBaseLayer: false,
+									wrapDateLine: products.view.wrapDateLine,
+									zoomOffset: products.view.zoomOffset
+								},
+								download: {
+									id: products.download.id,
+									protocol: products.download.protocol,
+									url: products.download.url
+								}
+							})
 					);
 					console.log("Added product " + products.view.id );
 				}, this);
@@ -144,39 +145,40 @@
 				//Overlays are loaded and added to the global collection
 				_.each(config.mapConfig.overlays, function(overlay) {
 
-					globals.overlays.add(
-						new m.LayerModel({
-							name: overlay.name,
-							visible: overlay.visible,
-							view: {
-								id : overlay.id,
-								urls : overlay.urls,
-								protocol: overlay.protocol,
-								projection: overlay.projection,
-								attribution: overlay.attribution,
-								matrixSet: overlay.matrixSet,
-								style: overlay.style,
-								format: overlay.format,
-								resolutions: overlay.resolutions,
-								maxExtent: overlay.maxExtent,
-								gutter: overlay.gutter,
-								buffer: overlay.buffer,
-								units: overlay.units,
-								transitionEffect: overlay.transitionEffect,
-								isphericalMercator: overlay.isphericalMercator,
-								isBaseLayer: false,
-								wrapDateLine: overlay.wrapDateLine,
-								zoomOffset: overlay.zoomOffset,
-								time: overlay.time
-							}
-						})
-					);
-					console.log("Added overlay " + overlay.id );
-				}, this);
+						globals.overlays.add(
+							new m.LayerModel({
+								name: overlay.name,
+								visible: overlay.visible,
+								ordinal: ordinal,
+								view: {
+									id: overlay.id,
+									urls: overlay.urls,
+									protocol: overlay.protocol,
+									projection: overlay.projection,
+									attribution: overlay.attribution,
+									matrixSet: overlay.matrixSet,
+									style: overlay.style,
+									format: overlay.format,
+									resolutions: overlay.resolutions,
+									maxExtent: overlay.maxExtent,
+									gutter: overlay.gutter,
+									buffer: overlay.buffer,
+									units: overlay.units,
+									transitionEffect: overlay.transitionEffect,
+									isphericalMercator: overlay.isphericalMercator,
+									isBaseLayer: false,
+									wrapDateLine: overlay.wrapDateLine,
+									zoomOffset: overlay.zoomOffset,
+									//time: overlay.time // Is set in TimeSliderView on time change.
+								}
+							})
+						);
+						console.log("Added overlay " + overlay.id);
+					}, this);
 
 
 
-				// If Navigation Bar is set in configuration go trhough the
+				// If Navigation Bar is set in configuration go trhough the 
 				// defined elements creating a item collection to rendered
 				// by the marionette collection view
 				if (config.navBarConfig) {
@@ -242,10 +244,10 @@
                 });
 
                 this.overlaysView = new v.BaseLayerSelectionView({
-                	collection:globals.overlays,
+                	collection: globals.overlays,
                 	itemView: v.LayerItemView.extend({
                 		template: {
-                			type:'handlebars',
+                			type: 'handlebars',
                 			template: t.CheckBoxOverlayLayer},
                 		className: "checkbox"
                 	}),
@@ -338,9 +340,7 @@
                 this.toolLayout = new ToolControlLayout();
 
                 // Instance timeslider view
-                this.timeSliderView = new v.TimeSliderView(config.timeSlider);
-                
-								
+                this.timeSliderView = new v.TimeSliderView(config.timeSlider);			
 			},
 
 			// The GUI is setup after the application is started. Therefore all modules

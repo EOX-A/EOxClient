@@ -33,9 +33,13 @@ define([
 			},
 
 			'click .boxview-btn': function() {
+				var options = {window:this, viewer:'SliceViewer'};
+				Communicator.mediator.trigger('window:view:change', options);
 			},
 
 			'click .analyticsview-btn': function() {
+				var options = {window:this, viewer:'AnalyticsViewer'};
+				Communicator.mediator.trigger('window:view:change', options);
 			}
 		},
 

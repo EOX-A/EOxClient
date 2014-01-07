@@ -1,93 +1,142 @@
 define([
-	'backbone.marionette',
-	'app',
-	'communicator',
-	'./GlobeRenderer/Globe'
-	// 'hbs!tmpl/VirtualGlobeView',
+    'backbone.marionette',
+    'app',
+    'communicator',
+    './GlobeRenderer/Globe'
+    // 'hbs!tmpl/VirtualGlobeView',
 ], function(Marionette, App, Communicator, Globe /*, VirtualGlobeViewTmpl*/ ) {
 
-	'use strict';
+    'use strict';
 
-	var GlobeView = Marionette.View.extend({
-		tagName: 'canvas',
-		className: 'globe',
+    var GlobeView = Marionette.View.extend({
+        tagName: 'canvas',
+        className: 'globe',
 
-		// template: {
-		// 	type: 'handlebars',
-		// 	template: VirtualGlobeViewTmpl
-		// },
+        // template: {
+        // 	type: 'handlebars',
+        // 	template: VirtualGlobeViewTmpl
+        // },
 
-		// ui: {
-		// 	viewport: '#myglobe',
-		// 	gui: '.gui'
-		// },
+        // ui: {
+        // 	viewport: '#myglobe',
+        // 	gui: '.gui'
+        // },
 
-		initialize: function(opts) {
-			this.isClosed = true;
+        initialize: function(opts) {
+            this.isClosed = true;
 
-			this.startPosition = opts.startPosition;
-			if (typeof this.startPosition === 'undefined') {
-				this.startPosition = {
-					geoCenter: [15, 47],
-					distance: 0,
-					duration: 3000,
-					tilt: 40
-				}
-			};
+            this.startPosition = opts.startPosition;
+            if (typeof this.startPosition === 'undefined') {
+                this.startPosition = {
+                    geoCenter: [15, 47],
+                    distance: 0,
+                    duration: 3000,
+                    tilt: 40
+                }
+            };
 
-			this.startProduct = opts.startProduct;
+            this.initialLayers = {};
 
-			$(window).resize(function() {
-				if (this.globe) {
-					this.onResize();
-				}
-			}.bind(this));
-		},
+            $(window).resize(function() {
+                if (this.globe) {
+                    this.onResize();
+                }
+            }.bind(this));
+        },
 
-		addAreaOfInterest: function(geojson) {
-			this.globe.addAreaOfInterest(geojson);
-		},
+        addInitialLayer: function(model, isBaseLayer) {
+            this.initialLayers[model.get('name')] = {
+                model: model,
+                isBaseLayer: isBaseLayer
+            };
+        },
 
-		selectProduct: function(model, isBaseLayer) {
+        addAreaOfInterest: function(geojson) {
+            this.globe.addAreaOfInterest(geojson);
+        },
 
-			this.globe.selectProduct(model, isBaseLayer);
+        addLayer: function(model, isBaseLayer) {
+            this.globe.addLayer(model, isBaseLayer);
+        },
 
-			console.log("[GlobeView::selectProduct] selected " + model.get("name"));
-		},
+        removeLayer: function(model, isBaseLayer) {
+            this.globe.removeLayer(model, isBaseLayer);
+        },
 
-		createGlobe: function() {
-			this.globe = new Globe({
-				canvas: this.el
-			});
-			if (typeof this.startProduct !== 'undefined') {
-				this.globe.selectProduct(this.startProduct, true);
-			};
-		},
+        removeAllOverlays: function() {
+            this.globe.removeAllOverlays();
+        },
 
-		onResize: function() {
-			this.globe.updateViewport();
-		},
+        onLayerChange: function(model, isBaseLayer, isVisible) {
+            if (isVisible) {
+                this.addLayer(model, isBaseLayer);
+                console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
+            } else {
+                this.removeLayer(model, isBaseLayer);
+                console.log('[GlobeView::onLayerChange] deselected ' + model.get('name'));
+            }
+        },
 
-		onShow: function() {
-			if (!this.globe) {
-				this.createGlobe();
-			}
-			this.isClosed = false;
-			this.onResize();
-			this.zoomTo(this.startPosition);
-		},
+        onOpacityChange: function(layer_name, opacity) {
+            this.globe.onOpacityChange(layer_name, opacity);
+        },
 
-		zoomTo: function(position) {
-			if (this.globe) {
-				this.globe.zoomTo(position);
-			}
-		},
+        onTimeChange: function(time) {
+            this.globe.setTimeSpanOnLayers(time);
+        },
 
-		onClose: function() {
-			this.isClosed = true;
-		}
-	});
+        sortOverlayLayers: function() {
+            this.globe.sortOverlayLayers();
+        },
 
-	return GlobeView;
+        initLayers: function() {
+            this.globe.clearCache();
+            _.each(this.initialLayers, function(desc, name) {
+                this.globe.addLayer(desc.model, desc.isBaseLayer);
+            }.bind(this));
+            this.sortOverlayLayers();
+        },
+
+        createGlobe: function() {
+            this.globe = new Globe({
+                canvas: this.el
+            });
+
+            if (!this.initialLayerSetupDone) {
+                this.initLayers();
+                this.sortOverlayLayers(); // FIXXME: necessary?
+                this.initialLayerSetupDone = true;
+            }
+        },
+
+        onResize: function() {
+            this.globe.updateViewport();
+        },
+
+        onShow: function() {
+            if (!this.globe) {
+                this.createGlobe();
+            }
+            this.isClosed = false;
+            this.onResize();
+            this.zoomTo(this.startPosition);
+        },
+
+        zoomTo: function(position) {
+            if (this.globe) {
+                this.globe.zoomTo(position);
+            }
+        },
+
+        onClose: function() {
+            this.isClosed = true;
+        },
+
+        dumpLayerConfig: function() {
+            this.globe.dumpLayerConfig();
+        }
+    });
+
+    return GlobeView;
 
 }); // end module definition

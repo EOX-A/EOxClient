@@ -107,12 +107,10 @@
 					}
 
 					this.setupGui();
-					//this.selectInitialProducts();
-				});	
+				});
 
 				App.start();
-			});				
+			});
 		});
-		
 	});
 }).call( this );

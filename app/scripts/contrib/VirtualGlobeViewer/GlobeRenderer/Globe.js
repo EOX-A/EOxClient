@@ -1,150 +1,307 @@
 define([
-	'virtualglobeviewer/GlobWeb',
-	'openlayers' // FIXXME: replace OpenLayers with generic format!
-], function(GlobWeb, OpenLayers) {
+    'virtualglobeviewer/GlobWeb',
+    'virtualglobeviewer/SceneGraph/SceneGraph',
+    'virtualglobeviewer/SceneGraph/Renderer',
+    './glTFLoader',
+    'openlayers' // FIXXME: replace OpenLayers with generic format!
+], function(GlobWeb, SceneGraph, SceneGraphRenderer, GlobWebGLTFLoader, OpenLayers) {
 
-	'use strict';
+    'use strict';
 
-	function Globe(options) {
-		this.canvas = $(options.canvas);
+    function Globe(options) {
+        this.canvas = $(options.canvas);
 
-		if (!this.canvas) {
-			alert('[Globe::constructor] Please define a canvas element!. Aborting Globe construction...')
-			return;
-		}
+        if (!this.canvas) {
+            alert('[Globe::constructor] Please define a canvas element!. Aborting Globe construction...')
+            return;
+        }
 
-		this.globe = new GlobWeb.Globe({
-			canvas: options.canvas,
-			lighting: false,
-			tileErrorTreshold: 3,
-			continuousRendering: false,
-			backgroundColor: [0, 0, 0, 0],
-			// backgroundColor: [0.8, 0.8, 0.8, 1],
-			shadersPath: "../bower_components/virtualglobeviewer/shaders/"
-		});
+        this.globe = new GlobWeb.Globe({
+            canvas: options.canvas,
+            lighting: false,
+            tileErrorTreshold: 3,
+            continuousRendering: false,
+            backgroundColor: [0.2, 0.2, 0.2, 1],
+            shadersPath: "/bower_components/virtualglobeviewer/shaders/"
+        });
 
-		this.aoiLayer = undefined;
+        this.aoiLayer = undefined;
+        this.layerCache = {};
+        this.overlayLayers = [];
 
-		this.navigation = new GlobWeb.Navigation(this.globe, {
-			inertia: true
-		});
+        this.navigation = new GlobWeb.Navigation(this.globe, {
+            inertia: true
+        });
 
-		// Add stats
-		// var stats = new GlobWeb.Stats(globe, {
-		// 	element: 'fps',
-		// 	verbose: false
-		// });
+        var srtmElevationWCSGlobal = new GlobWeb.WCSElevationLayer({
+           baseUrl: "http://data.eox.at/elevation",
+             coverage: "ACE2",
+             version: "2.0.0"
+         });
+        this.globe.setBaseElevation(srtmElevationWCSGlobal);
 
-		// var osmLayer = new GlobWeb.OSMLayer({
-		// 	baseUrl: "http://tile.openstreetmap.org"
-		// });
-		// globe.setBaseImagery(osmLayer);
+        var sgRenderer;
+        var renderContext = this.globe.renderContext;
+        
+        var loader = Object.create(GlobWebGLTFLoader);
+        loader.initWithPath("/glTF/model/vcurtains/gltf/test.json");
 
-		// var blueMarbleLayer = new GlobWeb.WMSLayer({
-		// 	baseUrl: "http://demonstrator.telespazio.com/wmspub",
-		// 	layers: "BlueMarble",
-		// 	opacity: 0.1
-		// });
-		// this.globe.setBaseImagery(blueMarbleLayer);
-	};
+        var onLoadedCallback = function(success, rootObj) {
+            sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
+                minNear: 0.0001,
+                far: 6,
+                fov: 45,
+                enableAlphaBlending: true
+            });
+            renderContext.addRenderer(sgRenderer);   
+        };
 
-	var convertFromOpenLayers = function(ol_geometry, altitude) {
-		var verts = ol_geometry.getVertices();
+        loader.load({
+            rootObj: new SceneGraph.Node()
+        }, onLoadedCallback);
 
-		var coordinates = [];
-		for (var idx = 0; idx < verts.length; ++idx) {
-			var p = [];
+        // Add stats
+        // var stats = new GlobWeb.Stats(globe, {
+        // 	element: 'fps',
+        // 	verbose: false
+        // });
+    };
 
-			p.push(verts[idx].x);
-			p.push(verts[idx].y);
-			p.push(altitude);
+    var convertFromOpenLayers = function(ol_geometry, altitude) {
+        var verts = ol_geometry.getVertices();
 
-			coordinates.push(p);
-		}
-		var p = [];
+        var coordinates = [];
+        for (var idx = 0; idx < verts.length; ++idx) {
+            var p = [];
 
-		p.push(verts[0].x);
-		p.push(verts[0].y);
-		p.push(altitude);
-		coordinates.push(p);
+            p.push(verts[idx].x);
+            p.push(verts[idx].y);
+            p.push(altitude);
 
-		return coordinates;
-	};
+            coordinates.push(p);
+        }
+        var p = [];
 
-	Globe.prototype.addAreaOfInterest = function(geojson) {
-		if (!this.aoiLayer) {
-			this.aoiLayer = new GlobWeb.VectorLayer({
-				style: style,
-				opacity: 1
-			});
-			this.globe.addLayer(this.aoiLayer);
-		}
+        p.push(verts[0].x);
+        p.push(verts[0].y);
+        p.push(altitude);
+        coordinates.push(p);
 
-		if (geojson) {
-			var style = new GlobWeb.FeatureStyle({
-				fillColor: [1, 0.5, 0.1, 0.5],
-				strokeColor: [1, 0.5, 0.1, 1],
-				extrude: true,
-				fill: true
-			});
+        return coordinates;
+    };
 
-			var altitude = 30000;
-			var coordinates = convertFromOpenLayers(geojson, altitude);
+    Globe.prototype.addAreaOfInterest = function(geojson) {
+        if (!this.aoiLayer) {
+            this.aoiLayer = new GlobWeb.VectorLayer({
+                style: style,
+                opacity: 1
+            });
+            this.globe.addLayer(this.aoiLayer);
+        }
 
-			var selection0 = {
-				"geometry": {
-					"type": "Polygon",
-					"coordinates": coordinates
-				},
-				"properties": {
-					"style": style
-				}
-			};
+        if (geojson) {
+            var style = new GlobWeb.FeatureStyle({
+                fillColor: [1, 0.5, 0.1, 0.5],
+                strokeColor: [1, 0.5, 0.1, 1],
+                extrude: true,
+                fill: true
+            });
 
-			this.aoiLayer.addFeature(selection0);
-		}
-	};
+            var altitude = 30000;
+            var coordinates = convertFromOpenLayers(geojson, altitude);
 
-	Globe.prototype.selectProduct = function(model, isBaseLayer) {
-		if (model.get('view').protocol === 'WMTS') {
-			var layer = new GlobWeb.WMTSLayer({
-				baseUrl: model.get('view').urls[0],
-				style: model.get('view').style,
-				layer: model.get('view').id,
-				format: model.get('view').format,
-				matrixSet: model.get('view').matrixSet
-			});
-		} else if (model.get('view').protocol === 'WMS') {
-			var layer = new GlobWeb.WMSLayer({
-				baseUrl: model.get('view').urls[0],
-				layers: model.get('view').id
-			});
-		}
+            var selection0 = {
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": coordinates
+                },
+                "properties": {
+                    "style": style
+                }
+            };
 
-		if (isBaseLayer) {
-			this.globe.setBaseImagery(layer);
-		} else {
-			// FIXXME: not working correctly yet
-			this.globe.addLayer(layer);
-		}
-	};
+            this.aoiLayer.addFeature(selection0);
+        }
+    };
 
-	Globe.prototype.updateViewport = function() {
-		// FIXXME: the height/width has to be set explicitly after setting the
-		// the new css class. Why?
-		this.globe.renderContext.canvas.width = this.canvas.width();
-		this.globe.renderContext.canvas.height = this.canvas.height();
+    Globe.prototype.createCommonLayerOptionsFromModel = function(model) {
+        var opts = {};
 
-		// Adjust the globe's aspect ration and redraw:
-		this.globe.renderContext.updateViewDependentProperties();
-		this.globe.refresh();
-	};
+        opts.baseUrl = model.get('view').urls[0];
 
-	Globe.prototype.zoomTo = function(pos) {
-		this.navigation.zoomTo(pos.center, pos.distance, pos.duration, pos.tilt);
-	};
+        opts.style = ''; // MapProxy needs a style argument, even if its empty
+        if (model.get('view').style) {
+            opts.style = model.get('view').style;
+        }
 
-	return Globe;
+        var layer = model.get('view').id;
+
+        if (model.get('view').protocol === 'WMS') {
+            opts.layers = layer;
+        } else {
+            opts.layer = layer;
+        }
+
+        opts.format = model.get('view').format || 'image/jpeg';
+
+        if (model.get('time')) {
+            opts.time = model.get('time');
+        }
+
+        if (model.get('time')) {
+            opts.time = model.get('time')
+        }
+
+        if (opts.format === 'image/png') {
+            opts.transparent = true;
+        }
+
+        return opts;
+    };
+
+    Globe.prototype.addLayer = function(model, isBaseLayer) {
+        var layerDesc = this.layerCache[model.get('name')];
+        var layer = undefined;
+
+        if (typeof layerDesc === 'undefined') {
+            var opts = this.createCommonLayerOptionsFromModel(model);
+
+            if (model.get('view').protocol === 'WMTS') {
+                var layer_opts = _.extend(opts, {
+                    matrixSet: model.get('view').matrixSet,
+                });
+                layer = new GlobWeb.WMTSLayer(layer_opts);
+            } else if (model.get('view').protocol === 'WMS') {
+                layer = new GlobWeb.WMSLayer(opts);
+            }
+
+            // set initial opacity:
+            layer.opacity(model.get('opacity'));
+
+            // Register the layer to the internal cache for removal or for changing the timespan later on:
+            layerDesc = {
+                model: model,
+                layer: layer,
+                isBaseLayer: isBaseLayer
+            };
+            this.layerCache[model.get('name')] = layerDesc;
+
+            console.log('[Globe.addLayer] added layer "' + model.get('name') + '" to the cache.');
+        } else {
+            layer = layerDesc.layer;
+            console.log('[Globe.addLayer] retrieved layer "' + model.get('name') + '" from the cache.');
+        }
+
+        if (isBaseLayer) {
+            this.globe.setBaseImagery(layer);
+        } else {
+            // FIXXME: when adding a layer the 'ordinal' has to be considered!
+            // Unfortunately GlobWeb does not seem to have a layer ordering mechanism,
+            // therefore we have to remove all layers and readd the in the correct order.
+            // This results in flickering when adding a layer and should be fixed within GlobWeb.
+            this.globe.addLayer(layer);
+            this.overlayLayers.push(layerDesc);
+        }
+    };
+
+    Globe.prototype.sortOverlayLayers = function() {
+        // Copy the current overlay layers into an array, sorted by the ordinal parameter:
+        var sortedOverlayLayers = _.sortBy(this.overlayLayers, function(desc) {
+            return desc.model.get('ordinal');
+        });
+
+        // Remove the current overlay layers (setting this.overlayLayers.length = 0):
+        this.removeAllOverlays();
+
+        _.each(sortedOverlayLayers, function(desc) {
+            console.log('sort: adding layer with ordinal: ' + desc.model.get('ordinal'));
+            this.addLayer(desc.model, desc.isBaseLayer);
+        }.bind(this));
+    };
+
+    Globe.prototype.removeAllOverlays = function() {
+        _.each(this.overlayLayers, function(desc, idx) {
+            this.globe.removeLayer(desc.layer);
+        }.bind(this));
+
+        this.overlayLayers.length = 0;
+    };
+
+    Globe.prototype.removeLayer = function(model, isBaseLayer) {
+        console.log('removeLayer: ' + model.get('name') + " (baseLayer: " + isBaseLayer + ")");
+
+        if (isBaseLayer) {
+            this.globe.setBaseImagery(null);
+        } else {
+            var layerDesc = this.layerCache[model.get('name')];
+            if (typeof layerDesc !== 'undefined') {
+                this.globe.removeLayer(layerDesc.layer);
+                var idx = _.indexOf(this.overlayLayers, layerDesc);
+                this.overlayLayers.splice(idx, 1);
+            }
+        }
+    };
+
+    Globe.prototype.clearCache = function() {
+        this.layerCache = {};
+    };
+
+    // FIXXME: Implement GlobWeb::BaseLayer::setTime() for that to work
+    // Globe.prototype.setTimeSpanOnLayers = function(newTimeSpan) {
+    //     var updated_layer_descs = [];
+
+    //     _.each(this.layerCache, function(layerDesc, name) {
+    //         if (layerDesc.timeSupport) {
+    //             var isotimespan = getISODateTimeString(newTimeSpan.start) + '/' + getISODateTimeString(newTimeSpan.end);
+    //             layerDesc.layer.setTime(isotimespan);
+    //             updated_layer_descs.push(layerDesc);
+    //             //console.log('[Globe.setTimeSpanOnLayers] setting new timespan on "' + layerDesc.productName + '": ' + isotimespan);
+    //         }
+    //     });
+
+    //     _.each(updated_layer_descs, function(desc, idx) {
+    //         if (desc.isBaseLayer) {
+    //             this.globe.setBaseImagery(desc.layer);
+    //         } else {
+    //             // FIXXME: is there an update() functionality somewhere?
+    //             this.globe.removeLayer(desc.layer);
+    //             this.globe.addLayer(desc.layer);
+    //         }
+    //     }.bind(this));
+    // };
+
+    Globe.prototype.updateViewport = function() {
+        // FIXXME: the height/width has to be set explicitly after setting the
+        // the new css class. Why?
+        this.globe.renderContext.canvas.width = this.canvas.width();
+        this.globe.renderContext.canvas.height = this.canvas.height();
+
+        // Adjust the globe's aspect ration and redraw:
+        this.globe.renderContext.updateViewDependentProperties();
+        this.globe.refresh();
+    };
+
+    Globe.prototype.zoomTo = function(pos) {
+        this.navigation.zoomTo(pos.center, pos.distance, pos.duration, pos.tilt);
+    };
+
+    Globe.prototype.onOpacityChange = function(layer_name, opacity) {
+        var layerDesc = this.layerCache[layer_name];
+        if (typeof layerDesc !== 'undefined') {
+            layerDesc.layer.opacity(opacity);
+        }
+    };
+
+    Globe.prototype.dumpLayerConfig = function() {
+        _.each(this.overlayLayers, function(desc) {
+            console.log('-------------------------------------------------');
+            console.log('Layer: ' + desc.model.get('name'));
+            console.log('   ordinal: ' + desc.model.get('ordinal'));
+            console.log('   opacity: ' + desc.layer.opacity());
+        }.bind(this));
+    };
+
+    return Globe;
 });
 
 
