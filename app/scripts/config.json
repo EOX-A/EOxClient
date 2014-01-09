@@ -5,7 +5,9 @@
   "modules": [
     "contrib/MapViewer/MapViewModule",
     "contrib/VirtualGlobeViewer/VirtualGlobeViewModule",
-    "contrib/RectangularBoxViewer/RectangularBoxViewModule"
+    "contrib/RectangularBoxViewer/RectangularBoxViewModule",
+    "contrib/SliceViewer/SliceViewModule",
+    "contrib/AnalyticsViewer/AnalyticsViewModule"
   ],
 
   "mapConfig": {
@@ -17,8 +19,8 @@
     "zoom": 5,
     "baseLayers": [
       {
-        "name": "Terrain Layer",
-        "id": "globcover",
+        "name": "Terrain",
+        "id": "terrain",
         "protocol": "WMTS",
         "visible": true,
         "urls": [
@@ -44,7 +46,7 @@
       },
       {
         "name": "Blue Marble",
-        "id": "bluemarble_wgs84",
+        "id": "bluemarble",
         "protocol": "WMTS",
         "visible": false,
         "urls": [
@@ -81,7 +83,8 @@
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "daily_FSC_PanEuropean_Optical",
@@ -100,7 +103,8 @@
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "daily_SWE_PanEuropean_Microwave",
@@ -118,7 +122,8 @@
           "urls": [
               "http://earthserver.eox.at/open/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "SRTM_mosaic",
@@ -341,7 +346,7 @@
       "enabled":true,
       "active":false
     }
-    
+
   ],
 
   "visualizationModes":[
@@ -369,7 +374,7 @@
       "enabled":true,
       "active":false
     }
-    
+
   ]
 
 }

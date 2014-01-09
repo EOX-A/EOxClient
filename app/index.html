@@ -44,6 +44,7 @@
             <div id="bottomBar"></div>
         </div>
 
+    <div id="loadscreen" class="modal-backdrop"> <i class="fa fa-cog fa-spin fa-4x"></i> </div>
 
         <!-- HIDDEN X3DOM DIV -->
         <div id="hidden" style="display:none">
@@ -69,10 +70,19 @@
         <!-- build:js scripts/main.js -->
         <script type="text/javascript" src="scripts/vendor/x3dom-full.debug.js"></script>
         <script type="text/javascript" src="bower_components/rectangularboxviewer/js/EarthServerClient.js"></script>
+        <script type="text/javascript" src="bower_components/rectangularboxviewer/js/Module_LayerAndTime.js"></script>
         <script type="text/javascript" src="bower_components/Keypress/keypress.js"></script>
 
         <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
+
+    <div id="preload">
+       <img src="images/glyphicons.png" width="1" height="1" alt="Preload image" />
+    </div>
+
+    <div id="error-messages"></div>
+
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--<script>
         var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

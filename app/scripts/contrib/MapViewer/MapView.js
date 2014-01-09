@@ -187,6 +187,14 @@ define(['backbone.marionette',
                     break;
 
                 };
+
+                return_layer.events.register("loadstart", this, function() {
+                  	Communicator.mediator.trigger("progress:change", true);
+                });
+                
+                return_layer.events.register("loadend", this, function() {
+                  	Communicator.mediator.trigger("progress:change", false);
+                });
                 return return_layer;                
             },
 

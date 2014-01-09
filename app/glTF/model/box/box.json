@@ -1,0 +1,333 @@
+{
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@61eb39d2858106659098a1a28d1f634eb417313b"
+    },
+    "attributes": {
+        "attribute_18": {
+            "bufferView": "bufferView_22",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 24,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "attribute_20": {
+            "bufferView": "bufferView_22",
+            "byteOffset": 288,
+            "byteStride": 12,
+            "count": 24,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        }
+    },
+    "bufferViews": {
+        "bufferView_22": {
+            "buffer": "box",
+            "byteLength": 576,
+            "byteOffset": 0,
+            "target": 34962
+        },
+        "bufferView_23": {
+            "buffer": "box",
+            "byteLength": 72,
+            "byteOffset": 576,
+            "target": 34963
+        },
+        "bufferView_24": {
+            "buffer": "box",
+            "byteLength": 0,
+            "byteOffset": 648
+        }
+    },
+    "buffers": {
+        "box": {
+            "byteLength": 648,
+            "path": "box.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "cameras": {
+        "camera_0": {
+            "perspective": {
+                "aspect_ratio": 1.77778,
+                "xfov": 49.1343,
+                "zfar": 100,
+                "znear": 0.1
+            },
+            "type": "perspective"
+        }
+    },
+    "indices": {
+        "indices_16": {
+            "bufferView": "bufferView_23",
+            "byteOffset": 0,
+            "count": 36,
+            "type": 5123
+        }
+    },
+    "lights": {
+        "Lamp-light": {
+            "point": {
+                "color": [
+                    1,
+                    1,
+                    1
+                ],
+                "constantAttenuation": 1,
+                "linearAttenuation": 0,
+                "quadraticAttenuation": 0.00111109
+            },
+            "type": "point"
+        }
+    },
+    "materials": {
+        "Material-effect": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": [
+                        0.8,
+                        0,
+                        0,
+                        1
+                    ],
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 50,
+                    "specular": [
+                        0.5,
+                        0.5,
+                        0.5,
+                        1
+                    ]
+                }
+            },
+            "name": "Material"
+        }
+    },
+    "meshes": {
+        "Cube-mesh": {
+            "name": "Cube",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "attribute_20",
+                        "POSITION": "attribute_18"
+                    },
+                    "indices": "indices_16",
+                    "material": "Material-effect",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "Camera": {
+            "camera": "camera_0",
+            "children": [],
+            "matrix": [
+                0.68588,
+                0.727634,
+                -0.0108168,
+                0,
+                -0.31737,
+                0.312469,
+                0.895343,
+                0,
+                0.654862,
+                -0.610666,
+                0.445245,
+                0,
+                7.48113,
+                -6.50764,
+                5.34367,
+                1
+            ],
+            "name": "Camera"
+        },
+        "Cube": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0.25,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "Cube-mesh"
+            ],
+            "name": "Cube"
+        },
+        "Lamp": {
+            "children": [],
+            "light": "Lamp-light",
+            "matrix": [
+                -0.290865,
+                0.955171,
+                -0.0551891,
+                0,
+                -0.771101,
+                -0.199883,
+                0.604525,
+                0,
+                0.566393,
+                0.218391,
+                0.794672,
+                0,
+                4.07624,
+                1.00545,
+                5.90386,
+                1
+            ],
+            "name": "Lamp"
+        }
+    },
+    "profile": "WebGL 1.0.2",
+    "programs": {
+        "program_0": {
+            "fragmentShader": "box0FS",
+            "vertexShader": "box0VS"
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "Cube"
+            ]
+        }
+    },
+    "shaders": {
+        "box0FS": {
+            "path": "box0FS.glsl"
+        },
+        "box0VS": {
+            "path": "box0VS.glsl"
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35666
+                },
+                "diffuse": {
+                    "type": 35666
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "light0Color": {
+                    "type": 35665,
+                    "value": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                "light0Transform": {
+                    "source": "Lamp",
+                    "type": 35676
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_light0Color": "light0Color",
+                            "u_light0Transform": "light0Transform",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 0,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    }
+}

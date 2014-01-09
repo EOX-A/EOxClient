@@ -3,10 +3,10 @@
 	[
 		{
 			"name": "Webclient",
-			"folder_exclude_patterns":
-			[
-				"bower_components"
-			],
+			// "folder_exclude_patterns":
+			// [
+			// 	"bower_components"
+			// ],
 			"path": "app"
 		},
 		{
