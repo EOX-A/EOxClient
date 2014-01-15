@@ -4,9 +4,10 @@ define([
     'virtualglobeviewer/SceneGraph/SceneGraph',
     'virtualglobeviewer/SceneGraph/Renderer',
     'virtualglobeviewer/W3DSLayer',
+    'virtualglobeviewer/TileWireframeLayer',
     './glTFLoader',
     'openlayers' // FIXXME: replace OpenLayers with generic format!
-], function(GlobWeb, GlobWebRenderContext, SceneGraph, SceneGraphRenderer, W3DSLayer, GlobWebGLTFLoader, OpenLayers) {
+], function(GlobWeb, GlobWebRenderContext, SceneGraph, SceneGraphRenderer, W3DSLayer, TileWireframeLayer, GlobWebGLTFLoader, OpenLayers) {
 
     'use strict';
 
@@ -29,7 +30,7 @@ define([
             backgroundColor: [0.2, 0.2, 0.2, 1],
             shadersPath: "/bower_components/virtualglobeviewer/shaders/"
         });
-        
+
         this.aoiLayer = undefined;
         this.layerCache = {};
         this.overlayLayers = [];
@@ -40,16 +41,16 @@ define([
 
         // Elevation Layer:
         var srtmElevationWCSGlobal = new GlobWeb.WCSElevationLayer({
-             baseUrl: "http://data.eox.at/elevation?",
-             coverage: "ACE2",
-             version: "2.0.0"
-         });
+            baseUrl: "http://data.eox.at/elevation?",
+            coverage: "ACE2",
+            version: "2.0.0"
+        });
         this.globe.setBaseElevation(srtmElevationWCSGlobal);
 
         // // glTF loader test:
         // var sgRenderer;
         // var renderContext = this.globe.renderContext;
-        
+
         // var loader = Object.create(GlobWebGLTFLoader);
         // loader.initWithPath("/glTF/model/vcurtains/gltf/test.json");
 
@@ -69,14 +70,20 @@ define([
 
         // W3DS layer test:
         var w3dslayer = new W3DSLayer({
-                        baseUrl: 'http://localhost:9000/ows?',
-                        layer: 'adm_aeolus',
-                        format: 'model/gltf',
-                        matrixSet: 'WGS84',
-                        opacity: 0.7
-                });
-        this.globe.addLayer(w3dslayer);
+            baseUrl: 'http://localhost:9000/ows?',
+            layer: 'adm_aeolus',
+            format: 'model/gltf',
+            matrixSet: 'WGS84',
+            opacity: 0.7
+        });
+        //this.globe.addLayer(w3dslayer);
 
+        this.globe.addLayer(new TileWireframeLayer({
+            outline: true
+        }));
+
+        var blueMarbleLayer = new GlobWeb.WMSLayer({ baseUrl: "http://demonstrator.telespazio.com/wmspub", layers: "BlueMarble" });
+        this.globe.setBaseImagery( blueMarbleLayer );
         // Add stats
         // var stats = new GlobWeb.Stats(globe, {
         // 	element: 'fps',
