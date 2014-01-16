@@ -1,6 +1,6 @@
 {
 
-  "debug": false,
+  "debug": true,
 
   "modules": [
     "contrib/MapViewer/MapViewModule",

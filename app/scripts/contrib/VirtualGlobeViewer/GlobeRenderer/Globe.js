@@ -45,7 +45,7 @@ define([
             coverage: "ACE2",
             version: "2.0.0"
         });
-        this.globe.setBaseElevation(srtmElevationWCSGlobal);
+        //this.globe.setBaseElevation(srtmElevationWCSGlobal);
 
         // // glTF loader test:
         // var sgRenderer;
@@ -76,7 +76,7 @@ define([
             matrixSet: 'WGS84',
             opacity: 0.7
         });
-        //this.globe.addLayer(w3dslayer);
+        this.globe.addLayer(w3dslayer);
 
         this.globe.addLayer(new TileWireframeLayer({
             outline: true
