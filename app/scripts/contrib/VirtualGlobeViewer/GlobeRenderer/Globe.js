@@ -47,43 +47,43 @@ define([
         });
         this.globe.setBaseElevation(srtmElevationWCSGlobal);
 
-        // glTF loader test:
-        var sgRenderer;
-        var renderContext = this.globe.renderContext;
-
-        var loader = Object.create(GlobWebGLTFLoader);
-        loader.initWithPath("/data/vcurtains/vrvis-demo/vrvis-demo.json");
-
-        var onLoadedCallback = function(success, rootObj) {
-            sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
-                minNear: GlobWebRenderContext.minNear,
-                far: 6,
-                fov: 45,
-                enableAlphaBlending: true
-            });
-            renderContext.addRenderer(sgRenderer);   
-        };
-
-        loader.load({
-            rootObj: new SceneGraph.Node()
-        }, onLoadedCallback);
-
-        // W3DS layer test:
-        var w3dslayer = new W3DSLayer({
-            baseUrl: 'http://localhost:9000/ows?',
-            layer: 'adm_aeolus',
-            format: 'model/gltf',
-            matrixSet: 'WGS84',
-            opacity: 0.7
-        });
-        this.globe.addLayer(w3dslayer);
-
         this.globe.addLayer(new TileWireframeLayer({
             outline: true
         }));
+        
+        // // glTF loader test:
+        // var sgRenderer;
+        // var renderContext = this.globe.renderContext;
 
-        var blueMarbleLayer = new GlobWeb.WMSLayer({ baseUrl: "http://demonstrator.telespazio.com/wmspub", layers: "BlueMarble" });
-        this.globe.setBaseImagery( blueMarbleLayer );
+        // var loader = Object.create(GlobWebGLTFLoader);
+        // loader.initWithPath("/data/vcurtains/vrvis-demo/vrvis-demo.json");
+
+        // var onLoadedCallback = function(success, rootObj) {
+        //     sgRenderer = new SceneGraphRenderer(renderContext, rootObj, {
+        //         minNear: GlobWebRenderContext.minNear,
+        //         far: 6,
+        //         fov: 45,
+        //         enableAlphaBlending: true
+        //     });
+        //     renderContext.addRenderer(sgRenderer);   
+        // };
+
+        // loader.load({
+        //     rootObj: new SceneGraph.Node()
+        // }, onLoadedCallback);
+
+        // // W3DS layer test:
+        // var w3dslayer = new W3DSLayer({
+        //     baseUrl: 'http://localhost:9000/ows?',
+        //     layer: 'adm_aeolus',
+        //     format: 'model/gltf',
+        //     matrixSet: 'WGS84',
+        //     opacity: 0.7
+        // });
+        // this.globe.addLayer(w3dslayer);
+
+        // var blueMarbleLayer = new GlobWeb.WMSLayer({ baseUrl: "http://demonstrator.telespazio.com/wmspub", layers: "BlueMarble" });
+        // this.globe.setBaseImagery( blueMarbleLayer );
         // Add stats
         // var stats = new GlobWeb.Stats(globe, {
         // 	element: 'fps',
@@ -197,6 +197,9 @@ define([
                 layer = new GlobWeb.WMTSLayer(layer_opts);
             } else if (model.get('view').protocol === 'WMS') {
                 layer = new GlobWeb.WMSLayer(opts);
+            } else if (model.get('view').protocol === 'W3DS') {
+                layer = new W3DSLayer(opts);
+                console.log('[Globe::addLayer] added W3DS layer. ', layer);
             }
 
             // set initial opacity:

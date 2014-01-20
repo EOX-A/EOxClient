@@ -130,6 +130,44 @@
           "protocol": "EOWCS",
           "url": "http://earthserver.eox.at/open/ows"
         }
+      },
+      {
+        "name": "Vertical Curtain VRVis",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "vrvis_demo",
+          "protocol": "W3DS",
+          "urls": [
+              "http://localhost:9000/ows?"
+          ],
+          "style": "default",
+          "format": "image/png"
+        },
+        "download": {
+          "id": "SRTM_mosaic",
+          "protocol": "EOWCS",
+          "url": "http://earthserver.eox.at/open/ows"
+        }
+      },
+      {
+        "name": "Vertical Curtain EOX",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "eox_demo",
+          "protocol": "W3DS",
+          "urls": [
+              "http://localhost:9000/ows?"
+          ],
+          "style": "default",
+          "format": "image/png"
+        },
+        "download": {
+          "id": "SRTM_mosaic",
+          "protocol": "EOWCS",
+          "url": "http://earthserver.eox.at/open/ows"
+        }
       }
     ],
     "overlays": [
