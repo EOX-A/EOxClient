@@ -358,7 +358,11 @@ define([
             value: function(entryID, description, userInfo) {
                 //this should be rewritten using the meta datas that actually create the shader.
                 //here we will infer what needs to be pass to Three.js by looking inside the technique parameters.
+                var hasDiffuseColor = false
+                var hasDiffuseTexture = false;
+                var hasEmissionTexture = false;
                 var texturePath = null;
+                var diffuseColor = null;
 
                 if (!description.instanceTechnique) {
                     console.log('No instanceTechnique for material: ' + entryID);
@@ -366,24 +370,41 @@ define([
                 }
 
                 var technique = description.instanceTechnique;
-                var texture = technique.values.diffuse;
-                if (typeof texture === 'string') {
-                    var imageEntry = this.globWebResources.getEntry(texture);
+
+                if (Object.prototype.toString.call(technique.values.diffuse) === '[object Array]') {
+                    hasDiffuseColor = true;
+                    diffuseColor = technique.values.diffuse;
+                } else if (typeof technique.values.diffuse === 'string') { // contains the name of a texture
+                    var imageEntry = this.globWebResources.getEntry(technique.values.diffuse);
                     if (imageEntry) {
                         var imageID = imageEntry.description.source;
                         var image = this.globWebResources.getEntry(imageID);
+                        hasDiffuseTexture = true;
                         texturePath = image.description.path;
                     }
                 }
 
-                var diffuseColor = !texturePath ? technique.values.diffuse : null;
+                // If there is no texture in the 'diffuse' parameter, look into the 'emission' parameter, too!
+                if (!texturePath) {
+                    if (typeof technique.values.emission === 'string') {
+                        var imageEntry = this.globWebResources.getEntry(technique.values.emission);
+                        if (imageEntry) {
+                            var imageID = imageEntry.description.source;
+                            var image = this.globWebResources.getEntry(imageID);
+                            hasEmissionTexture = true;
+                            texturePath = image.description.path;
+                        }                    
+                    }
+                }
+
                 var transparency = technique.values.transparency ? technique.values.transparency.value : 1.0;
 
                 var material = new SceneGraph.Material();
-                if (diffuseColor) {
-                    material.diffuse = diffuseColor;
-                }
-
+                // Diffuse color is not used in shader right now:
+                // if (hasDiffuseColor) {
+                //     material.diffuse = diffuseColor;
+                // }
+                
                 if (texturePath) {
                     // The 'false' parameter prevents the internal horizontal flipping of the image:
                     material.texture = new SceneGraph.Texture(texturePath, false);
