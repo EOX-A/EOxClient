@@ -85,12 +85,20 @@ define(['backbone.marionette',
 
 				// Go through all products and add them to the map
 				globals.products.each(function(product) {
-					this.map.addLayer(this.createLayer(product));
+					// FIXXME: quick hack to not include W3DS layers:
+					if (this.isModelCompatible(product)) {
+						console.log('protocol: ' + product.get('view').protocol);
+						this.map.addLayer(this.createLayer(product));
+					}
 				}, this);
 
 				// Go through all products and add them to the map
                 globals.overlays.each(function(overlay){
-                    this.map.addLayer(this.createLayer(overlay));
+					// FIXXME: quick hack to not include W3DS layers:
+					if (this.isModelCompatible(overlay)) {
+						console.log('protocol: ' + overlay.get('view').protocol);
+						this.map.addLayer(this.createLayer(overlay));
+					}
                 }, this);
 
 				// Order (sort) the product layers based on collection order
@@ -207,6 +215,8 @@ define(['backbone.marionette',
 				});
 			},
 
+			// FIXXME: properties like 'visibility' should not be changed in here. The MapView is not responsible for setting the
+			// attribute, that should be done by the Layers sidebar module/controller.
 			changeLayer: function(options) {
 				if (options.isBaseLayer){
 	                globals.baseLayers.forEach(function(model, index) {
@@ -214,22 +224,28 @@ define(['backbone.marionette',
 	                });
 	                globals.baseLayers.find(function(model) { return model.get('name') == options.name; }).set("visible", true);
 	                this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
-                }else{
+                } else {
                     var product = globals.products.find(function(model) { return model.get('name') == options.name; });
                     if (product){
                             product.set("visible", options.visible);
                     }else{
                             globals.overlays.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
                     }
-                    this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
+
+                    var layers = this.map.getLayersByName(options.name);
+                    if (layers.length) {
+                    	layers[0].setVisibility(options.visible);
+                    }
                 }
 			},
 
 			onSortProducts: function(productLayers) {
 				globals.products.each(function(product) {
-					var productLayer = this.map.getLayersByName(product.get("name"))[0];
-					var index = globals.products.indexOf(productLayer);
-					this.map.setLayerIndex(productLayer, index);
+					if (this.isModelCompatible(product)) {
+						var productLayer = this.map.getLayersByName(product.get("name"))[0];
+						var index = globals.products.indexOf(productLayer);
+						this.map.setLayerIndex(productLayer, index);
+					}
 				}, this);
 				console.log("Map products sorted");
 			},
@@ -319,6 +335,14 @@ define(['backbone.marionette',
 
 			onClose: function(){
 				this.isClosed = true;
+			},
+
+			isModelCompatible: function(model) {
+				var protocol = model.get('view').protocol;
+				if (protocol === 'WMS' || protocol === 'WMTS') {
+					return true;
+				}
+				return false;
 			}
 		});
 
