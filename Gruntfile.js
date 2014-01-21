@@ -356,7 +356,9 @@ module.exports = function (grunt) {
                         'data.tsv',
                         'iris.csv',
                         'FSC_filtered_new.csv',
-                        'data{,*/}*'
+                        'data{,*/}*',
+                        'bower_components/virtualglobeviewer/src/**',
+                        'data/**'
                     ]
                 },{
                     expand: true,
