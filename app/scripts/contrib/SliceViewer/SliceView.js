@@ -38,19 +38,25 @@ define([
 
         onShow: function() {
             if (!this.viewer) {
-                this.createRenderer();
+                this.viewer = this.createViewer({
+                    elem: this.el,
+                    backgroundColor: [1, 1, 1],
+                    cameraPosition: [120, 80, 160]
+                });
             }
+
             this.isClosed = false;
             // this.onResize();
         },
 
         onClose: function() {
             this.isClosed = true;
+            // this.viewer.destroy(); //necessary?
         },
 
-        createRenderer: function() {
-            this.viewer = new XTKViewer(this.el);
-        }
+        createViewer: function(opts) {
+            return new XTKViewer(opts);
+        },
 
         // addInitialLayer: function(model, isBaseLayer) {
         //     this.initialLayers[model.get('name')] = {
@@ -59,9 +65,29 @@ define([
         //     };
         // },
 
-        // addAreaOfInterest: function(geojson) {
-        //     this.x.addAreaOfInterest(geojson);
-        // },
+        setAreaOfInterest: function(area) {
+            // console.log('[SliceView::setAreaOfInterest] ', area);
+
+            // If the releases the mouse button to finish the selection of
+            // an AoI the 'area' parameter is set, otherwise it is 'null'.
+            if (area) {
+                // 1. get AoI
+                // 2. get ToI
+                // 3. Request data via W3DS-GetScene
+                
+                // 4. Display the data
+                this.viewer.addVolume({
+                    filename: 'data/H2O.nii.gz',
+                    label: 'H2O',
+                    volumeRendering: true,
+                    upperThreshold: 219,
+                    opacity: 0.3,
+                    minColor: [0.4, 0.4, 0.4],
+                    maxColor: [0, 0, 0],
+                    reslicing: false
+                });
+            }
+        }
 
         // addLayer: function(model, isBaseLayer) {
         //     this.x.addLayer(model, isBaseLayer);
@@ -105,7 +131,7 @@ define([
         //     this.sortOverlayLayers();
         // },
 
-        // createRenderer: function() {
+        // createViewer: function() {
         //     this.x = new X({
         //         canvas: this.el
         //     });

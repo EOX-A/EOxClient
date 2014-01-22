@@ -20,9 +20,7 @@ define([
         },
 
         connectToView: function() {
-            // this.listenTo(Communicator.mediator, 'selection:changed', this.addAreaOfInterest);
-            // this.listenTo(Communicator.mediator, 'map:setUrl', this.zoomTo);
-            // this.listenTo(Communicator.mediator, 'map:center', this.onMapCenter);
+            this.listenTo(Communicator.mediator, 'selection:changed', _.bind(this.view.setAreaOfInterest, this.view));
             // this.listenTo(Communicator.mediator, 'map:layer:change', this.onLayerChange);
             // this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
             // this.listenTo(Communicator.mediator, 'productCollection:updateOpacity', this.onOpacityChange);
