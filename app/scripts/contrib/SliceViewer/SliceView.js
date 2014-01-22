@@ -32,6 +32,10 @@ define([
                     this.onResize();
                 }
             }.bind(this));
+
+            var backend = globals.context.backendConfig['MeshFactory'];
+            this.baseURL = backend.url + 'service=W3DS&request=GetScene&crs=EPSG:4326&format=model/nii-gz&version=' + backend.version;
+            // console.log('base: ', this.baseURL);
         },
 
         onResize: function() {
@@ -71,9 +75,7 @@ define([
             // If the releases the mouse button to finish the selection of
             // an AoI the 'area' parameter is set, otherwise it is 'null'.
             if (area) {
-                // FIXXME: Store W3DS server url in config.json and make it accessible!
-                var baseURL = 'http://localhost:9000/ows?service=W3DS&request=GetScene&version=1.0.0&crs=EPSG:4326&format=model/nii-gz';
-                var url = baseURL;
+                var url = this.baseURL;
                 // 1. get AoI bounds
                 url += '&bbox=' + area.bounds.toString();
                 // 2. get ToI

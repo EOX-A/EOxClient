@@ -67,7 +67,7 @@ define([
 		var label = opts.label || 'Volume';
 		this.volumes[label] = volume;
 		this.renderer.add(volume);
-		
+
 		this.addVolumeToGUI(label, volume, this.mainGUI);
 	};
 

@@ -22,6 +22,7 @@
 		'backbone',
 		'app',
 		'communicator',
+		'globals',
 		'backbone.marionette',
 		'regionManager',
 		'jquery',
@@ -31,7 +32,7 @@
 		"libcoverage",
 		'core/SplitView/SplitViewModule'
 	],
-	function ( Backbone, App, Communicator ) {
+	function ( Backbone, App, Communicator, globals ) {
 		// FIXXME: MH: that took me a while:
 		// document.getElementsByTagName() returns a NodeList. However, if x3dom.js is included together with OpenLayers.js
 		// it is magically returning an Array. The OpenLayers.Map constructor tries to access the returned value with ret.item(i),
@@ -61,6 +62,10 @@
 			var templates = [];
 			var options = {};
 			var config = {};
+
+			// Make the backend configuration known globally:
+			globals.context = {};
+			globals.context.backendConfig = values.backendConfig;
 
 			_.each(values.modules, function(module) {
 				modules.push(module);

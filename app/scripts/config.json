@@ -375,6 +375,14 @@
       "active":false
     }
 
-  ]
+  ],
+
+  "backendConfig": {
+    "MeshFactory": {
+      "protocol": "W3DS",
+      "url": "http://localhost:9000/ows?",
+      "version": "1.0.0"
+    }
+  }
 
 }
