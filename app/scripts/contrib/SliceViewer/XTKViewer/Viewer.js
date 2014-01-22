@@ -67,11 +67,13 @@ define([
 		var label = opts.label || 'Volume';
 		this.volumes[label] = volume;
 		this.renderer.add(volume);
+		
+		this.addVolumeToGUI(label, volume, this.mainGUI);
 	};
 
-	XTKViewer.prototype.addVolumeToGUI = function(label, volume, gui) {
+	XTKViewer.prototype.addVolumeToGUI = function(label, volume) {
 		// the following configures the gui for interacting with the X.volume
-		var volumegui = gui.addFolder(label);
+		var volumegui = this.mainGUI.addFolder(label);
 		// now we can configure controllers which..
 		// .. switch between slicing and volume rendering
 		var vrController = volumegui.add(volume, 'volumeRendering');

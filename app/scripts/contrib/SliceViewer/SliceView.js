@@ -66,19 +66,27 @@ define([
         // },
 
         setAreaOfInterest: function(area) {
-            // console.log('[SliceView::setAreaOfInterest] ', area);
-
             // If the releases the mouse button to finish the selection of
             // an AoI the 'area' parameter is set, otherwise it is 'null'.
             if (area) {
-                // 1. get AoI
-                // 2. get ToI
-                // 3. Request data via W3DS-GetScene
-                
-                // 4. Display the data
+                // FIXXME: Store W3DS server url in config.json and make it accessible!
+                var baseURL = 'http://localhost:9000/ows?service=W3DS&request=GetScene&version=1.0.0&crs=EPSG:4326&format=model/nii-gz';
+                var url = baseURL;
+                // 1. get AoI bounds
+                url += '&bbox=' + area.bounds.toString();
+                // 2. get ToI | FIXXME: currently does not work if the timeslider was not moved after the Viewer was initialized!
+                url += '&time=' + this.timeOfInterest;
+                // 3. get relevant layers | FIXXME: how?
+                url += '&layer=h2o_vol_demo';
+
+                var label = 'H2O';
+
+                // 4. add the data to the viewer
                 this.viewer.addVolume({
-                    filename: 'data/H2O.nii.gz',
-                    label: 'H2O',
+                    // FIXXME: creative hack to satisfy xtk, which obviously determines the format of the volume data by the ending of the url it gets.
+                    // I appended a dummy file here, so xtk gets the format, the backend W3DS server will simply discard the extra parameter...
+                    filename: url + '&dummy.nii.gz',
+                    label: label,
                     volumeRendering: true,
                     upperThreshold: 219,
                     opacity: 0.3,
@@ -87,6 +95,15 @@ define([
                     reslicing: false
                 });
             }
+        },
+
+        onTimeChange: function(time) {
+            var starttime = new Date(time.start);
+            var endtime = new Date(time.end);
+
+            this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
+            // console.log('starttime: ' + starttime.toISOString());
+            // console.log('endtime: ' + endtime.toISOString());
         }
 
         // addLayer: function(model, isBaseLayer) {
@@ -113,10 +130,6 @@ define([
 
         // onOpacityChange: function(layer_name, opacity) {
         //     this.x.onOpacityChange(layer_name, opacity);
-        // },
-
-        // onTimeChange: function(time) {
-        //     this.x.setTimeSpanOnLayers(time);
         // },
 
         // sortOverlayLayers: function() {

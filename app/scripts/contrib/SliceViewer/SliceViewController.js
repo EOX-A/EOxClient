@@ -22,7 +22,7 @@ define([
         connectToView: function() {
             this.listenTo(Communicator.mediator, 'selection:changed', _.bind(this.view.setAreaOfInterest, this.view));
             // this.listenTo(Communicator.mediator, 'map:layer:change', this.onLayerChange);
-            // this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
+            this.listenTo(Communicator.mediator, 'time:change', _.bind(this.view.onTimeChange, this.view));
             // this.listenTo(Communicator.mediator, 'productCollection:updateOpacity', this.onOpacityChange);
             // this.listenTo(Communicator.mediator, 'productCollection:sortUpdated', this.onSortChange);
         },
