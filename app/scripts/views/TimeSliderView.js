@@ -47,10 +47,24 @@
         });
 
         Communicator.mediator.trigger('time:change', {start:selectionstart, end:selectionend});
+
+        // For viewers that are loaded after the TimeSlider announces its initial timespan there
+        // has to be a way to get the timespan for their setup. This is a 'sloppy' way of 
+        // accomplishing this:
+        globals.context = globals.context || {};
+        globals.context.timeOfInterest = {
+          start: selectionstart,
+          end: selectionend
+        };
       }, 
 
       onChangeTime: function(evt){
         Communicator.mediator.trigger('time:change', evt.originalEvent.detail);
+        // Update ToI in the global context:
+        globals.context.timeOfInterest = {
+          start: evt.originalEvent.detail.start,
+          end: evt.originalEvent.detail.end
+        };
       },
 
       changeLayer: function (options) {

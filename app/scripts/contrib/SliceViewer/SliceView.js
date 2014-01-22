@@ -2,8 +2,9 @@ define([
     'backbone.marionette',
     'app',
     'communicator',
+    'globals',
     './XTKViewer/Viewer'
-], function(Marionette, App, Communicator, XTKViewer) {
+], function(Marionette, App, Communicator, globals, XTKViewer) {
 
     'use strict';
 
@@ -24,6 +25,7 @@ define([
             this.viewer = null;
             this.isClosed = true;
             this.baseInitDone = false;
+            this.timeOfInterest = null;
 
             $(window).resize(function() {
                 if (this.viewer) {
@@ -74,8 +76,17 @@ define([
                 var url = baseURL;
                 // 1. get AoI bounds
                 url += '&bbox=' + area.bounds.toString();
-                // 2. get ToI | FIXXME: currently does not work if the timeslider was not moved after the Viewer was initialized!
-                url += '&time=' + this.timeOfInterest;
+                // 2. get ToI
+                var toi = this.timeOfInterest;
+                // In case no ToI was set during the lifecycle of this viewer we can access
+                // the time of interest from the global context:
+                if (!toi) {
+                    var starttime = new Date(globals.context.timeOfInterest.start);
+                    var endtime = new Date(globals.context.timeOfInterest.end);
+
+                    toi = this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
+                }
+                url += '&time=' + toi;
                 // 3. get relevant layers | FIXXME: how?
                 url += '&layer=h2o_vol_demo';
 
