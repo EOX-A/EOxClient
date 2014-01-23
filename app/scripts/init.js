@@ -60,14 +60,14 @@
             jqueryui: '../bower_components/jquery-ui/ui/minified/jquery-ui.min',
             backbone: '../bower_components/backbone-amd/backbone-min',
             underscore: '../bower_components/underscore-amd/underscore-min',
-            d3: '../bower_components/d3/d3.min',
+            d3: '../bower_components/d3/d3',
             timeslider: '../bower_components/d3.TimeSlider/d3.timeslider.min',
             timeslider_plugins: '../bower_components/d3.TimeSlider/d3.timeslider.plugins.min',
             libcoverage: '../bower_components/libcoverage/libcoverage.min',
             filesaver: '../bower_components/filesaver/FileSaver',
             lm: '../bower_components/lm.js/lm',
-            analytics: '../bower_components/analyticsviewer/app/scripts/analytics',
-            box: '../bower_components/analyticsviewer/app/scripts/box',
+            analytics: '../bower_components/analyticsviewer/lib/scripts/analytics.min',
+            nv: '../bower_components/nvd3/nv.d3.min',
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',

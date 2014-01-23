@@ -5,7 +5,7 @@ define(['backbone.marionette',
 		'globals',
 		'd3',
 		'analytics',
-		'box'
+		'nv'
 	],
 	function(Marionette, Communicator, App, AnalyticsModel, globals) {
 
@@ -16,7 +16,8 @@ define(['backbone.marionette',
 
 			initialize: function(options) {
 
-				this.selection_list = null;
+				this.selection_list = [];
+				this.plotdata = [];
 				this.plot_type = 'scatter';
 				$(window).resize(function() {
 					this.onResize();
@@ -62,13 +63,14 @@ define(['backbone.marionette',
 
 				this.plot_type = type;
 
-				var plotdata = [];
+				
 				var args = {
 					selector: this.$('.d3canvas')[0],
-					data: plotdata
+					data: this.plotdata
 				};
 
 				console.log("Render: " + type);
+				console.log(this.plotdata);
 
 				switch (type){
 					case 'scatter':
@@ -95,7 +97,6 @@ define(['backbone.marionette',
 				
 				if(feature){
 					this.selection_list.push(feature);
-					console.log(feature);
 					var selected_features = this.selection_list.length;
 
 					request_process = '<?xml version="1.0" encoding="UTF-8"?>'+
@@ -127,13 +128,14 @@ define(['backbone.marionette',
 								'</wps:Execute>';
 
 					$.post( "http://localhost:9000/wps/cgi-bin/wps", request_process, function( data ) {
-
+						that.plotdata = data;
 						that.render(that.plot_type);
-						console.log(data);
 					});
 
 				}else{
+					this.plotdata = [];
 					this.selection_list = [];
+					this.render(this.plot_type);
 				}
 
 				
