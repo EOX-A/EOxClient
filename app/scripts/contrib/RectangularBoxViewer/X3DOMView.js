@@ -24,6 +24,8 @@
 
 	var X3DOMView = Marionette.View.extend({
 		initialize: function(options) {
+			this.options = options;
+
 			// NOTE: necessary for SplitView
 			this.isClosed = true;
 
@@ -33,9 +35,9 @@
 				this.onResize();
 			}.bind(this));
 
-			// FIXXME: document!
-			this.$x3del = $(options.x3did);
-			this.$hideel = $(options.hideid);
+			// FIXXME: document and change to a more general solution!
+			this.$x3del = $('#' + options.x3dtag_id);
+			this.$hideel = $('#' + options.hidden_id);
 
 			if (!this.$x3del) {
 				alert('[X3DOMView::initialize] Please specify a X3D element id or an element id containing an X3D element!');
@@ -46,13 +48,13 @@
 			}
 		},
 
-		createScene: function() {
+		createScene: function(opts) {
 			alert('[X3DOMView::createScene] Implement in extended object!');
 		},
 
 		onShow: function() {
 			if (!this.isInitialized) {
-				this.createScene();
+				this.createScene(this.options);
 				this.isInitialized = true;
 			}
 
@@ -66,8 +68,8 @@
 			this.$x3del.width(w);
 			this.$x3del.height(h);
 			
-			console.log('x3dom w: ' + w);
-			console.log('x3dom h: ' + h);
+			// console.log('x3dom w: ' + w);
+			// console.log('x3dom h: ' + h);
 
 			// this.$x3del.width($(window).width());
 			// this.$x3del.height($(window).height());

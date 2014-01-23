@@ -87,7 +87,6 @@ define(['backbone.marionette',
 				globals.products.each(function(product) {
 					// FIXXME: quick hack to not include W3DS layers:
 					if (this.isModelCompatible(product)) {
-						console.log('protocol: ' + product.get('view').protocol);
 						this.map.addLayer(this.createLayer(product));
 					}
 				}, this);

@@ -46,25 +46,21 @@
 
     <div id="loadscreen" class="modal-backdrop"> <i class="fa fa-cog fa-spin fa-4x"></i> </div>
 
-        <!-- HIDDEN X3DOM DIV -->
-        <div id="hidden" style="display:none">
-            <div id="x3dom">
-                <div id="progressbar"></div>
-                <X3D id="x3d" showlog="false" showstat="false">
-                    <scene id="x3dScene">
-                        <group id="root">
-                            <group id="theScene" DEF='theScene'></group>
-                        </group>
-                    </scene>
-                </X3D>
-
-                <div id='x3domUI'></div>
-            </div>
-        </div>
-
-        <!-- HIDDEN DOWNLOAD DIV -->
+d    <!-- HIDDEN DOWNLOAD DIV -->
     <div id="div-downloads">
       <iframe name="iframe-download-post" id="iframe-download-post"></iframe>
+    </div>
+
+    <!-- HIDDEN X3DOM DIV -->
+    <div id="x3dom-hidden" style="display:none">
+        <div id="x3dom-wrapper">
+            <div id="progressbar"></div>
+            <X3D id="x3d" showlog="false" showstat="true">
+                <scene id="x3dScene"></scene>
+            </X3D>
+  
+            <div id='x3domUI'></div>
+        </div>
     </div>
 
         <!-- build:js scripts/main.js -->

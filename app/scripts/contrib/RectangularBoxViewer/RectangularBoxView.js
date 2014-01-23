@@ -9,7 +9,7 @@ define([
 	'use strict';
 
 	var BoxView = X3DOMView.extend({
-		createSceneVolume: function() {
+		createSceneVolume: function(opts) {
 			//var EarthServerGenericClient = EarthServerGenericClient || {};
 			EarthServerGenericClient.MainScene.setTimeLog(false);
 			EarthServerGenericClient.MainScene.addLightToScene(false);
@@ -26,7 +26,8 @@ define([
 			volume.setDataModifier(10000);
 
 			EarthServerGenericClient.MainScene.addModel(volume);
-			EarthServerGenericClient.MainScene.createScene('x3dScene', 'scene', 1, 0.8, 1);
+			// FIXXME: this was the only combination that worked, investigate API!
+			EarthServerGenericClient.MainScene.createScene(opts.x3dscene_id, opts.x3dscene_id, 1, 0.8, 1);
 
 			EarthServerGenericClient.MainScene.createAxisLabels("Latitude", "Height", "Longitude");
 
@@ -38,7 +39,7 @@ define([
 			EarthServerGenericClient.MainScene.createUI('x3domUI');
 		},
 
-		createScene: function() {            
+		createScene: function(opts) {
 			// basic setup:
 			EarthServerGenericClient.MainScene.setTimeLog(false); //TimeLogging: outputs time of loading and building the models to the console
 			EarthServerGenericClient.MainScene.addLightToScene(true); //Adds a light into the scene
@@ -119,13 +120,15 @@ define([
 
 			// add models to the scene
 			EarthServerGenericClient.MainScene.addModel(BGS);
-			EarthServerGenericClient.MainScene.addModel(BGS_LOW);
-			EarthServerGenericClient.MainScene.addModel(glasgow_witi_t);
-			EarthServerGenericClient.MainScene.addModel(Bedrock);
+			// EarthServerGenericClient.MainScene.addModel(BGS_LOW);
+			// EarthServerGenericClient.MainScene.addModel(glasgow_witi_t);
+			// EarthServerGenericClient.MainScene.addModel(Bedrock);
 
 			// create the scene: Cube has 60% height compared to width and length
-			// FIXXME: retrieve ids via options
-			EarthServerGenericClient.MainScene.createScene('x3dScene', 'scene', 1, 0.6, 1);
+			// EarthServerGenericClient.MainScene.createScene('x3dScene', 'theScene', 1, 0.6, 1);
+			// EarthServerGenericClient.MainScene.createScene('x3dScene', 'x3dScene', 1, 0.6, 1);
+			// FIXXME: this was the only combination that worked, investigate API!
+			EarthServerGenericClient.MainScene.createScene(opts.x3dscene_id, opts.x3dscene_id, 1, 0.8, 1);
 
 			EarthServerGenericClient.MainScene.createAxisLabels("Latitude", "Height", "Longitude");
 

@@ -11,8 +11,9 @@ define([
 
 		initialize: function(options) {
 			this.rbvView = new RectangularBoxView({
-				x3did: '#x3dom',
-				hideid: '#hidden'
+				x3dtag_id: 'x3d',
+				x3dscene_id: 'x3dScene',
+				x3dhidden_id: 'x3dom-hidden'
 			});
 		},
 
