@@ -58,11 +58,11 @@ define([
 				var heightmap = [];
 				var maxValue = 0;
 				var minValue = 0;
-				for (var i = 0; i < nrows; ++i) {
-					var value_array = lines[i + 13].split(' ');
-					heightmap.push(value_array);
 
-					for (var idx = 0; idx < value_array.length; idx++) {
+				for (var i = 0; i < nrows; ++i) {
+					var value_array = lines[i + 14].split(' ');
+
+					for (var idx = 1; idx < 500;/*value_array.length;*/ ++idx) {
 						var val = parseFloat(value_array[idx]);
 						if (maxValue < val) {
 							maxValue = value_array[idx];
@@ -70,8 +70,27 @@ define([
 						if (minValue > val) {
 							minValue = value_array[idx];
 						}
-					};
-				};
+						if (typeof heightmap[idx-1] === 'undefined') {
+							heightmap[idx-1] = [];
+						}
+						heightmap[idx-1].push(value_array[idx])
+					}
+				}
+
+				// for (var i = 0; i < nrows; ++i) {
+				// 	var value_array = lines[i + 13].split(' ');
+				// 	heightmap.push(value_array);
+
+				// 	for (var idx = 0; idx < value_array.length; idx++) {
+				// 		var val = parseFloat(value_array[idx]);
+				// 		if (maxValue < val) {
+				// 			maxValue = value_array[idx];
+				// 		}
+				// 		if (minValue > val) {
+				// 			minValue = value_array[idx];
+				// 		}
+				// 	};
+				// };
 
 				responseData.height = ncols-1;
 				responseData.width = nrows-1;
