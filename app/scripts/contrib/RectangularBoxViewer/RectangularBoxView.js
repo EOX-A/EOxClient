@@ -265,10 +265,11 @@ define([
 					outputCRS: 'http://www.opengis.net/def/crs/EPSG/0/4326',
 					CRS: ['SRS', 'EPSG:4326'],
 
-					// wmsUrl: 'http://wms.jpl.nasa.gov/wms.cgi?',
-					// wmsLayer: 'BMNG',
-					wmsUrl: 'http://neso.cryoland.enveo.at/cryoland/ows',
-					wmsLayer: 'daily_FSC_PanEuropean_Optical',
+					wmsUrl: 'http://tiles.maps.eox.at/wms?service=wms&version=',
+					// wmsLayer: 'bluemarble',
+					wmsLayer: 'terrain',
+					// wmsUrl: 'http://neso.cryoland.enveo.at/cryoland/ows',
+					// wmsLayer: 'daily_FSC_PanEuropean_Optical',
 					wmsVersion: '1.1.1',
 
 					wcsUrl: 'http://data.eox.at/elevation?',
