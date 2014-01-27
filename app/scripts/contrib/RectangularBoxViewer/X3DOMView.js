@@ -53,10 +53,10 @@
 		},
 
 		onShow: function() {
-			if (!this.isInitialized) {
-				this.createScene(this.options);
-				this.isInitialized = true;
-			}
+			// if (!this.isInitialized) {
+			// 	this.createScene(this.options);
+			// 	this.isInitialized = true;
+			// }
 
 			this.show();
 		},

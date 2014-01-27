@@ -10,24 +10,31 @@ define([
 	var RectangularBoxViewController = Backbone.Marionette.Controller.extend({
 
 		initialize: function(options) {
-			this.rbvView = new RectangularBoxView({
+			this.view = new RectangularBoxView({
 				x3dtag_id: 'x3d',
 				x3dscene_id: 'x3dScene',
 				x3dhidden_id: 'x3dom-hidden'
 			});
+
+			this.connectToView();
+		},
+
+		connectToView: function() {
+			this.listenTo(Communicator.mediator, 'selection:changed', _.bind(this.view.setAreaOfInterest, this.view));
+			this.listenTo(Communicator.mediator, 'time:change', _.bind(this.view.onTimeChange, this.view));
 		},
 
 		show: function() {
-			this.region.show(this.rbvView);
+			this.region.show(this.view);
 		},
 
 		getView: function() {
-			return this.rbvView;
+			return this.view;
 		},
 
-        isActive: function() {
-            return !this.rbvView.isClosed;
-        }	
+		isActive: function() {
+			return !this.view.isClosed;
+		}
 
 	});
 

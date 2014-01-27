@@ -7,7 +7,7 @@
 		},
 		{
 			"name": "RectangularBoxViewer",
-			"path": "app/bower_components/rectangularboxviewer"
+			"path": "../RectangularBoxViewer"
 		},
 		{
 			"name": "VirtualGlobeViewer",
