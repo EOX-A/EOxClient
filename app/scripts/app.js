@@ -14,6 +14,7 @@
 		'controller/ContentController',
 		'controller/DownloadController',
 		'controller/SelectionManagerController',
+		'controller/LoadingController',
 		'router'
 	],
 
@@ -29,8 +30,6 @@
 				var v = {}; //views
 				var m = {};	//models
 				var t = {};	//templates
-
-
 
 				// Application regions are loaded and added to the Marionette Application
 				_.each(config.regions, function(region) {
@@ -310,6 +309,8 @@
                 	})
                 });
 
+
+
                 // Create layout to hold collection views
                 this.toolLayout = new ToolControlLayout();
 
@@ -319,9 +320,33 @@
 				this.timeSliderController = new TimeSliderController(config.timeSlider);
 				//TimeSliderController.configureTimeSlider(config.timeSlider);
 				//Communicator.mediator.trigger('timeslider:setup', config.timeSlider);
+				
+				// Add a trigger for ajax calls in order to display loading state
+				// in mouse cursor to give feedback to the user the client is busy
+				$(document).ajaxStart(function() {
+				  Communicator.mediator.trigger("progress:change", true);
+				});
+
+				$(document).ajaxStop(function() {
+				  Communicator.mediator.trigger("progress:change", false);
+				});
+
+				$(document).ajaxError(function( event, request, settings ) {
+					$("#error-messages").append(
+					  	'<div class="alert alert-warning alert-danger">'+
+						  '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+						  '<strong>Warning!</strong> Error response on HTTP ' + settings.type + ' to '+ settings.url.split("?")[0] +
+						'</div>'
+					);
+
+				});
+
+				// Remove loading screen when this point is reached in the script
+				$('#loadscreen').remove();
+			
 			}
 
-			
+
 
 		});
 

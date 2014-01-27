@@ -13,8 +13,8 @@
 
     "baseLayers": [
       {
-        "name": "Terrain Layer",
-        "id": "globcover",
+        "name": "Terrain",
+        "id": "terrain",
         "protocol": "WMTS",
         "visible": true,
         "attribution": "Terrain &copy; <a href='#' onClick='toggle(terrain_attribution)'>Various</a>",
@@ -41,7 +41,7 @@
       },
       {
         "name": "Blue Marble",
-        "id": "bluemarble_wgs84",
+        "id": "bluemarble",
         "protocol": "WMTS",
         "visible": false,
         "urls": [
@@ -102,25 +102,31 @@
         "download": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "EOWCS",
-          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
+          "url": "http://asdasdneso.cryoland.enveo.at/cryoland/ows"
         }
       },
       {
-        "name": "SRTM",
+        "name": "EU-DEM",
         "visible": true,
+        "attribution": "EU-DEM &copy; <a href='#' onClick='toggle(eudem_attribution)'>European Union</a>",
         "timeSlider": false,
+        "color":"green",
         "view": {
-          "id": "SRTM8bit_mosaic",
-          "protocol": "WMS",
+          "id": "eudem_color",
+          "protocol": "WMTS",
           "urls": [
-              "http://earthserver.eox.at/open/ows"
+            "http://data.eox.at/eudem_wmts/wmts"
           ],
-          "style": "default"
+          "matrixSet": "WGS84",
+          "style": "default",
+          "format": "image/png",
+          "maxExtent": [-180.000000,-90.000000,180.000000,90.000000],
+          "resolutions": [ 0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516 ]
         },
         "download": {
-          "id": "SRTM_mosaic",
+          "id": "EU-DEM",
           "protocol": "WCS",
-          "url": "http://earthserver.eox.at/open/ows"
+          "url": "http://eox.at/eudem_ows"
         }
       }
     ],

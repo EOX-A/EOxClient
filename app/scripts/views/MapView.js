@@ -104,7 +104,6 @@ define(['backbone',
 				createLayer: function (layerdesc) {
 					var return_layer = null;
 					var layer = layerdesc.get('view');
-					console.log(layer.attribution);
 
 					switch(layer.protocol){
 						case "WMTS":
@@ -128,8 +127,7 @@ define(['backbone',
 						        wrapDateLine: layer.wrapDateLine,
 						        zoomOffset: layer.zoomOffset,
 						        visible: layerdesc.get("visible"),
-						        time: layerdesc.time,
-						        attribution: layer.attribution
+						        time: layerdesc.time
 							});
 							break;
 
@@ -159,14 +157,19 @@ define(['backbone',
 							        isBaseLayer: layer.isBaseLayer,
 							        wrapDateLine: layer.wrapDateLine,
 							        zoomOffset: layer.zoomOffset,
-							        visibility: layerdesc.get("visible"),
-							        attribution: layer.attribution
+							        visibility: layerdesc.get("visible")
 							    }
 							);
 							break;
 
 					};
-
+					// for progress indicator
+				    return_layer.events.register("loadstart", this, function() {
+				      Communicator.mediator.trigger("progress:change", true);
+				    });
+				    return_layer.events.register("loadend", this, function() {
+				      Communicator.mediator.trigger("progress:change", false);
+				    });
 					return return_layer;		
 				},
 
