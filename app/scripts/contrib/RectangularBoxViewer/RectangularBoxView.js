@@ -12,10 +12,29 @@ define([
 
 	var BoxView = X3DOMView.extend({
 		initialize: function(opts) {
+			this.hasContent = false;
+			this.isInitialized = false;
+
 			X3DOMView.prototype.initialize.call(this, opts);
 		},
 
+		onShow: function() {
+			if (this.hasContent) {
+				if (!this.isInitialized) {
+					this.$el.html('');
+					X3DOMView.prototype.hide.call(this);
+					this.isInitialized = true;
+				}
+				X3DOMView.prototype.onShow.call(this);
+			} else {
+				// FIXXME: for some reason the 'tempalte' property did not work, fix that!
+				this.$el.html('<div class="rbv-empty">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
+			}
+		},
+
 		createScene: function(opts) {
+			this.hasContent = true;
+
 			this.opts = opts;
 
 			// basic setup:
@@ -66,7 +85,7 @@ define([
 				for (var i = 0; i < nrows; ++i) {
 					var value_array = lines[i + 14].split(' ');
 
-					for (var idx = 1; idx < 500;/*value_array.length;*/ ++idx) {
+					for (var idx = 1; idx < 500; /*value_array.length;*/ ++idx) {
 						var val = parseFloat(value_array[idx]);
 						if (maxValue < val) {
 							maxValue = value_array[idx];
@@ -74,10 +93,10 @@ define([
 						if (minValue > val) {
 							minValue = value_array[idx];
 						}
-						if (typeof heightmap[idx-1] === 'undefined') {
-							heightmap[idx-1] = [];
+						if (typeof heightmap[idx - 1] === 'undefined') {
+							heightmap[idx - 1] = [];
 						}
-						heightmap[idx-1].push(value_array[idx])
+						heightmap[idx - 1].push(value_array[idx])
 					}
 				}
 
@@ -96,15 +115,15 @@ define([
 				// 	};
 				// };
 
-				responseData.height = ncols-1;
-				responseData.width = nrows-1;
+				responseData.height = ncols - 1;
+				responseData.width = nrows - 1;
 
 				responseData.maxHMvalue = maxValue;
 				responseData.minHMvalue = minValue;
 				responseData.minXvalue = 0;
 				responseData.minZvalue = 0;
-				responseData.maxXvalue = ncols-1;
-				responseData.maxZvalue = nrows-1;
+				responseData.maxXvalue = ncols - 1;
+				responseData.maxZvalue = nrows - 1;
 
 				responseData.heightmap = heightmap;
 
@@ -131,6 +150,8 @@ define([
 			// here the function starts as soon as the html page is fully loaded
 			// you can map this function to e.g. a button
 			EarthServerGenericClient.MainScene.createModels();
+
+			this.onShow();
 		},
 
 		createSceneVolume: function(opts) {

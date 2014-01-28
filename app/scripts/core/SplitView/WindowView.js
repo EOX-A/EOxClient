@@ -56,6 +56,9 @@ define([
 
 		showView: function(view) {
 			this.viewport.show(view);
+			if (view.onResize) {
+				view.onResize();
+			}
 		}
 
 	});
