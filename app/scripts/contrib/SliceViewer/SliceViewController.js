@@ -20,6 +20,8 @@ define([
         },
 
         connectToView: function() {
+            // FIXXME: this is a big mess at the moment and leads to multiple listenTo calls, where only one is necessary. Clean up!
+
             this.listenTo(Communicator.mediator, 'selection:changed', _.bind(this.view.setAreaOfInterest, this.view));
             // this.listenTo(Communicator.mediator, 'map:layer:change', this.onLayerChange);
             this.listenTo(Communicator.mediator, 'time:change', _.bind(this.view.onTimeChange, this.view));
