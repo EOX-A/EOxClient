@@ -76,10 +76,12 @@
 
 		hide: function() {
 			this.$hideel.append(this.$x3del);
+			this.triggerMethod('view:disconnect');
 		},
 
 		show: function() {
 			this.$el.append(this.$x3del);
+			this.triggerMethod('view:connect');
 			this.onResize();
 		},
 

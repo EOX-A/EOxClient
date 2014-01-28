@@ -22,7 +22,7 @@ define([
 			if (!this.isEmpty) {
 				if (!this.isInitialized) {
 					this.$el.html('');
-					X3DOMView.prototype.hide.call(this);
+					// X3DOMView.prototype.hide.call(this);
 					this.isInitialized = true;
 				}
 				X3DOMView.prototype.onShow.call(this);

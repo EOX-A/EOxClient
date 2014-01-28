@@ -6,6 +6,16 @@ define([
 	'use strict';
 
 	function XTKViewer(opts) {
+		dat.GUI.prototype.removeFolder = function(name) {
+			if (this.__folders[name]) {
+				this.__folders[name].close();
+				// this.__ul.removeChild(this.__folders[name].li);
+				//dom.removeClass(this.__folders[name].li, 'folder');
+				this.__folders[name] = undefined;
+				this.onResize();
+			}
+		};
+
 		this.volumes = {};
 		this.mainGUI = null;
 		this.cameraPosition = opts.cameraPosition || [120, 80, 160];
@@ -72,6 +82,8 @@ define([
 	};
 
 	XTKViewer.prototype.addVolumeToGUI = function(label, volume) {
+		this.mainGUI.removeFolder(label);
+
 		// the following configures the gui for interacting with the X.volume
 		var volumegui = this.mainGUI.addFolder(label);
 		// now we can configure controllers which..

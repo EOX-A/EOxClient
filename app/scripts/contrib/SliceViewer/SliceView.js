@@ -26,6 +26,7 @@ define([
             this.isClosed = true;
             this.baseInitDone = false;
             this.timeOfInterest = null;
+            this.isEmpty = true;
 
             $(window).resize(function() {
                 if (this.viewer) {
@@ -39,18 +40,26 @@ define([
         },
 
         onResize: function() {
-            this.viewer.onResize();
+            if (this.viewer) {
+                this.viewer.onResize();
+            }
         },
 
         onShow: function() {
-            if (!this.viewer) {
-                this.viewer = this.createViewer({
-                    elem: this.el,
-                    backgroundColor: [1, 1, 1],
-                    cameraPosition: [120, 80, 160]
-                });
-            }
+            if (!this.isEmpty) {
+                if (!this.viewer) {
+                    this.$el.html('');
+                    this.viewer = this.createViewer({
+                        elem: this.el,
+                        backgroundColor: [1, 1, 1],
+                        cameraPosition: [120, 80, 160]
+                    });
+                }
+            } else {
+                // FIXXME: for some reason the 'tempalte' property did not work, fix that!
+                this.$el.html('<div class="rbv-empty">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
 
+            }
             this.isClosed = false;
             // this.onResize();
         },
@@ -75,6 +84,9 @@ define([
             // If the releases the mouse button to finish the selection of
             // an AoI the 'area' parameter is set, otherwise it is 'null'.
             if (area) {
+                this.isEmpty = false;
+                this.onShow();
+
                 var url = this.baseURL;
                 // 1. get AoI bounds
                 url += '&bbox=' + area.bounds.toString();
@@ -111,90 +123,17 @@ define([
         },
 
         onTimeChange: function(time) {
+            this.isEmpty = false;
+
             var starttime = new Date(time.start);
             var endtime = new Date(time.end);
 
             this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
             // console.log('starttime: ' + starttime.toISOString());
             // console.log('endtime: ' + endtime.toISOString());
+
+            this.onShow();
         }
-
-        // addLayer: function(model, isBaseLayer) {
-        //     this.x.addLayer(model, isBaseLayer);
-        // },
-
-        // removeLayer: function(model, isBaseLayer) {
-        //     this.x.removeLayer(model, isBaseLayer);
-        // },
-
-        // removeAllOverlays: function() {
-        //     this.x.removeAllOverlays();
-        // },
-
-        // onLayerChange: function(model, isBaseLayer, isVisible) {
-        //     if (isVisible) {
-        //         this.addLayer(model, isBaseLayer);
-        //         console.log('[SliceView::onLayerChange] selected ' + model.get('name'));
-        //     } else {
-        //         this.removeLayer(model, isBaseLayer);
-        //         console.log('[SliceView::onLayerChange] deselected ' + model.get('name'));
-        //     }
-        // },
-
-        // onOpacityChange: function(layer_name, opacity) {
-        //     this.x.onOpacityChange(layer_name, opacity);
-        // },
-
-        // sortOverlayLayers: function() {
-        //     this.x.sortOverlayLayers();
-        // },
-
-        // initLayers: function() {
-        //     this.x.clearCache();
-        //     _.each(this.initialLayers, function(desc, name) {
-        //         this.x.addLayer(desc.model, desc.isBaseLayer);
-        //     }.bind(this));
-        //     this.sortOverlayLayers();
-        // },
-
-        // createViewer: function() {
-        //     this.x = new X({
-        //         canvas: this.el
-        //     });
-
-        //     if (!this.initialLayerSetupDone) {
-        //         this.initLayers();
-        //         this.sortOverlayLayers(); // FIXXME: necessary?
-        //         this.initialLayerSetupDone = true;
-        //     }
-        // },
-
-        // onResize: function() {
-        //     this.x.updateViewport();
-        // },
-
-        // onShow: function() {
-        //     if (!this.x) {
-        //         this.createSlice();
-        //     }
-        //     this.isClosed = false;
-        //     this.onResize();
-        //     this.zoomTo(this.startPosition);
-        // },
-
-        // zoomTo: function(position) {
-        //     if (this.x) {
-        //         this.x.zoomTo(position);
-        //     }
-        // },
-
-        // onClose: function() {
-        //     this.isClosed = true;
-        // },
-
-        // dumpLayerConfig: function() {
-        //     this.x.dumpLayerConfig();
-        // }
     });
 
     return SliceView;
