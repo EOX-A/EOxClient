@@ -12,14 +12,14 @@ define([
 
 	var BoxView = X3DOMView.extend({
 		initialize: function(opts) {
-			this.hasContent = false;
+			this.isEmpty = true;
 			this.isInitialized = false;
 
 			X3DOMView.prototype.initialize.call(this, opts);
 		},
 
 		onShow: function() {
-			if (this.hasContent) {
+			if (!this.isEmpty) {
 				if (!this.isInitialized) {
 					this.$el.html('');
 					X3DOMView.prototype.hide.call(this);
@@ -33,7 +33,7 @@ define([
 		},
 
 		createScene: function(opts) {
-			this.hasContent = true;
+			this.isEmpty = false;
 
 			this.opts = opts;
 
