@@ -11,6 +11,10 @@ define([
 	'use strict';
 
 	var BoxView = X3DOMView.extend({
+		initialize: function(opts) {
+			X3DOMView.prototype.initialize.call(this, opts);
+		},
+
 		createScene: function(opts) {
 			this.opts = opts;
 
