@@ -1,9 +1,5 @@
 {
-    "animations": {},
-    "asset": {
-        "generator": "collada2gltf@61eb39d2858106659098a1a28d1f634eb417313b"
-    },
-    "attributes": {
+    "accessors": {
         "attribute_112": {
             "bufferView": "bufferView_321",
             "byteOffset": 400,
@@ -515,85 +511,7 @@
                 0
             ],
             "type": 35664
-        }
-    },
-    "bufferViews": {
-        "bufferView_321": {
-            "buffer": "clouds",
-            "byteLength": 1280,
-            "byteOffset": 0,
-            "target": 34962
         },
-        "bufferView_322": {
-            "buffer": "clouds",
-            "byteLength": 192,
-            "byteOffset": 1280,
-            "target": 34963
-        },
-        "bufferView_323": {
-            "buffer": "clouds",
-            "byteLength": 0,
-            "byteOffset": 1472
-        }
-    },
-    "buffers": {
-        "clouds": {
-            "byteLength": 1472,
-            "path": "eox_demo/clouds.bin",
-            "type": "arraybuffer"
-        }
-    },
-    "images": {
-        "image_0": {
-            "path": "eox_demo/data/clouds/20090915_03_002.png"
-        },
-        "image_1": {
-            "path": "eox_demo/data/clouds/20090915_03_003.png"
-        },
-        "image_10": {
-            "path": "eox_demo/data/clouds/20090915_03_013.png"
-        },
-        "image_11": {
-            "path": "eox_demo/data/clouds/20090915_03_014.png"
-        },
-        "image_12": {
-            "path": "eox_demo/data/clouds/20090915_03_015.png"
-        },
-        "image_13": {
-            "path": "eox_demo/data/clouds/20090915_03_016.png"
-        },
-        "image_14": {
-            "path": "eox_demo/data/clouds/20090915_03_017.png"
-        },
-        "image_15": {
-            "path": "eox_demo/data/clouds/20090915_03_018.png"
-        },
-        "image_2": {
-            "path": "eox_demo/data/clouds/20090915_03_005.png"
-        },
-        "image_3": {
-            "path": "eox_demo/data/clouds/20090915_03_006.png"
-        },
-        "image_4": {
-            "path": "eox_demo/data/clouds/20090915_03_007.png"
-        },
-        "image_5": {
-            "path": "eox_demo/data/clouds/20090915_03_008.png"
-        },
-        "image_6": {
-            "path": "eox_demo/data/clouds/20090915_03_009.png"
-        },
-        "image_7": {
-            "path": "eox_demo/data/clouds/20090915_03_010.png"
-        },
-        "image_8": {
-            "path": "eox_demo/data/clouds/20090915_03_011.png"
-        },
-        "image_9": {
-            "path": "eox_demo/data/clouds/20090915_03_012.png"
-        }
-    },
-    "indices": {
         "indices_110": {
             "bufferView": "bufferView_322",
             "byteOffset": 60,
@@ -689,6 +607,89 @@
             "byteOffset": 48,
             "count": 6,
             "type": 5123
+        }
+    },
+    "animations": {},
+    "asset": {
+        "extras": {
+            "premultipliedAlpha": true
+        },
+        "generator": "collada2gltf@548c0405add7d72449809fbe8fb2f527f4cdb7cc"
+    },
+    "bufferViews": {
+        "bufferView_321": {
+            "buffer": "eox_demo",
+            "byteLength": 1280,
+            "byteOffset": 0,
+            "target": 34962
+        },
+        "bufferView_322": {
+            "buffer": "eox_demo",
+            "byteLength": 192,
+            "byteOffset": 1280,
+            "target": 34963
+        },
+        "bufferView_323": {
+            "buffer": "eox_demo",
+            "byteLength": 0,
+            "byteOffset": 1472
+        }
+    },
+    "buffers": {
+        "eox_demo": {
+            "byteLength": 1472,
+            "path": "eox_demo/eox_demo.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "image_0": {
+            "path": "eox_demo/data/clouds/20090915_03_002.png"
+        },
+        "image_1": {
+            "path": "eox_demo/data/clouds/20090915_03_003.png"
+        },
+        "image_10": {
+            "path": "eox_demo/data/clouds/20090915_03_013.png"
+        },
+        "image_11": {
+            "path": "eox_demo/data/clouds/20090915_03_014.png"
+        },
+        "image_12": {
+            "path": "eox_demo/data/clouds/20090915_03_015.png"
+        },
+        "image_13": {
+            "path": "eox_demo/data/clouds/20090915_03_016.png"
+        },
+        "image_14": {
+            "path": "eox_demo/data/clouds/20090915_03_017.png"
+        },
+        "image_15": {
+            "path": "eox_demo/data/clouds/20090915_03_018.png"
+        },
+        "image_2": {
+            "path": "eox_demo/data/clouds/20090915_03_005.png"
+        },
+        "image_3": {
+            "path": "eox_demo/data/clouds/20090915_03_006.png"
+        },
+        "image_4": {
+            "path": "eox_demo/data/clouds/20090915_03_007.png"
+        },
+        "image_5": {
+            "path": "eox_demo/data/clouds/20090915_03_008.png"
+        },
+        "image_6": {
+            "path": "eox_demo/data/clouds/20090915_03_009.png"
+        },
+        "image_7": {
+            "path": "eox_demo/data/clouds/20090915_03_010.png"
+        },
+        "image_8": {
+            "path": "eox_demo/data/clouds/20090915_03_011.png"
+        },
+        "image_9": {
+            "path": "eox_demo/data/clouds/20090915_03_012.png"
         }
     },
     "materials": {
@@ -1699,8 +1700,13 @@
     "profile": "WebGL 1.0.2",
     "programs": {
         "program_0": {
-            "fragmentShader": "test0FS",
-            "vertexShader": "test0VS"
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "eox-demo0FS",
+            "vertexShader": "eox-demo0VS"
         }
     },
     "samplers": {
@@ -1720,11 +1726,11 @@
         }
     },
     "shaders": {
-        "test0FS": {
-            "path": "eox_demo/test0FS.glsl"
+        "eox-demo0FS": {
+            "path": "eox_demo/eox-demo0FS.glsl"
         },
-        "test0VS": {
-            "path": "eox_demo/test0VS.glsl"
+        "eox-demo0VS": {
+            "path": "eox_demo/eox-demo0VS.glsl"
         }
     },
     "skins": {},
@@ -1768,6 +1774,26 @@
             "pass": "defaultPass",
             "passes": {
                 "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Lambert",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix"
+                            ],
+                            "texcoordBindings": {
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
                     "instanceProgram": {
                         "attributes": {
                             "a_normal": "normal",
@@ -1785,14 +1811,9 @@
                         }
                     },
                     "states": {
-                        "blendEnable": 1,
-                        "blendEquation": 32774,
-                        "blendFunc": {
-                            "dfactor": 771,
-                            "sfactor": 770
-                        },
+                        "blendEnable": 0,
                         "cullFaceEnable": 1,
-                        "depthMask": 0,
+                        "depthMask": 1,
                         "depthTestEnable": 1
                     }
                 }

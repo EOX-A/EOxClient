@@ -1,9 +1,5 @@
 {
-    "animations": {},
-    "asset": {
-        "generator": "collada2gltf@61eb39d2858106659098a1a28d1f634eb417313b"
-    },
-    "attributes": {
+    "accessors": {
         "attribute_104": {
             "bufferView": "bufferView_589",
             "byteOffset": 19392,
@@ -1032,100 +1028,7 @@
                 0
             ],
             "type": 35664
-        }
-    },
-    "bufferViews": {
-        "bufferView_589": {
-            "buffer": "test",
-            "byteLength": 133696,
-            "byteOffset": 0,
-            "target": 34962
         },
-        "bufferView_590": {
-            "buffer": "test",
-            "byteLength": 24816,
-            "byteOffset": 133696,
-            "target": 34963
-        },
-        "bufferView_591": {
-            "buffer": "test",
-            "byteLength": 0,
-            "byteOffset": 158512
-        }
-    },
-    "buffers": {
-        "test": {
-            "byteLength": 158512,
-            "path": "vrvis_demo/test.bin",
-            "type": "arraybuffer"
-        }
-    },
-    "images": {
-        "image_0": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0000.png"
-        },
-        "image_1": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0001.png"
-        },
-        "image_10": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0010.png"
-        },
-        "image_11": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0011.png"
-        },
-        "image_12": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0012.png"
-        },
-        "image_13": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0013.png"
-        },
-        "image_14": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0014.png"
-        },
-        "image_15": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0015.png"
-        },
-        "image_16": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0016.png"
-        },
-        "image_17": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0017.png"
-        },
-        "image_18": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0018.png"
-        },
-        "image_19": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0019.png"
-        },
-        "image_2": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0002.png"
-        },
-        "image_20": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0020.png"
-        },
-        "image_3": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0003.png"
-        },
-        "image_4": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0004.png"
-        },
-        "image_5": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0005.png"
-        },
-        "image_6": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0006.png"
-        },
-        "image_7": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0007.png"
-        },
-        "image_8": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0008.png"
-        },
-        "image_9": {
-            "path": "vrvis_demo/Reflectivity_2013137113720_0009.png"
-        }
-    },
-    "indices": {
         "indices_102": {
             "bufferView": "bufferView_590",
             "byteOffset": 3600,
@@ -1251,6 +1154,101 @@
             "byteOffset": 2400,
             "count": 600,
             "type": 5123
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@fb6d6e65e66c3b0013c75a8d1e63650f4309bf77"
+    },
+    "bufferViews": {
+        "bufferView_589": {
+            "buffer": "test",
+            "byteLength": 133696,
+            "byteOffset": 0,
+            "target": 34962
+        },
+        "bufferView_590": {
+            "buffer": "test",
+            "byteLength": 24816,
+            "byteOffset": 133696,
+            "target": 34963
+        },
+        "bufferView_591": {
+            "buffer": "test",
+            "byteLength": 0,
+            "byteOffset": 158512
+        }
+    },
+    "buffers": {
+        "test": {
+            "byteLength": 158512,
+            "path": "vrvis_demo.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "image_0": {
+            "path": "Reflectivity_2013137113720_0000.png"
+        },
+        "image_1": {
+            "path": "Reflectivity_2013137113720_0001.png"
+        },
+        "image_10": {
+            "path": "Reflectivity_2013137113720_0010.png"
+        },
+        "image_11": {
+            "path": "Reflectivity_2013137113720_0011.png"
+        },
+        "image_12": {
+            "path": "Reflectivity_2013137113720_0012.png"
+        },
+        "image_13": {
+            "path": "Reflectivity_2013137113720_0013.png"
+        },
+        "image_14": {
+            "path": "Reflectivity_2013137113720_0014.png"
+        },
+        "image_15": {
+            "path": "Reflectivity_2013137113720_0015.png"
+        },
+        "image_16": {
+            "path": "Reflectivity_2013137113720_0016.png"
+        },
+        "image_17": {
+            "path": "Reflectivity_2013137113720_0017.png"
+        },
+        "image_18": {
+            "path": "Reflectivity_2013137113720_0018.png"
+        },
+        "image_19": {
+            "path": "Reflectivity_2013137113720_0019.png"
+        },
+        "image_2": {
+            "path": "Reflectivity_2013137113720_0002.png"
+        },
+        "image_20": {
+            "path": "Reflectivity_2013137113720_0020.png"
+        },
+        "image_3": {
+            "path": "Reflectivity_2013137113720_0003.png"
+        },
+        "image_4": {
+            "path": "Reflectivity_2013137113720_0004.png"
+        },
+        "image_5": {
+            "path": "Reflectivity_2013137113720_0005.png"
+        },
+        "image_6": {
+            "path": "Reflectivity_2013137113720_0006.png"
+        },
+        "image_7": {
+            "path": "Reflectivity_2013137113720_0007.png"
+        },
+        "image_8": {
+            "path": "Reflectivity_2013137113720_0008.png"
+        },
+        "image_9": {
+            "path": "Reflectivity_2013137113720_0009.png"
         }
     },
     "materials": {
@@ -2210,8 +2208,13 @@
     "profile": "WebGL 1.0.2",
     "programs": {
         "program_0": {
-            "fragmentShader": "vrvis-demo0FS",
-            "vertexShader": "vrvis-demo0VS"
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "vrvis_demo0FS",
+            "vertexShader": "vrvis_demo0VS"
         }
     },
     "samplers": {
@@ -2231,11 +2234,11 @@
         }
     },
     "shaders": {
-        "vrvis-demo0FS": {
-            "path": "vrvis-demo0FS.glsl"
+        "vrvis_demo0FS": {
+            "path": "vrvis_demo0FS.glsl"
         },
-        "vrvis-demo0VS": {
-            "path": "vrvis-demo0VS.glsl"
+        "vrvis_demo0VS": {
+            "path": "vrvis_demo0VS.glsl"
         }
     },
     "skins": {},
@@ -2271,6 +2274,9 @@
                     "semantic": "PROJECTION",
                     "type": 35676
                 },
+                "shininess": {
+                    "type": 5126
+                },
                 "specular": {
                     "type": 35666
                 },
@@ -2282,6 +2288,25 @@
             "pass": "defaultPass",
             "passes": {
                 "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": true
+                            },
+                            "lightingModel": "Phong",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ]
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
                     "instanceProgram": {
                         "attributes": {
                             "a_normal": "normal",
@@ -2296,6 +2321,7 @@
                             "u_modelViewMatrix": "modelViewMatrix",
                             "u_normalMatrix": "normalMatrix",
                             "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
                             "u_specular": "specular"
                         }
                     },
