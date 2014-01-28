@@ -85,7 +85,7 @@
 			this.onResize();
 		},
 
-		onBeforeClose: function() {
+		close: function() {
 			this.hide();
 		}
 	});

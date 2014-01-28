@@ -61,10 +61,12 @@ define([
 
             }
             this.isClosed = false;
+            this.triggerMethod('view:connect');
             // this.onResize();
         },
 
         onClose: function() {
+            alert('test');
             this.isClosed = true;
             // this.viewer.destroy(); //necessary?
         },
@@ -133,7 +135,12 @@ define([
             // console.log('endtime: ' + endtime.toISOString());
 
             this.onShow();
-        }
+        },
+
+        close: function() {
+            this.isClosed = true;
+            this.triggerMethod('view:disconnect');
+        },
     });
 
     return SliceView;

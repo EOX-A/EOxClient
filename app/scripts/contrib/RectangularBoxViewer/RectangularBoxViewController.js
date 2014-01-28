@@ -30,10 +30,17 @@ define([
 
 			this.listenTo(this.view, 'view:disconnect', function() {
 				this.stopListening();
+				console.log('rbv disconnect');
+
+				this.listenTo(this.view, 'view:connect', function() {
+					this.connectToView();
+					console.log('rbv connect 22');
+				}.bind(this));
 			}.bind(this));
-		
+
 			this.listenTo(this.view, 'view:connect', function() {
 				this.connectToView();
+				console.log('rbv connect');
 			}.bind(this));
 		},
 
