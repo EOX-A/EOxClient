@@ -5,7 +5,7 @@ define(['backbone.marionette',
 		'globals',
 		'd3',
 		'analytics',
-		'box'
+		'nv'
 	],
 	function(Marionette, Communicator, App, AnalyticsModel, globals) {
 
@@ -15,7 +15,10 @@ define(['backbone.marionette',
 			className: "analytics",
 
 			initialize: function(options) {
-
+				this.isClosed = true;
+				this.selection_list = [];
+				this.plotdata = [];
+				this.plot_type = 'scatter';
 				$(window).resize(function() {
 					this.onResize();
 				}.bind(this));
@@ -37,8 +40,9 @@ define(['backbone.marionette',
 
 			onShow: function() {
 				
-				this.delegateEvents();
+				//this.delegateEvents();
 				this.isClosed = false;
+				//this.triggerMethod('view:connect');
 
 				this.$el.append(
 					"<div class='d3canvas'></div>" +
@@ -47,6 +51,7 @@ define(['backbone.marionette',
 						"<div class='box-btn highlight '><i class='sprite sprite-box'></i></div>" +
 						"<div class='parallel-btn highlight '><i class='sprite sprite-parallel'></i></div>" +
 					"</div> ");
+
 
 				this.render('scatter');
 				
@@ -58,10 +63,12 @@ define(['backbone.marionette',
 
 			render: function(type) {
 
-				var plotdata = null;
+				this.plot_type = type;
+
+				
 				var args = {
 					selector: this.$('.d3canvas')[0],
-					data: plotdata
+					data: this.plotdata
 				};
 
 				switch (type){
@@ -80,17 +87,72 @@ define(['backbone.marionette',
 			},
 
 			changeLayer: function(options) {},
+
 			onSortProducts: function(productLayers) {},
+
 			onSelectionChanged: function(feature) {
+
+				var that = this;
 				console.log(feature);
+				
+				if(feature){
+					this.selection_list.push(feature);
+					var selected_features = this.selection_list.length;
+
+					request_process = '<?xml version="1.0" encoding="UTF-8"?>'+
+								'<wps:Execute version="1.0.0" service="WPS" '+
+								'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '+
+								'xmlns="http://www.opengis.net/wps/1.0.0" '+
+								'xmlns:wfs="http://www.opengis.net/wfs" '+
+								'xmlns:wps="http://www.opengis.net/wps/1.0.0" '+
+								'xmlns:ows="http://www.opengis.net/ows/1.1" '+
+								'xmlns:gml="http://www.opengis.net/gml" '+
+								'xmlns:ogc="http://www.opengis.net/ogc" '+
+								'xmlns:wcs="http://www.opengis.net/wcs/1.1.1" '+
+								'xmlns:xlink="http://www.w3.org/1999/xlink" '+
+								'xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">'+
+								  '<ows:Identifier>random_gen</ows:Identifier>'+
+								  '<wps:DataInputs>'+
+								    '<wps:Input>'+
+								      '<ows:Identifier>input</ows:Identifier>'+
+								      '<wps:Data>'+
+								        '<wps:LiteralData>'+ selected_features +'</wps:LiteralData>'+
+								      '</wps:Data>'+
+								    '</wps:Input>'+
+								  '</wps:DataInputs>'+
+								  '<wps:ResponseForm>'+
+								    '<wps:RawDataOutput mimeType="text/plain">'+
+								      '<ows:Identifier>output</ows:Identifier>'+
+								    '</wps:RawDataOutput>'+
+								  '</wps:ResponseForm>'+
+								'</wps:Execute>';
+
+					$.post( "http://localhost:9000/wps/cgi-bin/wps", request_process, function( data ) {
+						that.plotdata = data;
+						that.render(that.plot_type);
+					});
+
+				}else{
+					this.plotdata = [];
+					this.selection_list = [];
+					this.render(this.plot_type);
+				}
+
+				
 			},
+
 			onTimeChange: function () {},
 
-			onClose: function(){
+			close: function() {
+	            this.isClosed = true;
+	            this.triggerMethod('view:disconnect');
+	        },
+
+			/*onClose: function(){
 				this.$el.empty();
 				this.isClosed = true;
 				
-			}
+			}*/
 		});
 
 		return AnalyticsView;

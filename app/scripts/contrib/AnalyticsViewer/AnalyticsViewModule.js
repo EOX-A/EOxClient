@@ -45,7 +45,7 @@ define([
 			if (typeof id === 'undefined') {
 				id = 'AnalyticsViewer.' + this.idx++;
 			}
-
+			console.log("New analytics viewer returned " +id);
 			var controller = new AnalyticsViewController({});
 			this.instances[id] = controller;
 
