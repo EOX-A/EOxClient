@@ -2,8 +2,9 @@ define([
     'core/BaseView',
     'app',
     'communicator',
+    'globals',
     './GlobeRenderer/Globe'
-], function(BaseView, App, Communicator, Globe) {
+], function(BaseView, App, Communicator, globals, Globe) {
 
     'use strict';
 
@@ -28,12 +29,12 @@ define([
             };
 
             this._initialLayers = {};
-            this._initialLayerSetupDone = false;
         },
 
         didInsertElement: function() {
             if (!this.globe) {
                 this._createGlobe();
+                this._setLayersFromAppContext();
                 this._zoomTo(this._startPosition);
             }
 
@@ -43,7 +44,7 @@ define([
             this.listenTo(Communicator.mediator, 'map:layer:change', this._onLayerChange);
             this.listenTo(Communicator.mediator, 'time:change', this._onTimeChange);
             this.listenTo(Communicator.mediator, 'productCollection:updateOpacity', this._onOpacityChange);
-            this.listenTo(Communicator.mediator, 'productCollection:sortUpdated', this._onSortChange);
+            this.listenTo(Communicator.mediator, 'productCollection:sortUpdated', this._sortOverlayLayers);
         },
 
         didRemoveElement: function() {
@@ -54,11 +55,64 @@ define([
             this.globe.updateViewport();
         },
 
-        addInitialLayer: function(model, isBaseLayer) {
+        _addInitialLayer: function(model, isBaseLayer) {
             this._initialLayers[model.get('name')] = {
                 model: model,
                 isBaseLayer: isBaseLayer
             };
+        },
+
+        /** Adds the layers selected in the GUI and performs their setup (opacity, sorting oder, etc.).
+         *  Layers are either baselayers, products or overlays.
+         */
+        _setLayersFromAppContext: function() {
+            globals.baseLayers.each(function(model) {
+                if (model.get('visible')) {
+                    this._addInitialLayer(model, true);
+                    console.log('[VirtualGlobeViewController::setLayersFromAppContext] added baselayer "' + model.get('name') + '"');
+                };
+            }.bind(this));
+
+            globals.products.each(function(model) {
+                if (model.get('visible')) {
+                    this._addInitialLayer(model, false);
+                    console.log('[VirtualGlobeViewController::setLayersFromAppContext] added products "' + model.get('name') + '"');
+                }
+            }.bind(this));
+
+            globals.overlays.each(function(model) {
+                if (model.get('visible')) {
+                    this._addInitialLayer(model, false);
+                    console.log('[VirtualGlobeViewController::setLayersFromAppContext] added overlays "' + model.get('name') + '"');
+                }
+            }.bind(this));
+
+            this._initLayers();
+        },
+
+        _getLayerModel: function(options) {
+            var layerModel = undefined;
+            if (options.isBaseLayer) {
+                layerModel = globals.baseLayers.find(function(model) {
+                    return model.get('name') === options.name;
+                });
+            } else {
+                layerModel = globals.products.find(function(model) {
+                    return model.get('name') === options.name;
+                });
+
+                if (!layerModel) {
+                    layerModel = globals.overlays.find(function(model) {
+                        return model.get('name') === options.name;
+                    });
+                }
+            }
+
+            if (typeof layerModel === 'undefined') {
+                throw Error('Product ' + options.name + ' is unknown!');
+            }
+
+            return layerModel;
         },
 
         _addAreaOfInterest: function(geojson) {
@@ -77,22 +131,28 @@ define([
             this.globe.removeAllOverlays();
         },
 
-        _onLayerChange: function(model, isBaseLayer, isVisible) {
-            if (isVisible) {
-                this.addLayer(model, isBaseLayer);
+        _onLayerChange: function(options) {
+            var model = this._getLayerModel(options); // options: { name: 'xy', isBaseLayer: 'true/false'}
+
+            if (options.isVisible) {
+                this.addLayer(model, options.isBaseLayer);
                 console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
             } else {
-                this.removeLayer(model, isBaseLayer);
+                this.removeLayer(model, options.isBaseLayer);
                 console.log('[GlobeView::onLayerChange] deselected ' + model.get('name'));
             }
         },
 
-        _onOpacityChange: function(layer_name, opacity) {
-            this.globe.onOpacityChange(layer_name, opacity);
+        _onOpacityChange: function(options) {
+            this.globe.onOpacityChange(options.model.get('name'), options.value);
         },
 
         _onTimeChange: function(time) {
-            this.globe.setTimeSpanOnLayers(time);
+            // FIXXME: currently all overlay layers are destroyed and recreated with the new time set. This
+            // should be changed to set the new time on existing layers in the Globe's layerChache.
+            this._removeAllOverlays();
+            this.setLayersFromAppContext();
+            this._initLayers();
         },
 
         _sortOverlayLayers: function() {
@@ -107,22 +167,73 @@ define([
             this._sortOverlayLayers();
         },
 
+        _onMapCenter: function(pos) {
+            var dis = 0;
+            switch (pos.l) {
+                case 0:
+                    dis = 50000000;
+                    break;
+                case 1:
+                    dis = 30000000;
+                    break;
+                case 2:
+                    dis = 18000000;
+                    break;
+                case 3:
+                    dis = 9000000;
+                    break;
+                case 4:
+                    dis = 4800000;
+                    break;
+                case 5:
+                    dis = 2400000;
+                    break;
+                case 6:
+                    dis = 1200000;
+                    break;
+                case 7:
+                    dis = 700000;
+                    break;
+                case 8:
+                    dis = 300000;
+                    break;
+                case 9:
+                    dis = 80000;
+                    break;
+                case 10:
+                    dis = 30000;
+                    break;
+                case 11:
+                    dis = 9000;
+                    break;
+                case 12:
+                    dis = 7000;
+                    break;
+                case 13:
+                    dis = 5000;
+                    break;
+                case 14:
+                    dis = 4000;
+                    break;
+            }
+
+            var position = {
+                center: [pos.x, pos.y],
+                distance: dis,
+                duration: 100,
+                tilt: 45
+            }
+            this._zoomTo(position);
+        },
+
+        _zoomTo: function(position) {
+            this.globe.zoomTo(position);
+        },
+
         _createGlobe: function() {
             this.globe = new Globe({
                 canvas: this.el
             });
-
-            if (!this._initialLayerSetupDone) {
-                this._initLayers();
-                this._sortOverlayLayers(); // FIXXME: necessary?
-                this._initialLayerSetupDone = true;
-            }
-        },
-
-        _zoomTo: function(position) {
-            if (this.globe) {
-                this.globe.zoomTo(position);
-            }
         },
 
         _dumpLayerConfig: function() {
