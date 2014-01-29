@@ -41,7 +41,6 @@ define([
 			'click .sliceview-btn': function() {
 				var options = {window:this, viewer:'SliceViewer'};
 				Communicator.mediator.trigger('window:view:change', options);
-				console.log('asdfasdfasdf');
 			},
 
 			'click .analyticsview-btn': function() {
@@ -55,6 +54,9 @@ define([
 		},
 
 		showView: function(view) {
+			if (this.viewport.currentView) {
+				this.viewport.currentView.close();
+			}
 			this.viewport.show(view);
 			if (view.onResize) {
 				view.onResize();

@@ -28,6 +28,21 @@ define([
 			// FIXXME: this is a big mess at the moment and leads to multiple listenTo calls, where only one is necessary. Clean up!
 			this.listenTo(Communicator.mediator, 'selection:changed', _.bind(this.view.setAreaOfInterest, this.view));
 			this.listenTo(Communicator.mediator, 'time:change', _.bind(this.view.onTimeChange, this.view));
+
+			this.listenTo(this.view, 'view:disconnect', function() {
+				this.stopListening();
+				console.log('rbv disconnect');
+
+				this.listenTo(this.view, 'view:connect', function() {
+					this.connectToView();
+					console.log('rbv connect 22');
+				}.bind(this));
+			}.bind(this));
+
+			this.listenTo(this.view, 'view:connect', function() {
+				this.connectToView();
+				console.log('rbv connect');
+			}.bind(this));
 		},
 
 		getView: function() {
