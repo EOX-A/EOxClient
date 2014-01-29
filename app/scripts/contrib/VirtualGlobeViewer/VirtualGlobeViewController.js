@@ -23,17 +23,19 @@ define([
 
 			if(!opts.startPosition){
 				this.globeView = new VirtualGlobeView({
+                    context: Communicator.mediator,
 					startPosition: this.position
 				});
 			}else{
 				this.globeView = new VirtualGlobeView({
+                    context: Communicator.mediator,
 					startPosition: opts.startPosition
 				});
 			}
 
 
             this.setLayersFromAppContext();
-            this.connectToView();
+            // this.connectToView();
 
             this.baseSetupDone = false;
         },
@@ -62,16 +64,6 @@ define([
                     console.log('[VirtualGlobeViewController::setLayersFromAppContext] added overlays "' + model.get('name') + '"');
                 }
             }.bind(this));
-        },
-
-        connectToView: function() {
-            this.listenTo(Communicator.mediator, 'selection:changed', this.addAreaOfInterest);
-            this.listenTo(Communicator.mediator, 'map:setUrl', this.zoomTo);
-            this.listenTo(Communicator.mediator, 'map:center', this.onMapCenter);
-            this.listenTo(Communicator.mediator, 'map:layer:change', this.onLayerChange);
-            this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
-            this.listenTo(Communicator.mediator, 'productCollection:updateOpacity', this.onOpacityChange);
-            this.listenTo(Communicator.mediator, 'productCollection:sortUpdated', this.onSortChange);
         },
 
         getView: function(id) {

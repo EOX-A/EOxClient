@@ -1,33 +1,25 @@
 define([
-    'backbone.marionette',
+    'core/BaseView',
     'app',
     'communicator',
     './GlobeRenderer/Globe'
-    // 'hbs!tmpl/VirtualGlobeView',
-], function(Marionette, App, Communicator, Globe /*, VirtualGlobeViewTmpl*/ ) {
+], function(BaseView, App, Communicator, Globe) {
 
     'use strict';
 
-    var GlobeView = Marionette.View.extend({
+    var GlobeView = BaseView.extend({
+
         tagName: 'canvas',
+
         className: 'globe',
 
-        // template: {
-        // 	type: 'handlebars',
-        // 	template: VirtualGlobeViewTmpl
-        // },
-
-        // ui: {
-        // 	viewport: '#myglobe',
-        // 	gui: '.gui'
-        // },
-
         initialize: function(opts) {
-            this.isClosed = true;
+            BaseView.prototype.initialize.call(this, opts);
+            this.enableEmptyView(false);
 
-            this.startPosition = opts.startPosition;
-            if (typeof this.startPosition === 'undefined') {
-                this.startPosition = {
+            this._startPosition = opts.startPosition;
+            if (typeof this._startPosition === 'undefined') {
+                this._startPosition = {
                     geoCenter: [15, 47],
                     distance: 0,
                     duration: 3000,
@@ -35,39 +27,57 @@ define([
                 }
             };
 
-            this.initialLayers = {};
+            this._initialLayers = {};
+            this._initialLayerSetupDone = false;
+        },
 
-            $(window).resize(function() {
-                if (this.globe) {
-                    this.onResize();
-                }
-            }.bind(this));
+        didInsertElement: function() {
+            if (!this.globe) {
+                this._createGlobe();
+                this._zoomTo(this._startPosition);
+            }
+
+            this.listenTo(Communicator.mediator, 'selection:changed', this._addAreaOfInterest);
+            this.listenTo(Communicator.mediator, 'map:setUrl', this._zoomTo);
+            this.listenTo(Communicator.mediator, 'map:center', this._onMapCenter);
+            this.listenTo(Communicator.mediator, 'map:layer:change', this._onLayerChange);
+            this.listenTo(Communicator.mediator, 'time:change', this._onTimeChange);
+            this.listenTo(Communicator.mediator, 'productCollection:updateOpacity', this._onOpacityChange);
+            this.listenTo(Communicator.mediator, 'productCollection:sortUpdated', this._onSortChange);
+        },
+
+        didRemoveElement: function() {
+            // NOTE: The 'listenTo' bindings are automatically unbound by marionette
+        },
+
+        onResize: function() {
+            this.globe.updateViewport();
         },
 
         addInitialLayer: function(model, isBaseLayer) {
-            this.initialLayers[model.get('name')] = {
+            this._initialLayers[model.get('name')] = {
                 model: model,
                 isBaseLayer: isBaseLayer
             };
         },
 
-        addAreaOfInterest: function(geojson) {
+        _addAreaOfInterest: function(geojson) {
             this.globe.addAreaOfInterest(geojson);
         },
 
-        addLayer: function(model, isBaseLayer) {
+        _addLayer: function(model, isBaseLayer) {
             this.globe.addLayer(model, isBaseLayer);
         },
 
-        removeLayer: function(model, isBaseLayer) {
+        _removeLayer: function(model, isBaseLayer) {
             this.globe.removeLayer(model, isBaseLayer);
         },
 
-        removeAllOverlays: function() {
+        _removeAllOverlays: function() {
             this.globe.removeAllOverlays();
         },
 
-        onLayerChange: function(model, isBaseLayer, isVisible) {
+        _onLayerChange: function(model, isBaseLayer, isVisible) {
             if (isVisible) {
                 this.addLayer(model, isBaseLayer);
                 console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
@@ -77,62 +87,45 @@ define([
             }
         },
 
-        onOpacityChange: function(layer_name, opacity) {
+        _onOpacityChange: function(layer_name, opacity) {
             this.globe.onOpacityChange(layer_name, opacity);
         },
 
-        onTimeChange: function(time) {
+        _onTimeChange: function(time) {
             this.globe.setTimeSpanOnLayers(time);
         },
 
-        sortOverlayLayers: function() {
+        _sortOverlayLayers: function() {
             this.globe.sortOverlayLayers();
         },
 
-        initLayers: function() {
+        _initLayers: function() {
             this.globe.clearCache();
-            _.each(this.initialLayers, function(desc, name) {
+            _.each(this._initialLayers, function(desc, name) {
                 this.globe.addLayer(desc.model, desc.isBaseLayer);
             }.bind(this));
-            this.sortOverlayLayers();
+            this._sortOverlayLayers();
         },
 
-        createGlobe: function() {
+        _createGlobe: function() {
             this.globe = new Globe({
                 canvas: this.el
             });
 
-            if (!this.initialLayerSetupDone) {
-                this.initLayers();
-                this.sortOverlayLayers(); // FIXXME: necessary?
-                this.initialLayerSetupDone = true;
+            if (!this._initialLayerSetupDone) {
+                this._initLayers();
+                this._sortOverlayLayers(); // FIXXME: necessary?
+                this._initialLayerSetupDone = true;
             }
         },
 
-        onResize: function() {
-            this.globe.updateViewport();
-        },
-
-        onShow: function() {
-            if (!this.globe) {
-                this.createGlobe();
-            }
-            this.isClosed = false;
-            this.onResize();
-            this.zoomTo(this.startPosition);
-        },
-
-        zoomTo: function(position) {
+        _zoomTo: function(position) {
             if (this.globe) {
                 this.globe.zoomTo(position);
             }
         },
 
-        onClose: function() {
-            this.isClosed = true;
-        },
-
-        dumpLayerConfig: function() {
+        _dumpLayerConfig: function() {
             this.globe.dumpLayerConfig();
         }
     });
