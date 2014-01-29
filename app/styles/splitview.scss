@@ -4,17 +4,6 @@
 .splitview {
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
-	/*TODO: FIXME dual and quadscreen overflow by some pixels, remove this attribute*/
-}
-
-.view1, .view2, .view3, .view4 {
-	position: relative;
-}
-
-.splitview .viewport {
-	width: 100%;
-	height: 100%;
 }
 
 .splitview .fullscreen {
@@ -22,19 +11,59 @@
 	height: 100%;
 }
 
-.splitview .halfscreen {
-	display: inline-block;
-
-	width: 49.8%;
-	height: 100%;
+div.view1.halfscreen {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 50%;
 }
 
-.splitview .quarterscreen {
-	display: inline-block;
-
-	width: 49.8%;
-	height: 49.8%;
+div.view2.halfscreen {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	right: 0;
 }
+
+div.view1.quarterscreen {
+	position: absolute;
+	top: 0;
+	bottom: 50%;
+	left: 0;
+	right: 50%;
+}
+
+div.view2.quarterscreen {
+	position: absolute;
+	top: 0;
+	bottom: 50%;
+	left: 50%;
+	right: 0;
+}
+
+div.view3.quarterscreen {
+	position: absolute;
+	top: 50%;
+	bottom: 0;
+	left: 0;
+	right: 50%;
+}
+
+div.view4.quarterscreen {
+	position: absolute;
+	top: 50%;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+}
+// .splitview .quarterscreen {
+// 	display: inline-block;
+
+// 	width: 49.8%;
+// 	height: 49.8%;
+// }
 
 .splitview .disabled {
 	display: none;

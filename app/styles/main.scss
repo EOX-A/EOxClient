@@ -7,10 +7,10 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 @import "mapviewer";
 @import "virtualglobeviewer";
 @import "rectangularboxviewer";
-@import "analyticsviewer";
+// @import "analyticsviewer";
 @import "sliceviewer";
 @import "window";
-@import "analyticsviewer";
+// @import "analyticsviewer";
 @import "stylesheet";
 
 
@@ -34,7 +34,11 @@ html, body {
   height: 100%;
   width: 100%;
   padding: 0 !important;
-  background: $default-background !important;
+  overflow: hidden;
+}
+
+body {
+  background-color: $default-background !important;
 }
 
 ul, li {
