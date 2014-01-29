@@ -12,26 +12,9 @@ define([
 
         initialize: function(opts) {
             this.id = opts.id;
-            this.view = new SliceView();
-
-            this.connectToView();
-
-            this.baseSetupDone = false;
-        },
-
-        connectToView: function() {
-            this.listenTo(Communicator.mediator, 'selection:changed', _.bind(this.view.setAreaOfInterest, this.view));
-            this.listenTo(Communicator.mediator, 'time:change', _.bind(this.view.onTimeChange, this.view));
-            
-            this.listenTo(this.view, 'view:disconnect', function() {
-                this.stopListening();
-                console.log('splitview disconnect');
-            }.bind(this));
-
-            this.listenTo(this.view, 'view:connect', function() {
-                this.connectToView();
-                console.log('splitview connect');
-            }.bind(this));
+            this.view = new SliceView({
+                context: Communicator.mediator
+            });
         },
 
         getView: function(id) {

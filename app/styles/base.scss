@@ -26,14 +26,11 @@ body {
 	background-color: #777;
 }
 
-#left {
-	float: left;
-	width: 50%;
-	height: 100%;
-}
-
-#right {
-	float: right;
-	width: 50%;
-	height: 100%;
+.empty-view {
+    position: absolute;
+    top: 47%;
+    left: 15%;
+    font-size: 22px;
+    text-align: center;
+    color: #6B6868;
 }

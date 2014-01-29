@@ -1,42 +1,56 @@
 define([
-    'backbone.marionette',
+    'core/BaseView',
     'app',
     'communicator',
     'globals',
     './XTKViewer/Viewer'
-], function(Marionette, App, Communicator, globals, XTKViewer) {
+], function(BaseView, App, Communicator, globals, XTKViewer) {
 
     'use strict';
 
-    var SliceView = Marionette.View.extend({
+    var SliceView = BaseView.extend({
+
         className: 'sliceview',
+
+        cacheViewerInstance: true, // this is the default
 
         // template: {
         // 	type: 'handlebars',
         // 	template: VirtualSliceViewTmpl
         // },
 
-        // ui: {
-        // 	viewport: '#myglobe',
-        // 	gui: '.gui'
-        // },
-
         initialize: function(opts) {
             this.viewer = null;
-            this.isClosed = true;
-            this.baseInitDone = false;
-            this.timeOfInterest = null;
-            this.isEmpty = true;
-
-            $(window).resize(function() {
-                if (this.viewer) {
-                    this.onResize();
-                }
-            }.bind(this));
+            this.currentToI = null;
+            // Set a default AoI and Layer  as the timeline can be changed even if no AoI and Layer is selected in the WebClient:
+            this.currentAoI = [17.6726953125,56.8705859375,19.3865625,58.12302734375];
+            this.currentLayer = 'h2o_vol_demo'; // FIXXME!
 
             var backend = globals.context.backendConfig['MeshFactory'];
             this.baseURL = backend.url + 'service=W3DS&request=GetScene&crs=EPSG:4326&format=model/nii-gz&version=' + backend.version;
-            // console.log('base: ', this.baseURL);
+
+            this.enableEmptyView(true); // this is the default
+            BaseView.prototype.initialize.call(this, opts);
+        },
+
+        didInsertElement: function() {
+            this.listenTo(this.context(), 'selection:changed', this._setCurrentAoI);
+            this.listenTo(this.context(), 'time:change', this._onTimeChange);
+        },
+
+        didRemoveElement: function() {
+            // NOTE: The 'listenTo' bindings are automatically unbound by marionette
+        },
+
+        showEmptyView: function() {
+            // FIXXME: use marionette's templating mechanism for that!
+            this.$el.html('<div class="empty-view">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
+        },
+
+        hideEmptyView: function() {
+            // CAUTION: simply removing the content of the view's div can have sideeffects. Be cautious not
+            // to accidently remove previousle created elements!
+            this.$el.html('');
         },
 
         onResize: function() {
@@ -45,102 +59,76 @@ define([
             }
         },
 
-        onShow: function() {
-            if (!this.isEmpty) {
-                if (!this.viewer) {
-                    this.$el.html('');
-                    this.viewer = this.createViewer({
-                        elem: this.el,
-                        backgroundColor: [1, 1, 1],
-                        cameraPosition: [120, 80, 160]
-                    });
-                }
-            } else {
-                // FIXXME: for some reason the 'tempalte' property did not work, fix that!
-                this.$el.html('<div class="rbv-empty">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
-
-            }
-            this.isClosed = false;
-            this.triggerMethod('view:connect');
-            // this.onResize();
-        },
-
-        onClose: function() {
-            alert('test');
-            this.isClosed = true;
-            // this.viewer.destroy(); //necessary?
-        },
-
-        createViewer: function(opts) {
-            return new XTKViewer(opts);
-        },
-
-        // addInitialLayer: function(model, isBaseLayer) {
-        //     this.initialLayers[model.get('name')] = {
-        //         model: model,
-        //         isBaseLayer: isBaseLayer
-        //     };
-        // },
-
-        setAreaOfInterest: function(area) {
+        _setCurrentAoI: function(area) {
             // If the releases the mouse button to finish the selection of
             // an AoI the 'area' parameter is set, otherwise it is 'null'.
             if (area) {
-                this.isEmpty = false;
-                this.onShow();
+                // 1. store current AoI bounds
+                this.currentAoI = area.bounds.toString();
 
-                var url = this.baseURL;
-                // 1. get AoI bounds
-                url += '&bbox=' + area.bounds.toString();
-                // 2. get ToI
-                var toi = this.timeOfInterest;
+                // 2. store current ToI interval
+                var toi = this.currentToI;
                 // In case no ToI was set during the lifecycle of this viewer we can access
                 // the time of interest from the global context:
                 if (!toi) {
                     var starttime = new Date(globals.context.timeOfInterest.start);
                     var endtime = new Date(globals.context.timeOfInterest.end);
 
-                    toi = this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
+                    toi = this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
                 }
-                url += '&time=' + toi;
-                // 3. get relevant layers | FIXXME: how?
-                url += '&layer=h2o_vol_demo';
 
-                var label = 'H2O';
+                // 3. store the current layer
+                // FIXXME: integrate with context!
+                this.currentLayer = 'h2o_vol_demo';
 
                 // 4. add the data to the viewer
-                this.viewer.addVolume({
-                    // FIXXME: creative hack to satisfy xtk, which obviously determines the format of the volume data by the ending of the url it gets.
-                    // I appended a dummy file here, so xtk gets the format, the backend W3DS server will simply discard the extra parameter...
-                    filename: url + '&dummy.nii.gz',
-                    label: label,
-                    volumeRendering: true,
-                    upperThreshold: 219,
-                    opacity: 0.3,
-                    minColor: [0.4, 0.4, 0.4],
-                    maxColor: [0, 0, 0],
-                    reslicing: false
-                });
+                this._addVolume(this.currentToI, this.currentAoI, this.currentLayer);
             }
         },
 
-        onTimeChange: function(time) {
-            this.isEmpty = false;
-
+        _onTimeChange: function(time) {
             var starttime = new Date(time.start);
             var endtime = new Date(time.end);
 
-            this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
-            // console.log('starttime: ' + starttime.toISOString());
-            // console.log('endtime: ' + endtime.toISOString());
+            this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
 
+            this._addVolume(this.currentToI, this.currentAoI, this.currentLayer);
+        },
+
+        _createViewer: function() {
+            return new XTKViewer({
+                elem: this.el,
+                backgroundColor: [1, 1, 1],
+                cameraPosition: [120, 80, 160]
+            });
+        },
+
+        _addVolume: function(aoi, toi, layer) {
+            this.enableEmptyView(false);
             this.onShow();
-        },
 
-        close: function() {
-            this.isClosed = true;
-            this.triggerMethod('view:disconnect');
-        },
+            var url = this.baseURL;
+            url += '&bbox=' + aoi;
+            url += '&time=' + toi;
+            url += '&layer=' + layer;
+
+            if (!this.viewer) {
+                this.viewer = this._createViewer();
+            }
+
+            this.viewer.addVolume({
+                // FIXXME: creative hack to satisfy xtk, which obviously determines the format of the volume data by the ending of the url it gets.
+                // I appended a dummy file here, so xtk gets the format, the backend W3DS server will simply discard the extra parameter...
+                filename: url + '&dummy.nii.gz',
+                label: layer,
+                volumeRendering: true,
+                upperThreshold: 219,
+                opacity: 0.3,
+                minColor: [0.4, 0.4, 0.4],
+                maxColor: [0, 0, 0],
+                reslicing: false
+            });
+        }
     });
 
     return SliceView;
