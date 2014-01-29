@@ -3,14 +3,17 @@
 
 
 .d3canvas {
-	
-	background-color: #ffffff;
+	background-color: $default-background;
 
 	width: 100%;
 	height: 100%;
 
 	margin: 0px;
 	padding: 0;
+}
+
+text.nvd3.nv-noData {
+    fill: #6B6868;
 }
 
 .analytics {
