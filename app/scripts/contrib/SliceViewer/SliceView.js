@@ -16,40 +16,28 @@ define([
         // 	template: VirtualSliceViewTmpl
         // },
 
-        // ui: {
-        // 	viewport: '#myglobe',
-        // 	gui: '.gui'
-        // },
-
         initialize: function(opts) {
+            this.context = opts.context;
             this.viewer = null;
             this.isClosed = true;
-            this.baseInitDone = false;
-            this.timeOfInterest = null;
             this.isEmpty = true;
-
-            $(window).resize(function() {
-                if (this.viewer) {
-                    this.onResize();
-                }
-            }.bind(this));
+            this.timeOfInterest = null;
 
             var backend = globals.context.backendConfig['MeshFactory'];
             this.baseURL = backend.url + 'service=W3DS&request=GetScene&crs=EPSG:4326&format=model/nii-gz&version=' + backend.version;
-            // console.log('base: ', this.baseURL);
-        },
-
-        onResize: function() {
-            if (this.viewer) {
-                this.viewer.onResize();
-            }
         },
 
         onShow: function() {
+            if (this.isClosed) {
+                this._bindContext();
+                $(window).resize(this._onResize.bind(this));
+                this.isClosed = false;
+            }
+
             if (!this.isEmpty) {
                 if (!this.viewer) {
                     this.$el.html('');
-                    this.viewer = this.createViewer({
+                    this.viewer = this._createViewer({
                         elem: this.el,
                         backgroundColor: [1, 1, 1],
                         cameraPosition: [120, 80, 160]
@@ -58,21 +46,13 @@ define([
             } else {
                 // FIXXME: for some reason the 'tempalte' property did not work, fix that!
                 this.$el.html('<div class="rbv-empty">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
-
             }
-            this.isClosed = false;
-            this.triggerMethod('view:connect');
-            // this.onResize();
         },
 
         onClose: function() {
-            alert('test');
+            // NOTE: The 'listenTo' bindings are automatically unbound by marionette
+            $(window).off("resize", this.onResizeF);
             this.isClosed = true;
-            // this.viewer.destroy(); //necessary?
-        },
-
-        createViewer: function(opts) {
-            return new XTKViewer(opts);
         },
 
         // addInitialLayer: function(model, isBaseLayer) {
@@ -82,7 +62,7 @@ define([
         //     };
         // },
 
-        setAreaOfInterest: function(area) {
+        _setAreaOfInterest: function(area) {
             // If the releases the mouse button to finish the selection of
             // an AoI the 'area' parameter is set, otherwise it is 'null'.
             if (area) {
@@ -124,7 +104,7 @@ define([
             }
         },
 
-        onTimeChange: function(time) {
+        _onTimeChange: function(time) {
             this.isEmpty = false;
 
             var starttime = new Date(time.start);
@@ -137,9 +117,19 @@ define([
             this.onShow();
         },
 
-        close: function() {
-            this.isClosed = true;
-            this.triggerMethod('view:disconnect');
+        _bindContext: function(context) {
+            this.listenTo(this.context, 'selection:changed', this._setAreaOfInterest);
+            this.listenTo(this.context, 'time:change', this._onTimeChange);
+        },
+
+        _createViewer: function(opts) {
+            return new XTKViewer(opts);
+        },
+
+        _onResize: function() {
+            if (this.viewer) {
+                this.viewer.onResize();
+            }
         },
     });
 
