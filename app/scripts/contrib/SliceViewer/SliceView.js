@@ -1,15 +1,18 @@
 define([
-    'backbone.marionette',
+    'core/BaseView',
     'app',
     'communicator',
     'globals',
     './XTKViewer/Viewer'
-], function(Marionette, App, Communicator, globals, XTKViewer) {
+], function(BaseView, App, Communicator, globals, XTKViewer) {
 
     'use strict';
 
-    var SliceView = Marionette.View.extend({
+    var SliceView = BaseView.extend({
+
         className: 'sliceview',
+
+        cacheViewerInstance: true, // this is the default
 
         // template: {
         // 	type: 'handlebars',
@@ -17,62 +20,55 @@ define([
         // },
 
         initialize: function(opts) {
-            this.context = opts.context;
+            BaseView.prototype.initialize.call(this, opts);
+
             this.viewer = null;
-            this.isClosed = true;
-            this.isEmpty = true;
             this.timeOfInterest = null;
+            this.areaOfInterest = null;
 
             var backend = globals.context.backendConfig['MeshFactory'];
             this.baseURL = backend.url + 'service=W3DS&request=GetScene&crs=EPSG:4326&format=model/nii-gz&version=' + backend.version;
+
+            this.enableEmptyView(true); // this is the default
         },
 
-        onShow: function() {
-            if (this.isClosed) {
-                this._bindContext();
-                $(window).resize(this._onResize.bind(this));
-                this.isClosed = false;
-            }
-
-            if (!this.isEmpty) {
-                if (!this.viewer) {
-                    this.$el.html('');
-                    this.viewer = this._createViewer({
-                        elem: this.el,
-                        backgroundColor: [1, 1, 1],
-                        cameraPosition: [120, 80, 160]
-                    });
-                }
-            } else {
-                // FIXXME: for some reason the 'tempalte' property did not work, fix that!
-                this.$el.html('<div class="rbv-empty">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
-            }
+        createViewer: function() {
+            return new XTKViewer({
+                elem: this.el,
+                backgroundColor: [1, 1, 1],
+                cameraPosition: [120, 80, 160]
+            });
         },
 
-        onClose: function() {
+        didInsertElement: function() {
+            this.listenTo(this.context(), 'selection:changed', this._setAreaOfInterest);
+            this.listenTo(this.context(), 'time:change', this._onTimeChange);
+        },
+
+        didRemoveElement: function() {
             // NOTE: The 'listenTo' bindings are automatically unbound by marionette
-            $(window).off("resize", this.onResizeF);
-            this.isClosed = true;
         },
 
-        // addInitialLayer: function(model, isBaseLayer) {
-        //     this.initialLayers[model.get('name')] = {
-        //         model: model,
-        //         isBaseLayer: isBaseLayer
-        //     };
-        // },
+        showEmptyView: function() {
+            // FIXXME: use marionette's templating mechanism for that!
+            this.$el.html('<div class="empty-view">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
+        },
+
+        hideEmptyView: function() {
+            // CAUTION: simply removing the content of the view's div can have sideeffects, e.g if
+            // 'createViewer' was called before, which creates child DOM elements. Be cautious not
+            // to accidently remove those!
+            this.$el.html('');
+        },
 
         _setAreaOfInterest: function(area) {
             // If the releases the mouse button to finish the selection of
             // an AoI the 'area' parameter is set, otherwise it is 'null'.
             if (area) {
-                this.isEmpty = false;
-                this.onShow();
+                // 1. store current AoI bounds
+                this.areaOfInterest = area.bounds.toString();
 
-                var url = this.baseURL;
-                // 1. get AoI bounds
-                url += '&bbox=' + area.bounds.toString();
-                // 2. get ToI
+                // 2. store current ToI interval
                 var toi = this.timeOfInterest;
                 // In case no ToI was set during the lifecycle of this viewer we can access
                 // the time of interest from the global context:
@@ -82,53 +78,59 @@ define([
 
                     toi = this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
                 }
-                url += '&time=' + toi;
-                // 3. get relevant layers | FIXXME: how?
-                url += '&layer=h2o_vol_demo';
 
-                var label = 'H2O';
+                // 3. store the current layer
+                // FIXXME: integrate with context!
+                this.layer = 'h2o_vol_demo';
 
                 // 4. add the data to the viewer
-                this.viewer.addVolume({
-                    // FIXXME: creative hack to satisfy xtk, which obviously determines the format of the volume data by the ending of the url it gets.
-                    // I appended a dummy file here, so xtk gets the format, the backend W3DS server will simply discard the extra parameter...
-                    filename: url + '&dummy.nii.gz',
-                    label: label,
-                    volumeRendering: true,
-                    upperThreshold: 219,
-                    opacity: 0.3,
-                    minColor: [0.4, 0.4, 0.4],
-                    maxColor: [0, 0, 0],
-                    reslicing: false
-                });
+                this.addVolume(this.timeOfInterest, this.areaOfInterest, this.layer);
             }
         },
 
         _onTimeChange: function(time) {
-            this.isEmpty = false;
-
             var starttime = new Date(time.start);
             var endtime = new Date(time.end);
 
             this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
-            // console.log('starttime: ' + starttime.toISOString());
-            // console.log('endtime: ' + endtime.toISOString());
 
+            this.addVolume(this.timeOfInterest, this.areaOfInterest, this.layer);
+        },
+
+        addVolume: function(aoi, toi, layer) {
+            // CAUTION: onShow() internally also instantiates the viewer, which uses a DOM element
+            // to show its content. The 'enableEmptyView(false)' and 'onShow()' cause the 
+            // 'hideEmptyView' function to be called. In the case here the DOM element representing
+            // this view gets wiped out there, which also would destroy the DOM element the viewer
+            // is using.
+            // Baseline: be aware of what is happening when the view switches from the empty view to
+            // the ordinary view, which will call the 'hideEmptyView' function.
+            // @see hideEmptyView
+            this.enableEmptyView(false);
             this.onShow();
+
+            var url = this.baseURL;
+            url += '&bbox=' + aoi;
+            url += '&time=' + toi;
+            url += '&layer=' + layer;
+
+            this.getViewer().addVolume({
+                // FIXXME: creative hack to satisfy xtk, which obviously determines the format of the volume data by the ending of the url it gets.
+                // I appended a dummy file here, so xtk gets the format, the backend W3DS server will simply discard the extra parameter...
+                filename: url + '&dummy.nii.gz',
+                label: layer,
+                volumeRendering: true,
+                upperThreshold: 219,
+                opacity: 0.3,
+                minColor: [0.4, 0.4, 0.4],
+                maxColor: [0, 0, 0],
+                reslicing: false
+            });
         },
 
-        _bindContext: function(context) {
-            this.listenTo(this.context, 'selection:changed', this._setAreaOfInterest);
-            this.listenTo(this.context, 'time:change', this._onTimeChange);
-        },
-
-        _createViewer: function(opts) {
-            return new XTKViewer(opts);
-        },
-
-        _onResize: function() {
-            if (this.viewer) {
-                this.viewer.onResize();
+        onResize: function() {
+            if (this.getViewer()) {
+                this.getViewer().onResize();
             }
         },
     });

@@ -55,6 +55,7 @@
 
         paths: {
             contrib: 'contrib',
+            core: 'core',
             requirejs: '../bower_components/requirejs/require',
             jquery: '../bower_components/jquery/jquery.min',
             jqueryui: '../bower_components/jquery-ui/ui/minified/jquery-ui.min',

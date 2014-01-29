@@ -1,7 +1,8 @@
 define([
 	'xtk',
-	'xtk-gui'
-], function(X, dat) {
+	'xtk-gui',
+	'jquery'
+], function(X, dat, $) {
 
 	'use strict';
 
@@ -116,7 +117,13 @@ define([
 
 	XTKViewer.prototype.destroy = function() {
 		this.renderer.destroy();
+		this.removeGui(this.mainGUI);
 	};
 
+	XTKViewer.prototype.removeGui = function(gui) {
+		var el = gui.domElement;
+		el.parentNode.removeChild(el);
+	}
+	
 	return XTKViewer;
 });
