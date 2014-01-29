@@ -48,6 +48,7 @@ define([
 
 			// Set a default AoI as the timeline can be changed even if no AoI is selected in the WebClient:
             this.currentAoI = [17.6726953125,56.8705859375,19.3865625,58.12302734375];
+            this.currentToI = null;
 
 			X3DOMView.prototype.initialize.call(this, opts);
             this.enableEmptyView(true); // this is the default
@@ -79,8 +80,8 @@ define([
 				// In case no ToI was set during the lifecycle of this viewer we can access
 				// the time of interest from the global context:
 				if (!toi) {
-					var starttime = new Date(globals.context.currentToI.start);
-					var endtime = new Date(globals.context.currentToI.end);
+					var starttime = new Date(globals.context.timeOfInterest.start);
+					var endtime = new Date(globals.context.timeOfInterest.end);
 
 					toi = this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
 				}
