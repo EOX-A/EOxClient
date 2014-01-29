@@ -1,10 +1,8 @@
 define([
     'core/BaseView',
     'app',
-    'communicator',
-    'globals',
     './XTKViewer/Viewer'
-], function(BaseView, App, Communicator, globals, XTKViewer) {
+], function(BaseView, App, XTKViewer) {
 
     'use strict';
 
@@ -20,17 +18,18 @@ define([
         // },
 
         initialize: function(opts) {
+            // Initialize parent upfront to have this.context() initialized:
+            BaseView.prototype.initialize.call(this, opts);
+            this.enableEmptyView(true); // this is the default
+
             this.viewer = null;
             this.currentToI = null;
             // Set a default AoI and Layer  as the timeline can be changed even if no AoI and Layer is selected in the WebClient:
-            this.currentAoI = [17.6726953125,56.8705859375,19.3865625,58.12302734375];
+            this.currentAoI = [17.6726953125, 56.8705859375, 19.3865625, 58.12302734375];
             this.currentLayer = 'h2o_vol_demo'; // FIXXME!
 
-            var backend = globals.context.backendConfig['MeshFactory'];
+            var backend = this.context().backendConfig['MeshFactory'];
             this.baseURL = backend.url + 'service=W3DS&request=GetScene&crs=EPSG:4326&format=model/nii-gz&version=' + backend.version;
-
-            this.enableEmptyView(true); // this is the default
-            BaseView.prototype.initialize.call(this, opts);
         },
 
         didInsertElement: function() {
@@ -71,8 +70,8 @@ define([
                 // In case no ToI was set during the lifecycle of this viewer we can access
                 // the time of interest from the global context:
                 if (!toi) {
-                    var starttime = new Date(globals.context.timeOfInterest.start);
-                    var endtime = new Date(globals.context.timeOfInterest.end);
+                    var starttime = new Date(this.context().timeOfInterest.start);
+                    var endtime = new Date(this.context().timeOfInterest.end);
 
                     toi = this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
                 }

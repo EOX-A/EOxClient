@@ -63,9 +63,8 @@
 			var options = {};
 			var config = {};
 
-			// Make the backend configuration known globally:
-			globals.context = {};
-			globals.context.backendConfig = values.backendConfig;
+			// FIXXME: Communicator.mediator is the global context...
+			Communicator.mediator.backendConfig = values.backendConfig;
 
 			_.each(values.modules, function(module) {
 				modules.push(module);

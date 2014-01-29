@@ -1,17 +1,18 @@
 define([
 	'app',
-	'communicator',
 	'./X3DOMView',
-	'globals',
 	'underscore',
 	'jqueryui'
-], function(App, Communicator, X3DOMView, globals, _) {
+], function(App, X3DOMView, _) {
 
 	'use strict';
 
 	var BoxView = X3DOMView.extend({
 		initialize: function(opts) {
-			this.isEmpty = true;
+			// Initialize parent upfront to have this.context() initialized:
+			X3DOMView.prototype.initialize.call(this, opts);
+			this.enableEmptyView(true); // this is the default
+
 			this.isInitialized = false;
 
 			this.defaults = {
@@ -47,16 +48,13 @@ define([
 			};
 
 			// Set a default AoI as the timeline can be changed even if no AoI is selected in the WebClient:
-            this.currentAoI = [17.6726953125,56.8705859375,19.3865625,58.12302734375];
-            this.currentToI = null;
-
-			X3DOMView.prototype.initialize.call(this, opts);
-            this.enableEmptyView(true); // this is the default
+			this.currentAoI = [17.6726953125, 56.8705859375, 19.3865625, 58.12302734375];
+			this.currentToI = null;
 		},
 
 		didInsertElement: function() {
-			this.listenTo(Communicator.mediator, 'selection:changed', this._setAreaOfInterest);
-			this.listenTo(Communicator.mediator, 'time:change', this._onTimeChange);
+			this.listenTo(this.context(), 'selection:changed', this._setAreaOfInterest);
+			this.listenTo(this.context(), 'time:change', this._onTimeChange);
 		},
 
 		didRemoveElement: function() {
@@ -80,8 +78,8 @@ define([
 				// In case no ToI was set during the lifecycle of this viewer we can access
 				// the time of interest from the global context:
 				if (!toi) {
-					var starttime = new Date(globals.context.timeOfInterest.start);
-					var endtime = new Date(globals.context.timeOfInterest.end);
+					var starttime = new Date(this.context().timeOfInterest.start);
+					var endtime = new Date(this.context().timeOfInterest.end);
 
 					toi = this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
 				}
