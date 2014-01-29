@@ -32,6 +32,16 @@ define([
 			this.listenTo(Communicator.mediator, "selection:changed", _.bind(this.analyticsView.onSelectionChanged, this.analyticsView));
 			this.listenTo(Communicator.mediator, 'time:change', _.bind(this.analyticsView.onTimeChange, this.analyticsView));
 
+			this.listenTo(this.analyticsView, 'view:disconnect', function() {
+                this.stopListening();
+                console.log('splitview disconnect');
+            }.bind(this));
+
+            this.listenTo(this.analyticsView, 'view:connect', function() {
+                this.connectToView();
+                console.log('splitview connect');
+            }.bind(this));
+
 		},
 
 
