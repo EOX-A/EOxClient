@@ -1,12 +1,11 @@
 define([
-	'backbone.marionette',
 	'app',
 	'communicator',
 	'./X3DOMView',
 	'globals',
 	'underscore',
 	'jqueryui'
-], function(Marionette, App, Communicator, X3DOMView, globals, _) {
+], function(App, Communicator, X3DOMView, globals, _) {
 
 	'use strict';
 
@@ -15,25 +14,102 @@ define([
 			this.isEmpty = true;
 			this.isInitialized = false;
 
+			this.defaults = {
+				setTimeLog: false,
+				addLightToScene: true,
+				background: ["0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2",
+					"0.9 1.5 1.57",
+					"0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2",
+					"0.9 1.5 1.57"
+				],
+				onClickFunction: function(modelIndex, hitPoint) {
+					var height = EarthServerGenericClient.MainScene.getDemValueAt3DPosition(modelIndex, hitPoint[0], hitPoint[2]);
+					console.log("Height at clicked position: ", height)
+				},
+
+				resolution: [500, 500],
+
+				outputCRS: 'http://www.opengis.net/def/crs/EPSG/0/4326',
+				CRS: ['SRS', 'EPSG:4326'],
+
+				wmsUrl: 'http://tiles.maps.eox.at/wms?service=wms&version=',
+				// wmsLayer: 'bluemarble',
+				wmsLayer: 'terrain',
+				// wmsUrl: 'http://neso.cryoland.enveo.at/cryoland/ows',
+				// wmsLayer: 'daily_FSC_PanEuropean_Optical',
+				wmsVersion: '1.1.1',
+
+				wcsUrl: 'http://data.eox.at/elevation?',
+				wcsLayer: 'ACE2',
+				wcsVersion: '2.0.0',
+				wcsMimeType: 'image/x-aaigrid',
+				wcsDataType: 'text'
+			};
+
+			// Set a default AoI as the timeline can be changed even if no AoI is selected in the WebClient:
+            this.currentAoI = [17.6726953125,56.8705859375,19.3865625,58.12302734375];
+
 			X3DOMView.prototype.initialize.call(this, opts);
+            this.enableEmptyView(true); // this is the default
 		},
 
-		onShow: function() {
-			if (!this.isEmpty) {
-				if (!this.isInitialized) {
-					this.$el.html('');
-					// X3DOMView.prototype.hide.call(this);
-					this.isInitialized = true;
+		didInsertElement: function() {
+			this.listenTo(Communicator.mediator, 'selection:changed', this._setAreaOfInterest);
+			this.listenTo(Communicator.mediator, 'time:change', this._onTimeChange);
+		},
+
+		didRemoveElement: function() {
+			// NOTE: The 'listenTo' bindings are automatically unbound by marionette
+		},
+
+		showEmptyView: function() {
+			// FIXXME: use marionette's templating mechanism for that!
+			this.$el.html('<div class="empty-view">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
+		},
+
+		hideEmptyView: function() {
+			// CAUTION: simply removing the content of the view's div can have sideeffects. Be cautious not
+			// to accidently remove previousle created elements!
+			this.$el.html('');
+		},
+
+		_setAreaOfInterest: function(area) {
+			if (area) {
+				var toi = this.currentToI;
+				// In case no ToI was set during the lifecycle of this viewer we can access
+				// the time of interest from the global context:
+				if (!toi) {
+					var starttime = new Date(globals.context.currentToI.start);
+					var endtime = new Date(globals.context.currentToI.end);
+
+					toi = this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
 				}
-				X3DOMView.prototype.onShow.call(this);
-			} else {
-				// FIXXME: for some reason the 'tempalte' property did not work, fix that!
-				this.$el.html('<div class="rbv-empty">Please select an Area of Interest (AoI) in one of the map viewer!</div>');
+
+				var bounds = area.bounds;
+				this.currentAoI = [bounds.left, bounds.bottom, bounds.right, bounds.top];
+
+				this._updateScene(_.extend(this.defaults, this.options, {
+					aoi: this.currentAoI,
+					toi: toi
+				}));
 			}
 		},
 
-		createScene: function(opts) {
-			this.isEmpty = false;
+		_onTimeChange: function(time) {
+			var starttime = new Date(time.start);
+			var endtime = new Date(time.end);
+
+			this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
+
+			this._updateScene(_.extend(this.defaults, this.options, {
+				aoi: this.currentAoI,
+				toi: this.currentToI
+			}));
+		},
+
+		_updateScene: function(opts) {
+			this.enableEmptyView(false);
+			this.onShow();
 
 			this.opts = opts;
 
@@ -135,105 +211,6 @@ define([
 			// here the function starts as soon as the html page is fully loaded
 			// you can map this function to e.g. a button
 			EarthServerGenericClient.MainScene.createModels();
-
-			this.onShow();
-		},
-
-		setAreaOfInterest: function(area) {
-			if (area) {
-				var defaults = {
-					setTimeLog: false,
-					addLightToScene: true,
-					background: ["0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2",
-						"0.9 1.5 1.57",
-						"0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2",
-						"0.9 1.5 1.57"
-					],
-					onClickFunction: function(modelIndex, hitPoint) {
-						var height = EarthServerGenericClient.MainScene.getDemValueAt3DPosition(modelIndex, hitPoint[0], hitPoint[2]);
-						console.log("Height at clicked position: ", height)
-					},
-
-					resolution: [500, 500],
-
-					outputCRS: 'http://www.opengis.net/def/crs/EPSG/0/4326',
-					CRS: ['SRS', 'EPSG:4326'],
-
-					wmsUrl: 'http://tiles.maps.eox.at/wms?service=wms&version=',
-					// wmsLayer: 'bluemarble',
-					wmsLayer: 'terrain',
-					// wmsUrl: 'http://neso.cryoland.enveo.at/cryoland/ows',
-					// wmsLayer: 'daily_FSC_PanEuropean_Optical',
-					wmsVersion: '1.1.1',
-
-					wcsUrl: 'http://data.eox.at/elevation?',
-					wcsLayer: 'ACE2',
-					wcsVersion: '2.0.0',
-					wcsMimeType: 'image/x-aaigrid',
-					wcsDataType: 'text'
-				};
-
-				var toi = this.timeOfInterest;
-				// In case no ToI was set during the lifecycle of this viewer we can access
-				// the time of interest from the global context:
-				if (!toi) {
-					var starttime = new Date(globals.context.timeOfInterest.start);
-					var endtime = new Date(globals.context.timeOfInterest.end);
-
-					toi = this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
-				}
-
-				var bounds = area.bounds;
-				this.currentAoI = [bounds.left, bounds.bottom, bounds.right, bounds.top];
-
-				this.createScene(_.extend(defaults, this.options, {
-					aoi: this.currentAoI,
-					toi: toi
-				}));
-			}
-		},
-
-		onTimeChange: function(time) {
-			var defaults = {
-				setTimeLog: false,
-				addLightToScene: true,
-				background: ["0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2",
-					"0.9 1.5 1.57",
-					"0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2",
-					"0.9 1.5 1.57"
-				],
-				onClickFunction: function(modelIndex, hitPoint) {
-					var height = EarthServerGenericClient.MainScene.getDemValueAt3DPosition(modelIndex, hitPoint[0], hitPoint[2]);
-					console.log("Height at clicked position: ", height)
-				},
-
-				resolution: [500, 500],
-
-				outputCRS: 'http://www.opengis.net/def/crs/EPSG/0/4326',
-				CRS: ['SRS', 'EPSG:4326'],
-
-				// wmsUrl: 'http://wms.jpl.nasa.gov/wms.cgi?',
-				// wmsLayer: 'BMNG',
-				wmsUrl: 'http://neso.cryoland.enveo.at/cryoland/ows',
-				wmsLayer: 'daily_FSC_PanEuropean_Optical',
-				wmsVersion: '1.1.1',
-
-				wcsUrl: 'http://data.eox.at/elevation?',
-				wcsLayer: 'ACE2',
-				wcsVersion: '2.0.0',
-				wcsMimeType: 'image/x-aaigrid',
-				wcsDataType: 'text'
-			};
-
-			var starttime = new Date(time.start);
-			var endtime = new Date(time.end);
-
-			this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
-
-			this.createScene(_.extend(defaults, this.options, {
-				aoi: this.currentAoI,
-				toi: this.timeOfInterest
-			}));
 		}
 	});
 

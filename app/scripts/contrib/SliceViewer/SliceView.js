@@ -20,28 +20,23 @@ define([
         // },
 
         initialize: function(opts) {
-            BaseView.prototype.initialize.call(this, opts);
-
             this.viewer = null;
-            this.timeOfInterest = null;
-            this.areaOfInterest = null;
+            this.currentToI = null;
+            this.currentAoI = null;
 
             var backend = globals.context.backendConfig['MeshFactory'];
             this.baseURL = backend.url + 'service=W3DS&request=GetScene&crs=EPSG:4326&format=model/nii-gz&version=' + backend.version;
+            
+            // Set a default AoI and Layer  as the timeline can be changed even if no AoI and Layer is selected in the WebClient:
+            this.currentAoI = [17.6726953125,56.8705859375,19.3865625,58.12302734375];
+            this.currentLayer = 'h2o_vol_demo'; // FIXXME!
 
             this.enableEmptyView(true); // this is the default
-        },
-
-        createViewer: function() {
-            return new XTKViewer({
-                elem: this.el,
-                backgroundColor: [1, 1, 1],
-                cameraPosition: [120, 80, 160]
-            });
+            BaseView.prototype.initialize.call(this, opts);
         },
 
         didInsertElement: function() {
-            this.listenTo(this.context(), 'selection:changed', this._setAreaOfInterest);
+            this.listenTo(this.context(), 'selection:changed', this._setCurrentAoI);
             this.listenTo(this.context(), 'time:change', this._onTimeChange);
         },
 
@@ -55,36 +50,35 @@ define([
         },
 
         hideEmptyView: function() {
-            // CAUTION: simply removing the content of the view's div can have sideeffects, e.g if
-            // 'createViewer' was called before, which creates child DOM elements. Be cautious not
-            // to accidently remove those!
+            // CAUTION: simply removing the content of the view's div can have sideeffects. Be cautious not
+            // to accidently remove previousle created elements!
             this.$el.html('');
         },
 
-        _setAreaOfInterest: function(area) {
+        _setCurrentAoI: function(area) {
             // If the releases the mouse button to finish the selection of
             // an AoI the 'area' parameter is set, otherwise it is 'null'.
             if (area) {
                 // 1. store current AoI bounds
-                this.areaOfInterest = area.bounds.toString();
+                this.currentAoI = area.bounds.toString();
 
                 // 2. store current ToI interval
-                var toi = this.timeOfInterest;
+                var toi = this.currentToI;
                 // In case no ToI was set during the lifecycle of this viewer we can access
                 // the time of interest from the global context:
                 if (!toi) {
-                    var starttime = new Date(globals.context.timeOfInterest.start);
-                    var endtime = new Date(globals.context.timeOfInterest.end);
+                    var starttime = new Date(globals.context.currentToI.start);
+                    var endtime = new Date(globals.context.currentToI.end);
 
-                    toi = this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
+                    toi = this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
                 }
 
                 // 3. store the current layer
                 // FIXXME: integrate with context!
-                this.layer = 'h2o_vol_demo';
+                this.currentLayer = 'h2o_vol_demo';
 
                 // 4. add the data to the viewer
-                this.addVolume(this.timeOfInterest, this.areaOfInterest, this.layer);
+                this._addVolume(this.currentToI, this.currentAoI, this.currentLayer);
             }
         },
 
@@ -92,20 +86,20 @@ define([
             var starttime = new Date(time.start);
             var endtime = new Date(time.end);
 
-            this.timeOfInterest = starttime.toISOString() + '/' + endtime.toISOString();
+            this.currentToI = starttime.toISOString() + '/' + endtime.toISOString();
 
-            this.addVolume(this.timeOfInterest, this.areaOfInterest, this.layer);
+            this._addVolume(this.currentToI, this.currentAoI, this.currentLayer);
         },
 
-        addVolume: function(aoi, toi, layer) {
-            // CAUTION: onShow() internally also instantiates the viewer, which uses a DOM element
-            // to show its content. The 'enableEmptyView(false)' and 'onShow()' cause the 
-            // 'hideEmptyView' function to be called. In the case here the DOM element representing
-            // this view gets wiped out there, which also would destroy the DOM element the viewer
-            // is using.
-            // Baseline: be aware of what is happening when the view switches from the empty view to
-            // the ordinary view, which will call the 'hideEmptyView' function.
-            // @see hideEmptyView
+        _createViewer: function() {
+            return new XTKViewer({
+                elem: this.el,
+                backgroundColor: [1, 1, 1],
+                cameraPosition: [120, 80, 160]
+            });
+        },
+
+        _addVolume: function(aoi, toi, layer) {
             this.enableEmptyView(false);
             this.onShow();
 
@@ -114,7 +108,11 @@ define([
             url += '&time=' + toi;
             url += '&layer=' + layer;
 
-            this.getViewer().addVolume({
+            if (!this.viewer) {
+                this.viewer = this._createViewer();
+            }
+
+            this.viewer.addVolume({
                 // FIXXME: creative hack to satisfy xtk, which obviously determines the format of the volume data by the ending of the url it gets.
                 // I appended a dummy file here, so xtk gets the format, the backend W3DS server will simply discard the extra parameter...
                 filename: url + '&dummy.nii.gz',
@@ -129,8 +127,8 @@ define([
         },
 
         onResize: function() {
-            if (this.getViewer()) {
-                this.getViewer().onResize();
+            if (this.viewer) {
+                this.viewer.onResize();
             }
         },
     });

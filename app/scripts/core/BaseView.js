@@ -77,13 +77,6 @@ define([
 				}
 				this.emtpyViewIsActive = false;
 			}
-
-			if (!this.viewer) {
-				if (!_.isFunction(this.createViewer)) {
-					throw '[BaseView::onShow] It is mandatory to provide a "createViewer" implementation!';
-				}
-				this.viewer = this.createViewer();
-			}
 		},
 
 		/* Unbinds the context bindings and the resize functionality. Also destroys the viewer if the
