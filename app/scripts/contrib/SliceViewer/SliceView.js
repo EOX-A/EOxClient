@@ -96,7 +96,7 @@ define([
         _createViewer: function() {
             return new XTKViewer({
                 elem: this.el,
-                backgroundColor: [1, 1, 1],
+                backgroundColor: [0.005, 0.005, 0.005],
                 cameraPosition: [120, 80, 160]
             });
         },
