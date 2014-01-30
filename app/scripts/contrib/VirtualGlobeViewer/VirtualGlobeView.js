@@ -132,13 +132,13 @@ define([
         },
 
         _onLayerChange: function(options) {
-            var model = this._getLayerModel(options); // options: { name: 'xy', isBaseLayer: 'true/false'}
+            var model = this._getLayerModel(options); // options: { name: 'xy', isBaseLayer: 'true/false', visible: 'true/false'}
 
-            if (options.isVisible) {
-                this.addLayer(model, options.isBaseLayer);
+            if (options.visible) {
+                this._addLayer(model, options.isBaseLayer);
                 console.log('[GlobeView::onLayerChange] selected ' + model.get('name'));
             } else {
-                this.removeLayer(model, options.isBaseLayer);
+                this._removeLayer(model, options.isBaseLayer);
                 console.log('[GlobeView::onLayerChange] deselected ' + model.get('name'));
             }
         },
@@ -151,8 +151,7 @@ define([
             // FIXXME: currently all overlay layers are destroyed and recreated with the new time set. This
             // should be changed to set the new time on existing layers in the Globe's layerChache.
             this._removeAllOverlays();
-            this.setLayersFromAppContext();
-            this._initLayers();
+            this._setLayersFromAppContext();
         },
 
         _sortOverlayLayers: function() {
