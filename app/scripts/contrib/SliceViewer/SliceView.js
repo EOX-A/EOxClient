@@ -22,7 +22,6 @@ define([
             BaseView.prototype.initialize.call(this, opts);
             this.enableEmptyView(true); // this is the default
 
-            this.viewer = null;
             this.currentToI = null;
             // Set a default AoI and Layer  as the timeline can be changed even if no AoI and Layer is selected in the WebClient:
             this.currentAoI = [17.6726953125, 56.8705859375, 19.3865625, 58.12302734375];
@@ -53,8 +52,8 @@ define([
         },
 
         onResize: function() {
-            if (this.viewer) {
-                this.viewer.onResize();
+            if (this.getViewer()) {
+                this.getViewer().onResize();
             }
         },
 
@@ -111,11 +110,11 @@ define([
             url += '&time=' + toi;
             url += '&layer=' + layer;
 
-            if (!this.viewer) {
-                this.viewer = this._createViewer();
+            if (!this.getViewer()) {
+                this.setViewer(this._createViewer());
             }
 
-            this.viewer.addVolume({
+            this.getViewer().addVolume({
                 // FIXXME: creative hack to satisfy xtk, which obviously determines the format of the volume data by the ending of the url it gets.
                 // I appended a dummy file here, so xtk gets the format, the backend W3DS server will simply discard the extra parameter...
                 filename: url + '&dummy.nii.gz',

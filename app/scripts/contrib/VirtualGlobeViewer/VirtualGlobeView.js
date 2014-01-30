@@ -32,8 +32,8 @@ define([
         },
 
         didInsertElement: function() {
-            if (!this.globe) {
-                this._createGlobe();
+            if (!this.getViewer()) {
+                this.setViewer(this._createGlobe());
                 this._setLayersFromAppContext();
                 this._zoomTo(this._startPosition);
             }
@@ -52,7 +52,7 @@ define([
         },
 
         onResize: function() {
-            this.globe.updateViewport();
+            this.getViewer().updateViewport();
         },
 
         _addInitialLayer: function(model, isBaseLayer) {
@@ -116,19 +116,19 @@ define([
         },
 
         _addAreaOfInterest: function(geojson) {
-            this.globe.addAreaOfInterest(geojson);
+            this.getViewer().addAreaOfInterest(geojson);
         },
 
         _addLayer: function(model, isBaseLayer) {
-            this.globe.addLayer(model, isBaseLayer);
+            this.getViewer().addLayer(model, isBaseLayer);
         },
 
         _removeLayer: function(model, isBaseLayer) {
-            this.globe.removeLayer(model, isBaseLayer);
+            this.getViewer().removeLayer(model, isBaseLayer);
         },
 
         _removeAllOverlays: function() {
-            this.globe.removeAllOverlays();
+            this.getViewer().removeAllOverlays();
         },
 
         _onLayerChange: function(options) {
@@ -144,7 +144,7 @@ define([
         },
 
         _onOpacityChange: function(options) {
-            this.globe.onOpacityChange(options.model.get('name'), options.value);
+            this.getViewer().onOpacityChange(options.model.get('name'), options.value);
         },
 
         _onTimeChange: function(time) {
@@ -156,13 +156,13 @@ define([
         },
 
         _sortOverlayLayers: function() {
-            this.globe.sortOverlayLayers();
+            this.getViewer().sortOverlayLayers();
         },
 
         _initLayers: function() {
-            this.globe.clearCache();
+            this.getViewer().clearCache();
             _.each(this._initialLayers, function(desc, name) {
-                this.globe.addLayer(desc.model, desc.isBaseLayer);
+                this.getViewer().addLayer(desc.model, desc.isBaseLayer);
             }.bind(this));
             this._sortOverlayLayers();
         },
@@ -227,17 +227,17 @@ define([
         },
 
         _zoomTo: function(position) {
-            this.globe.zoomTo(position);
+            this.getViewer().zoomTo(position);
         },
 
         _createGlobe: function() {
-            this.globe = new Globe({
+            return new Globe({
                 canvas: this.el
             });
         },
 
         _dumpLayerConfig: function() {
-            this.globe.dumpLayerConfig();
+            this.getViewer().dumpLayerConfig();
         }
     });
 
