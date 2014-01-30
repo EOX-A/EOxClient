@@ -61,7 +61,7 @@
             jqueryui: '../bower_components/jquery-ui/ui/minified/jquery-ui.min',
             backbone: '../bower_components/backbone-amd/backbone-min',
             underscore: '../bower_components/underscore-amd/underscore-min',
-            d3: '../bower_components/d3/d3',
+            d3: '../bower_components/d3/d3.min',
             timeslider: '../bower_components/d3.TimeSlider/d3.timeslider.min',
             timeslider_plugins: '../bower_components/d3.TimeSlider/d3.timeslider.plugins.min',
             libcoverage: '../bower_components/libcoverage/libcoverage.min',

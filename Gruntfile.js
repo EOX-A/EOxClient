@@ -357,9 +357,10 @@ module.exports = function (grunt) {
                         'bower_components/lm.js/lm.js',
                         'bower_components/virtualglobeviewer/src/{,*/}*.js',
                         'bower_components/Keypress/keypress.js',
-                        'bower_components/analyticsviewer/app/scripts/analytics.js',
-                        'bower_components/analyticsviewer/app/scripts/box.js',
+                        'bower_components/analyticsviewer/lib/scripts/analytics.min.js',
+                        'bower_components/nvd3/nv.d3.min.js',
                         'bower_components/virtualglobeviewer/src/**',
+                        'bower_components/rectangularboxviewer/**',
                         'data/**'
                     ]
                 },{

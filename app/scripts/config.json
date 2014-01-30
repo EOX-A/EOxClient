@@ -139,7 +139,7 @@
           "id": "vrvis_demo",
           "protocol": "W3DS",
           "urls": [
-              "http://localhost:9000/ows?"
+              "http://demo.v-manip.eox.at/browse/ows?"
           ],
           "style": "default",
           "format": "image/png"
@@ -158,7 +158,7 @@
           "id": "eox_demo",
           "protocol": "W3DS",
           "urls": [
-              "http://localhost:9000/ows?"
+              "http://demo.v-manip.eox.at/browse/ows?"
           ],
           "style": "default",
           "format": "image/png"
