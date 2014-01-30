@@ -1,73 +1,85 @@
-@import "partials/rounded";
 @import "defaults";
 
+// Currently the splitview is made up by an absolute layout inside a relative container.
+// This is not the most flexible implementation, however, for our purpose of having
+// a fixed layout it is working well enough. 
+// The absolute layout also circumvents some 'jumping around' of the view divs at certain
+// screen sizes.
+
 .splitview {
+	position: relative;
 	width: 100%;
 	height: 100%;
 }
 
 .splitview .fullscreen {
-	width: 100%;
-	height: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
-div.view1.halfscreen {
+.splitview > .view1.halfscreen {
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	width: 50%;
+
+	border: solid 1px black;
 }
 
-div.view2.halfscreen {
+.splitview > .view2.halfscreen {
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 50%;
 	right: 0;
+	
+	border: solid 1px black;
 }
 
-div.view1.quarterscreen {
+.splitview > .view1.quarterscreen {
 	position: absolute;
 	top: 0;
 	bottom: 50%;
 	left: 0;
 	right: 50%;
+	
+	border: solid 1px black;
 }
 
-div.view2.quarterscreen {
+.splitview > .view2.quarterscreen {
 	position: absolute;
 	top: 0;
 	bottom: 50%;
 	left: 50%;
 	right: 0;
+	
+	border: solid 1px black;
 }
 
-div.view3.quarterscreen {
+.splitview > .view3.quarterscreen {
 	position: absolute;
 	top: 50%;
 	bottom: 0;
 	left: 0;
 	right: 50%;
+	
+	border: solid 1px black;
 }
 
-div.view4.quarterscreen {
+.splitview > .view4.quarterscreen {
 	position: absolute;
 	top: 50%;
 	bottom: 0;
 	left: 50%;
 	right: 0;
+	
+	border: solid 1px black;
 }
-// .splitview .quarterscreen {
-// 	display: inline-block;
-
-// 	width: 49.8%;
-// 	height: 49.8%;
-// }
 
 .splitview .disabled {
 	display: none;
-	//width: 0;
 }
-
-
