@@ -207,15 +207,64 @@
           if ($('input[type="checkbox"]')[index].checked){
             var model = this.coverages.models[index];
             var xml = getCoverageXML(model.get('coverageId'), options);
-
             var owsUrl = model.get('url').split('?')[0] + '?';
+            var xmlData = '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>' + xml;
 
-            var $form = $(CoverageDownloadPostTmpl({
-              url: owsUrl, xml: xml}));
-            $downloads.append($form);
-            _.delay(function() {
-            $form.submit();
-            }, index * 1000);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', owsUrl, true);
+            xhr.responseType = "blob";
+            xhr.onprogress=this.updateProgress;
+            xhr.onreadystatechange = function () {
+
+              if (xhr.readyState == 2) {
+                $("<div id='downloadDialog'>The requested file is being downloaded, please wait until the save dialog appears."+
+                  "<div id='myProgressBar'></div> </div>").dialog({
+                  dialogClass: "no-close",
+                  title: "Download Status",
+                  height: 150,
+                  width: 500,
+                  autoOpen:true
+                });
+                if(xhr.getResponseHeader('Content-Length'))
+                  $("#myProgressBar").progressbar({value:0});
+                else
+                  $("#myProgressBar").append(
+                    '<div style="margin-left:auto;margin-right:auto;text-align:center">'+
+                    '<i class="fa fa-cog fa-spin fa-2x" ></i></div>');
+              }
+
+              if (xhr.readyState == 4) {
+
+                if(xhr.response.size < 700) {
+                  $("#error-messages").append(
+                      '<div class="alert alert-warning alert-danger">'+
+                      '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                      '<strong>Warning!</strong> The selected Area of Interest exceeds the defined size limit configured on the server' +
+                    '</div>'
+                  );
+                }
+                else {
+                  var filename = xhr.getResponseHeader('Content-Disposition');
+                  if(filename)
+                    filename = filename.split("=")[1];
+                  else
+                    filename = "coverage.tif";
+                  var contentType = 'image/tif';
+                  var file = new Blob([xhr.response], {type: contentType});
+                  var a = document.createElement('a'),
+                  ev = document.createEvent("MouseEvents");
+                  a.download = filename;
+                  a.href = window.URL.createObjectURL(file);
+                  ev.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0,
+                          false, false, false, false, 0, null);
+                  a.dispatchEvent(ev);
+                }
+                 $("#downloadDialog").remove();
+              }
+            };  
+
+            xhr.send(xmlData);
           }
         }, this));
       },
@@ -223,7 +272,18 @@
       onClose: function() {
         Communicator.mediator.trigger("ui:close", "download");
         this.close();
-      }
+      },
+
+      updateProgress: function(evt) 
+            {
+               if (evt.lengthComputable) 
+               {  //evt.loaded the bytes browser receive
+                  //evt.total the total bytes seted by the header
+                  //
+                 var percentComplete = (evt.loaded / evt.total)*100;  
+                 $("#myProgressBar .ui-progressbar-value").animate({width: percentComplete+"%"}, 500);
+               } 
+            }  
 
     });
     return {'DownloadView':DownloadView};

@@ -102,7 +102,7 @@
         "download": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "EOWCS",
-          "url": "http://asdasdneso.cryoland.enveo.at/cryoland/ows"
+          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
         }
       },
       {
@@ -126,7 +126,7 @@
         "download": {
           "id": "EU-DEM",
           "protocol": "WCS",
-          "url": "http://eox.at/eudem_ows"
+          "url": "http://localhost:9000/eudem_ows"
         }
       }
     ],

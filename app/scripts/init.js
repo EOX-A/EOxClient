@@ -57,6 +57,7 @@
             filesaver: '../bower_components/filesaver/FileSaver',
             lm: '../bower_components/lm.js/lm',
 
+
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',
             'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min',

@@ -90,3 +90,13 @@ var getCoverageXML = function(coverageid, options) {
   params.push('</wcs:GetCoverage>');
   return params.join("");
 };
+
+var blobToBase64 = function(blob, callback) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var dataUrl = reader.result;
+        var base64 = dataUrl.split(',')[1];
+        callback(base64);
+    };
+    reader.readAsDataURL(blob);
+}
