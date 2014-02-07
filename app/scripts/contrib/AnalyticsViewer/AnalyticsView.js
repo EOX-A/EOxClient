@@ -19,6 +19,8 @@ define(['backbone.marionette',
 				this.selection_list = [];
 				this.plotdata = [];
 				this.plot_type = 'scatter';
+				this.selected_time = Communicator.reqres.request('get:time');
+				console.log(this.selected_time);
 				$(window).resize(function() {
 					this.onResize();
 				}.bind(this));
@@ -65,7 +67,7 @@ define(['backbone.marionette',
 
 				this.plot_type = type;
 
-				
+				this.$('.d3canvas').empty();
 				var args = {
 					selector: this.$('.d3canvas')[0],
 					data: this.plotdata
@@ -91,47 +93,10 @@ define(['backbone.marionette',
 			onSortProducts: function(productLayers) {},
 
 			onSelectionChanged: function(feature) {
-
-				var that = this;
-				console.log(feature);
 				
 				if(feature){
 					this.selection_list.push(feature);
-					var selected_features = this.selection_list.length;
-
-					request_process = '<?xml version="1.0" encoding="UTF-8"?>'+
-								'<wps:Execute version="1.0.0" service="WPS" '+
-								'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '+
-								'xmlns="http://www.opengis.net/wps/1.0.0" '+
-								'xmlns:wfs="http://www.opengis.net/wfs" '+
-								'xmlns:wps="http://www.opengis.net/wps/1.0.0" '+
-								'xmlns:ows="http://www.opengis.net/ows/1.1" '+
-								'xmlns:gml="http://www.opengis.net/gml" '+
-								'xmlns:ogc="http://www.opengis.net/ogc" '+
-								'xmlns:wcs="http://www.opengis.net/wcs/1.1.1" '+
-								'xmlns:xlink="http://www.w3.org/1999/xlink" '+
-								'xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">'+
-								  '<ows:Identifier>random_gen</ows:Identifier>'+
-								  '<wps:DataInputs>'+
-								    '<wps:Input>'+
-								      '<ows:Identifier>input</ows:Identifier>'+
-								      '<wps:Data>'+
-								        '<wps:LiteralData>'+ selected_features +'</wps:LiteralData>'+
-								      '</wps:Data>'+
-								    '</wps:Input>'+
-								  '</wps:DataInputs>'+
-								  '<wps:ResponseForm>'+
-								    '<wps:RawDataOutput mimeType="text/plain">'+
-								      '<ows:Identifier>output</ows:Identifier>'+
-								    '</wps:RawDataOutput>'+
-								  '</wps:ResponseForm>'+
-								'</wps:Execute>';
-
-					$.post( "http://localhost:9000/wps/cgi-bin/wps", request_process, function( data ) {
-						that.plotdata = data;
-						that.render(that.plot_type);
-					});
-
+					this.sendRequest();
 				}else{
 					this.plotdata = [];
 					this.selection_list = [];
@@ -141,7 +106,70 @@ define(['backbone.marionette',
 				
 			},
 
-			onTimeChange: function () {},
+			onTimeChange: function (time) {
+				this.selected_time = time;
+				this.sendRequest();
+			},
+
+			sendRequest: function(){
+
+				var that = this;
+
+				var list = "";
+				for (var i=0;i<this.selection_list.length;i++){
+					list += this.selection_list[i].x +','+ this.selection_list[i].y + ';';
+				}
+				list = list.substring(0, list.length - 1);
+
+				//console.log(list);
+
+				request_process = '<?xml version="1.0" encoding="UTF-8"?>'+
+				'<wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">'+
+				  '<ows:Identifier>getdata</ows:Identifier>'+
+				  '<wps:DataInputs>'+
+				    '<wps:Input>'+
+				      '<ows:Identifier>collection</ows:Identifier>'+
+				      '<wps:Data>'+
+				        '<wps:LiteralData>SPOT4_Pente</wps:LiteralData>'+
+				      '</wps:Data>'+
+				    '</wps:Input>'+
+				    '<wps:Input>'+
+				      '<ows:Identifier>begin_time</ows:Identifier>'+
+				      '<wps:Data>'+
+				        '<wps:LiteralData>'+ getISODateTimeString(this.selected_time.start) +'</wps:LiteralData>'+
+				      '</wps:Data>'+
+				    '</wps:Input>'+
+				    '<wps:Input>'+
+				      '<ows:Identifier>end_time</ows:Identifier>'+
+				      '<wps:Data>'+
+				        '<wps:LiteralData>'+ getISODateTimeString(this.selected_time.end) +'</wps:LiteralData>'+
+				      '</wps:Data>'+
+				    '</wps:Input>'+
+				    '<wps:Input>'+
+				      '<ows:Identifier>coord_list</ows:Identifier>'+
+				      '<wps:Data>'+
+				        '<wps:LiteralData>'+ list +'</wps:LiteralData>'+
+				      '</wps:Data>'+
+				    '</wps:Input>'+
+				    '<wps:Input>'+
+				      '<ows:Identifier>srid</ows:Identifier>'+
+				      '<wps:Data>'+
+				        '<wps:LiteralData>4326</wps:LiteralData>'+
+				      '</wps:Data>'+
+				    '</wps:Input>'+
+				  '</wps:DataInputs>'+
+				  '<wps:ResponseForm>'+
+				    '<wps:RawDataOutput mimeType="text/plain">'+
+				      '<ows:Identifier>processed</ows:Identifier>'+
+				    '</wps:RawDataOutput>'+
+				  '</wps:ResponseForm>'+
+				'</wps:Execute>';
+
+				$.post( "http://localhost:9000/browse/ows", request_process, function( data ) {
+					that.plotdata = data;
+					that.render(that.plot_type);
+				});
+			},
 
 			close: function() {
 	            this.isClosed = true;

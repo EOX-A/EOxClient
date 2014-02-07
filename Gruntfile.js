@@ -80,7 +80,7 @@ module.exports = function (grunt) {
                 changeOrigin: true,
                 xforward: false
             },{
-                context: '/wps',
+                context: '/browse/ows',
                 host: 'localhost',
                 port: 3080,
                 https: false,

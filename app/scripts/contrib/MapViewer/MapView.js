@@ -41,6 +41,8 @@ define(['backbone.marionette',
 					});
 				}.bind(this));*/
 
+				this.colors = d3.scale.category10();
+
 				this.map.events.register("move", this.map, function(data) {
 					//console.log(data.object.getCenter());
 					var center = data.object.getCenter();
@@ -75,7 +77,7 @@ define(['backbone.marionette',
 
 				for (var key in this.drawControls) {
 					this.map.addControl(this.drawControls[key]);
-					this.drawControls[key].events.register("featureadded", '', this.onDone);
+					this.drawControls[key].events.register("featureadded", this, this.onDone);
 				}
 
 				//Go through all defined baselayer and add them to the map
@@ -314,8 +316,13 @@ define(['backbone.marionette',
             },
 
 			onDone: function(evt) {
+				
 				// TODO: How to handle multiple draws etc has to be thought of
 				// as well as what exactly is comunicated out
+				//console.log(colors(evt.feature.layer.features.length-1),evt.feature.layer.features.length-1);
+				color = this.colors(evt.feature.layer.features.length-1);
+				evt.feature.style = {fillColor: color, pointRadius: 6, strokeColor: color, fillOpacity: 0.5};
+				evt.feature.layer.drawFeature(evt.feature);
 				Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
 			},
 

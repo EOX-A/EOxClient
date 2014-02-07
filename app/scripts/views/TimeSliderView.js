@@ -26,6 +26,7 @@
       onShow: function(view) {
 
         this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
+        Communicator.reqres.setHandler('get:time', this.returnTime);
 
         var selectionstart = new Date(this.options.brush.start);
         var selectionend = new Date(this.options.brush.end);
@@ -83,6 +84,10 @@
             }
           }
         }
+      },
+
+      returnTime: function(){
+        return Communicator.mediator.timeOfInterest;
       }
 
     });

@@ -26,6 +26,6 @@
     "analyticsviewer": "v-manip/AnalyticsViewer#~0.0.2"
   },
   "devDependencies": {
-    "Keypress": "*"
+    "Keypress": "~1.0.9"
   }
 }
