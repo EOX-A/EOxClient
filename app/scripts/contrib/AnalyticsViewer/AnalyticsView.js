@@ -20,7 +20,6 @@ define(['backbone.marionette',
 				this.plotdata = [];
 				this.plot_type = 'scatter';
 				this.selected_time = Communicator.reqres.request('get:time');
-				console.log(this.selected_time);
 				$(window).resize(function() {
 					this.onResize();
 				}.bind(this));
@@ -121,8 +120,6 @@ define(['backbone.marionette',
 				}
 				list = list.substring(0, list.length - 1);
 
-				//console.log(list);
-
 				request_process = '<?xml version="1.0" encoding="UTF-8"?>'+
 				'<wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">'+
 				  '<ows:Identifier>getdata</ows:Identifier>'+
@@ -165,7 +162,7 @@ define(['backbone.marionette',
 				  '</wps:ResponseForm>'+
 				'</wps:Execute>';
 
-				$.post( "http://localhost:9000/browse/ows", request_process, function( data ) {
+				$.post( "http://demo.v-manip.eox.at/browse/ows", request_process, function( data ) {
 					that.plotdata = data;
 					that.render(that.plot_type);
 				});
