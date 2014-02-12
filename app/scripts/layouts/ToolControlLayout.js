@@ -28,7 +28,7 @@
 			onShow: function(view){
 		    	this.$('.close').on("click", _.bind(this.onClose, this));
 		    	this.$el.draggable({ 
-		    		containment: "#content",
+		    		containment: "#main",
 		    		scroll: false,
 		    		handle: '.panel-heading'
 	    		});

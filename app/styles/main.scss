@@ -179,11 +179,12 @@ button[active=active] {
  * Tool control
  */
 .toolcontrol {
+  width: 5.2em;
   top: 10em;
   right: 3em;
   font-size: .9em;
-  position: relative;
-  float: right;
+  position: absolute;
+  right: 3em;
 }
 .toolcontrol .panel-heading h3 {
   text-align: center;
