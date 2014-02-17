@@ -1,0 +1,56 @@
+@mixin rounded($radius: 10px) {
+	// -moz-border-radius: 25px 10px / 10px 25px;
+	// border-radius: 25px 10px / 10px 25px;
+
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin rounded-topbottom($top-radius: 8px, $bottom-radius: 8px) {
+	// -moz-border-radius: 25px 10px / 10px 25px;
+	// border-radius: 25px 10px / 10px 25px;
+
+	-moz-border-top-left-radius: $top-radius;
+	border-top-left-radius: $top-radius;
+	-moz-border-top-right-radius: $top-radius;
+	border-top-right-radius: $top-radius;
+
+	-moz-border-bottom-left-radius: $bottom-radius;
+	border-bottom-left-radius: $bottom-radius;
+	-moz-border-bottom-right-radius: $bottom-radius;
+	border-bottom-right-radius: $bottom-radius;
+}
+
+@mixin rounded-leftright($left-radius: 8px, $right-radius: 10px) {
+	// -moz-border-radius: 25px 10px / 10px 25px;
+	// border-radius: 25px 10px / 10px 25px;
+
+	-moz-border-top-left-radius: $left-radius;
+	border-top-left-radius: $left-radius;
+
+	-moz-border-top-right-radius: $right-radius;
+	border-top-right-radius: $right-radius;
+
+	-moz-border-bottom-left-radius: $left-radius;
+	border-bottom-left-radius: $left-radius;
+
+	-moz-border-bottom-right-radius: $right-radius;
+	border-bottom-right-radius: $right-radius;
+}
+
+@mixin rounded-top($left-radius: 8px, $right-radius: 10px) {
+	// -moz-border-radius: 25px 10px / 10px 25px;
+	// border-radius: 25px 10px / 10px 25px;
+
+	-moz-border-top-left-radius: $left-radius;
+	border-top-left-radius: $left-radius;
+
+	-moz-border-top-right-radius: $right-radius;
+	border-top-right-radius: $right-radius;
+
+	// -moz-border-bottom-left-radius: $left-radius;
+	// border-bottom-left-radius: $left-radius;
+
+	// -moz-border-bottom-right-radius: $right-radius;
+	// border-bottom-right-radius: $right-radius;
+}

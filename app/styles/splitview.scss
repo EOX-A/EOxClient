@@ -1,0 +1,85 @@
+@import "defaults";
+
+// Currently the splitview is made up by an absolute layout inside a relative container.
+// This is not the most flexible implementation, however, for our purpose of having
+// a fixed layout it is working well enough. 
+// The absolute layout also circumvents some 'jumping around' of the view divs at certain
+// screen sizes.
+
+.splitview {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.splitview .fullscreen {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.splitview > .view1.halfscreen {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 50%;
+
+	border: solid 1px black;
+}
+
+.splitview > .view2.halfscreen {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+	
+	border: solid 1px black;
+}
+
+.splitview > .view1.quarterscreen {
+	position: absolute;
+	top: 0;
+	bottom: 50%;
+	left: 0;
+	right: 50%;
+	
+	border: solid 1px black;
+}
+
+.splitview > .view2.quarterscreen {
+	position: absolute;
+	top: 0;
+	bottom: 50%;
+	left: 50%;
+	right: 0;
+	
+	border: solid 1px black;
+}
+
+.splitview > .view3.quarterscreen {
+	position: absolute;
+	top: 50%;
+	bottom: 0;
+	left: 0;
+	right: 50%;
+	
+	border: solid 1px black;
+}
+
+.splitview > .view4.quarterscreen {
+	position: absolute;
+	top: 50%;
+	bottom: 0;
+	left: 50%;
+	right: 0;
+	
+	border: solid 1px black;
+}
+
+.splitview .disabled {
+	display: none;
+}

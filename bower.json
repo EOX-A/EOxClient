@@ -17,10 +17,15 @@
     "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.4/libcoverage.js.v0.1.4.zip",
     "d3": "~3.3.5",
     "filesaver": "https://github.com/eligrey/FileSaver.js.git",
-    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.7/d3.TimeSlider.v0.0.7.zip",
+    "virtualglobeviewer": "https://github.com/v-manip/VirtualGlobeViewer.git",
+    "rectangularboxviewer": "https://github.com/v-manip/RectangularBoxViewer.git",
+    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.9/d3.TimeSlider.zip",
     "lm.js": "madhums/lm.js#~0.1.0",
     "bootstrap": "~3.0.1",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.0.3",
+    "analyticsviewer": "v-manip/AnalyticsViewer#~0.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "Keypress": "~1.0.9"
+  }
 }

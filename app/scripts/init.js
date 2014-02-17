@@ -41,10 +41,21 @@
             },
             timeslider_plugins: {
                 deps: ['timeslider', 'libcoverage']
+			},
+            keypress: {
+                exports: 'Keypress'
+            },
+            xtk: {
+                exports: 'X'
+            },
+            'xtk-gui': {
+                exports: 'dat'
             }
         },
 
         paths: {
+            contrib: 'contrib',
+            core: 'core',
             requirejs: '../bower_components/requirejs/require',
             jquery: '../bower_components/jquery/jquery.min',
             jqueryui: '../bower_components/jquery-ui/ui/minified/jquery-ui.min',
@@ -56,10 +67,12 @@
             libcoverage: '../bower_components/libcoverage/libcoverage.min',
             filesaver: '../bower_components/filesaver/FileSaver',
             lm: '../bower_components/lm.js/lm',
+            analytics: '../bower_components/analyticsviewer/lib/scripts/analytics.min',
+            nv: '../bower_components/nvd3/nv.d3.min',
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min',
-            'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min',
+            'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min', 
             'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter.min',
 
             /* alias the bootstrap js lib */
@@ -80,8 +93,15 @@
             /* marionette and handlebars plugin */
             'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min',
 
-            'openlayers': 'http://openlayers.org/api/OpenLayers'
+            'openlayers': 'http://openlayers.org/api/OpenLayers',
             //'openlayers': 'http://ol3js.org/en/master/build/ol',
+
+            /* 3D viewer modules base libraries */
+            virtualglobeviewer: "../bower_components/virtualglobeviewer/src",
+            x3dom: "../scripts/vendor/x3dom-full.debug",
+            keypress: '../bower_components/Keypress/keypress',
+            xtk: '../scripts/vendor/xtk_edge',
+            'xtk-gui': '../scripts/vendor/xtk_xdat.gui'
         },
 
         hbs: {

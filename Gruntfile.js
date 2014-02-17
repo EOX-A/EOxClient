@@ -6,6 +6,8 @@ var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
 
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -16,7 +18,7 @@ var mountFolder = function (connect, dir) {
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
+    grunt.loadNpmTasks('grunt-connect-proxy');
     // configurable paths
     var yeomanConfig = {
         app: 'app',
@@ -46,10 +48,11 @@ module.exports = function (grunt) {
                 files: [
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+                    '{.tmp,<%= yeoman.app %>}/scripts/**/*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= yeoman.app %>/scripts/config.json',
-                '<%= yeoman.app %>/templates/{,*/}*.hbs'
+                    '<%= yeoman.app %>/templates/{,*/}*.hbs',
+                    '<%= yeoman.app %>/bower_components/rectangularboxviewer/js/EarthServerClient_DailyBuild.js'
                 ]
             }
         },
@@ -69,11 +72,27 @@ module.exports = function (grunt) {
                 // change this to '0.0.0.0' to access the server from outside
                 hostname: 'localhost'
             },
+            proxies: [{
+                context: '/ows',
+                host: 'localhost',
+                port: 38000,
+                https: false,
+                changeOrigin: true,
+                xforward: false
+            },{
+                context: '/browse/ows',
+                host: 'localhost',
+                port: 3080,
+                https: false,
+                changeOrigin: true,
+                xforward: false
+            }],            
             livereload: {
                 options: {
                     middleware: function (connect) {
                         return [
                             lrSnippet,
+                            proxySnippet,
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, yeomanConfig.app)
                         ];
@@ -293,7 +312,8 @@ module.exports = function (grunt) {
                   cwd: '<%= yeoman.app %>/scripts',      // Src matches are relative to this path.
                   src: ['**/*.js'], // Actual pattern(s) to match.
                   dest: '<%= yeoman.dist %>/scripts/',   // Destination path prefix.
-                  ext: '.js',   // Dest filepaths will have this extension.
+                  //ext: '.js',   // Dest filepaths will have this extension.
+                  //ext modifies file names if there is a point in them
                 },
               ]
             }
@@ -334,7 +354,14 @@ module.exports = function (grunt) {
                         'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
                         'bower_components/bootstrap/dist/*/*',
                         'bower_components/font-awesome/css/*',
-                        'bower_components/lm.js/lm.js'
+                        'bower_components/lm.js/lm.js',
+                        'bower_components/virtualglobeviewer/src/{,*/}*.js',
+                        'bower_components/Keypress/keypress.js',
+                        'bower_components/analyticsviewer/lib/scripts/analytics.min.js',
+                        'bower_components/nvd3/nv.d3.min.js',
+                        'bower_components/virtualglobeviewer/src/**',
+                        'bower_components/rectangularboxviewer/**',
+                        'data/**'
                     ]
                 },{
                     expand: true,
@@ -423,6 +450,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'concurrent:server',
+            'configureProxies',
             'connect:livereload',
             'open',
             'watch'

@@ -1,16 +1,22 @@
 {
 
-  "debug":true,
+  "debug": true,
+
+  "modules": [
+    "contrib/MapViewer/MapViewModule",
+    "contrib/VirtualGlobeViewer/VirtualGlobeViewModule",
+    "contrib/RectangularBoxViewer/RectangularBoxViewModule",
+    "contrib/SliceViewer/SliceViewModule",
+    "contrib/AnalyticsViewer/AnalyticsViewModule"
+  ],
 
   "mapConfig": {
-    "module": "views/MapView",
     "model": "models/MapModel",
     "visualizationLibs": [
       "openlayers"
     ],
     "center": [13.41,52.52],
     "zoom": 5,
-
     "baseLayers": [
       {
         "name": "Terrain",
@@ -67,6 +73,26 @@
     ],
     "products": [
       {
+        "name": "SPOT 4 View",
+        "visible": false,
+        "timeSlider": true,
+        "color":"blue",
+        "view": {
+          "id": "SPOT4_View",
+          "protocol": "WMS",
+          "urls": [
+              "http://demo.v-manip.eox.at/browse/ows"
+          ],
+          "style": "default",
+          "format": "image/png"
+        },
+        "download": {
+          "id": "SPOT4_View",
+          "protocol": "EOWCS",
+          "url": "http://demo.v-manip.eox.at/browse/ows"
+        }
+      },
+      {
         "name": "PanEuropean Fractional Snow Cover",
         "visible": false,
         "timeSlider": true,
@@ -77,7 +103,8 @@
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "daily_FSC_PanEuropean_Optical",
@@ -96,7 +123,8 @@
           "urls": [
               "http://neso.cryoland.enveo.at/cryoland/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "daily_SWE_PanEuropean_Microwave",
@@ -108,13 +136,55 @@
         "name": "SRTM",
         "visible": false,
         "timeSlider": false,
+        "color":"yellow",
         "view": {
           "id": "SRTM8bit_mosaic",
           "protocol": "WMS",
           "urls": [
               "http://earthserver.eox.at/open/ows"
           ],
-          "style": "default"
+          "style": "default",
+          "format": "image/png"
+        },
+        "download": {
+          "id": "SRTM_mosaic",
+          "protocol": "EOWCS",
+          "url": "http://earthserver.eox.at/open/ows"
+        }
+      },
+      {
+        "name": "Vertical Curtain VRVis",
+        "visible": false,
+        "timeSlider": false,
+        "color":"purple",
+        "view": {
+          "id": "vrvis_demo",
+          "protocol": "W3DS",
+          "urls": [
+              "http://demo.v-manip.eox.at/browse/ows?"
+          ],
+          "style": "default",
+          "format": "image/png"
+        },
+        "download": {
+          "id": "SRTM_mosaic",
+          "protocol": "EOWCS",
+          "url": "http://earthserver.eox.at/open/ows"
+        }
+      },
+      {
+        "name": "Vertical Curtain EOX",
+        "visible": false,
+        "timeSlider": false,
+        "color":"black",
+        "view": {
+          "id": "eox_demo",
+          "protocol": "W3DS",
+          "urls": [
+              "http://demo.v-manip.eox.at/browse/ows?"
+          ],
+          "style": "default",
+          "format": "image/png"
         },
         "download": {
           "id": "SRTM_mosaic",
@@ -156,7 +226,7 @@
 
   "regions": [
     {
-      "name": "map",
+      "name": "main",
       "class": ""
     },
     {
@@ -182,8 +252,8 @@
   ],
 
   "navBarConfig": {
-    "title" : "EOxClient",
-    "url" : "http://www.eox.at",
+    "title" : "V-MANIP",
+    "url" : "http://www.v-manip.eox.at",
     "items" : [
       {
         "name" : "Layers",
@@ -219,18 +289,17 @@
 
   "timeSlider": {
     "domain": {
-      "start": "2012-07-01T00:00:00Z",
-      "end": "2013-07-01T00:00:00Z"
+      "start": "2012-09-01T00:00:00Z",
+      "end": "2014-01-01T00:00:00Z"
     },
     "brush": {
-       "start": "2013-06-05T00:00:00Z",
-      "end": "2013-06-08T00:00:00Z"
+       "start": "2013-02-01T00:00:00Z",
+      "end": "2013-07-01T00:00:00Z"
     }
   },
 
 
   "views": [
-    "views/MapView",
     "views/NavBarCollectionView",
     "views/NavBarItemView",
     "views/BaseLayerSelectionView",
@@ -303,43 +372,78 @@
     {
       "id":"pointSelection",
       "description": "Allows selection of Points in Map",
-      "icon":"icon-screenshot"
+      "icon":"icon-large icon-screenshot"
     },
     {
       "id":"lineSelection",
       "description": "Allows selection of Lines in Map",
-      "icon":"icon-vector-path-line"
+      "icon":"icon-large icon-vector-path-line"
     },
     {
       "id":"polygonSelection",
       "description": "Allows selection of Polygons in Map",
-      "icon":"icon-vector-path-polygon"
+      "icon":"icon-large icon-vector-path-polygon"
     },
     {
       "id":"bboxSelection",
       "description": "Allows drawing a bounding box selection in Map",
-      "icon":"icon-vector-path-square"
+      "icon":"icon-large icon-vector-path-square"
     }
   ],
 
   "visualizationTools":[
     {
+      "id":"download",
+      "eventToRaise":"dialog:open:download",
+      "description": "WCS Download Tool for specific selections",
+      "icon":"fa fa-download fa-2x",
+      "enabled":false,
+      "active":false
+    }, {
       "id":"selectionManager",
       "eventToRaise":"ui:open:selectionManager",
       "description": "Allows importing, exporting and saving selections",
-      "icon":"icon-edit",
+      "icon":"fa fa-edit fa-2x",
+      "enabled":true,
+      "active":false
+    }
+
+  ],
+
+  "visualizationModes":[
+    {
+      "id":"SingleView",
+      "eventToRaise":"layout:switch:singleview",
+      "description": "Single view of map",
+      "icon":"fa fa-stop fa-2x",
+      "enabled":true,
+      "active":true
+    },
+    {
+      "id":"SplitView",
+      "eventToRaise":"layout:switch:splitview",
+      "description": "Splits screen to visualize two maps side by side",
+      "icon":"fa fa-pause fa-2x",
       "enabled":true,
       "active":false
     },
     {
-      "id":"download",
-      "eventToRaise":"dialog:open:download",
-      "description": "WCS Download Tool for specific selections",
-      "icon":"icon-download-alt",
-      "enabled":false,
+      "id":"QuadView",
+      "eventToRaise":"layout:switch:quadview",
+      "description": "Splits screen into four windows displaying one map on each corner",
+      "icon":"fa fa-th-large fa-2x",
+      "enabled":true,
       "active":false
     }
 
-  ]
+  ],
+
+  "backendConfig": {
+    "MeshFactory": {
+      "protocol": "W3DS",
+      "url": "http://localhost:9000/ows?",
+      "version": "1.0.0"
+    }
+  }
 
 }

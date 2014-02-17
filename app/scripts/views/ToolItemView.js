@@ -15,6 +15,7 @@
 
 			initialize: function(options) {
 				this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
+				this.listenTo(Communicator.mediator, "tool:activated", this.onToolActivated);
 				this.listenTo(Communicator.mediator, "ui:close", this.onDialogClose);
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
 			},
@@ -31,9 +32,11 @@
 		                }
 					}else{
 						if(this.model.get('active')){
+							Communicator.mediator.trigger('tool:activated',{id:this.model.get('id'),active:false});
 		                	Communicator.mediator.trigger(this.model.get('eventToRaise'), false);
 		                	this.model.set({active:false});
 		                }else{
+		                	Communicator.mediator.trigger('tool:activated',{id:this.model.get('id'),active:true});
 		                	Communicator.mediator.trigger(this.model.get('eventToRaise'), true);
 		                	this.model.set({active:true});
 		                }
@@ -42,6 +45,15 @@
 	            }
             },
             onSelectionActivated: function(arg) {
+            	if(arg.active){
+	        		if(this.model.get('id') != arg.id && this.model.get('active')){
+	            		this.model.set({active:false});
+	            		this.render();
+	            	}
+            	}
+            },
+
+            onToolActivated: function(arg){
             	if(arg.active){
 	        		if(this.model.get('id') != arg.id && this.model.get('active')){
 	            		this.model.set({active:false});

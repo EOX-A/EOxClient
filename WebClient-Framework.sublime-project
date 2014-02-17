@@ -1,0 +1,23 @@
+{
+	"folders":
+	[
+		{
+			"name": "Webclient",
+			"path": "app"
+		},
+		{
+			"name": "RectangularBoxViewer",
+			"path": "../RectangularBoxViewer"
+		},
+		{
+			"name": "VirtualGlobeViewer",
+			"path": "app/bower_components/virtualglobeviewer/src"
+		},
+		{
+			"path": "/media/Daten/Projekte/vmanip/ngeo-b/vagrant/shares/v-manip-server/vmanip_server/mesh_cache"
+		},
+		{
+			"path": "/media/Daten/Projekte/vmanip/ngeo-b/vagrant/shares/v-manip-server/vmanip_server/mesh_factory"
+		}
+	]
+}

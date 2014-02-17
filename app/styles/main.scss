@@ -1,6 +1,17 @@
 $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 
+@import "defaults";
+@import "splitview";
+@import "timeslider";
+@import "mapviewer";
+@import "virtualglobeviewer";
+@import "rectangularboxviewer";
+@import "sliceviewer";
+@import "window";
+@import "analyticsviewer";
+@import "stylesheet";
+
 /* Not used right now ;)
 #preloadedImages {
        width: 0px;
@@ -18,12 +29,20 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
  * Basic styles
  */
 html, body {
-	height: 100%;
-	width: 100%;
+  height: 100%;
+  width: 100%;
+  padding: 0 !important;
+  // FIXXME: Their are a few 'quirks' in the layout, making it necessary to force hidding the scrollbars
+  // for some cases:
+  overflow: hidden;
+}
+
+body {
+  background-color: $default-background !important;
 }
 
 ul, li {
- 	list-style-type: none;
+  list-style-type: none;
   list-style-position: inside;
 }
 
@@ -56,7 +75,7 @@ body.wait *, body.wait {
 }
 
 #loadscreen i {
-  top: 35%;
+  top: 50%;
   position: absolute;
 }
 
@@ -70,6 +89,7 @@ div#preload {
   top: 60px;
   width:40%;
   left: 30%;
+  z-index: $layer-gui;
 }
 
 
@@ -86,6 +106,10 @@ div#preload {
   float: left;
   margin: -.55em 0 0 -.6em;
   font-size: 1em;
+}
+
+.panel {
+  z-index: $layer-gui;
 }
 
 .modal{
@@ -155,11 +179,12 @@ button[active=active] {
  * Tool control
  */
 .toolcontrol {
+  width: 5.2em;
   top: 10em;
   right: 3em;
   font-size: .9em;
-  position: relative;
-  float: right;
+  position: absolute;
+  right: 3em;
 }
 .toolcontrol .panel-heading h3 {
   text-align: center;
@@ -198,30 +223,39 @@ button[active=active] {
 }
 
 /*
+ * Empty view
+ */
+
+.empty-view {
+  position: absolute;
+
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  padding-top: 50%;
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+  color: #6B6868;
+}
+
+/*
  * Old Styles
  */
 
-#content {
-	height: 100%;
-	width: 100%;
-}
+// #content {
+// 	height: 100%;
+// 	width: 100%;
+// }
 
-#map {
-	height: 100%;
-	width: 100%;
-	position: absolute;
-}
+#main {
+  position: absolute;
 
-#leftSideBar {
-
-}
-
-#rightSideBar {
-
-}
-
-#topBar {
-
+  top: $header-height;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #bottomBar {
@@ -253,10 +287,6 @@ button[active=active] {
 
 #viewContent{
 	position: relative;
-}
-
-#OpenLayers_Control_Zoom_5 {
-	top: 60px;
 }
 
 .tab-header {

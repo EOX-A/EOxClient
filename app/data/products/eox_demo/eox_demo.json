@@ -1,0 +1,1937 @@
+{
+    "accessors": {
+        "attribute_112": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 400,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.823015,
+                0.54421,
+                0.204669
+            ],
+            "min": [
+                -0.847122,
+                0.530614,
+                0.183135
+            ],
+            "type": 35665
+        },
+        "attribute_114": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 448,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_131": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 480,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.818198,
+                0.545098,
+                0.221822
+            ],
+            "min": [
+                -0.842435,
+                0.531664,
+                0.199951
+            ],
+            "type": 35665
+        },
+        "attribute_133": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 528,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_150": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 560,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.813145,
+                0.545798,
+                0.23891
+            ],
+            "min": [
+                -0.837505,
+                0.532532,
+                0.216708
+            ],
+            "type": 35665
+        },
+        "attribute_152": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 608,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_169": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 640,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.807859,
+                0.546308,
+                0.255927
+            ],
+            "min": [
+                -0.832332,
+                0.533216,
+                0.233402
+            ],
+            "type": 35665
+        },
+        "attribute_17": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.843473,
+                0.537014,
+                0.118105
+            ],
+            "min": [
+                -0.866804,
+                0.522705,
+                0.0983472
+            ],
+            "type": 35665
+        },
+        "attribute_171": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 688,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_188": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 720,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.802342,
+                0.546627,
+                0.27287
+            ],
+            "min": [
+                -0.826922,
+                0.533714,
+                0.250027
+            ],
+            "type": 35665
+        },
+        "attribute_19": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 48,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_190": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 768,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_207": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 800,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.796598,
+                0.546751,
+                0.289732
+            ],
+            "min": [
+                -0.821275,
+                0.534025,
+                0.266579
+            ],
+            "type": 35665
+        },
+        "attribute_209": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 848,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_226": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 880,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.790629,
+                0.546751,
+                0.306509
+            ],
+            "min": [
+                -0.815395,
+                0.534078,
+                0.283053
+            ],
+            "type": 35665
+        },
+        "attribute_228": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 928,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_245": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 960,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.784439,
+                0.546681,
+                0.323197
+            ],
+            "min": [
+                -0.809285,
+                0.533817,
+                0.299443
+            ],
+            "type": 35665
+        },
+        "attribute_247": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 1008,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_264": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 1040,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.778029,
+                0.546414,
+                0.339789
+            ],
+            "min": [
+                -0.802949,
+                0.533363,
+                0.315746
+            ],
+            "type": 35665
+        },
+        "attribute_266": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 1088,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_283": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 1120,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.771405,
+                0.545948,
+                0.356282
+            ],
+            "min": [
+                -0.796388,
+                0.532713,
+                0.331956
+            ],
+            "type": 35665
+        },
+        "attribute_285": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 1168,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_302": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 1200,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.764568,
+                0.545284,
+                0.37267
+            ],
+            "min": [
+                -0.789607,
+                0.531868,
+                0.348069
+            ],
+            "type": 35665
+        },
+        "attribute_304": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 1248,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_36": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 80,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.839873,
+                0.538813,
+                0.135508
+            ],
+            "min": [
+                -0.863376,
+                0.524634,
+                0.115382
+            ],
+            "type": 35665
+        },
+        "attribute_38": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 128,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_55": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 160,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.836025,
+                0.540435,
+                0.15287
+            ],
+            "min": [
+                -0.859691,
+                0.526392,
+                0.132384
+            ],
+            "type": 35665
+        },
+        "attribute_57": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 208,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_74": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 240,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.831931,
+                0.541876,
+                0.170188
+            ],
+            "min": [
+                -0.855752,
+                0.527976,
+                0.149346
+            ],
+            "type": 35665
+        },
+        "attribute_76": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 288,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "attribute_93": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 320,
+            "byteStride": 12,
+            "count": 4,
+            "max": [
+                -0.827593,
+                0.543135,
+                0.187456
+            ],
+            "min": [
+                -0.851562,
+                0.529384,
+                0.166265
+            ],
+            "type": 35665
+        },
+        "attribute_95": {
+            "bufferView": "bufferView_321",
+            "byteOffset": 368,
+            "byteStride": 8,
+            "count": 4,
+            "max": [
+                1,
+                1
+            ],
+            "min": [
+                0,
+                0
+            ],
+            "type": 35664
+        },
+        "indices_110": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 60,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_129": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 72,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_148": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 84,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_15": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 0,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_167": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 96,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_186": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 108,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_205": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 120,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_224": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 132,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_243": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 144,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_262": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 156,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_281": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 168,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_300": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 180,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_34": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 12,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_53": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 24,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_72": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 36,
+            "count": 6,
+            "type": 5123
+        },
+        "indices_91": {
+            "bufferView": "bufferView_322",
+            "byteOffset": 48,
+            "count": 6,
+            "type": 5123
+        }
+    },
+    "animations": {},
+    "asset": {
+        "extras": {
+            "premultipliedAlpha": true
+        },
+        "generator": "collada2gltf@548c0405add7d72449809fbe8fb2f527f4cdb7cc"
+    },
+    "bufferViews": {
+        "bufferView_321": {
+            "buffer": "eox_demo",
+            "byteLength": 1280,
+            "byteOffset": 0,
+            "target": 34962
+        },
+        "bufferView_322": {
+            "buffer": "eox_demo",
+            "byteLength": 192,
+            "byteOffset": 1280,
+            "target": 34963
+        },
+        "bufferView_323": {
+            "buffer": "eox_demo",
+            "byteLength": 0,
+            "byteOffset": 1472
+        }
+    },
+    "buffers": {
+        "eox_demo": {
+            "byteLength": 1472,
+            "path": "eox_demo/eox_demo.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "image_0": {
+            "path": "eox_demo/data/clouds/20090915_03_002.png"
+        },
+        "image_1": {
+            "path": "eox_demo/data/clouds/20090915_03_003.png"
+        },
+        "image_10": {
+            "path": "eox_demo/data/clouds/20090915_03_013.png"
+        },
+        "image_11": {
+            "path": "eox_demo/data/clouds/20090915_03_014.png"
+        },
+        "image_12": {
+            "path": "eox_demo/data/clouds/20090915_03_015.png"
+        },
+        "image_13": {
+            "path": "eox_demo/data/clouds/20090915_03_016.png"
+        },
+        "image_14": {
+            "path": "eox_demo/data/clouds/20090915_03_017.png"
+        },
+        "image_15": {
+            "path": "eox_demo/data/clouds/20090915_03_018.png"
+        },
+        "image_2": {
+            "path": "eox_demo/data/clouds/20090915_03_005.png"
+        },
+        "image_3": {
+            "path": "eox_demo/data/clouds/20090915_03_006.png"
+        },
+        "image_4": {
+            "path": "eox_demo/data/clouds/20090915_03_007.png"
+        },
+        "image_5": {
+            "path": "eox_demo/data/clouds/20090915_03_008.png"
+        },
+        "image_6": {
+            "path": "eox_demo/data/clouds/20090915_03_009.png"
+        },
+        "image_7": {
+            "path": "eox_demo/data/clouds/20090915_03_010.png"
+        },
+        "image_8": {
+            "path": "eox_demo/data/clouds/20090915_03_011.png"
+        },
+        "image_9": {
+            "path": "eox_demo/data/clouds/20090915_03_012.png"
+        }
+    },
+    "materials": {
+        "effect-0": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_0",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-0"
+        },
+        "effect-1": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_1",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-1"
+        },
+        "effect-10": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_10",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-10"
+        },
+        "effect-11": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_11",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-11"
+        },
+        "effect-12": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_12",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-12"
+        },
+        "effect-13": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_13",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-13"
+        },
+        "effect-14": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_14",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-14"
+        },
+        "effect-15": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_15",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-15"
+        },
+        "effect-2": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_2",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-2"
+        },
+        "effect-3": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_3",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-3"
+        },
+        "effect-4": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_4",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-4"
+        },
+        "effect-5": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_5",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-5"
+        },
+        "effect-6": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_6",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-6"
+        },
+        "effect-7": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_7",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-7"
+        },
+        "effect-8": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_8",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-8"
+        },
+        "effect-9": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "diffuse": "texture_image_9",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "curtainmaterial-9"
+        }
+    },
+    "meshes": {
+        "geometry-0": {
+            "name": "curtain-0",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_17",
+                        "TEXCOORD_0": "attribute_19"
+                    },
+                    "indices": "indices_15",
+                    "material": "effect-0",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-1": {
+            "name": "curtain-1",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_36",
+                        "TEXCOORD_0": "attribute_38"
+                    },
+                    "indices": "indices_34",
+                    "material": "effect-1",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-10": {
+            "name": "curtain-10",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_207",
+                        "TEXCOORD_0": "attribute_209"
+                    },
+                    "indices": "indices_205",
+                    "material": "effect-10",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-11": {
+            "name": "curtain-11",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_226",
+                        "TEXCOORD_0": "attribute_228"
+                    },
+                    "indices": "indices_224",
+                    "material": "effect-11",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-12": {
+            "name": "curtain-12",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_245",
+                        "TEXCOORD_0": "attribute_247"
+                    },
+                    "indices": "indices_243",
+                    "material": "effect-12",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-13": {
+            "name": "curtain-13",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_264",
+                        "TEXCOORD_0": "attribute_266"
+                    },
+                    "indices": "indices_262",
+                    "material": "effect-13",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-14": {
+            "name": "curtain-14",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_283",
+                        "TEXCOORD_0": "attribute_285"
+                    },
+                    "indices": "indices_281",
+                    "material": "effect-14",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-15": {
+            "name": "curtain-15",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_302",
+                        "TEXCOORD_0": "attribute_304"
+                    },
+                    "indices": "indices_300",
+                    "material": "effect-15",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-2": {
+            "name": "curtain-2",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_55",
+                        "TEXCOORD_0": "attribute_57"
+                    },
+                    "indices": "indices_53",
+                    "material": "effect-2",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-3": {
+            "name": "curtain-3",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_74",
+                        "TEXCOORD_0": "attribute_76"
+                    },
+                    "indices": "indices_72",
+                    "material": "effect-3",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-4": {
+            "name": "curtain-4",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_93",
+                        "TEXCOORD_0": "attribute_95"
+                    },
+                    "indices": "indices_91",
+                    "material": "effect-4",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-5": {
+            "name": "curtain-5",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_112",
+                        "TEXCOORD_0": "attribute_114"
+                    },
+                    "indices": "indices_110",
+                    "material": "effect-5",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-6": {
+            "name": "curtain-6",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_131",
+                        "TEXCOORD_0": "attribute_133"
+                    },
+                    "indices": "indices_129",
+                    "material": "effect-6",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-7": {
+            "name": "curtain-7",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_150",
+                        "TEXCOORD_0": "attribute_152"
+                    },
+                    "indices": "indices_148",
+                    "material": "effect-7",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-8": {
+            "name": "curtain-8",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_169",
+                        "TEXCOORD_0": "attribute_171"
+                    },
+                    "indices": "indices_167",
+                    "material": "effect-8",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geometry-9": {
+            "name": "curtain-9",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": "attribute_188",
+                        "TEXCOORD_0": "attribute_190"
+                    },
+                    "indices": "indices_186",
+                    "material": "effect-9",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-0": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-0"
+            ],
+            "name": "node-0"
+        },
+        "node-1": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-1"
+            ],
+            "name": "node-1"
+        },
+        "node-10": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-10"
+            ],
+            "name": "node-10"
+        },
+        "node-11": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-11"
+            ],
+            "name": "node-11"
+        },
+        "node-12": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-12"
+            ],
+            "name": "node-12"
+        },
+        "node-13": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-13"
+            ],
+            "name": "node-13"
+        },
+        "node-14": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-14"
+            ],
+            "name": "node-14"
+        },
+        "node-15": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-15"
+            ],
+            "name": "node-15"
+        },
+        "node-2": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-2"
+            ],
+            "name": "node-2"
+        },
+        "node-3": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-3"
+            ],
+            "name": "node-3"
+        },
+        "node-4": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-4"
+            ],
+            "name": "node-4"
+        },
+        "node-5": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-5"
+            ],
+            "name": "node-5"
+        },
+        "node-6": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-6"
+            ],
+            "name": "node-6"
+        },
+        "node-7": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-7"
+            ],
+            "name": "node-7"
+        },
+        "node-8": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-8"
+            ],
+            "name": "node-8"
+        },
+        "node-9": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geometry-9"
+            ],
+            "name": "node-9"
+        },
+        "root": {
+            "children": [
+                "node-0",
+                "node-1",
+                "node-2",
+                "node-3",
+                "node-4",
+                "node-5",
+                "node-6",
+                "node-7",
+                "node-8",
+                "node-9",
+                "node-10",
+                "node-11",
+                "node-12",
+                "node-13",
+                "node-14",
+                "node-15"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "root"
+        }
+    },
+    "profile": "WebGL 1.0.2",
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "eox-demo0FS",
+            "vertexShader": "eox-demo0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "root"
+            ]
+        }
+    },
+    "shaders": {
+        "eox-demo0FS": {
+            "path": "eox_demo/eox-demo0FS.glsl"
+        },
+        "eox-demo0VS": {
+            "path": "eox_demo/eox-demo0VS.glsl"
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35666
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Lambert",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix"
+                            ],
+                            "texcoordBindings": {
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_image_0": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_0",
+            "target": 3553
+        },
+        "texture_image_1": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_1",
+            "target": 3553
+        },
+        "texture_image_10": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_10",
+            "target": 3553
+        },
+        "texture_image_11": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_11",
+            "target": 3553
+        },
+        "texture_image_12": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_12",
+            "target": 3553
+        },
+        "texture_image_13": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_13",
+            "target": 3553
+        },
+        "texture_image_14": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_14",
+            "target": 3553
+        },
+        "texture_image_15": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_15",
+            "target": 3553
+        },
+        "texture_image_2": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_2",
+            "target": 3553
+        },
+        "texture_image_3": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_3",
+            "target": 3553
+        },
+        "texture_image_4": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_4",
+            "target": 3553
+        },
+        "texture_image_5": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_5",
+            "target": 3553
+        },
+        "texture_image_6": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_6",
+            "target": 3553
+        },
+        "texture_image_7": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_7",
+            "target": 3553
+        },
+        "texture_image_8": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_8",
+            "target": 3553
+        },
+        "texture_image_9": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "image_9",
+            "target": 3553
+        }
+    }
+}

@@ -30,7 +30,7 @@
 		    	this.$('.close').on("click", _.bind(this.onClose, this));
 		    	this.$el.draggable({
 		    		handle: '.panel-heading',
-		    		containment: "#content" ,
+		    		containment: "#main" ,
 		    		scroll: false,
 		    		start: function(event, ui) {
 						$( ".ui-slider" ).detach();

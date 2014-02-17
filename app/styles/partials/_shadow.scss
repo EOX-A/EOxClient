@@ -1,0 +1,15 @@
+@mixin shadow($width: 3px, $color: rgba(0, 0, 0, 0.8)) {
+	-webkit-box-shadow: $width $width 8px $color;
+}
+
+@mixin shadow-top($width: 3px, $color: rgba(0, 0, 0, 0.8)) {
+    -webkit-box-shadow: $width -1*$width 8px $color;
+    -moz-box-shadow:    $width -1*$width 8px $color;
+    box-shadow:         $width -1*$width 8px $color;
+}
+
+@mixin shadow-right($width: 3px, $color: rgba(0, 0, 0, 0.8)) {
+    -webkit-box-shadow: $width 0 8px $color;
+    -moz-box-shadow:    $width 0 8px $color;
+    box-shadow:         $width 0 8px $color;
+}
