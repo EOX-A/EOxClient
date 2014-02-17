@@ -3,11 +3,12 @@ define(['backbone.marionette',
 		'app',
 		'models/AnalyticsModel',
 		'globals',
+		'hbs!tmpl/wps_getdata',
 		'd3',
 		'analytics',
 		'nv'
 	],
-	function(Marionette, Communicator, App, AnalyticsModel, globals) {
+	function(Marionette, Communicator, App, AnalyticsModel, globals, wps_getdataTmpl) {
 
 		var AnalyticsView = Marionette.View.extend({
 
@@ -120,47 +121,14 @@ define(['backbone.marionette',
 				}
 				list = list.substring(0, list.length - 1);
 
-				request_process = '<?xml version="1.0" encoding="UTF-8"?>'+
-				'<wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">'+
-				  '<ows:Identifier>getdata</ows:Identifier>'+
-				  '<wps:DataInputs>'+
-				    '<wps:Input>'+
-				      '<ows:Identifier>collection</ows:Identifier>'+
-				      '<wps:Data>'+
-				        '<wps:LiteralData>SPOT4_Pente</wps:LiteralData>'+
-				      '</wps:Data>'+
-				    '</wps:Input>'+
-				    '<wps:Input>'+
-				      '<ows:Identifier>begin_time</ows:Identifier>'+
-				      '<wps:Data>'+
-				        '<wps:LiteralData>'+ getISODateTimeString(this.selected_time.start) +'</wps:LiteralData>'+
-				      '</wps:Data>'+
-				    '</wps:Input>'+
-				    '<wps:Input>'+
-				      '<ows:Identifier>end_time</ows:Identifier>'+
-				      '<wps:Data>'+
-				        '<wps:LiteralData>'+ getISODateTimeString(this.selected_time.end) +'</wps:LiteralData>'+
-				      '</wps:Data>'+
-				    '</wps:Input>'+
-				    '<wps:Input>'+
-				      '<ows:Identifier>coord_list</ows:Identifier>'+
-				      '<wps:Data>'+
-				        '<wps:LiteralData>'+ list +'</wps:LiteralData>'+
-				      '</wps:Data>'+
-				    '</wps:Input>'+
-				    '<wps:Input>'+
-				      '<ows:Identifier>srid</ows:Identifier>'+
-				      '<wps:Data>'+
-				        '<wps:LiteralData>4326</wps:LiteralData>'+
-				      '</wps:Data>'+
-				    '</wps:Input>'+
-				  '</wps:DataInputs>'+
-				  '<wps:ResponseForm>'+
-				    '<wps:RawDataOutput mimeType="text/plain">'+
-				      '<ows:Identifier>processed</ows:Identifier>'+
-				    '</wps:RawDataOutput>'+
-				  '</wps:ResponseForm>'+
-				'</wps:Execute>';
+				var request_process = wps_getdataTmpl({
+					layer: "SPOT4_Pente",
+					start: getISODateTimeString(this.selected_time.start),
+					end: getISODateTimeString(this.selected_time.end),
+					list: list,
+					srid: "4326"
+				});
+				console.log(request_process);
 
 				$.post( "http://demo.v-manip.eox.at/browse/ows", request_process, function( data ) {
 					that.plotdata = data;
@@ -171,13 +139,8 @@ define(['backbone.marionette',
 			close: function() {
 	            this.isClosed = true;
 	            this.triggerMethod('view:disconnect');
-	        },
+	        }
 
-			/*onClose: function(){
-				this.$el.empty();
-				this.isClosed = true;
-				
-			}*/
 		});
 
 		return AnalyticsView;

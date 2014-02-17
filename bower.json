@@ -19,7 +19,7 @@
     "filesaver": "https://github.com/eligrey/FileSaver.js.git",
     "virtualglobeviewer": "https://github.com/v-manip/VirtualGlobeViewer.git",
     "rectangularboxviewer": "https://github.com/v-manip/RectangularBoxViewer.git",
-    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.8/d3.TimeSlider.zip",
+    "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.9/d3.TimeSlider.zip",
     "lm.js": "madhums/lm.js#~0.1.0",
     "bootstrap": "~3.0.1",
     "font-awesome": "~4.0.3",

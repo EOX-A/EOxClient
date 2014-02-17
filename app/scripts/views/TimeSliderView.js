@@ -74,9 +74,12 @@
             if(options.visible && product.get('timeSlider')){
               this.slider.addDataset(
                 {
-                  id: product.get('download').id,
+                  /*id: product.get('download').id,
                   color: product.get('color'),
-                  data: new TimeSlider.Plugin.EOWCS({ url: product.get('download').url, eoid: product.get('download').id, dataset: product.get('download').id })
+                  data: new TimeSlider.Plugin.EOWCS({ url: product.get('download').url, eoid: product.get('download').id, dataset: product.get('download').id })*/
+                  id: product.get('view').id,
+                  color: product.get('color'),
+                  data: new TimeSlider.Plugin.WMS({ url: product.get('view').urls[0], eoid: product.get('view').id, dataset: product.get('view').id })
                 }
               );
             }else{
