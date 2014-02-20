@@ -16,6 +16,7 @@
         "name": "Terrain",
         "id": "terrain",
         "protocol": "WMTS",
+        "requestEncoding": "REST",
         "visible": true,
         "urls": [
           "http://a.tiles.maps.eox.at/wmts/",
@@ -42,6 +43,7 @@
         "name": "Blue Marble",
         "id": "bluemarble",
         "protocol": "WMTS",
+        "requestEncoding": "REST",
         "visible": false,
         "urls": [
           "http://a.tiles.maps.eox.at/wmts/",
@@ -128,6 +130,7 @@
         "name": "Streets",
         "id": "overlay",
         "protocol": "WMTS",
+        "requestEncoding": "REST",
         "visible": true,
         "urls": [
           "http://a.tiles.maps.eox.at/wmts/",

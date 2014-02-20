@@ -12,7 +12,14 @@ define(['backbone',
 			var MapView = Backbone.View.extend({
 				
 				onShow: function() {
-					this.map = new OpenLayers.Map({div: "map", fallThrough: true});
+
+					this.tileManager = new OpenLayers.TileManager();
+					this.map = new OpenLayers.Map({
+						div: "map",
+						fallThrough: true,
+						tileManager: this.tileManager
+					});
+
 					console.log("Created Map");
 
 					//listen to moeveend event in order to keep router uptodate
@@ -119,7 +126,8 @@ define(['backbone',
 						        wrapDateLine: layer.wrapDateLine,
 						        zoomOffset: layer.zoomOffset,
 						        visible: layerdesc.get("visible"),
-						        time: layerdesc.time
+						        time: layerdesc.time,
+						        requestEncoding: layer.requestEncoding
 							});
 							break;
 

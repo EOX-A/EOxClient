@@ -37,6 +37,7 @@
 				isphericalMercator: null,
 				wrapDateLine: null,
 				zoomOffset: null,
+				requestEncoding: 'KVP',
 			},
 
 			download: {

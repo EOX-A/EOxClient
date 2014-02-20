@@ -91,7 +91,8 @@
 								isBaseLayer: true,
 								wrapDateLine: baselayer.wrapDateLine,
 								zoomOffset: baselayer.zoomOffset,
-								time: baselayer.time
+								time: baselayer.time,
+								requestEncoding: baselayer.requestEncoding
 							}
 						})
 					);
@@ -128,7 +129,8 @@
 								isphericalMercator: products.view.isphericalMercator,
 								isBaseLayer: false,
 								wrapDateLine: products.view.wrapDateLine,
-								zoomOffset: products.view.zoomOffset
+								zoomOffset: products.view.zoomOffset,
+								requestEncoding: products.view.requestEncoding
 							},
 							download: {
 								id : products.download.id,
@@ -166,7 +168,8 @@
 								isBaseLayer: false,
 								wrapDateLine: overlay.wrapDateLine,
 								zoomOffset: overlay.zoomOffset,
-								time: overlay.time
+								time: overlay.time,
+								requestEncoding: overlay.requestEncoding
 							}
 						})
 					);
