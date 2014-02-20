@@ -307,7 +307,6 @@
                 });
 
 
-
                 // Create layout to hold collection views
                 this.toolLayout = new ToolControlLayout();
 
@@ -335,6 +334,17 @@
 					);
 
 				});
+
+				// Go through Navigation Bar items and throw activation event for all
+                // elements that are marked with show == true
+                if (config.navBarConfig) {
+
+					_.each(config.navBarConfig.items, function(list_item){
+						if(list_item.show){
+							Communicator.mediator.trigger(list_item.eventToRaise);
+						}
+					}, this);
+				}
 
 				// Remove loading screen when this point is reached in the script
 				$('#loadscreen').remove();

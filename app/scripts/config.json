@@ -189,13 +189,15 @@
         "name" : "Layers",
         "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
-        "template" : "LayerControl"
+        "template" : "LayerControl",
+        "show":true
       },
       {
         "name" : "Tools",
         "icon" : "fa-wrench",
         "eventToRaise" : "ui:open:toolselection",
-        "template" : "ToolSelection"
+        "template" : "ToolSelection",
+        "show":true
       },
       {
         "name" : "About",
