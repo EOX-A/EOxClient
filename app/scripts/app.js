@@ -329,10 +329,14 @@
 				});
 
 				$(document).ajaxError(function( event, request, settings ) {
+					var statuscode = "";
+					if (request.status != 0)
+						statuscode =  '; Status Code: '+ request.status;
 					$("#error-messages").append(
 					  	'<div class="alert alert-warning alert-danger">'+
 						  '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
 						  '<strong>Warning!</strong> Error response on HTTP ' + settings.type + ' to '+ settings.url.split("?")[0] +
+						  statuscode +
 						'</div>'
 					);
 
