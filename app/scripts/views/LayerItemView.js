@@ -85,9 +85,9 @@
                 var isBaseLayer = false;
                 if (this.model.get('view').isBaseLayer)
                 	isBaseLayer = true;
-                var options = { name: this.model.get('name'), isBaseLayer: isBaseLayer, visible: evt.target.checked };
+                var options = { id: this.model.get('view').id, isBaseLayer: isBaseLayer, visible: evt.target.checked };
 
-                var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+                var product = globals.products.find(function(model) { return model.get('view').id == options.id; });
 
 				if (product){
 

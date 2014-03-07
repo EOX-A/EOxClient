@@ -82,7 +82,7 @@
 
       changeLayer: function (options) {
         if (!options.isBaseLayer){
-          var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+          var product = globals.products.find(function(model) { return model.get('view').id == options.id; });
           if (product){
             if(options.visible && product.get('timeSlider')){
               this.slider.addDataset(

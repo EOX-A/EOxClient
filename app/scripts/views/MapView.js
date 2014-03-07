@@ -38,18 +38,9 @@ define(['backbone',
 				
 				onShow: function() {
 
-					
-
-					var projection = ol.proj.get('EPSG:4326');
-					var projectionExtent = projection.getExtent();
-					var size = ol.extent.getWidth(projectionExtent) / 256;
-					var resolutions = new Array(18);
-					var matrixIds = new Array(18);
-					for (var z = 0; z < 18; ++z) {
-					  // generate resolutions and matrixIds arrays for this WMTS
-					  resolutions[z] = size / Math.pow(2, z);
-					  matrixIds[z] = z;
-					}
+					this.ol_baseLayers = {};
+					this.ol_products = {};
+					this.ol_overlays = {};
 
 					//this.tileManager = new ol.TileManager();
 					this.map = new ol.Map({
@@ -75,13 +66,13 @@ define(['backbone',
 			        });
 
 					//this.listenTo(Communicator.mediator, "map:center", this.centerMap);
-					//this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
-					//this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
+					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
+					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
 					//this.listenTo(Communicator.mediator, "productCollection:updateOpacity", this.onUpdateOpacity);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 					//this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
 					//this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
-					//this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
+					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 
 					//Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
@@ -110,12 +101,6 @@ define(['backbone',
 					});
 
 					
-
-					// Add layers for different selection methods
-					//this.vectorLayer = new ol.layer.Vector("Vector Layer");
-
-	                //this.map.addLayers([this.vectorLayer]);
-	                //this.map.addControl(new ol.Control.MousePosition());
 	                this.boxstart = undefined;
 
 	                this.drawControls = {
@@ -146,28 +131,30 @@ define(['backbone',
 
 	                }, this);
 
-	                /*for(var key in this.drawControls) {
-	                    this.map.addControl(this.drawControls[key]);
-	                    this.drawControls[key].events.register("featureadded",'', this.onDone);
-	                }*/
 
 					//Go through all defined baselayer and add them to the map
 					globals.baseLayers.each(function(baselayer) {
-						this.map.addLayer(this.createLayer(baselayer));
+						var layer = this.createLayer(baselayer);
+						this.ol_baseLayers[baselayer.get('view').id] = layer;
+						this.map.addLayer(layer);
 					}, this);
 
 					// Go through all products and add them to the map
-					/*globals.products.each(function(product){
-						this.map.addLayer(this.createLayer(product));
+					globals.products.each(function(product){
+						var layer = this.createLayer(product);
+						this.ol_products[product.get('view').id] = layer;
+						this.map.addLayer(layer);
 					}, this);
 
 					// Go through all products and add them to the map
 					globals.overlays.each(function(overlay){
-						this.map.addLayer(this.createLayer(overlay));
+						var layer = this.createLayer(overlay);
+						this.ol_overlays[overlay.get('view').id] = layer;
+						this.map.addLayer(layer);
 					}, this);
 
 					// Order (sort) the product layers based on collection order
-					this.onSortProducts();
+					/*this.onSortProducts();
 
 					// Openlayers format readers for loading geojson selections
 					var io_options = {
@@ -229,6 +216,7 @@ define(['backbone',
 							});*/
 							return_layer = new ol.layer.Tile({
 						      //opacity: 0.7,
+						      visible: layer.visible,
 						      source: new ol.source.WMTS({
 						        urls: layer.urls,
 						        layer: layer.id,
@@ -247,7 +235,7 @@ define(['backbone',
 							break;
 
 						case "WMS":
-						return_layer = new OpenLayers.Layer.WMS(
+						/*return_layer = new OpenLayers.Layer.WMS(
 								layerdesc.get("name"),
 						        layer.urls[0],
 						        {
@@ -274,7 +262,19 @@ define(['backbone',
 							        zoomOffset: layer.zoomOffset,
 							        visibility: layerdesc.get("visible")
 							    }
-							);
+							);*/
+							 return_layer = new ol.layer.Tile({
+							 	visible: layerdesc.get("visible"),
+							    source: new ol.source.TileWMS({
+							      crossOrigin: 'anonymous',
+							      params: {
+							      	'LAYERS': layer.id,
+							      	'VERSION': '1.1.0',
+							      	'FORMAT': 'image/png'
+							      },
+							      url: layer.urls[0]
+							    })
+							  })
 							break;
 
 					};
@@ -297,25 +297,31 @@ define(['backbone',
 						globals.baseLayers.forEach(function(model, index) {
 						    model.set("visible", false);
 						});
-						globals.baseLayers.find(function(model) { return model.get('name') == options.name; }).set("visible", true);
-						this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
+						$.each(this.ol_baseLayers, function(index, layer) {
+						    layer.setVisible(false);
+						}); 
+						globals.baseLayers.find(function(model) { return model.get('view').id == options.id; }).set("visible", true);
+						this.ol_baseLayers[options.id].setVisible(true);
 					}else{
-						var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+						var product = globals.products.find(function(model) { return model.get('view').id == options.id; });
 						if (product){
 							product.set("visible", options.visible);
+							this.ol_products[options.id].setVisible(options.visible);
 						}else{
-							globals.overlays.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
+							globals.overlays.find(function(model) { return model.get('view').id == options.id; }).set("visible", options.visible);
+							this.ol_overlays[options.id].setVisible(options.visible);
 						}
-						this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
+						
 						
 					}
 				},
 
-				onSortProducts: function(productLayers) {
+				onSortProducts: function() {
+					$.each(this.ol_products, function(index, layer) {
+					    this.map.removeLayer(layer);
+					}); 
 				    globals.products.each(function(product) {
-				      var productLayer = this.map.getLayersByName(product.get("name"))[0];
-				      var index = globals.products.indexOf(productLayer);
-				      this.map.setLayerIndex(productLayer, index);
+				    	this.map.addLayer(this.ol_products[product.get('view').id]);
 				    }, this);
 				    console.log("Map products sorted");
 				},
@@ -393,15 +399,23 @@ define(['backbone',
 				},
 
 				onTimeChange: function (time) {
-					/*var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
-					
+
+					var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
+
+					$.each(this.ol_products, function(index, layer) {
+					    var params = layer.getSource().getParams();
+
+					});
+
 					globals.products.each(function(product) {
 						if(product.get("timeSlider")){
-							var productLayer = this.map.getLayersByName(product.get("name"))[0];
-				      		productLayer.mergeNewParams({'time':string});
+							var params = this.ol_products[product.get('view').id].getSource().getParams();
+							params['TIME'] = string;
+							this.ol_products[product.get('view').id].getSource().updateParams(params);
 						}
 				     
-				    }, this);*/
+				    }, this);
+
 				},
 
 				onGetGeoJSON: function () {

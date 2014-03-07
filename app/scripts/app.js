@@ -115,11 +115,12 @@
 								units: baselayer.units,
 								transitionEffect: baselayer.transitionEffect,
 								isphericalMercator: baselayer.isphericalMercator,
-								isBaseLayer: true,
+								visible: baselayer.visible,
 								wrapDateLine: baselayer.wrapDateLine,
 								zoomOffset: baselayer.zoomOffset,
 								time: baselayer.time,
-								requestEncoding: baselayer.requestEncoding
+								requestEncoding: baselayer.requestEncoding,
+								isBaseLayer: true
 							}
 						})
 					);
