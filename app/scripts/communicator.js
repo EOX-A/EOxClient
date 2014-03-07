@@ -44,7 +44,7 @@
 
 				// Allow of logging all events when debug activated
 				this.mediator.on("all", function(event){
-					if(event!="progress:change")
+					if(event!="progress:change" && event!='router:setUrl' )
 						console.log(event);
 				});
 
