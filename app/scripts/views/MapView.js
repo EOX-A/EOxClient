@@ -65,13 +65,13 @@ define(['backbone',
 			            Communicator.mediator.trigger("router:setUrl", { x: center[0], y: center[1], l: view.getZoom()});
 			        });
 
-					//this.listenTo(Communicator.mediator, "map:center", this.centerMap);
+					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
 					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
 					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
-					//this.listenTo(Communicator.mediator, "productCollection:updateOpacity", this.onUpdateOpacity);
+					this.listenTo(Communicator.mediator, "productCollection:updateOpacity", this.onUpdateOpacity);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
-					//this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
-					//this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
+					this.listenTo(Communicator.mediator, "map:load:geojson", this.onLoadGeoJSON);
+					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 
 					//Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
@@ -154,10 +154,10 @@ define(['backbone',
 					}, this);
 
 					// Order (sort) the product layers based on collection order
-					/*this.onSortProducts();
+					this.onSortProducts();
 
 					// Openlayers format readers for loading geojson selections
-					var io_options = {
+					/*var io_options = {
 		                'internalProjection': this.map.baseLayer.projection,
 		                'externalProjection': new OpenLayers.Projection('EPSG:4326')
 		            }; 
@@ -289,7 +289,8 @@ define(['backbone',
 				},
 
 				centerMap: function(data){
-					this.map.setCenter(new OpenLayers.LonLat(data.x, data.y), data.l );
+					this.map.getView().setCenter([data.x, data.y]);
+					this.map.getView().setZoom(data.l);
 				},
 
 				changeLayer: function(options){
@@ -317,20 +318,33 @@ define(['backbone',
 				},
 
 				onSortProducts: function() {
+
+					//TODO: Check if there is no other way to do this then 
+					// removing and adding all layers, not happy with this
+					// altough it does not seem to be slow on browser
+
+					var that = this;
 					$.each(this.ol_products, function(index, layer) {
-					    this.map.removeLayer(layer);
-					}); 
-				    globals.products.each(function(product) {
-				    	this.map.addLayer(this.ol_products[product.get('view').id]);
-				    }, this);
+					    that.map.removeLayer(layer);
+					}, that); 
+
+					$.each(this.ol_overlays, function(index, layer) {
+					    that.map.removeLayer(layer);
+					}, that); 
+
+					_.each(globals.products.last(globals.products.length).reverse(), function(product){ 
+						this.map.addLayer(this.ol_products[product.get('view').id]);
+					}, this);
+
+					_.each(globals.overlays.last(globals.overlays.length).reverse(), function(product){ 
+						this.map.addLayer(this.ol_overlays[product.get('view').id]);
+					}, this);
+
 				    console.log("Map products sorted");
 				},
 
 				onUpdateOpacity: function(options) {
-					var layer = this.map.getLayersByName(options.model.get("name"))[0];
-					if (layer){
-						layer.setOpacity(options.value);
-					}
+					this.ol_products[options.model.get('view').id].setOpacity(options.value);
 					
 
 				},
@@ -365,31 +379,36 @@ define(['backbone',
 				},
 
 				onLoadGeoJSON: function (data) {
-					this.vectorLayer.removeAllFeatures();
-					var features = this.geojson.read(data);
+
+					 var old_features = this.source.getAllFeatures();
+                    for (var i in old_features){
+                    	this.source.removeFeature(old_features[i]);
+                    }
+
+					var vectorSource = new ol.source.GeoJSON({object:data});
+					var features = vectorSource.getAllFeatures();
 					var bounds;
+
 		            if(features) {
-		                if(features.constructor != Array) {
-		                    features = [features];
-		                }
 		                for(var i=0; i<features.length; ++i) {
 		                    if (!bounds) {
-		                        bounds = features[i].geometry.getBounds();
+		                        bounds = features[i].getGeometry().getExtent();
 		                    } else {
-		                        bounds.extend(features[i].geometry.getBounds());
+		                        bounds.extend(features[i].getGeometry().getExtent());
 		                    }
 
 		                }
-		                this.vectorLayer.addFeatures(features);
-		                this.map.zoomToExtent(bounds);
+		                this.source.addFeatures(features);
+		                this.map.getView().fitExtent(bounds, this.map.getSize());
 					}
 				},
 
-				onExportGeoJSON: function() {		
-					var geojsonstring = this.geojson.write(this.vectorLayer.features, true);
+				onExportGeoJSON: function() {	
+					var blob;	
+					//var geojsonstring = this.geojson.write(this.vectorLayer.features, true);
 					
-					var blob = new Blob([geojsonstring], {type: "text/plain;charset=utf-8"});
-					saveAs(blob, "selection.geojson");
+					//var blob = new Blob([geojsonstring], {type: "text/plain;charset=utf-8"});
+					//saveAs(blob, "selection.geojson");
 				},
 				
 				onDone: function (evt) {

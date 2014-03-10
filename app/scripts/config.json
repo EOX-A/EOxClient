@@ -67,7 +67,7 @@
       }
     ],
     "products": [
-    {
+      {
         "name": "SPOT 4 View",
         "visible": false,
         "timeSlider": true,
@@ -86,6 +86,27 @@
           "id": "SPOT4_View",
           "protocol": "EOWCS",
           "url": "http://demo.v-manip.eox.at/browse/ows"
+        }
+      },
+      {
+        "name": "PanEuropean Fractional Snow Cover",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol": "EOWCS",
+        "color":"green",
+        "view": {
+          "id": "daily_FSC_PanEuropean_Optical",
+          "protocol": "WMS",
+          "urls": [
+              "http://neso.cryoland.enveo.at/cryoland/ows"
+          ],
+          "style": "default",
+          "format": "image/png"
+        },
+        "download": {
+          "id": "daily_FSC_PanEuropean_Optical",
+          "protocol": "EOWCS",
+          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
         }
       }
     ],
