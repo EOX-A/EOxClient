@@ -41,6 +41,7 @@ define(['backbone',
 					this.ol_baseLayers = {};
 					this.ol_products = {};
 					this.ol_overlays = {};
+					this.geojson_format = new ol.format.GeoJSON();
 
 					//this.tileManager = new ol.TileManager();
 					this.map = new ol.Map({
@@ -405,10 +406,14 @@ define(['backbone',
 
 				onExportGeoJSON: function() {	
 					var blob;	
+
+					var features = this.vector.getSource().getAllFeatures();
+					var geojson_string = JSON.stringify(this.geojson_format.writeFeatures(features));
+					
 					//var geojsonstring = this.geojson.write(this.vectorLayer.features, true);
 					
-					//var blob = new Blob([geojsonstring], {type: "text/plain;charset=utf-8"});
-					//saveAs(blob, "selection.geojson");
+					var blob = new Blob([geojson_string], {type: "text/plain;charset=utf-8"});
+					saveAs(blob, "selection.geojson");
 				},
 				
 				onDone: function (evt) {
