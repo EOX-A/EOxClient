@@ -108,9 +108,9 @@
           } //TODO: Check what to set if timeslider not activated
 
           options.subsetCRS = "http://www.opengis.net/def/crs/EPSG/0/4326";
-          var bbox = this.model.get("AoI").getBounds();
-          options.subsetX = [bbox.left, bbox.right];
-          options.subsetY = [bbox.bottom, bbox.top];
+          var bbox = this.model.get("AoI").getExtent();
+          options.subsetX = [bbox[0], bbox[2]];
+          options.subsetY = [bbox[1], bbox[3]];
 
           // TODO: Check for download protocol !
           set.url = WCS.EO.KVP.describeEOCoverageSetURL(product.get('download').url, key, options);
@@ -178,9 +178,9 @@
         var $downloads = $("#div-downloads"),
             options = {};
 
-        var bbox = this.model.get("AoI").getBounds();
-        options.subsetX = [bbox.left, bbox.right];
-        options.subsetY = [bbox.bottom, bbox.top];
+        var bbox = this.model.get("AoI").getExtent();
+        options.subsetX = [bbox[0], bbox[2]];
+        options.subsetY = [bbox[1], bbox[3]];
 
         // format + outputcrs
         options.format = this.$("#select-output-format").val();
@@ -188,12 +188,12 @@
 
         // apply mask parameter if polygon is not a square
         // (described by 5 points, first and last the same)
-        var components = this.model.get("AoI").components[0].components;
+        var components = this.model.get("AoI").getCoordinates()[0];
         if(components.length>5){
           var coords = [];
           _.each(components, function(point) {
-            coords.push(point.x);
-            coords.push(point.y);
+            coords.push(point[0]);
+            coords.push(point[1]);
           });
           options.mask = coords.join(" ");
         }

@@ -54,18 +54,18 @@
 		},
 
 		onChangeLayer: function (options) {
-	        if (!options.isBaseLayer){
-	            var layer = globals.products.find(function(model) { return model.get('name') == options.name; });
-	            if (layer) { // Layer will be empty if it is an overlay layer
-					var products = this.model.get('products');
-		        	if(options.visible){
-		        		products[layer.get('download').id] = layer;    
-		          	}else{
-		            	delete products[layer.get('download').id];
-		          	}
-		          	this.model.set('products', products);
-	            }
-	        }
+
+            var layer = globals.products.find(function(model) { return model.get('view').id == options.id; });
+            if (layer) { // Layer will be empty if it is an overlay layer
+				var products = this.model.get('products');
+	        	if(options.visible){
+	        		products[layer.get('download').id] = layer;    
+	          	}else{
+	            	delete products[layer.get('download').id];
+	          	}
+	          	this.model.set('products', products);
+            }
+	        
         	this.checkDownload();
 	    },
 
@@ -76,7 +76,7 @@
 
 	    onSelectionChange: function(selection) {
 	        if (selection != null) {
-	          if(selection.CLASS_NAME == "OpenLayers.Geometry.Polygon"){
+	          if(selection.getType() === "Polygon"){
 	            this.model.set('AoI', selection);
 	          }
 	        }else{

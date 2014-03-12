@@ -75,7 +75,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 
-					//Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
+					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
 					var style =  new ol.style.Style({
 						fill: new ol.style.Fill({
@@ -95,6 +95,8 @@ define(['backbone',
 
 
 					this.source = new ol.source.Vector();
+
+					this.source.on("change", this.onDone);
 
 					this.vector = new ol.layer.Vector({
 						source: this.source,
@@ -415,11 +417,23 @@ define(['backbone',
 					var blob = new Blob([geojson_string], {type: "text/plain;charset=utf-8"});
 					saveAs(blob, "selection.geojson");
 				},
+
+
+				onGetGeoJSON: function () {
+					var features = this.vector.getSource().getAllFeatures();
+					var geojson = this.geojson_format.writeFeatures(features);
+
+					return geojson;
+				},
 				
 				onDone: function (evt) {
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
-					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
+					var feature =  evt.target.getAllFeatures().pop();
+					var geometry = null;
+					if(feature)
+						geometry = feature.getGeometry();
+					Communicator.mediator.trigger("selection:changed", geometry);
 				},
 
 				onTimeChange: function (time) {
@@ -440,10 +454,6 @@ define(['backbone',
 				     
 				    }, this);
 
-				},
-
-				onGetGeoJSON: function () {
-					return this.geojson.write(this.vectorLayer.features, true);
 				}
 			});
 			return {"MapView":MapView};
