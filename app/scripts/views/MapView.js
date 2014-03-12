@@ -292,8 +292,9 @@ define(['backbone',
 				},
 
 				centerMap: function(data){
-					this.map.getView().setCenter([data.x, data.y]);
-					this.map.getView().setZoom(data.l);
+					console.log(data);
+					this.map.getView().setCenter([parseFloat(data.x), parseFloat(data.y)]);
+					this.map.getView().setZoom(parseInt(data.l));
 				},
 
 				changeLayer: function(options){
