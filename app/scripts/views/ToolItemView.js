@@ -44,6 +44,8 @@
 				this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 				this.listenTo(Communicator.mediator, "ui:close", this.onDialogClose);
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
+
+				this.d = null;
 			},
 
 			onClick: function(evt){
@@ -87,6 +89,30 @@
             onSelectionEnabled: function(arg) {
             	if(this.model.get('id')==arg.id){
             		this.model.set({enabled: arg.enabled});
+
+            		if(!arg.enabled){
+            			if(!this.d){
+            				this.d = $("<div>");
+            			
+						    this.d.css({
+						        height: this.$el.outerHeight(),
+						        width: this.$el.outerWidth(),
+						        position: "relative",
+						        "margin-top": '-'+this.$el.outerHeight() + 'px'
+						    })
+						    this.d.attr('title',this.model.get('disabledDescription'));
+						    this.d.tooltip();
+
+	            			this.$el.after(this.d);
+            			}
+            		}
+            		else{
+            			if(this.d){
+            				this.d.remove();
+            				this.d = null;
+            			}
+            		}
+
             		this.render();
             	}
             },
@@ -96,6 +122,28 @@
                 } else if(this.$el.is("button")) {
                     this.setElement($(this.$el.children()[0]).unwrap());
                 }
+
+                this.$el.attr('title',this.model.get('description'));
+        		
+            },
+
+            onShow: function() {
+            	if(!this.model.get('enabled')){
+        			if(!this.d){
+        				this.d = $("<div>");
+        			
+					    this.d.css({
+					        height: this.$el.outerHeight(),
+					        width: this.$el.outerWidth(),
+					        position: "relative",
+					        "margin-top": '-'+this.$el.outerHeight() + 'px'
+					    })
+					    this.d.attr('title',this.model.get('disabledDescription'));
+					    this.d.tooltip();
+
+            			this.$el.after(this.d);
+        			}
+        		}
             }
 		});
 		return {'ToolItemView':ToolItemView};

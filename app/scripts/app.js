@@ -53,6 +53,13 @@
 
 			configure: function(config) {
 
+				// Load jquery ui tooltip tool
+                $(document).tooltip({ 
+                	position: { my: "left+5 center", at: "right center" },
+                	hide: { effect: false, duration: 0 }
+                	//show: { effect: "blind", duration: 100 }
+                });
+
 				var v = {}; //views
 				var m = {};	//models
 				var t = {};	//templates
@@ -309,6 +316,7 @@
 								id: visTool.id,
 								eventToRaise: visTool.eventToRaise,
 								description: visTool.description,
+								disabledDescription: visTool.disabledDescription,
 								icon:visTool.icon,
 								enabled: visTool.enabled,
 								active: visTool.active,
@@ -336,14 +344,16 @@
                 	})
                 });
 
+                
+
 
                 // Create layout to hold collection views
                 this.toolLayout = new ToolControlLayout();
+                
 
 
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
                 this.bottomBar.show(this.timeSliderView);
-
 
 				// Add a trigger for ajax calls in order to display loading state
 				// in mouse cursor to give feedback to the user the client is busy
