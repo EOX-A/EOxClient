@@ -141,6 +141,8 @@
 							name: products.name,
 							visible: products.visible,
 							timeSlider: products.timeSlider,
+							// Default to WMS if no protocol is defined
+ 							timeSliderProtocol: (products.timeSliderProtocol) ? products.timeSliderProtocol : "EOWCS",
 							color: products.color,
 							time: products.time,
 							opacity: 1,
