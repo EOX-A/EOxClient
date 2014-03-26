@@ -72,6 +72,7 @@
         "name": "PanEuropean Fractional Snow Cover",
         "visible": false,
         "timeSlider": true,
+        "timeSliderProtocol":"EOWCS",
         "color":"green",
         "view": {
           "id": "daily_FSC_PanEuropean_Optical",
@@ -91,6 +92,7 @@
         "name": "PanEuropean Snow Water Equivalent",
         "visible": false,
         "timeSlider": true,
+        "timeSliderProtocol":"EOWCS",
         "color":"red",
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
