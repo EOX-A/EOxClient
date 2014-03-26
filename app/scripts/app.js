@@ -57,7 +57,7 @@
                 $(document).tooltip({ 
                 	position: { my: "left+5 center", at: "right center" },
                 	hide: { effect: false, duration: 0 },
-                	show:{ effect: false, delay: 1000}
+                	show:{ effect: false, delay: 700}
                 });
 
 				var v = {}; //views

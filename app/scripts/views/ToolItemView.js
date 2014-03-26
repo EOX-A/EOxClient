@@ -46,8 +46,6 @@
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
 
 				this.d = null;
-				this.height = 0;
-				this.width = 0;
 			},
 
 			onClick: function(evt){
@@ -94,13 +92,14 @@
 
             		if(!arg.enabled){
             			if(!this.d){
+            				var size = this.model.get('size');
             				this.d = $("<div>");
             			
 						    this.d.css({
-						        height: this.height,
-				        		width: this.width,
+						       	height: size.y,
+						        width: size.x,
 						        position: "relative",
-						        "margin-top": '-'+this.$el.outerHeight() + 'px'
+						        "margin-top": '-'+ size.y + 'px'
 						    })
 						    this.d.attr('title',this.model.get('disabledDescription'));
 						    this.d.tooltip();
@@ -113,46 +112,63 @@
             				this.d.remove();
             				this.d = null;
             			}
+            			this.$el.attr('title',this.model.get('description'));
             		}
 
             		this.render();
             	}
             },
+
             onRender: function () {
                 if(this.$el.is("div")) {
                     this.setElement($(this.$el.children()[0]).unwrap());
                 } else if(this.$el.is("button")) {
                     this.setElement($(this.$el.children()[0]).unwrap());
                 }
-
-                this.$el.attr('title',this.model.get('description'));
-        		
             },
 
-            onShow: function() {
+            onClose: function(){
+            	if(this.d){
+    				this.d.remove();
+    				this.d = null;
+    			}
+            },
 
-            	this.height = (this.$el.outerHeight()!=0) ? this.$el.outerHeight():0;
-            	this.width = (this.$el.outerWidth()!=0) ? this.$el.outerWidth():0;
+            onShow: function(){
 
+            	var size = this.model.get('size');
+
+            	if(size == null){
+            		size = {};
+	            	if (this.$el.outerHeight() != 0)
+	            		size.y = this.$el.outerHeight();
+	            	if (this.$el.outerWidth() != 0)
+	            		size.x = this.$el.outerWidth();
+
+	            	this.model.set('size', size);
+            	}
+            	
             	if(!this.model.get('enabled')){
+        			if(!this.d){
+	    				this.d = $("<div>");
+	    			
+					    this.d.css({
+					        height: size.y,
+					        width: size.x,
+					        position: "relative",
+					        "margin-top": '-'+ size.y + 'px'
+					    })
+					    this.d.attr('title',this.model.get('disabledDescription'));
+					    this.d.tooltip();
 
-            		this.render();
+	        			this.$el.after(this.d);
+	        		}
         			
-    				this.d = $("<div>");
-    			
-				    this.d.css({
-				        height: this.height,
-				        width: this.width,
-				        position: "relative",
-				        "margin-top": '-'+this.$el.outerHeight() + 'px'
-				    })
-				    this.d.attr('title',this.model.get('disabledDescription'));
-				    this.d.tooltip();
-
-        			this.$el.after(this.d);
-        			
+        		}else{
+        			this.$el.attr('title',this.model.get('description'));
         		}
             }
+           
 		});
 		return {'ToolItemView':ToolItemView};
 	});
