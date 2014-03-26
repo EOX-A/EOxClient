@@ -33,10 +33,12 @@
 		var ToolModel = Backbone.Model.extend({
 			id: "",
 			description:"",
+			disabledDescription: "",
 			active: false,
 			enabled: true,
 			icon:"",
-			type:""
+			type:"",
+			size: null
 		});
 		return {'ToolModel':ToolModel};
 	});

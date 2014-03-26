@@ -44,6 +44,8 @@
 				this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
 				this.listenTo(Communicator.mediator, "ui:close", this.onDialogClose);
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
+
+				this.d = null;
 			},
 
 			onClick: function(evt){
@@ -87,16 +89,86 @@
             onSelectionEnabled: function(arg) {
             	if(this.model.get('id')==arg.id){
             		this.model.set({enabled: arg.enabled});
+
+            		if(!arg.enabled){
+            			if(!this.d){
+            				var size = this.model.get('size');
+            				this.d = $("<div>");
+            			
+						    this.d.css({
+						       	height: size.y,
+						        width: size.x,
+						        position: "relative",
+						        "margin-top": '-'+ size.y + 'px'
+						    })
+						    this.d.attr('title',this.model.get('disabledDescription'));
+						    this.d.tooltip();
+
+	            			this.$el.after(this.d);
+            			}
+            		}
+            		else{
+            			if(this.d){
+            				this.d.remove();
+            				this.d = null;
+            			}
+            			this.$el.attr('title',this.model.get('description'));
+            		}
+
             		this.render();
             	}
             },
+
             onRender: function () {
                 if(this.$el.is("div")) {
                     this.setElement($(this.$el.children()[0]).unwrap());
                 } else if(this.$el.is("button")) {
                     this.setElement($(this.$el.children()[0]).unwrap());
                 }
+            },
+
+            onClose: function(){
+            	if(this.d){
+    				this.d.remove();
+    				this.d = null;
+    			}
+            },
+
+            onShow: function(){
+
+            	var size = this.model.get('size');
+
+            	if(size == null){
+            		size = {};
+	            	if (this.$el.outerHeight() != 0)
+	            		size.y = this.$el.outerHeight();
+	            	if (this.$el.outerWidth() != 0)
+	            		size.x = this.$el.outerWidth();
+
+	            	this.model.set('size', size);
+            	}
+            	
+            	if(!this.model.get('enabled')){
+        			if(!this.d){
+	    				this.d = $("<div>");
+	    			
+					    this.d.css({
+					        height: size.y,
+					        width: size.x,
+					        position: "relative",
+					        "margin-top": '-'+ size.y + 'px'
+					    })
+					    this.d.attr('title',this.model.get('disabledDescription'));
+					    this.d.tooltip();
+
+	        			this.$el.after(this.d);
+	        		}
+        			
+        		}else{
+        			this.$el.attr('title',this.model.get('description'));
+        		}
             }
+           
 		});
 		return {'ToolItemView':ToolItemView};
 	});
