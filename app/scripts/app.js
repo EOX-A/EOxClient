@@ -56,8 +56,8 @@
 				// Load jquery ui tooltip tool
                 $(document).tooltip({ 
                 	position: { my: "left+5 center", at: "right center" },
-                	hide: { effect: false, duration: 0 }
-                	//show: { effect: "blind", duration: 100 }
+                	hide: { effect: false, duration: 0 },
+                	show:{ effect: false, delay: 1000}
                 });
 
 				var v = {}; //views

@@ -46,6 +46,8 @@
 				this.listenTo(Communicator.mediator, "selection:enabled", this.onSelectionEnabled);
 
 				this.d = null;
+				this.height = 0;
+				this.width = 0;
 			},
 
 			onClick: function(evt){
@@ -95,8 +97,8 @@
             				this.d = $("<div>");
             			
 						    this.d.css({
-						        height: this.$el.outerHeight(),
-						        width: this.$el.outerWidth(),
+						        height: this.height,
+				        		width: this.width,
 						        position: "relative",
 						        "margin-top": '-'+this.$el.outerHeight() + 'px'
 						    })
@@ -128,21 +130,27 @@
             },
 
             onShow: function() {
-            	if(!this.model.get('enabled')){
-        			if(!this.d){
-        				this.d = $("<div>");
-        			
-					    this.d.css({
-					        height: this.$el.outerHeight(),
-					        width: this.$el.outerWidth(),
-					        position: "relative",
-					        "margin-top": '-'+this.$el.outerHeight() + 'px'
-					    })
-					    this.d.attr('title',this.model.get('disabledDescription'));
-					    this.d.tooltip();
 
-            			this.$el.after(this.d);
-        			}
+            	this.height = (this.$el.outerHeight()!=0) ? this.$el.outerHeight():0;
+            	this.width = (this.$el.outerWidth()!=0) ? this.$el.outerWidth():0;
+
+            	if(!this.model.get('enabled')){
+
+            		this.render();
+        			
+    				this.d = $("<div>");
+    			
+				    this.d.css({
+				        height: this.height,
+				        width: this.width,
+				        position: "relative",
+				        "margin-top": '-'+this.$el.outerHeight() + 'px'
+				    })
+				    this.d.attr('title',this.model.get('disabledDescription'));
+				    this.d.tooltip();
+
+        			this.$el.after(this.d);
+        			
         		}
             }
 		});
