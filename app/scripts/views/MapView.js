@@ -61,6 +61,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 
+					Communicator.reqres.setHandler('map:get:extent', _.bind(this.onGetMapExtent, this));
 					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
 					// Add layers for different selection methods
@@ -307,6 +308,10 @@ define(['backbone',
 				     
 				    }, this);
 				},
+
+				onGetMapExtent: function(){
+	            	return this.map.getExtent();
+	            },
 
 				onGetGeoJSON: function () {
 					return this.geojson.write(this.vectorLayer.features, true);
