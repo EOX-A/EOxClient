@@ -69,6 +69,28 @@
     ],
     "products": [
       {
+        "name": "SPOT 4 View",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol": "WPS",
+        "color":"blue",
+        "view":
+        {
+          "id": "SPOT4_View",
+          "protocol": "WMS",
+          "urls": [
+              "http://demo.v-manip.eox.at/browse/ows"
+          ],
+          "style": "default",
+          "format": "image/png"
+        },
+        "download": {
+          "id": "SPOT4_View",
+          "protocol": "EOWCS",
+          "url": "http://demo.v-manip.eox.at/browse/ows"
+        }
+      },
+      {
         "name": "PanEuropean Fractional Snow Cover",
         "visible": false,
         "timeSlider": true,

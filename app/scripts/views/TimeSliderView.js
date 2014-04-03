@@ -41,7 +41,8 @@
     var TimeSliderView = Backbone.Marionette.ItemView.extend({
       id: 'timeslider',
       events: {
-        'selectionChanged': 'onChangeTime'
+        'selectionChanged': 'onChangeTime',
+        'coverageselected': 'onCoverageSelected'
       },
       initialize: function(options){
         this.options = options;

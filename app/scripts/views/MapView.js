@@ -50,11 +50,12 @@ define(['backbone',
 					//listen to moeveend event in order to keep router uptodate
 					this.map.events.register("moveend", this.map, function(data) {
 			            Communicator.mediator.trigger("router:setUrl", { x: data.object.center.lon, y: data.object.center.lat, l: data.object.zoom});
-			            Communicator.mediator.trigger("map:position:change", this.map.getExtent());
+			            Communicator.mediator.trigger("map:position:change", data.object.getExtent());
 			        });
 
 					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
 					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
+					this.listenTo(Communicator.mediator, 'map:set:extent', this.onSetExtent);
 					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
 					this.listenTo(Communicator.mediator, "productCollection:updateOpacity", this.onUpdateOpacity);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
@@ -312,6 +313,11 @@ define(['backbone',
 
 				onGetMapExtent: function(){
 	            	return this.map.getExtent();
+	            },
+
+	            onSetExtent: function(bbox) {
+	            	this.map.zoomToExtent(bbox);
+
 	            },
 
 				onGetGeoJSON: function () {
