@@ -50,6 +50,7 @@ define(['backbone',
 					//listen to moeveend event in order to keep router uptodate
 					this.map.events.register("moveend", this.map, function(data) {
 			            Communicator.mediator.trigger("router:setUrl", { x: data.object.center.lon, y: data.object.center.lat, l: data.object.zoom});
+			            Communicator.mediator.trigger("map:position:change", this.map.getExtent());
 			        });
 
 					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
