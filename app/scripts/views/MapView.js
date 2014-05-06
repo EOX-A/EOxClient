@@ -291,6 +291,8 @@ define(['backbone',
 					var height = e.currentTarget.clientHeight;
 					var featurecount = 10;
 					var bbox = this.map.getExtent();
+					bbox = bbox.toArray();
+					bbox = [bbox[1], bbox[0], bbox[3], bbox[2]].join(",");
 					var strtime = getISODateTimeString(this.timeinterval.start) + "/"+ getISODateTimeString(this.timeinterval.end);
 
 					console.log(this.map);
@@ -307,7 +309,7 @@ define(['backbone',
 									  	'SERVICE=WMS&' +
 									  	'VERSION=1.3.0&' +
 									  	'REQUEST=GetFeatureInfo&' +
-									  	'BBOX=' + bbox.toBBOX() + '&' +
+									  	'BBOX=' + bbox + '&' +
 									  	'FEATURE_COUNT=' + featurecount + '&' +
 									  	'HEIGHT=' + height + '&' +
 									  	'WIDTH=' + width + '&' +
@@ -321,9 +323,11 @@ define(['backbone',
 
 						$.get( request, function(data) {
 						  Communicator.mediator.trigger("getfeatureinfo:response", data);
+						  console.log(data.responseText);
 						})
 						  .fail(function(data) {
 						    Communicator.mediator.trigger("getfeatureinfo:response", data);
+						    console.log(data.responseText);
 						  });
 					}
 				},
