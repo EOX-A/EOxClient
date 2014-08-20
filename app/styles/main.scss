@@ -95,15 +95,14 @@ body.wait *, body.wait {
   width: 100%;
   height: 100%;
   position: absolute;
-  left: 0;
   z-index: 5000;
   text-align: center;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 #loadscreen i {
-  top: 35%;
-  position: absolute;
+  position:relative;
+  top: calc(50%);
 }
 
 div#preload { 
