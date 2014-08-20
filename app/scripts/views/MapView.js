@@ -42,7 +42,12 @@ define(['backbone',
 					this.map = new OpenLayers.Map({
 						div: "map",
 						fallThrough: true,
-						tileManager: this.tileManager
+						tileManager: this.tileManager,
+						controls: [
+						 	new OpenLayers.Control.Navigation(),
+	                        new OpenLayers.Control.Zoom( { zoomInId: "zoomIn", zoomOutId: "zoomOut" } ),
+	                        new OpenLayers.Control.Attribution( { displayClass: 'olControlAttribution' } )
+	                    ]
 					});
 
 					console.log("Created Map");
@@ -155,6 +160,7 @@ define(['backbone',
 						        zoomOffset: layer.zoomOffset,
 						        visible: layerdesc.get("visible"),
 						        time: layerdesc.time,
+		                        attribution: layer.attribution,
 						        requestEncoding: layer.requestEncoding
 							});
 							break;
@@ -185,7 +191,8 @@ define(['backbone',
 							        isBaseLayer: layer.isBaseLayer,
 							        wrapDateLine: layer.wrapDateLine,
 							        zoomOffset: layer.zoomOffset,
-							        visibility: layerdesc.get("visible")
+							        visibility: layerdesc.get("visible"),
+							        attribution: layer.attribution
 							    }
 							);
 							break;

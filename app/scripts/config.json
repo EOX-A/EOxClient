@@ -37,7 +37,8 @@
         "transitionEffect": "resize",
         "isphericalMercator": false,
         "wrapDateLine": true,
-        "zoomOffset": 0
+        "zoomOffset": 0,
+        "attribution": "Terrain { Data &copy; <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\">OpenStreetMap</a> contributors and <a href='javascript:;' onClick='toggle(terrain_attribution)'>others</a>, Rendering &copy; <a href=\"http://eox.at\" target=\"_blank\">EOX</a> }"
       },
       {
         "name": "Blue Marble",
@@ -64,7 +65,8 @@
         "transitionEffect": "resize",
         "isphericalMercator": false,
         "wrapDateLine": true,
-        "zoomOffset": 0
+        "zoomOffset": 0,
+        "attribution": "Blue Marble { &copy; <a href=\"http://nasa.gov\" target=\"_blank\">NASA</a> }"
       }
     ],
     "products": [
@@ -175,7 +177,8 @@
         "transitionEffect": "resize",
         "isphericalMercator": false,
         "wrapDateLine": true,
-        "zoomOffset": 0
+        "zoomOffset": 0,
+        "attribution": "Overlay { Data &copy; <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\">OpenStreetMap</a> contributors, Rendering &copy; <a href=\"http://eox.at\" target=\"_blank\">EOX</a> and <a href=\"https://github.com/mapserver/basemaps\" target=\"_blank\">MapServer</a> }"
       }
     ]
   },
