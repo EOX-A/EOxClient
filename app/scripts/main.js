@@ -59,8 +59,8 @@
 	],
 	function ( Backbone, App ) {
 
-		$.get("scripts/config.json", function(values) {
-			
+		$.getJSON("scripts/config.json", function(values) {
+	
 			// Configure Debug options
 			setuplogging(values.debug);
 
@@ -95,8 +95,26 @@
 			});
 
 			
+			//Timeout for loading wheel if there is an error in the application and the loading wheel is not removed
+			setTimeout(function() {
+				if($('#loadscreen').length){
+
+					$('#loadscreen').remove();
+					$("#error-messages").append(
+					  	'<div class="alert alert-warning alert-danger">'+
+						  '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+						  '<strong>Warning!</strong> <p>There was a problem loading the application, some functionality might not be available.</p>' +
+						  '<p>Please contact the website administrator if you have any problems.</p>' +
+						'</div>'
+					);
+				}	
+			}, 10000);
 
 				
+		})
+		.fail(function() {
+			$('#loadscreen').empty();
+			$('#loadscreen').html('<p class="warninglabel">There was a problem loading the configuration file, please contact the site administrator</p>');
 		});
 		
 	});

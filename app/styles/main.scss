@@ -107,6 +107,12 @@ body.wait *, body.wait {
   top: calc(50%);
 }
 
+
+#loadscreen .warninglabel {
+  position:relative;
+  top: calc(50%);
+}
+
 div#preload { 
   display: none;
 }
