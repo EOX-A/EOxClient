@@ -46,6 +46,18 @@ module.exports = function (grunt) {
 
 
     grunt.initConfig({
+        shell: {
+            buildOL: {
+                options: {
+                    stdout: true,
+                    execOptions: {
+                        cwd: 'app/bower_components/openlayers/build'
+                    }
+                },
+                command: 'python build.py ../../../scripts/vendor/customol ../OpenLayers.js'
+            }
+        },
+
         yeoman: yeomanConfig,
         watch: {
             coffee: {
@@ -322,7 +334,7 @@ module.exports = function (grunt) {
                         'bower_components/filesaver/FileSaver.js',
                         'bower_components/backbone.marionette/lib/core/amd/backbone.marionette.min.js',
                         'bower_components/backbone.wreqr/lib/amd/backbone.wreqr.min.js',
-                        'bower_components/backbone.babysitter/lib/amd/backbone.babysitter.min.js',
+                        'bower_components/backbone.babysitter/lib/backbone.babysitter.min.js',
                         'bower_components/requirejs-text/text.js',
                         'bower_components/require-handlebars-plugin/Handlebars.js',
                         'bower_components/require-handlebars-plugin/hbs/i18nprecompile.js',
@@ -331,7 +343,9 @@ module.exports = function (grunt) {
                         'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
                         'bower_components/bootstrap/dist/*/*',
                         'bower_components/font-awesome/css/*',
-                        'bower_components/lm.js/lm.js'
+                        'bower_components/lm.js/lm.js',
+                        'bower_components/openlayers/OpenLayers.js',
+                        'bower_components/openlayers/theme/**',
                     ]
                 },{
                     expand: true,
@@ -415,6 +429,7 @@ module.exports = function (grunt) {
         }
 
         grunt.task.run([
+            'buildOL',
             'clean:server',
             'concurrent:server',
             'connect:livereload',
@@ -424,6 +439,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', [
+        'buildOL',
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
@@ -435,6 +451,17 @@ module.exports = function (grunt) {
         //'rev',
         'usemin'
     ]);
+
+
+    grunt.registerTask('buildOL', 'Build OpenLayers if it has not been build already', function () {
+
+
+        if(!grunt.file.isFile("app/bower_components/openlayers/OpenLayers.js")){
+            grunt.verbose.writeln('OpenLayers is not build; Initiating OpenLayers build.');
+            grunt.task.run('shell:buildOL');
+        }
+
+    });
 
     grunt.registerTask('default', [
         'jshint',

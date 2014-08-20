@@ -20,7 +20,8 @@
     "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.13/d3.TimeSlider.zip",
     "lm.js": "madhums/lm.js#~0.1.0",
     "bootstrap": "~3.0.1",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.0.3",
+    "openlayers": "*"
   },
   "devDependencies": {}
 }
