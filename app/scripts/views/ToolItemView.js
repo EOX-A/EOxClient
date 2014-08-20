@@ -89,32 +89,6 @@
             onSelectionEnabled: function(arg) {
             	if(this.model.get('id')==arg.id){
             		this.model.set({enabled: arg.enabled});
-
-            		if(!arg.enabled){
-            			if(!this.d){
-            				var size = this.model.get('size');
-            				this.d = $("<div>");
-            			
-						    this.d.css({
-						       	height: size.y,
-						        width: size.x,
-						        position: "relative",
-						        "margin-top": '-'+ size.y + 'px'
-						    })
-						    this.d.attr('title',this.model.get('disabledDescription'));
-						    this.d.tooltip();
-
-	            			this.$el.after(this.d);
-            			}
-            		}
-            		else{
-            			if(this.d){
-            				this.d.remove();
-            				this.d = null;
-            			}
-            			this.$el.attr('title',this.model.get('description'));
-            		}
-
             		this.render();
             	}
             },
@@ -125,6 +99,42 @@
                 } else if(this.$el.is("button")) {
                     this.setElement($(this.$el.children()[0]).unwrap());
                 }
+
+                var size = this.model.get('size');
+             	if(size == null){
+             		var x, y;
+	             	if (this.$el.outerHeight() != 0)
+	             		y = this.$el.outerHeight();
+	             	if (this.$el.outerWidth() != 0)
+	             		x = this.$el.outerWidth();
+	             	if (x && y){
+	             		size = {x:x,y:y};
+	             		this.model.set('size', size);
+	             	}
+            	}
+            	
+            	if(!this.model.get('enabled')){
+        			if(!this.d && size){
+	     				this.d = $("<div>");
+	     			
+	 				    this.d.css({
+	 				        height: size.y,
+	 				        width: size.x,
+	 				        position: "relative",
+	 				        "margin-top": '-'+ size.y + 'px'
+	 				    })
+	 				    this.d.attr('title',this.model.get('disabledDescription'));
+	          			this.$el.after(this.d);
+	         		}
+        			
+        		}else{
+        			this.$el.attr('title',this.model.get('description'));
+
+        			if(this.d){
+	    				this.d.remove();
+	    				this.d = null;
+	    			}
+        		}
             },
 
             onClose: function(){
@@ -135,39 +145,37 @@
             },
 
             onShow: function(){
-
-            	var size = this.model.get('size');
-
-            	if(size == null){
-            		size = {};
-	            	if (this.$el.outerHeight() != 0)
-	            		size.y = this.$el.outerHeight();
-	            	if (this.$el.outerWidth() != 0)
-	            		size.x = this.$el.outerWidth();
-
-	            	this.model.set('size', size);
+				var size = this.model.get('size');
+             	if(size == null){
+             		var x, y;
+	             	if (this.$el.outerHeight() != 0)
+	             		y = this.$el.outerHeight();
+	             	if (this.$el.outerWidth() != 0)
+	             		x = this.$el.outerWidth();
+	             	if (x && y){
+	             		size = {x:x,y:y};
+	             		this.model.set('size', size);
+	             	}
             	}
             	
             	if(!this.model.get('enabled')){
-        			if(!this.d){
-	    				this.d = $("<div>");
-	    			
-					    this.d.css({
-					        height: size.y,
-					        width: size.x,
-					        position: "relative",
-					        "margin-top": '-'+ size.y + 'px'
-					    })
-					    this.d.attr('title',this.model.get('disabledDescription'));
-					    this.d.tooltip();
-
-	        			this.$el.after(this.d);
-	        		}
+        			if(!this.d && size){
+     				this.d = $("<div>");
+     			
+ 				    this.d.css({
+ 				        height: size.y,
+ 				        width: size.x,
+ 				        position: "relative",
+ 				        "margin-top": '-'+ size.y + 'px'
+ 				    })
+ 				    this.d.attr('title',this.model.get('disabledDescription'));
+          			this.$el.after(this.d);
+         		}
         			
         		}else{
         			this.$el.attr('title',this.model.get('description'));
         		}
-            }
+        	}
            
 		});
 		return {'ToolItemView':ToolItemView};
