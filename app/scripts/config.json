@@ -71,28 +71,6 @@
     ],
     "products": [
       {
-        "name": "SPOT 4 View",
-        "visible": false,
-        "timeSlider": true,
-        "timeSliderProtocol": "WPS",
-        "color":"blue",
-        "view":
-        {
-          "id": "SPOT4_View",
-          "protocol": "WMS",
-          "urls": [
-              "http://demo.v-manip.eox.at/browse/ows"
-          ],
-          "style": "default",
-          "format": "image/png"
-        },
-        "download": {
-          "id": "SPOT4_View",
-          "protocol": "EOWCS",
-          "url": "http://demo.v-manip.eox.at/browse/ows"
-        }
-      },
-      {
         "name": "PanEuropean Fractional Snow Cover",
         "visible": false,
         "timeSlider": true,
@@ -130,24 +108,6 @@
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "EOWCS",
           "url": "http://neso.cryoland.enveo.at/cryoland/ows"
-        }
-      },
-      {
-        "name": "SRTM",
-        "visible": false,
-        "timeSlider": false,
-        "view": {
-          "id": "SRTM8bit_mosaic",
-          "protocol": "WMS",
-          "urls": [
-              "http://earthserver.eox.at/open/ows"
-          ],
-          "style": "default"
-        },
-        "download": {
-          "id": "SRTM_mosaic",
-          "protocol": "EOWCS",
-          "url": "http://earthserver.eox.at/open/ows"
         }
       }
     ],
