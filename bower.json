@@ -14,7 +14,7 @@
     "backbone.babysitter": "~0.1.0",
     "require-handlebars-plugin": "~0.4.0",
     "backbone.marionette.handlebars": "~0.2.0",
-    "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.4/libcoverage.js.v0.1.4.zip",
+    "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.5/libcoverage.js.v0.1.5.zip",
     "d3": "~3.3.5",
     "filesaver": "https://github.com/eligrey/FileSaver.js.git",
     "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.13/d3.TimeSlider.zip",
