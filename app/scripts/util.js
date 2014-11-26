@@ -81,7 +81,7 @@ var getCoverageXML = function(coverageid, options) {
   options = options || {};
   subsetCRS = options.subsetCRS || "http://www.opengis.net/def/crs/EPSG/0/4326";
   var params = [
-    '<wcs:GetCoverage service="WCS" version="2.0.0" xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:wcscrs="http://www.opengis.net/wcs/crs/1.0" xmlns:wcsmask="http://www.opengis.net/wcs/mask/1.0">',
+    '<wcs:GetCoverage service="WCS" version="2.0.0" xmlns:wcs="http://www.opengis.net/wcs/2.0" xmlns:wcscrs="http://www.opengis.net/wcs/crs/1.0" xmlns:wcsmask="http://www.opengis.net/wcs/mask/1.0" xmlns:int="http://www.opengis.net/wcs/interpolation/1.0" xmlns:crs="http://www.opengis.net/wcs/crs/1.0">',
     '<wcs:CoverageId>' + coverageid + '</wcs:CoverageId>',
   ], extension = [];
 
@@ -92,24 +92,15 @@ var getCoverageXML = function(coverageid, options) {
     options.subsetY = [options.bbox[1], options.bbox[3]];
   }
   if (options.subsetX) {
-    params.push('<wcs:DimensionTrim><wcs:Dimension crs="' + subsetCRS + '">x</wcs:Dimension>' +
+    params.push('<wcs:DimensionTrim><wcs:Dimension>x</wcs:Dimension>' +
                 "<wcs:TrimLow>" + options.subsetX[0] + "</wcs:TrimLow>" +
                 "<wcs:TrimHigh>" + options.subsetX[1] + "</wcs:TrimHigh></wcs:DimensionTrim>");
   }
   if (options.subsetY) {
-    params.push('<wcs:DimensionTrim><wcs:Dimension crs="' + subsetCRS + '">y</wcs:Dimension>' +
+    params.push('<wcs:DimensionTrim><wcs:Dimension>y</wcs:Dimension>' +
                 "<wcs:TrimLow>" + options.subsetY[0] + "</wcs:TrimLow>" +
                 "<wcs:TrimHigh>" + options.subsetY[1] + "</wcs:TrimHigh></wcs:DimensionTrim>");
   }
-  
-  if (options.outputCRS) {
-    /* the crs extension is not released. Mapserver expects a <wcs:OutputCRS> 
-     * in the root. Will stick to that atm, but requires a change in the future.
-    */
-    //extension.push("<wcscrs:outputCrs>" + options.outputCRS + "</wcscrs:outputCrs>");
-    params.push("<wcs:OutputCrs>" + options.outputCRS + "</wcs:OutputCrs>");
-  }
-
   // raises an exception in MapServer
   //extension.push("<wcscrs:subsettingCrs>" + subsetCRS + "</wcscrs:subsettingCrs>");
   
@@ -120,13 +111,16 @@ var getCoverageXML = function(coverageid, options) {
     params.push("<wcs:mediaType>multipart/related</wcs:mediaType>");
   }
 
-  if (extension.length > 0) {
-    params.push("<wcs:Extension>");
-    for(var i = 0; i < extension.length; ++i) {
-      params.push(extension[i]);
-    }
-    params.push("</wcs:Extension>");
+  params.push("<wcs:Extension>");
+
+  if (subsetCRS) {
+    params.push("<crs:subsettingCrs>" + subsetCRS + "</crs:subsettingCrs>");
   }
+  if (options.outputCRS) {
+    params.push("<crs:outputCrs>" + options.outputCRS + "</crs:outputCrs>");
+  }
+
+  params.push("</wcs:Extension>");
   params.push('</wcs:GetCoverage>');
   return params.join("");
 };
