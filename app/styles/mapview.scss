@@ -25,21 +25,79 @@
 // THE SOFTWARE.
 //-------------------------------------------------------------------------------
 
-(function() {
-	'use strict';
-	var root = this;
-	root.define(['backbone','communicator'],
-	function( Backbone, Communicator ) {
-		var ToolModel = Backbone.Model.extend({
-			id: "",
-			description:"",
-			disabledDescription: "",
-			active: false,
-			enabled: true,
-			icon:"",
-			type:"",
-			size: null
-		});
-		return {'ToolModel':ToolModel};
-	});
-}).call( this );
+
+
+
+#map {
+	height: 100%;
+	width: 100%;
+}
+
+
+/*
+ * OpenLayers Attribution
+ */
+#map div.olControlAttribution {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #333;
+  background-color: #fff;
+  padding: 1px 5px 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px 0 0 0;
+  border-width: 1px 0 0 1px;
+  font-size: .69em;
+  line-height: 1.0em;
+  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+}
+
+div .olControlMousePosition {
+
+  position: absolute;
+  bottom: 0;
+  right: auto !important;
+  color: #333;
+  background-color: #fff;
+  padding: 1px 5px 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px 0 0 0;
+  border-width: 1px 0 0 1px;
+  font-size: .69em !important;
+  line-height: 1.0em !important;
+}
+
+/*.olControlAttribution :link, .olControlAttribution :visited  {
+  color: rgb(192,192,192);
+  text-decoration: underline;
+}*/
+
+/*
+ * Terrain Attribution
+ */
+#terrain_attribution {
+  position: absolute;
+  bottom: 2em;
+  right: .2em;
+  color: #333;
+  background-color: #fff;
+  padding: 1px 5px 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px 0 0 0;
+  border-width: 1px 0 0 1px;
+  font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 0.8em;
+  display: none;
+  z-index: 1005;
+}
+
+
+
+#terrain_attribution h2 {
+  margin-bottom: .1em;
+}
+#terrain_attribution ul {
+  margin-top: .2em;
+  -webkit-padding-start: 10px;
+}

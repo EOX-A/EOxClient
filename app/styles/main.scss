@@ -46,6 +46,19 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
  * Basic styles
  */
 
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0 !important;
+  // FIXXME: Their are a few 'quirks' in the layout, making it necessary to force hidding the scrollbars
+  // for some cases:
+  overflow: hidden;
+}
+
+#viewContent{
+  position: relative;
+}
+
 ul, li {
  	list-style-type: none;
   list-style-position: inside;
@@ -68,20 +81,34 @@ body.wait *, body.wait {
   cursor:wait !important;
 }
 
+// Mouse over tooltip
+.ui-tooltip {
+  display: inline-block;
+}
+
+.ui-tooltip-content {
+  font-size: .8em;
+}
+
 // Initial loading spinner element
 #loadscreen{
   width: 100%;
   height: 100%;
   position: absolute;
-  left: 0;
   z-index: 5000;
   text-align: center;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 #loadscreen i {
-  top: 35%;
-  position: absolute;
+  position:relative;
+  top: calc(50%);
+}
+
+
+#loadscreen .warninglabel {
+  position:relative;
+  top: calc(50%);
 }
 
 div#preload { 
@@ -179,11 +206,12 @@ button[active=active] {
  * Tool control
  */
 .toolcontrol {
+  width: 5.2em;
   top: 10em;
   right: 3em;
   font-size: .9em;
-  position: relative;
-  float: right;
+  position: absolute;
+  right: 3em;
 }
 .toolcontrol .panel-heading h3 {
   text-align: center;
@@ -276,7 +304,7 @@ button[active=active] {
 }
 
 #viewContent{
-	position: relative;
+	//position: relative;
 }
 
 #OpenLayers_Control_Zoom_5 {

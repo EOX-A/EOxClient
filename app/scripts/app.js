@@ -53,6 +53,14 @@
 
 			configure: function(config) {
 
+				// Load jquery ui tooltip tool
+                $("body").tooltip({ 
+			    	selector: '[data-toggle=tooltip]',
+			    	position: { my: "left+5 center", at: "right center" },
+					hide: { effect: false, duration: 0 },
+					show:{ effect: false, delay: 700}
+			    });
+
 				var v = {}; //views
 				var m = {};	//models
 				var t = {};	//templates
@@ -135,6 +143,8 @@
 							name: products.name,
 							visible: products.visible,
 							timeSlider: products.timeSlider,
+							// Default to WMS if no protocol is defined
+ 							timeSliderProtocol: (products.timeSliderProtocol) ? products.timeSliderProtocol : "EOWCS",
 							color: products.color,
 							time: products.time,
 							opacity: 1,
@@ -310,6 +320,7 @@
 								id: visTool.id,
 								eventToRaise: visTool.eventToRaise,
 								description: visTool.description,
+								disabledDescription: visTool.disabledDescription,
 								icon:visTool.icon,
 								enabled: visTool.enabled,
 								active: visTool.active,
@@ -337,14 +348,16 @@
                 	})
                 });
 
+                
+
 
                 // Create layout to hold collection views
                 this.toolLayout = new ToolControlLayout();
+                
 
 
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
                 this.bottomBar.show(this.timeSliderView);
-
 
 				// Add a trigger for ajax calls in order to display loading state
 				// in mouse cursor to give feedback to the user the client is busy

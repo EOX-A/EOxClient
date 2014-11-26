@@ -9,19 +9,19 @@
     "backbone-amd": "~1.0.0",
     "underscore-amd": "~1.4.4",
     "modernizr": "~2.6.2",
-    "backbone.marionette": "~1.1.0",
-    "backbone.wreqr": "~0.2.0",
-    "backbone.babysitter": "~0.0.6",
+    "backbone.marionette": "~1.7.0",
+    "backbone.wreqr": "~1.0.0",
+    "backbone.babysitter": "~0.1.0",
     "require-handlebars-plugin": "~0.4.0",
     "backbone.marionette.handlebars": "~0.2.0",
-    "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.4/libcoverage.js.v0.1.4.zip",
+    "libcoverage": "https://github.com/EOX-A/libcoverage.js/releases/download/v0.1.5/libcoverage.js.v0.1.5.zip",
     "d3": "~3.3.5",
     "filesaver": "https://github.com/eligrey/FileSaver.js.git",
     "d3.TimeSlider": "https://github.com/EOX-A/d3.TimeSlider/releases/download/v0.0.13/d3.TimeSlider.zip",
     "lm.js": "madhums/lm.js#~0.1.0",
     "bootstrap": "~3.0.1",
     "font-awesome": "~4.0.3",
-    "ol3": "https://github.com/openlayers/ol3/releases/download/v3.0.0-beta.2/v3.0.0-beta.2.zip"
+    "ol3": "*"
   },
   "devDependencies": {}
 }

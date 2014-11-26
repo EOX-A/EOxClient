@@ -48,7 +48,7 @@ define(['backbone',
 						renderer: 'canvas',
 						  target: 'map',
 						  //maxResolution: resolutions[1],
-						  view: new ol.View2D({
+						  view: new ol.View({
 						    center: [9, 45],
 						    zoom: 6,
 						    projection: ol.proj.get('EPSG:4326')
@@ -64,10 +64,12 @@ define(['backbone',
 						var view = evt.map.getView();
 						var center = view.getCenter();
 			            Communicator.mediator.trigger("router:setUrl", { x: center[0], y: center[1], l: view.getZoom()});
-			        });
+			        	//Communicator.mediator.trigger("map:position:change", data.object.getExtent());
+					});
 
 					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
 					this.listenTo(Communicator.mediator, "map:layer:change", this.changeLayer);
+					this.listenTo(Communicator.mediator, 'map:set:extent', this.onSetExtent);
 					this.listenTo(Communicator.mediator, "productCollection:sortUpdated", this.onSortProducts);
 					this.listenTo(Communicator.mediator, "productCollection:updateOpacity", this.onUpdateOpacity);
 					this.listenTo(Communicator.mediator, "selection:activated", this.onSelectionActivated);
@@ -75,6 +77,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 
+					//Communicator.reqres.setHandler('map:get:extent', _.bind(this.onGetMapExtent, this));
 					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
 					var style =  new ol.style.Style({
@@ -114,11 +117,11 @@ define(['backbone',
 	                };
 
 	                this.drawControls.bboxSelection.on('boxstart', function(evt){
-	                	this.boxstart = evt.getCoordinate();
+	                	this.boxstart = evt.coordinate;
 	                }, this);
 
 	                this.drawControls.bboxSelection.on('boxend', function(evt){
-	                	var boxend = evt.getCoordinate();
+	                	var boxend = evt.coordinate;
 						var polygon = new ol.geom.Polygon([
 							[ 
 								[this.boxstart[0], this.boxstart[1]],
@@ -215,6 +218,7 @@ define(['backbone',
 						        zoomOffset: layer.zoomOffset,
 						        visible: layerdesc.get("visible"),
 						        time: layerdesc.time,
+		                        attribution: layer.attribution,
 						        requestEncoding: layer.requestEncoding
 							});*/
 							return_layer = new ol.layer.Tile({
@@ -263,7 +267,8 @@ define(['backbone',
 							        isBaseLayer: layer.isBaseLayer,
 							        wrapDateLine: layer.wrapDateLine,
 							        zoomOffset: layer.zoomOffset,
-							        visibility: layerdesc.get("visible")
+							        visibility: layerdesc.get("visible"),
+							        attribution: layer.attribution
 							    }
 							);*/
 							 return_layer = new ol.layer.Tile({
@@ -361,7 +366,7 @@ define(['backbone',
 		                        this.map.addInteraction(control);
 		                    } else {
 		                        this.map.removeInteraction(control);
-		                        var features = this.source.getAllFeatures();
+		                        var features = this.source.getFeatures();
 			                    for (var i in features){
 			                    	this.source.removeFeature(features[i]);
 			                    }
@@ -372,7 +377,7 @@ define(['backbone',
 		            	for(key in this.drawControls) {
 		                    var control = this.drawControls[key];
 		                    this.map.removeInteraction(control);
-		                    var features = this.source.getAllFeatures();
+		                    var features = this.source.getFeatures();
 		                    for (var i in features){
 		                    	this.source.removeFeature(features[i]);
 		                    }
@@ -384,16 +389,19 @@ define(['backbone',
 
 				onLoadGeoJSON: function (data) {
 
-					 var old_features = this.source.getAllFeatures();
+					 var old_features = this.source.getFeatures();
                     for (var i in old_features){
                     	this.source.removeFeature(old_features[i]);
                     }
 
 					var vectorSource = new ol.source.GeoJSON({object:data});
-					var features = vectorSource.getAllFeatures();
+					var features = vectorSource.getFeatures();
 					var bounds;
 
 		            if(features) {
+		                if(features.constructor != Array) {
+		                    features = [features];
+		                }
 		                for(var i=0; i<features.length; ++i) {
 		                    if (!bounds) {
 		                        bounds = features[i].getGeometry().getExtent();
@@ -410,7 +418,7 @@ define(['backbone',
 				onExportGeoJSON: function() {	
 					var blob;	
 
-					var features = this.vector.getSource().getAllFeatures();
+					var features = this.vector.getSource().getFeatures();
 					var geojson_string = JSON.stringify(this.geojson_format.writeFeatures(features));
 					
 					//var geojsonstring = this.geojson.write(this.vectorLayer.features, true);
@@ -421,7 +429,7 @@ define(['backbone',
 
 
 				onGetGeoJSON: function () {
-					var features = this.vector.getSource().getAllFeatures();
+					var features = this.vector.getSource().getFeatures();
 					var geojson = this.geojson_format.writeFeatures(features);
 
 					return geojson;
@@ -430,7 +438,7 @@ define(['backbone',
 				onDone: function (evt) {
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
-					var feature =  evt.target.getAllFeatures().pop();
+					var feature =  evt.target.getFeatures().pop();
 					var geometry = null;
 					if(feature)
 						geometry = feature.getGeometry();
