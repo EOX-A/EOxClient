@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 //-------------------------------------------------------------------------------
 
+@import "mapview";
 
 $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
@@ -277,7 +278,7 @@ button[active=active] {
 }
 
 #bottomBar {
-	bottom: 10px;
+	bottom: 15px;
 	position: absolute;
 	width: 96%;
 	left: 2%;

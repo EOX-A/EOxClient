@@ -38,6 +38,12 @@ define(['backbone',
 				
 				onShow: function() {
 
+					var mousePositionControl = new ol.control.MousePosition({
+						coordinateFormat: ol.coordinate.createStringXY(4),
+						projection: 'EPSG:4326',
+						undefinedHTML: '&nbsp;'
+					});
+
 					this.ol_baseLayers = {};
 					this.ol_products = {};
 					this.ol_overlays = {};
@@ -45,6 +51,7 @@ define(['backbone',
 
 					//this.tileManager = new ol.TileManager();
 					this.map = new ol.Map({
+						controls: ol.control.defaults().extend([mousePositionControl]),
 						renderer: 'canvas',
 						  target: 'map',
 						  //maxResolution: resolutions[1],
@@ -175,6 +182,11 @@ define(['backbone',
 				    var mapmodel = globals.objects.get('mapmodel');
 				    this.map.setCenter(new OpenLayers.LonLat(mapmodel.get("center")), mapmodel.get("zoom") );*/
 				    this.map.addLayer(this.vector);
+
+
+				    // Remove attribution classes (hack to have our own styling)
+				    $('.ol-attribution').attr('class', 'ol-attribution');
+
 				    return this;
 				},
 				//method to create layer depending on protocol
@@ -197,32 +209,7 @@ define(['backbone',
 
 					switch(layer.protocol){
 						case "WMTS":
-							/*return_layer = new OpenLayers.Layer.WMTS({
-								name: layerdesc.get("name"),
-						        layer: layer.id,
-						        protocol: layer.protocol,
-						        url: layer.urls,
-						        matrixSet: layer.matrixSet,
-						        style: layer.style,
-						        format: layer.format,
-						        maxExtent: layer.maxExtent,
-						        resolutions: layer.resolutions,
-						        projection: layer.projection,
-						        gutter: layer.gutter,
-						        buffer: layer.buffer,
-						        units: layer.units,
-						        transitionEffect: layer.transitionEffect,
-						        isphericalMercator: layer.isphericalMercator,
-						        isBaseLayer: layer.isBaseLayer,
-						        wrapDateLine: layer.wrapDateLine,
-						        zoomOffset: layer.zoomOffset,
-						        visible: layerdesc.get("visible"),
-						        time: layerdesc.time,
-		                        attribution: layer.attribution,
-						        requestEncoding: layer.requestEncoding
-							});*/
 							return_layer = new ol.layer.Tile({
-						      //opacity: 0.7,
 						      visible: layer.visible,
 						      source: new ol.source.WMTS({
 						        urls: layer.urls,
@@ -230,47 +217,22 @@ define(['backbone',
 						        matrixSet: layer.matrixSet,
 						        format: layer.format,
 						        projection: layer.projection,
-						        //requestEncoding: layer.requestEncoding,
 						        tileGrid: new ol.tilegrid.WMTS({
 							        origin: ol.extent.getTopLeft(projectionExtent),
 							        resolutions: resolutions,
 							        matrixIds: matrixIds
 						        }),
-						        style: layer.style
+						        style: layer.style,
+						        attributions: [
+								    new ol.Attribution({
+								      html: layer.attribution
+								  	})
+								  ],
 						      })
 						    })
 							break;
 
 						case "WMS":
-						/*return_layer = new OpenLayers.Layer.WMS(
-								layerdesc.get("name"),
-						        layer.urls[0],
-						        {
-						        	layers: layer.id,
-						        	transparent: "true",
-        							format: "image/png",
-        							time: layer.time
-						    	},
-						        {
-						        	format: 'image/png',
-							        matrixSet: layer.matrixSet,
-							        style: layer.style,
-							        format: layer.format,
-							        maxExtent: layer.maxExtent,
-							        resolutions: layer.resolutions,
-							        projection: layer.projection,
-							        gutter: layer.gutter,
-							        buffer: layer.buffer,
-							        units: layer.units,
-							        transitionEffect: layer.transitionEffect,
-							        isphericalMercator: layer.isphericalMercator,
-							        isBaseLayer: layer.isBaseLayer,
-							        wrapDateLine: layer.wrapDateLine,
-							        zoomOffset: layer.zoomOffset,
-							        visibility: layerdesc.get("visible"),
-							        attribution: layer.attribution
-							    }
-							);*/
 							 return_layer = new ol.layer.Tile({
 							 	visible: layerdesc.get("visible"),
 							    source: new ol.source.TileWMS({
@@ -281,7 +243,8 @@ define(['backbone',
 							      	'FORMAT': 'image/png'
 							      },
 							      url: layer.urls[0]
-							    })
+							    }),
+							    attribution: layer.attribution,
 							  })
 							break;
 

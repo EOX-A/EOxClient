@@ -37,7 +37,7 @@
 /*
  * OpenLayers Attribution
  */
-#map div.olControlAttribution {
+.ol-attribution {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -47,15 +47,43 @@
   border: 1px solid #ccc;
   border-radius: 3px 0 0 0;
   border-width: 1px 0 0 1px;
-  font-size: .69em;
+  
   line-height: 1.0em;
   font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
 }
 
-div .olControlMousePosition {
 
-  position: absolute;
-  bottom: 0;
+
+.ol-attribution img { 
+    height: 15px !important;
+}
+
+.ol-attribution button { 
+    display: none !important;
+}
+
+
+.ol-attribution ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    font-size: .69em !important;
+    
+}
+
+.ol-attribution li {
+    display: inline;
+    padding-right: 10px;
+}
+
+.ol-zoom {
+  top: 60px !important;
+}
+
+div .ol-mouse-position {
+
+  position: absolute !important;
+  bottom: 0px !important;
   right: auto !important;
   color: #333;
   background-color: #fff;
@@ -67,10 +95,6 @@ div .olControlMousePosition {
   line-height: 1.0em !important;
 }
 
-/*.olControlAttribution :link, .olControlAttribution :visited  {
-  color: rgb(192,192,192);
-  text-decoration: underline;
-}*/
 
 /*
  * Terrain Attribution
@@ -100,4 +124,175 @@ div .olControlMousePosition {
 #terrain_attribution ul {
   margin-top: .2em;
   -webkit-padding-start: 10px;
+}
+
+
+
+
+
+/*
+ * Zoom buttons (ol3)
+ */
+
+.ol-zoom {
+  top: .5em;
+  left: .5em;
+}
+.ol-rotate {
+  top: .5em;
+  right: .5em;
+  transition: opacity .25s;
+}
+.ol-zoom-extent {
+  top: 4.643em;
+  left: .5em;
+}
+
+.ol-zoom-extent button {
+  line-height: 1.4em;
+}
+
+.ol-zoom-extent button:after {
+    content: "E";
+}
+.ol-zoom .ol-zoom-in {
+  border-radius: 2px 2px 0 0;
+}
+.ol-zoom .ol-zoom-out {
+  border-radius: 0 0 2px 2px;
+}
+
+.ol-zoom .ol-has-tooltip:hover [role=tooltip],
+.ol-zoom .ol-has-tooltip:focus [role=tooltip] {
+  top: 1.1em;
+}
+
+.ol-zoomslider {
+  position: absolute;
+  top: 4.5em;
+  left: .5em;
+  background: #eee;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  outline: none;
+  overflow: hidden;
+  width: 1.5675em;
+  height: 200px;
+  padding: 3px;
+  margin: 0;
+}
+.ol-zoomslider-thumb {
+  position: absolute;
+  display: block;
+  background: #7b98bc;
+  background: rgba(0,60,136,0.5);
+  border-radius: 2px;
+  outline: none;
+  overflow: hidden;
+  cursor: pointer;
+  font-size: 1.14em;
+  height: 1em;
+  width: 1.375em;
+  margin: 3px;
+  padding: 0;
+}
+.ol-touch .ol-zoomslider {
+  top: 5.5em;
+  width: 2.052em;
+}
+.ol-touch .ol-zoomslider-thumb {
+  width: 1.8em;
+}
+
+
+.ol-viewport .ol-unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.ol-control {
+  position: absolute;
+  background-color: #eee;
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 4px;
+  padding: 2px;
+}
+.ol-control:hover {
+  background-color: rgba(255,255,255,0.6);
+}
+.ol-control button {
+  display: block;
+  margin: 1px;
+  padding: 0;
+  color: white;
+  font-size: 1.14em;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  height: 1.375em;
+  width: 1.375em;
+  line-height: .4em;
+  background-color: #7b98bc;
+  background-color: rgba(0,60,136,0.5);
+  border: none;
+  border-radius: 2px;
+}
+.ol-control button::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+
+.ol-control button:hover,
+.ol-control button:focus {
+  text-decoration: none;
+  background-color: #4c6079;
+  background-color: rgba(0,60,136,0.7);
+}
+
+/* invisible but not hidden */
+.ol-has-tooltip [role=tooltip] {
+  position: absolute;
+  clip: rect(1px 1px 1px 1px); /* < IE8 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  font-weight: normal;
+  font-size: 14px;
+  text-shadow: 0 0 2px #fff;
+}
+
+/* show a tooltip offset to below and right */
+.ol-has-tooltip:hover [role=tooltip], .ol-has-tooltip:focus [role=tooltip] {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  clip: auto;
+  padding: 0 .4em;
+  font-size: .8em;
+  height: 1.2em;
+  width: auto;
+  line-height: 1.2em;
+  z-index: 1100;
+  max-height: 100px;
+  white-space: nowrap;
+  display: inline-block;
+  background: #FFF;
+  background: rgba(255,255,255,0.6);
+  color: #000;
+  border: 3px solid rgba(255,255,255,0);
+  border-left-width: 0;
+  border-radius: 0 4px 4px 0;
+  bottom: .3em;
+  left: 2.2em;
+}
+.ol-touch .ol-has-tooltip:hover [role=tooltip],
+.ol-touch .ol-has-tooltip:focus [role=tooltip] {
+  display: none;
 }
