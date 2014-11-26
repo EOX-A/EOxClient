@@ -220,6 +220,9 @@
 					console.log("Added overlay " + overlay.id );
 				}, this);
 
+				this.timeSliderView = new v.TimeSliderView(config.timeSlider);
+                this.bottomBar.show(this.timeSliderView);
+
 
 				// Create map view and execute show of its region
 				this.map.show(new v.MapView({el: $("#map")}));
@@ -362,8 +365,7 @@
                 
 
 
-                this.timeSliderView = new v.TimeSliderView(config.timeSlider);
-                this.bottomBar.show(this.timeSliderView);
+               
 
 				// Add a trigger for ajax calls in order to display loading state
 				// in mouse cursor to give feedback to the user the client is busy

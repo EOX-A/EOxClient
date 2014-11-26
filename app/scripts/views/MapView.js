@@ -158,6 +158,11 @@ define(['backbone',
 						var layer = this.createLayer(product);
 						this.ol_products[product.get('view').id] = layer;
 						this.map.addLayer(layer);
+						// TODO: Should check if layer is actually available before activating
+						if(product.get("visible")){
+							var options = { id: product.get('view').id, isBaseLayer: false, visible: true };
+							Communicator.mediator.trigger('map:layer:change', options);
+						}
 					}, this);
 
 					// Go through all products and add them to the map

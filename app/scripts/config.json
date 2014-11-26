@@ -139,7 +139,7 @@
       },
       {
         "name": "ALARO Temperature surface",
-        "visible": false,
+        "visible": true,
         "timeSlider": true,
         "timeSliderProtocol": "WPS",
         "view": {
