@@ -332,7 +332,8 @@ module.exports = function (grunt) {
                         'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min.js',
                         'bower_components/bootstrap/dist/*/*',
                         'bower_components/font-awesome/css/*',
-                        'bower_components/lm.js/lm.js'
+                        'bower_components/lm.js/lm.js',
+                        'bower_components/ol3/build/ol.js'
                     ]
                 },{
                     expand: true,
