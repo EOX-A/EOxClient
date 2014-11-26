@@ -135,9 +135,15 @@
 					console.log("Added baselayer " + baselayer.id );
 				}, this);
 
+				var autoColor = {
+		            colors : d3.scale.category10(),
+		            index : 0,
+		            getColor: function () { return this.colors(this.index++) }
+		        }
+
 				//Productsare loaded and added to the global collection
 				_.each(config.mapConfig.products, function(products) {
-
+					var p_color = products.color ? products.color : autoColor.getColor();
 					globals.products.add(
 						new m.LayerModel({
 							name: products.name,
@@ -145,7 +151,7 @@
 							timeSlider: products.timeSlider,
 							// Default to WMS if no protocol is defined
  							timeSliderProtocol: (products.timeSliderProtocol) ? products.timeSliderProtocol : "EOWCS",
-							color: products.color,
+							color: p_color,
 							time: products.time,
 							opacity: 1,
 							view:{

@@ -75,7 +75,7 @@
             end: selectionend
           },
           debounce: 300,
-          ticksize: 5,
+          ticksize: 8,
 
           datasets: []
 

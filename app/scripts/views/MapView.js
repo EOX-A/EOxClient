@@ -67,11 +67,12 @@ define(['backbone',
 					console.log("Created Map");
 
 					//listen to moeveend event in order to keep router uptodate
+					var self = this;
 					this.map.on("moveend", function(evt) {
 						var view = evt.map.getView();
 						var center = view.getCenter();
 			            Communicator.mediator.trigger("router:setUrl", { x: center[0], y: center[1], l: view.getZoom()});
-			        	//Communicator.mediator.trigger("map:position:change", data.object.getExtent());
+			        	Communicator.mediator.trigger("map:position:change", self.onGetMapExtent());
 					});
 
 					this.listenTo(Communicator.mediator, "map:center", this.centerMap);
@@ -84,7 +85,7 @@ define(['backbone',
 					this.listenTo(Communicator.mediator, "map:export:geojson", this.onExportGeoJSON);
 					this.listenTo(Communicator.mediator, 'time:change', this.onTimeChange);
 
-					//Communicator.reqres.setHandler('map:get:extent', _.bind(this.onGetMapExtent, this));
+					Communicator.reqres.setHandler('map:get:extent', _.bind(this.onGetMapExtent, this));
 					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
 					var style =  new ol.style.Style({
@@ -396,6 +397,21 @@ define(['backbone',
 					var geojson = this.geojson_format.writeFeatures(features);
 
 					return geojson;
+				},
+
+				onGetMapExtent: function(){
+					var ext_arr = this.map.getView().calculateExtent(this.map.getSize());
+					var extent = {
+						left: ext_arr[0],
+						bottom: ext_arr[1],
+						right: ext_arr[2],
+						top: ext_arr[3]
+					};
+					return extent;
+				},
+
+				onSetExtent: function(extent){
+					this.map.getView().fitExtent(extent, this.map.getSize());
 				},
 				
 				onDone: function (evt) {
