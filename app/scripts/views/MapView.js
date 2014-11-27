@@ -308,7 +308,9 @@ define(['backbone',
 
 					$.each(this.ol_overlays, function(index, layer) {
 					    that.map.removeLayer(layer);
-					}, that); 
+					}, that);
+
+					this.map.removeLayer(this.vector);
 
 					_.each(globals.products.last(globals.products.length).reverse(), function(product){ 
 						this.map.addLayer(this.ol_products[product.get('view').id]);
@@ -317,6 +319,8 @@ define(['backbone',
 					_.each(globals.overlays.last(globals.overlays.length).reverse(), function(product){ 
 						this.map.addLayer(this.ol_overlays[product.get('view').id]);
 					}, this);
+
+					this.map.addLayer(this.vector);
 
 				    console.log("Map products sorted");
 				},
