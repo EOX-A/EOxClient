@@ -44,9 +44,6 @@ define(['backbone',
 						undefinedHTML: '&nbsp;'
 					});
 
-					this.ol_baseLayers = {};
-					this.ol_products = {};
-					this.ol_overlays = {};
 					this.geojson_format = new ol.format.GeoJSON();
 
 					//this.tileManager = new ol.TileManager();
@@ -145,32 +142,43 @@ define(['backbone',
 
 	                }, this);
 
+	                
+	               
 
 					//Go through all defined baselayer and add them to the map
-					globals.baseLayers.each(function(baselayer) {
-						var layer = this.createLayer(baselayer);
-						this.ol_baseLayers[baselayer.get('view').id] = layer;
-						this.map.addLayer(layer);
-					}, this);
+					this.baseLayerGroup = new ol.layer.Group({
+						layers: globals.baseLayers.map(function(baselayer) {
+							return this.createLayer(baselayer);
+						}, this)
+					});
+
+					this.map.addLayer(this.baseLayerGroup);
 
 					// Go through all products and add them to the map
-					globals.products.each(function(product){
-						var layer = this.createLayer(product);
-						this.ol_products[product.get('view').id] = layer;
-						this.map.addLayer(layer);
-						// TODO: Should check if layer is actually available before activating
+					this.productLayerGroup = new ol.layer.Group({
+						layers: globals.products.map(function(product) {
+							return this.createLayer(product);
+						}, this)
+					});
+
+					this.map.addLayer(this.productLayerGroup);
+
+					// if the product is visible, raise an event
+					globals.products.each(function(product) {
 						if(product.get("visible")){
 							var options = { id: product.get('view').id, isBaseLayer: false, visible: true };
 							Communicator.mediator.trigger('map:layer:change', options);
 						}
-					}, this);
+					});
 
 					// Go through all products and add them to the map
-					globals.overlays.each(function(overlay){
-						var layer = this.createLayer(overlay);
-						this.ol_overlays[overlay.get('view').id] = layer;
-						this.map.addLayer(layer);
-					}, this);
+					this.overlayLayerGroup = new ol.layer.Group({
+					 	layers: globals.overlays.map(function(overlay){
+							return this.createLayer(overlay);
+						}, this)
+					 });
+
+					this.map.addLayer(this.overlayLayerGroup);
 
 					// Order (sort) the product layers based on collection order
 					this.onSortProducts();
@@ -216,7 +224,7 @@ define(['backbone',
 					switch(layer.protocol){
 						case "WMTS":
 							return_layer = new ol.layer.Tile({
-						      visible: layer.visible,
+						      visible: layerdesc.get("visible"),
 						      source: new ol.source.WMTS({
 						        urls: layer.urls,
 						        layer: layer.id,
@@ -255,6 +263,9 @@ define(['backbone',
 							break;
 
 					};
+					if (return_layer) {
+						return_layer.id = layer.id;
+					}
 					// for progress indicator
 				   /* return_layer.events.register("loadstart", this, function() {
 				      Communicator.mediator.trigger("progress:change", true);
@@ -274,61 +285,63 @@ define(['backbone',
 				changeLayer: function(options){
 					if (options.isBaseLayer){
 						globals.baseLayers.forEach(function(model, index) {
-						    model.set("visible", false);
+							if (model.get("view").id == options.id)
+								model.set("visible", true)
+							else 
+						    	model.set("visible", false);
 						});
-						$.each(this.ol_baseLayers, function(index, layer) {
-						    layer.setVisible(false);
-						}); 
-						globals.baseLayers.find(function(model) { return model.get('view').id == options.id; }).set("visible", true);
-						this.ol_baseLayers[options.id].setVisible(true);
+						this.baseLayerGroup.getLayers().forEach(function(layer) {
+							if (layer.id == options.id)
+								layer.setVisible(true);
+							else
+						    	layer.setVisible(false);
+						});
 					}else{
 						var product = globals.products.find(function(model) { return model.get('view').id == options.id; });
 						if (product){
 							product.set("visible", options.visible);
-							this.ol_products[options.id].setVisible(options.visible);
+							this.productLayerGroup.getLayers().forEach(function(layer) {
+								if (layer.id == options.id) {
+									layer.setVisible(options.visible);
+								}
+							});
 						}else{
-							globals.overlays.find(function(model) { return model.get('view').id == options.id; }).set("visible", options.visible);
-							this.ol_overlays[options.id].setVisible(options.visible);
+							globals.overlays.find(function(model) { 
+								return model.get('view').id == options.id;
+							}).set("visible", options.visible);
+							this.overlayLayerGroup.getLayers().forEach(function(layer) {
+								if (layer.id == options.id) {
+									layer.setVisible(options.visible);
+								}
+							});
 						}
-						
-						
 					}
 				},
 
 				onSortProducts: function() {
+					var layers = this.productLayerGroup.getLayers();
 
-					//TODO: Check if there is no other way to do this then 
-					// removing and adding all layers, not happy with this
-					// altough it does not seem to be slow on browser
+					// prepare an index lookup hash
+					var indices = {};
+					globals.products.each(function(product, index) {
+						indices[product.get("view").id] = globals.products.length - (index + 1);
+					});
+					// sort the layers by the prepared indices
+					var sorted = _.sortBy(layers.getArray(), function(layer) {
+						return indices[layer.id];
+					});
 
-					var that = this;
-					$.each(this.ol_products, function(index, layer) {
-					    that.map.removeLayer(layer);
-					}, that); 
-
-					$.each(this.ol_overlays, function(index, layer) {
-					    that.map.removeLayer(layer);
-					}, that);
-
-					this.map.removeLayer(this.vector);
-
-					_.each(globals.products.last(globals.products.length).reverse(), function(product){ 
-						this.map.addLayer(this.ol_products[product.get('view').id]);
-					}, this);
-
-					_.each(globals.overlays.last(globals.overlays.length).reverse(), function(product){ 
-						this.map.addLayer(this.ol_overlays[product.get('view').id]);
-					}, this);
-
-					this.map.addLayer(this.vector);
-
+					this.productLayerGroup.setLayers(new ol.Collection(sorted));
 				    console.log("Map products sorted");
 				},
 
 				onUpdateOpacity: function(options) {
-					this.ol_products[options.model.get('view').id].setOpacity(options.value);
-					
-
+					var id = options.model.get('view').id;
+					this.productLayerGroup.getLayers().forEach(function(layer) {
+						if (layer.id == id) {
+							layer.setOpacity(options.value);
+						}
+					});
 				},
 
 				onSelectionActivated: function(arg){
@@ -434,19 +447,19 @@ define(['backbone',
 				},
 
 				onTimeChange: function (time) {
-
+					// TODO: for WMTS REST style URLs this needs to be separated by '--'
 					var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
-
-					$.each(this.ol_products, function(index, layer) {
-					    var params = layer.getSource().getParams();
-
-					});
-
 					globals.products.each(function(product) {
-						if(product.get("timeSlider")){
-							var params = this.ol_products[product.get('view').id].getSource().getParams();
-							params['TIME'] = string;
-							this.ol_products[product.get('view').id].getSource().updateParams(params);
+						if (product.get("timeSlider")){
+							var id = product.get('view').id
+							this.productLayerGroup.getLayers().forEach(function(layer) {
+								if (layer.id == id) {
+									if (product.get("view").protocol == "WMS")
+										layer.getSource().updateParams({"TIME": string});
+									else if (product.get("view").protocol == "WMTS")
+										layer.getSource().updateDimensions({"TIME": string});
+								}
+							});
 						}
 				     
 				    }, this);
