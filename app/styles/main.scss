@@ -198,6 +198,8 @@ button[active=active] {
 .layercontrol .sortable-layer .form-control {
   font-size: 1em;
   line-height: 1.1em;
+  max-width: 10em;
+  overflow: auto;
 }
 .fa-sort {
     cursor: ns-resize;
