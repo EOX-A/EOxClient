@@ -8,8 +8,8 @@
     "visualizationLibs": [
       "openlayers"
     ],
-    "center": [13.41,52.52],
-    "zoom": 5,
+    "center": [20,49],
+    "zoom": 3,
 
     "baseLayers": [
       {
@@ -69,33 +69,153 @@
         "attribution": "Blue Marble { &copy; <a href=\"http://nasa.gov\" target=\"_blank\">NASA</a> }"
       }
     ],
+    
     "products": [
       {
-        "name": "PanEuropean Fractional Snow Cover",
+        "name": "daily_FSC_PanEuropean_Optical",
         "visible": false,
         "timeSlider": true,
-        "timeSliderProtocol":"EOWCS",
-        "color":"green",
+        "timeSliderProtocol":"WPS",
         "view": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://neso.cryoland.enveo.at/cryoland/ows"
+              "http://192.168.122.129/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "EOWCS",
-          "url": "http://neso.cryoland.enveo.at/cryoland/ows"
+          "url": "http://192.168.122.129/cryoland/ows"
         }
       },
+
+      {
+        "name": "daily_FSC_PanEuropean_Optical_Uncertainty",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "view": {
+          "id": "daily_FSC_PanEuropean_Optical_Uncertainty",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "daily_FSC_PanEuropean_Optical_Uncertainty",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+
+      {
+        "name": "daily_FSC_Alps_Optical",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "view": {
+          "id": "daily_FSC_Alps_Optical",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "daily_FSC_Alps_Optical",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+
+      {
+        "name": "daily_MODIS_RGB651_PanEuropean",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "view": {
+          "id": "daily_MODIS_RGB651_PanEuropean",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "daily_MODIS_RGB651_PanEuropean",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+
+      {
+        "name": "Snow",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "view": {
+          "id": "Snow",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "Snow",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+
+      {
+        "name": "PanEuropean",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "view": {
+          "id": "PanEuropean",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "PanEuropean",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+
+      {
+        "name": "Regional",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "view": {
+          "id": "Regional",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "Regiona",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+
       {
         "name": "PanEuropean Snow Water Equivalent",
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"EOWCS",
-        "color":"red",
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "WMS",
@@ -111,9 +231,10 @@
         }
       }
     ],
+    
     "overlays": [
        {
-        "name": "Streets",
+        "name": "Overlay",
         "id": "overlay",
         "protocol": "WMTS",
         "requestEncoding": "REST",
@@ -172,8 +293,8 @@
   ],
 
   "navBarConfig": {
-    "title" : "EOxClient",
-    "url" : "http://www.eox.at",
+    "title" : "CryoLand",
+    "url" : "http://cryoland.eu",
     "items" : [
       {
         "name" : "Layers",
@@ -190,33 +311,37 @@
         "show":true
       },
       {
+        "name" : "Legend",
+        "icon" : "fa-list",
+        "eventToRaise" : "ui:open:legend",
+        "template" : "Legend",
+        "show":false
+      },
+      {
         "name" : "About",
         "icon" : "fa-info-circle",
         "eventToRaise" : "dialog:open:about",
-        "subitems" : [
-          {
-          "name" : "Info",
-          "eventToRaise" : "dialog:open:info",
-          "template" : "info"
-          },
-          {
-          "name" : "Help",
-          "eventToRaise" : "dialog:open:help",
-          "template" : "help"
-          }
-        ]
+        "template" : "help",
+        "show":false
+      },
+      {
+        "name" : "Help",
+        "icon" : "fa-question-circle",
+        "eventToRaise" : "dialog:open:help",
+        "template" : "Help",
+        "show":false
       }
     ]
   },
 
   "timeSlider": {
     "domain": {
-      "start": "2012-07-01T00:00:00Z",
-      "end": "2013-07-01T00:00:00Z"
+      "start": "2001-01-01T00:00:00Z",
+      "end": "2014-12-31T00:00:00Z"
     },
     "brush": {
-       "start": "2013-06-05T00:00:00Z",
-      "end": "2013-06-08T00:00:00Z"
+       "start": "2014-11-10T00:00:00Z",
+      "end": "2014-11-11T00:00:00Z"
     }
   },
 
@@ -232,7 +357,8 @@
     "views/TimeSliderView",
     "views/ToolSelectionView",
     "views/ToolItemView",
-    "views/DownloadView"
+    "views/DownloadView",
+    "views/PanelView"
   ],
 
   "models":[
@@ -288,20 +414,22 @@
     {
       "id":"CheckBoxOverlayLayer",
       "template":"hbs!tmpl/CheckBoxOverlayLayer"
+    },
+    {
+      "id":"Help",
+      "template":"hbs!tmpl/Help"
+    },
+    {
+      "id":"Legend",
+      "template":"hbs!tmpl/Legend"
+    },
+    {
+      "id":"About",
+      "template":"hbs!tmpl/About"
     }
   ],
 
   "selectionTools":[
-    {
-      "id":"pointSelection",
-      "description": "Point selection tool",
-      "icon":"icon-screenshot"
-    },
-    {
-      "id":"lineSelection",
-      "description": "Line selection tool",
-      "icon":"icon-vector-path-line"
-    },
     {
       "id":"polygonSelection",
       "description": "Polygon selection tool",

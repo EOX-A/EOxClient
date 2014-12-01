@@ -145,6 +145,16 @@ div#preload {
   overflow-y: hidden !important; 
 }
 
+.modal-dialog{
+  width: 800px !important; 
+}
+
+/* Help View */
+.modal-body-help{
+  max-height: 700px;
+  overflow-y: scroll; 
+}
+
 
 /*
  * Buttons
@@ -168,7 +178,7 @@ button[active=active] {
  * Layer control styles
  */
 .layercontrol {
-    width: 20em;
+    width: 34em;
     top: 10em;
     left: 3em;
     font-size: .9em;
@@ -225,6 +235,22 @@ button[active=active] {
 }
 .toolcontrol .btn-group-vertical {
   margin-bottom: .5em;
+}
+
+/* Legend panel */
+.legendpanel {
+  width: 30em;
+  top: 10em;
+  right: 3em;
+  font-size: .9em;
+  position: absolute;
+  right: 3em;
+  
+}
+
+.legendpanel .panel-body{
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 /*

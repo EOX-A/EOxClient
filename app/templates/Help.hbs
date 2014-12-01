@@ -1,0 +1,435 @@
+
+<div class="modal-dialog">
+  <div class="modal-content">
+
+
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times-circle"></i></button>
+      <h3 class="panel-title" id="about-title"><i class="fa fa-fw fa-info-circle"></i> Help</h3>
+    </div>
+
+    <div class="modal-body modal-body-help">
+    	<div class="tab-pane active" id="div-help">
+        <h3>Help</h3>
+        <div class="accordion" id="accordion-help"><div class="accordion-group">
+			<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-help" href="#accordion-help-general-body">General</a>
+			</div>
+			<div id="accordion-help-general-body" class="accordion-body collapse in">
+			<p>CryoLand provides a fully validated and standardized Snow, Glacier and Lake / River Ice service within the Global Monitoring of Environment and Security (GMES / Copernicus) framework of the European Commission. The products and services have been specified and consolidated by users from different fields of application, organized in the CryoLand User Group.</p>
+		    <p>The CryoLand GeoPortal is the single entry point for accessing and downloading CryoLand Snow and Land Ice Products utilizing OGC standardized interfaces.</p>
+			</div>
+		</div>
+
+		<div class="accordion-group">
+			<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-help" href="#accordion-help-cryoland-products-body">Cryoland Products</a>
+			</div>
+			<div id="accordion-help-cryoland-products-body" class="accordion-body collapse">
+			<p>CryoLand offers a series of geospatial Snow and Land Ice Products with a pan-European, regional and local coverage:</p>
+			<p><strong>Operational Snow Products:</strong>
+				</p><ul>
+					<li><u>Pan-European Snow Products:</u></li>
+					<ul>
+						<li>Fractional Snow Cover (FSC)<br>
+						<ul>
+							<li> «<u>daily_FSC_PanEuropean_Optical</u>»:<br>This near real time product from Optical Satellite data provides the daily Fractional Snow Cover with 0.005° x 0.005° (ca. 500 m x 500 m) pixel size for the Pan-European area, extending from 72°N / 11°W to 35°N / 50°E. Cloud covered pixels are masked over land.</li>
+							<li> «<u>View_10day_FSC_PanEuropean_Cloudfree</u>» - a 10-day FSC Composite Cloudfree (Viewing Product):<br>This layer is a daily updated aggregated Fractional Snow Cover (FSC) map based on the most recent cloud free pixel information of the past 10 days of the daily pan-European FSC product. This layer is intended as a VIEWING service only.</li>
+						</ul>
+						</li>
+						<li>Snow Water Equivalent (SWE; coarse resolution)<br>
+							<ul>
+								<li> «<u>daily_SWE_PanEuropean_Microwave</u>»:<br>The daily Pan-European Snow Water Equivalent (SWE) product is based on the combination of satellite-based microwave radiometer (DMSP SSM/I from 1987 – present) and ground-based weather station snow depth data provided by ECMWF. The product covers non-mountainous areas between 72°N/11°W and 35°N/50°E, with a pixel size of 0.10° x 0.10°. The  product is provided daily with 2 days delay  during the winter season, from the beginning of October until the end of July, through the CryoLand GeoPortal.</li>
+								<li> «<u>avg_XXday_SSPI_PanEuropean_Microwave</u>»:<br>The SSPI (Standardized Snow Pack Index) provides information about the volume of the snowpack on a 10-day and a30-day basis relative to a reference period of 1979-2010. The relative snowpack volume is expressed as standardized values between -3 to 3. The SSPI is computed the same way as SPI (Standardized Precipitation Index), but it is based on the "daily PanEuropean Snow Water Equivalent (SWE)" product.</li>
+							</ul>
+						</li>
+					</ul>
+
+					<p>Both Products are generated daily in near real time.</p><p>
+
+					</p><li><u>Regional Snow Products:</u></li>
+					<ul>
+
+						<li>Fractional Snow Cover Products (FSC) for Central Europe, Baltic Region and Scandinavia, generated with regionally adapted algorithms <br>
+						<ul>
+							<li> «<u>daily_FSC_Baltic_Optical</u>»:<br>Baltic The Fractional Snow Cover over the Baltic Area describes the snow-covered area, given as percentage (0-100%) of the land surface,  covered by snow with a spatial resolution of 500m. The underlying method uses a transmissivity map (a parameter describing the passage of light back and forth through forest canopy) enabling the estimation of areas covered by vegetation (trees and tall schrubs). The estimate is given with an uncertainty of 15% percentage points on a single pixel scale.</li>
+							<li> «<u>daily_FSC_Alps_Optical</u>»:<br>This near real time product from Optical Satellite data provides the daily Fractional Snow Cover over the Alps and lowlands with 0.0025° x 0.0025° (ca. 250 m x 250 m) pixel size. Cloud covered pixels are masked.</li>
+							<li> «<u>multitemp_FSC_Scandinavia_Optical</u>»:<br>Multi-temporal aggregated snow cover fraction (0-100%) for Scandinavia based on single-day snow maps. These maps are based on optical data from NASA's Terra MODIS sensor. Daily products are presented based on the latest available information. When regions are covered by clouds, we use older pixel up to 7 days. Service delivered from April-July.</li>
+							<li> «<u>multitemp_FSC_Scandinavia_Optical_Radar</u>»:<br>Multi-sensor/temporal aggregated snow cover fraction (0-100%) for Scandinavia based on data from optical and radar sensor. Daily products are presented based on the latest available information. When regions are covered by clouds, we use older pixel up to 7 days. Wet snow from SAR is also used to estimate snow cover fraction. The products are based on data from NASA's Terra MODIS sensor and Radarsat-2. Service delivered from April-July.</li>
+						</ul>
+						</li>
+
+						<li>Melting (wet) snow areas (SCAW) for Scandinavian mountain regions<br><ul><li> «<u>daily_SCAW_Scandinavia_Radar</u>»:<br>Detected wet snow from Radarsat-2. Each product shows regions of wet snow for the specific day of acquisition. The areas that are not wet can be covered by dry snow or are without snow. The spatial coverage varies from day to day depending on data availability. The service is delivered the during entire year.</li>
+						</ul>
+							</li>
+							</ul>
+					<li><u>In-situ:</u></li>
+						<ul>
+							<li> «<u>SYKE-Snow Stations</u>»:<br>In-situ observations of Fractional Snow cover at Finnish snow courses:&nbsp;&nbsp;one observation for each snow course represents an average value measured at 40-60 locations along a 2-4 km long transect through various landscapes. Location refers to central point of the course.</li>
+
+						</ul>
+				</ul>
+			<p></p>
+
+			<p><strong>Demonstration Products:</strong>
+		    </p><p>In addition to the Operational Snow Products various Demonstration Products, which are still under evaluation or development, are provided. <!-- or will soon be provided  -->; </p>
+			<p>
+			</p><ul>
+
+				<li><u>Snow Products:</u></li>
+				<ul>
+					<li>Snow Temperature Surface (STS)<br><ul><li> «<u>daily_STS_SouthNorway_Optical</u>»:<br>Demonstration product for the snow skin surface temperature. Samples for south Norway periodically provided daily for the snowmelt season. Available for full snow cover only. Partial snow cover indicated and clouds masked. Spatial resolution 0.01° x 0.01°.</li>
+				</ul>
+				</li>
+
+					<li>Snow Surface Wetness (SSW)<br>
+					<ul>
+						<li> «<u>daily_SSW_SouthNorway_Optical</u>»:<br>Demonstration product based on temporal observations of snow temperature and snow grain size. Samples for south Norway periodically provided daily for the snowmelt season. Available for full snow cover only. Partial snow cover indicated and clouds masked. Spatial resolution 0.01° x 0.01°.</li>
+					</ul>
+					</li>
+				<!--	<li>Snow Grain Size (SGS)<br><ul><li> &laquo;<u>XXXXXXX</u>&raquo;:<br>SHORT DESCRIPTION</li></ul></li> -->
+				<!--	<li>Spectral Snow Surface Albedo (SSA) maps<br><ul><li> &laquo;<u>XXXXXXX</u>&raquo;:<br>SHORT DESCRIPTION</li></ul></li> -->
+					<br>
+				</ul>
+
+				<li><u>Lake / Rive Ice Products: </u></li>
+				<ul>
+					<li>Lake Ice Extent (LIE) Products (the classification uses four categories: "Snow covered ice", "Partial snow/white ice", "Clear ice", "Open water")<br>
+					<ul>
+						<li> «<u>daily_LIE_Baltic_Optical</u>»:<br>Describes the lake ice extent in the large lakes ( &gt; 45 km², i.e. 500 pixels) and rivers over the Baltic Sea drainage basin, derived from daily optical satellite data (currently MODIS Terra).</li>
+						<li> «<u>View_10day_LIE_Baltic_Cloudfree</u>» - a 10-day LIE Composite Cloudfree (Viewing Product):<br>This layer is a daily updated aggregated Lake Ice Extent (LIE) map based on the most recent cloud free pixel information of the past 10 days of the daily Baltic LIE product. This layer is intended as a VIEWING service only.</li>
+						<li> «<u>LIE_Analysed_Lakes_Baltic</u>» - Areas ananlysed for Lake Ice occurrence:<br>The lake boundaries have been derived from GlobCover dataset (due.esrin.esa.int/globcover/), where a 250m buffer towards the interior of the lakes is used to exclude areas of shallow water and mixed pixels of water and land. The spatial resolution of the underlying satellite data (MODIS Terra) and the product is 250m.</li>
+					</ul>
+					</li>
+
+					<li>River Ice Extent (RIE)<br>
+					<ul>
+						<li> «<u>RIE_SE_FI_Torne_River_2013_Radar</u>»:<br>Detected river ice using SAR (Terrasar-X and Radarsat-2). The product shows areas within a river stretch that is covered with ice. Each product is based on a single SAR scene and shows the ice coverage at the time of the satellite pass. The quality depends on the spatial resolution of the applied SAR mode. The service is delivered for selected rivers during the ice break up period. </li>
+					</ul>
+					</li>
+				<!--	<li>River Ice Jams (RIJ) and related flooded areas are mapped on request<br><ul><li> &laquo;<u>XXXXXXX&raquo;</u>:<br>SHORT DESCRIPTION</li></ul></li> -->
+				</ul>
+				<br>
+
+				<li><u>Glacier Products:</u></li>
+				<ul>
+					<li>Glacier outlines (GLO)<br>
+					<ul>
+						<li> «<u>GLO_AT_Hohe_Tauern_2009_Optical</u>»:<br>This layer shows the boundaries of glaciers in the Hohe Tauern, Austria, on 1 September 2009, derived from high resolution optical satellite data. The product is provided on demand (<a href="mailto:cryoland@enveo.at?subject=CryoLand Data Request">cryoland@enveo.at</a>).</li>
+					</ul>
+					</li>
+
+					<li>Glacier Images (GL)<br>
+					<ul>
+						<li> «<u>image_AT_Hohe_Tauern_2009_Optical</u>»:<br>RGB composite of SPOT-5 image of 1 September 2009 used for analysis of glacier boundaries of Hohe Tauern, Austria. The layer is available only as VIEWING service.</li>
+						<li> «<u>image_GL_Tininnilik_20xx_Optical</u>»:<br>These RGB composites of Landsat images were used for the analysis of the glacier lake Tininnilik in West-Greenland. These layers are provided only as a VIEWING service. The Dates for the respective images are:</li>
+						<ul>
+							<li>7. September 2012</li>
+							<li>3. July 2011</li>
+							<li>17. August 2010</li>
+							<li>9. August 2007</li>
+							<li>4. September 2005</li>
+							<li>1. September 2004</li>
+							<li>7. July 2001</li>
+							<li>22. September 2000</li>
+						</ul>
+					</ul>
+					</li>
+
+					<li>Glacier Lakes (GLL)<br>
+					<ul>
+						<li> «<u>GLL_GL_Tininnilik_20xx_Optical</u>»:<br>These layers show the boundaries of the glacier lake Tininnilik in West-Greenland as derived from high resolution optical satellite data. The product is provided on demand (<a href="mailto:cryoland@enveo.at?subject=CryoLand Data Request">cryoland@enveo.at</a>). The Dates for the analysed glacier lake boundaries are the same as those given for the «image_GL_Tininnilik_20xx_Optical products.</li>
+					</ul>
+					</li>
+				<!--	<li>Snow / Ice extent on Glaciers (GLS)<br><ul><li> &laquo;<u>XXXXXXX</u>&raquo;:<br>SHORT DESCRIPTION</li></ul></li> -->
+				<!--	<li>Glacier Velocity (GLV)<br><ul><li> &laquo;<u>XXXXXXX</u>&raquo;:<br>SHORT DESCRIPTION</li></ul></li> -->
+
+				</ul>
+				<p>New Products are generated on user request.</p>
+			</ul>
+			<p></p>
+			<p>
+			</p><p><strong>Detailed specifications of the CryoLand Products are provided at:</strong></p>
+				<ul>
+					<li> <a target="_blank" href="http://cryoland.enveo.at/index.php/services/snow-services">Snow Products</a></li>
+					<li> <a target="_blank" href="http://cryoland.enveo.at/index.php/services/glacier-services">Glacier Products</a></li>
+					<li> <a target="_blank" href="http://cryoland.enveo.at/index.php/services/lake-and-river-ice-services">Lake and River Ice Products</a></li>
+				</ul>
+			<p></p>
+			</div>
+		</div>
+
+		<div class="accordion-group">
+		  <div class="accordion-heading">
+		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-help" href="#accordion-help-access-body">
+		      Access and Download of Products
+		    </a>
+		  </div>
+		  <div id="accordion-help-access-body" class="accordion-body collapse">
+		    <p>This GeoPortal represents the CryoLand user information service, offering interactive maps, search and download via a Web browser as well as OGC standardized interfaces. The CryoLand GeoPortal is intended to demonstrate the advantages of the combined utilization of WMS and WCS standards defined by OGC but not to act as a full analysis tool for snow and land ice products. It shall offer you a comfortable way to explore (view: WMS/EO-WMS) the available data and provide a convenient data access (download: WCS 2.0/EO-WCS), utilizing the combination of these OGC interfaces.</p>
+			<p>The offered combination of service interfaces provide to you:</p>
+			<p>
+				</p><ul>
+					<li>selection of an Area-of-Interest (AOI)</li>
+					<li>selection of a Time-of-Interest (TOI)</li>
+					<li>selection of the output data projection (CRS)</li>
+					<li>selection of the output file format (currently only GeoTIFF is available)</li>
+				</ul>
+			<p></p>
+			<p><strong>Important Notice: </strong>The download of multiple datasets (e.g. for time-series) does not work using Internet Explorer, since this browser stops its work after the first file is downloaded. This seems to be a design feature.  It is, therefore, strongly recommended to use a recent version one of the following browsers: Firefox, Chromium, Safari.</p>
+			<p>If you want to integrate the offered OGC interfaces into your GIS (or a similar application) and/or to automate the access to the offered CryoLand dataset, then please read the sections "Integration and Automation".</p>
+
+			<h4>Using the Map Interface</h4>
+			<p>The CryoLand GeoPortal's Interactive Map interface is split into three sections. <br>
+				</p><ul>
+					<li>The top:&nbsp;&nbsp;&nbsp;a "Menu Bar" is located, allowing to choose one of the major functionalities:</li>
+					<ul>
+						<li>Layer:&nbsp;&nbsp;&nbsp;opens a widget to select the Products, as well as Overlays and the Base layers (Background map) to be displayed</li>
+						<li>Legend:&nbsp;&nbsp;&nbsp;opens a widget to display the legends associated with the respective Products</li>
+						<li>Download:&nbsp;&nbsp;&nbsp;opens a widget to select the AOI and TOI and to initiate the download of the selected Products</li>
+						<li>Help:&nbsp;&nbsp;&nbsp;opens a widget displaying this information</li>
+					</ul>
+					<br>
+					By clicking on a "Menu Bar" entry a widget will pop-up on the left side of the "Interactive Map" area, providing the respective functionalities. A widget can be closed again by either clicking the "x-symbol" located at the top-right of the widget or by clicking on another "Menu Bar" entry, which allows you to switch to the chosen widget immediately.
+					<br>&nbsp;<br>
+					<li>The middle:&nbsp;&nbsp;&nbsp;the "Interactive Map" display:</li>
+					<ul>
+						<li>Panning/Navigation:&nbsp;&nbsp;&nbsp;click on the map and drag the map as needed</li>
+						<li>Zoom-In:&nbsp;&nbsp;&nbsp;double click or use Mouse-Wheel; alternatively - press and hold shift-button and then click-and-drag to draw a rectangle indicating the approximate new viewing area </li>
+						<li>Zoom-Out:&nbsp;&nbsp;&nbsp;use Mouse-Wheel</li>
+					</ul>
+					<br>
+					<li>The bottom:&nbsp;&nbsp;&nbsp;the "Time-Slider", to choose the date for viewing</li>
+					<ul>
+						<li>Allows to select the date for which Products shall be displayed</li>
+						<li>The bright zone in the middle of the Time-Slider defines the date to be viewed</li>
+						<li>The Time-Slider can be simply dragged with the mouse towards left and right to choose a new viewing date</li>
+						<li>Provides indicators for which dates Products are available (color-coded according to the Products selected in the "Layer" widget). Only selected layers are shown.</li>
+						<li>Provides Fast-Forward and a Fast-Backward buttons, to ease access to irregular products or to skip over prolonged periods (e.g. non-snow season). The date slider will jump to the next date with a selected product available.  </li>
+						<li>The current coordinates of the mouse pointer are shown at the lower right corner</li>
+					</ul>
+					<br>
+				</ul>
+			<p></p>
+
+			<h4>Layer widget</h4>
+			<p>
+			The Layer widget provides access to the Product layers, Overlays and Base layers (Background map) to be displayed. The offered CryoLand products are provided as layers and are organized in groups and sub-groups (as shown below, additional subgroups may be added in the future) to provide an intuitive access and selection. The user may select one or multiple layers, which are presented inside the subgroups.<br>
+			The layer grouping is organized as follows:
+			</p><ul>
+				<li>Snow:</li>
+				<ul>
+					<li>Pan-European</li>
+					<li>Regional</li>
+					<li>In-situ</li>
+				</ul>
+				<li>Lake/River Ice:</li>
+				<ul>
+					<li>Lake Ice Classification</li>
+					<li>River Ice Extent</li>
+				</ul>
+				<li>Glacier:</li>
+				<ul>
+			 		<li>Glacier Outlines</li>
+		<!--		<li>Snow/Ice Area on Glacier:</li> -->
+					<li>Glacier Lakes</li>
+					<li>Glacier Images</li>
+				</ul>
+				<li>External Services:</li>
+				<ul>
+					<li>Glacier (GLIMS)</li>
+				</ul>
+				<li>Overlays:</li>
+				<ul>
+					<li>Forest-, Water-, Urban-, and Glaciermasks, Country Borders</li>
+				</ul>
+				<li>Base Layers:</li>
+				<ul>
+					<li>Blue Marble, Relief, Open Streetmap</li>
+				</ul>
+			</ul>
+
+			The Layer widget allows to:
+			<ul>
+				<li>select the Product layer(s) to be viewed - use the the check-box on the left (multiple selections possible)</li>
+				<li>adapt the opacity of each Product layer - click the "black &amp; white circle symbol" which opens a slider widget which lets you define the opacity for the respective layer. Click the symbol again to close the slider widget</li>
+				<li>re-arrange the order of the Product layers - click the "Sorting" TAB located at the top of the layer widget. A list with all selected Products will be displayed. You may change the display-order of the selected Products by simply dragging &amp; dropping a product name to the desired position.</li>
+				<li>select Overlays to be displayed - use the selection boxes to select which Overlay masks to be applied (multiple selections possible). The masks are derived from CORINE and GLOBCOV datasets.</li>
+				<li>select the Base layer to be displayed - use the radio-buttons to select which background map to be applied (single selection only)</li>
+			</ul>
+			<p></p>
+
+			<h4>Legend widget</h4>
+			<p>The Layer widget provides access to the Legend associated with each CryoLand Product.<br>
+			The Legend widget presents a "Common to all CryoLand Products" section at the top. Below this section a list of the available Products are presented. Each entry can be selected (by clicking it), which will then present the Legend specific for the respective Product. In cases where no Legend is associated with the respective Product a  "N/A"  (not available) will be displayed.
+			</p>
+
+			<h4>Download widget</h4>
+			<p>
+			The Download widget provides the possibility to select:
+			</p><ul>
+				<li>the Area-of-Interest (AOI)</li>
+				<li>the Time-of-Interest (TOI)</li>
+			</ul>
+			for which the selected Product(s) shall be downloaded, and a "Download" button to initiate the download.
+			<p></p>
+
+			<p>
+			<strong>Define the TOI - </strong>The TOI can be defined in the "Date Range" section, using one of the following methods:
+			</p><ul>
+				<li>Recommended Method: click on the "calendar symbol" at the right side of the respective date fields (Start &amp; End)</li>
+				<li>enter the dates into the respective fields (Start &amp; End)</li>
+			</ul>
+		    <p></p>
+
+			<p>
+			<strong>Define the AOI - </strong>The AOI can be defined using one of the following methods:
+			</p><ul>
+				<li>Define a rectangular Bounding Box</li>
+				<ul>
+					<li>press the "Draw Bounding Box" button and then click-and drag the mouse to draw a rectangle in the "Interactive Map" area. The selected coordinates will be provided in the corresponding widget fields (MinX, MinY, MaxX, MaxY). These fields also allow a later correction of the coordinates. </li>
+					<li>enter the desired coordinates into the corresponding widget fields (MinX, MinY, MaxX, MaxY). After entering the last number the rectangle will be drawn in the "Interactive Map" area.</li>
+				</ul>
+				<br>
+				To remove a rectangle from the "Interactive Map" area, click on the "x-symbol" button at the right of the "Draw Bounding Box" button.<br>&nbsp;<br>
+
+				<li>Upload a shp-file (optionally including the associated dbf-file). <u>Only closed polygons with Lat/Lon (WGS84) coordinates are supported</u>.</li>
+				<ul>
+					<li>pressing the "Select file" button, will provide you with your local file-manager allowing you select the shp-file you want to submit (plus optionally the dbf-file using multi-select) for uploading. <br>
+					Once a file has been submitted, the "Select file" button will be named "Change" button, to indicate that a file has already been selected. Nevertheless, the functionality of the button stays the same.</li>
+					<li>pressing the "Select Polygon" button will provide with a pop-up widget allowing the selection of one of provided polygons (in case multiple polygons are contained in the shp-file).<br>
+					Once a polygon has been selected it will be drawn onto the "Interactive Map" area. In addition the surrounding Bounding Box for the respective polygon is calculated and drawn and the coordinates are provided in the Bounding Box fields (MinX, MinY, MaxX, MaxY). To remove a polygon and the associated Bounding Box, click on the "x-symbol" button at the right of the "Select Polygon" button.</li>
+				</ul>
+			</ul>
+			<p></p>
+			<p><strong>Initiate the Download - </strong>Once AOI and TOI are defined the download can be initiated by pressing the Download button. This will trigger the pop-up of the "Start Download" widget, which allows the detailed selection of the Products available for the specified AOI and TOI by clicking the respective check boxes (on the left of each Product name). The widget further provides access to additional information on the exact time period of each Product (when moving the mouse over the "i-symbol" located to the right of each Product name) and allows to specify the output file format and the desired output CRS for the Products to be downloaded. These two choices can be selected using the selection boxes at the bottom of the widget. The button "Select All" and "Invert Selection" work as the name suggests. Finally the "Start Download" button will start the download process and a local file manager window will appear asking for the location where the file(s) to be downloaded shall be saved. Unfortunately web Browsers will ask this for each and every file to be saved.</p>
+
+			<p><strong>Important Notice: </strong>Internet Explorer will stop after the first download (seems to be a design feature), therefore access to time-series datasets will not be possible. It is, therefore, strongly recommended to use Firefox, Chromium or Safari, which will ask for the storage location also when multiple files are downloaded (e.g time-series dataset).</p>
+
+			<p>In case there are no selected Products pressing the "Start Download" button will perform no action. To close the "Start Download" widget either click on the "x-symbol" (top right) or anywhere on the "Interactive Map" area.</p>
+
+			<p>If you need to perform time-series request on a regular basis, we recommend that you consider the automation of EO-WCS request. For further information about EO-WCS requests, please read the chapter about "Integration and Automation".</p>
+
+			<p><strong>Principle of operation of the shp-upload - </strong>The uploaded shp-file will be analyzed and its surrounding Bounding Box will be calculated. A Mask (with zero values) covering the outside of the polygon will be created. The datasets will then be requested and the mask is applied. The resulting images are delivered to the customer. This functionality works for single datasets as well as for multiple datasets (e.g. time-series) and is applied to any product selected in in the Layers widget. This functionality is intended e.g. for extracting a coverage or even a time-series of a drainage basin/catchment area/watershed or similar scenarios. This feature is not a part of the OGC WCS 2.0/EO-WCS standard, but is an additional implementation of EOxServer which is underlying the CryoLand services. The respective requests are implemented as HTTP POST requests.</p>
+			</div>
+		</div>
+
+
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-help" href="#accordion-help-integration-body">Integration and Automation</a>
+			</div>
+			<div id="accordion-help-integration-body" class="accordion-body collapse">
+				<h4>Integration into GIS</h4>
+				<p>Unfortunately, so far we are not aware on any implementation which allow accessing an OGC WCS interface from within a GIS application.</p>
+				<p>
+				</p><ul>
+					<li>How-To access the CryoLand OGC-WMS interface from within QGIS<br>
+					The Document <a href="http://cryoland.enveo.at/downloads/CryoLand4Newbies/CryoLand4Newbies.pdf">CryoLand4Newbies</a> provides a short overview about the products and functionalities provided by the CryoLand GeoPortal. There you'll also find a comprehensive guide on how-to access the CryoLand OGC-WMS interface from within QGIS.<br>
+					</li>
+				</ul>
+				<p></p>
+
+				<h4>Automation using scripting</h4>
+				<p>Below you can download three example scripts which demonstrate the automated access to the OGC EO-WCS interface provided by the CryoLand GeoPortal. <br>
+				All three scripts have been developed and tested under Linux/Unix OS, but should also run under Windows (although there maybe some minor modifications needed). <br>
+				Further information about their "Usage" can be found inside the scripts.<br>
+				These scripts are provided for your convenience "AS IS" without any warranty of any kind. Therefore, use them at your own risk. See also the Disclaimer inside the scripts.<br>
+				</p><ul>
+					<li>Download example - implemented in Python <br>
+					This example demonstrates a simple download procedure, mainly intended for automatic usage e.g. to receive the latest Snow-product on a daily basis.<br>
+					<a href="/scripting_wcs_download.py.zip">Download script...</a></li>
+					<li>Download example - implemented in IDL (© ExelisVis) <br>
+					Similar functionality as the Python script above, but implemented in IDL. <br>
+					<a href="/scripting_wcs_download.pro.zip">Download script...</a></li>
+					<li>Download &amp; Analyse example - implemented in IDL<br>
+					Beside a direct download functionality this script demonstrates the possibility of combining the download with an immediate data extraction and analysis. It is intended to demonstrate the possibility that users may access the CryoLand GeoPortal and directly integrate the received data (or processed results) into their existing knowledge systems.<br>
+					<a href="/scripting_wcs_analyse.pro.zip">Download script...</a></li>
+				</ul>
+				<p></p>
+
+				<br>
+				<h4>WCS 2.0/EO-WCS Examples</h4>
+				<p>Not all standardized WCS 2.0/EO-WCS features provided by EOxServer, are implemented in the CryoLand webGUI of the GeoPortal.<br>
+				You can find  <a target="_blank" href="http://neso.cryoland.enveo.at/examples.html">additional data access examples here </a>and a wider in scope description and more examples at <a target="_blank" href="http://eoxserver.org/doc/en/users/demonstration.html">EOxServer's demonstration </a>and <a target="_blank" href="http://eoxserver.org/doc/en/users/EO-WCS_request_parameters.html#eo-wcs-request-parameters">EOxServer's documentation </a>sites. <br>
+				EOxServeris also included on the <a target="_blank" href="http://live.osgeo.org/en/index.html">OSGeo-Live 7.0 CD-ROM</a>, which allows you to try a wide variety of open source, geospatial software without installing anything.
+				</p>
+			</div>
+		</div>
+
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-help" href="#accordion-help-cryoland4newbies-body">CryoLand4Newbies</a>
+			</div>
+			<div id="accordion-help-cryoland4newbies-body" class="accordion-body collapse">
+				<p>The Document <a href="http://cryoland.enveo.at/downloads/CryoLand4Newbies/CryoLand4Newbies.pdf">CryoLand4Newbies</a> provides a short overview about the products and functionalities provided by the CryoLand GeoPortal.</p>
+			</div>
+		</div>
+
+
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-help" href="#accordion-help-troubleshooting-body">Troubleshooting / FAQ</a>
+			</div>
+			<div id="accordion-help-troubleshooting-body" class="accordion-body collapse">
+				<p>
+				</p><ul>
+					<li><strong>Download Widget - Calendar-Widget is outside of viewing area</strong><br>
+					<ul>
+						<li>Modern Browsers provide the possibility to Zoom In &amp; Out (e.g to increase the readability). This feature, usually activated by using a combination of the Ctrl/Strg-Key plus the + or - Key or by using the Ctrl/Strg-Key plus the Mouse-Wheel, changes the total viewable screen-size, which results in a change of the corresponding sizes of the widgets. This causes the Calendar-Widget to be outside the viewing area. To resolve this problem, please use one of the these Key combinations (Ctrl/Strg-Key plus the + or - Key or the Ctrl/Strg-Key plus the Mouse-Wheel) to Zoom Out again, until the Calendar-Widget is fully visible again. If you use the Mouse-Wheel, please make sure that you first position your Mouse-Pointer at the CryoLand-Menu-Bar (located at the top), since only the Map will be zoomed if the Mouse-Pointer is located inside the Map-Window.  If none of the described Key combinations work, please consult the Help of your Browser for further information.</li>
+					</ul>
+					</li>
+					<br>
+
+					<li><strong>Fast access to a certain Date</strong><br>
+					<ol>
+						<li>By Selecting a Date: The Download-Widget provides Start and End Date-Fields. Please use the Calendar-Widget to select the desired Date value. Especially the Start Date-Field can be used to jump around fast i.e. to directly jump to a certain Date. Please make sure that the End-Date is after the Start-Date, and correct it if necessary (otherwise this feature will not work). </li>
+						<li>Using the Time-Slider: the Time-Slider provides Fast-Forward and a Fast-Backward buttons (on the left and right end), to ease access to irregular products or to skip over prolonged periods (e.g. non-snow season). The Time-Slider will jump to the next Date with a selected product available.</li>
+					</ol>
+					</li>
+					<br>
+
+					<li><strong>When selecting a dataset, some areas on the map are shown in pink</strong><br>
+					<ul>
+						<li>If the CryoLand server can't deliver fast enough (e.g. due to current load) it runs into a timeout, which results in these pink tiles - which represent tiles which got not delivered. Mostly a full reload (using Ctrl+R or Ctrl+F5) should overcome this. Sometimes even a shift/pan of the viewing area is enough to reload these tiles.  But sometimes, unfortunately, the browser will only contact its local Cache and is not issuing a real reload. Therefore the first method is the recommended one.</li>
+					</ul>
+					</li>
+					<br>
+					
+					<li><strong>Why is it needed to confirm every downloaded coverage</strong><br>
+					<ul>
+						<li>The requirement to to confirm every downloaded file separately comes from the browsers side. We do´t have any influence on this. <br>
+						However, for the download of larger series we recommend the use of a script (e.g see the ones provided by CryoLand → Help section "Integration and Automation"). Please consult this "Integration and Automation" section for more detailed information. In case you need further help with scripting or have special needs please feel free to contact us. The contact information is provided at the end of this FAQ.</li>
+					</ul>
+					</li>
+					<br>
+
+					<li><strong>The downloaded files have a strange filename</strong><br>
+					<ul>
+						<li>Filename example: "SWE_0.1deg_201304040000_SSMIS_PanEurope_FMIV1.0.tif_20131107071245.tif". When downloading coverages it would be possible to donwload different AOIs from the same base-coverage (with the same filename). In order to ensure we don't overwrite already downloaded files, (e.g. during script-based automatic downloads), we extend the downloaded filename with the timestamp of the download and again with its respective extensions. So in the above example the  "_20131107071245.tif" ending of the filename is added during the download to ensure uniqueness and of the filename and prevent accidentally overwriting of files coming from the same source coverage.</li>
+					</ul>
+					</li>
+					<br>
+
+					<li><strong>Reporting Problems / Submitting a: Question, Suggestion or Service Requests / etc.</strong><br>
+					If you encounter a problem, please first consider the following items:
+					<ol>
+						<li>please read this "Troubleshooting / FAQ" section</li>
+						<li>please read the  "Access and Download of Products" section </li>
+						<li>please read the  "Integration and Automation" section, if the problem or question is related to the Integration into GIS, Automation using scripting, or other Direct Access problems</li>
+						<li>If you could not solve the problem, or if you have any other CryoLand related question, suggestion, or inquiry please feel free to contact us at<a href="mailto:cryoland@enveo.at?subject=CryoLand-Troubleshooting"> cryoland@enveo.at</a>. We will try (during regular Middle-European working hours) to solve the problem or answer your question or contact you as soon as possible.</li>
+					</ol>
+					</li>
+					</ul>
+				<p></p>
+			</div>
+		</div>
+		</div>
+      </div>
+    </div>
+
+      
+
+  </div>
+</div>
+

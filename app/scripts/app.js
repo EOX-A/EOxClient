@@ -134,9 +134,16 @@
 					console.log("Added baselayer " + baselayer.id );
 				}, this);
 
+				var autoColor = {
+		            colors : d3.scale.category10(),
+		            index : 0,
+		            getColor: function () { return this.colors(this.index++) }
+		        }
+
 				//Productsare loaded and added to the global collection
 				_.each(config.mapConfig.products, function(products) {
-
+					
+					var p_color = products.color ? products.color : autoColor.getColor();
 					globals.products.add(
 						new m.LayerModel({
 							name: products.name,
@@ -144,7 +151,7 @@
 							timeSlider: products.timeSlider,
 							// Default to WMS if no protocol is defined
  							timeSliderProtocol: (products.timeSliderProtocol) ? products.timeSliderProtocol : "EOWCS",
-							color: products.color,
+							color: p_color,
 							time: products.time,
 							opacity: 1,
 							view:{
@@ -243,11 +250,10 @@
 
 				};
 
-				// Added region to test combination of backbone
-				// functionality combined with jQuery UI
+				// Added dialog panel for About
 				this.addRegions({dialogRegion: DialogRegion.extend({el: "#viewContent"})});
-				this.DialogContentView = new v.ContentView({
-					template: {type: 'handlebars', template: t.Info},
+				this.AboutView = new v.ContentView({
+					template: {type: 'handlebars', template: t.About},
                     id: "about",
                     className: "modal fade",
                     attributes: {
@@ -259,6 +265,28 @@
                         "data-backdrop": "static"
                     }
 				});
+
+				// Added dialog panel for help
+				this.HelpView = new v.ContentView({
+					template: {type: 'handlebars', template: t.Help},
+                    id: "about",
+                    className: "modal fade help",
+                    attributes: {
+                        role: "dialog",
+                        tabindex: "-1",
+                        "aria-labelledby": "about-title",
+                        "aria-hidden": true,
+                        "data-keyboard": true,
+                        "data-backdrop": "static"
+                    }
+				});
+
+
+				// Create panel views
+				this.LegendView = new v.PanelView({
+            		template: {type:'handlebars',template: t.Legend},
+            					className: "panel panel-default not-selectable legendpanel",
+            	});
 
 				// Create the views - these are Marionette.CollectionViews that render ItemViews
                 this.baseLayerView = new v.BaseLayerSelectionView({
