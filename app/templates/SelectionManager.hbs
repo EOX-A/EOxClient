@@ -8,9 +8,10 @@
     <div class="myfileupload-buttonbar ">
       <label class="btn btn-default myui-button">
         <span><i class="fa fa-fw fa-upload"></i> Upload Selection</span>
-        <input id="upload-selection" type="file" name="files[]" />
+        <input id="upload-selection" accept=".shp, .dbf, .json, .geojson, .gjson" type="file" name="file[]" multiple />
       </label>
       <button type="button" class="btn btn-default" id="btn-export-selection"><i class="fa fa-fw fa-download"></i> Export Selection</button>
       <button type="button" class="btn btn-default" id="btn-save-selection"><i class="fa fa-fw fa-save"></i> Save Selection</button>
+      <button type="button" class="btn btn-default" id="btn-remove-all-selections"><i class="fa fa-fw fa-times"></i> Clear List</button>
   </div>
 </div>

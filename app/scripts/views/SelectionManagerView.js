@@ -73,17 +73,118 @@
 		        "change #upload-selection": "onUploadSelectionChanged",
 		        "click #btn-export-selection": "onExportSelectionClicked",
 		        "click #btn-save-selection": "onSaveSelectionClicked",
+		        "click #btn-remove-all-selections": "onRemoveAllSelectionsClicked",
 		        "click .delete-selection": "onDeleteSelection",
 		        'change input[type="radio"]': "onSelectionSelected"
 	      	},
 
-	      	onUploadSelectionChanged: function(evt) {
-	      		var reader = new FileReader();
-				reader.onloadend = function(evt) {
-					Communicator.mediator.trigger("map:load:geojson", evt.target.result);
-				}
+	      	onRemoveAllSelectionsClicked: function(evt){
+	      		localStorage.removeItem('selections');
+	      		this.renderList();
+	      	},
 
-				reader.readAsText(evt.target.files[0]);
+	      	onUploadSelectionChanged: function(evt) {
+	      		
+				var upl_files = {};
+				var re = /(?:\.([^.]+))?$/;
+				var self = this;
+
+
+				var j = 0, k = evt.target.files.length;
+			    for (var i = 0; i < k; i++) {
+			    	(function(file) {
+				        var reader = new FileReader();
+				        reader.onloadend = function (e) {
+				        	var ext = re.exec(file.name)[1]; 
+				        	//upl_files[ext] = file;
+				        	upl_files[ext] = e.target.result;
+			                //var data = e.target.result; 
+			                //upl_files[ext] = data;
+			                j++;
+			                if (j == k){
+			                	var starttime = +new Date;
+			                	// dbf and shp were provided
+			                	if ("dbf" in upl_files && "shp" in upl_files){
+			                		//console.log("dbf and shp were provided");
+			                		var shapefile = new Shapefile({
+					                    shp: upl_files["shp"],
+					                    dbf: upl_files["dbf"]
+					                }, function(data){
+									    
+					                    console.log(data.geojson);
+					                    if (data.geojson){
+					                    	var selections = localStorage.getObject('selections');
+								      		if (!selections)
+								      			selections = [];
+
+					                    	for (var i = data.geojson.features.length - 1; i >= 0; i--) {
+					                    		var gjson = data.geojson.features[i];
+
+					                    		var id = gjson.properties.ID;
+					                    		if (!id)
+					                    			id = gjson.properties.RC_ID;
+					                    		if(!id)
+					                    			id = gjson.properties.inst_id;
+
+					                    		var name = gjson.properties.name;
+					                    		if(!name)
+					                    			name = gjson.properties.inst_name;
+
+					                    		
+					                    		if(gjson != "" && gjson != null){
+									      			selections.push({name: name+" - "+"ID: "+id, date: new Date().toUTCString(), content: gjson});
+									      			localStorage.setObject('selections', selections);
+									      			
+									      		}
+
+					                    	};
+					                    	self.renderList();
+					                    }
+							      		
+					                })
+			                	// Only shp was provided
+			                	}else if ("shp" in upl_files){
+			                		//console.log(" Only shp was provided");
+			                		var shapefile = new Shapefile({
+					                    shp: upl_files["shp"]
+					                }, function(data){
+									    
+					                    console.log(data.geojson);
+					                    if (data.geojson){
+					                    	var selections = localStorage.getObject('selections');
+								      		if (!selections)
+								      			selections = [];
+
+					                    	for (var i = data.geojson.features.length - 1; i >= 0; i--) {
+					                    		var gjson = data.geojson.features[i];
+					                    		name = file.name+"-"+i;
+					                    		if(gjson != "" && gjson != null){
+									      			selections.push({name: name, date: new Date().toUTCString(), content: gjson});
+									      			localStorage.setObject('selections', selections);
+									      		}
+					                    	};
+					                    	self.renderList();
+					                    }
+							      		
+					                })
+			                	// Geo Json was provided
+			                	}else if ("geojson" in upl_files || "gjson" in upl_files || "json" in upl_files){
+			                		//console.log("Geo Json was provided");
+			                		var reader = new FileReader();
+									reader.onloadend = function(evt) {
+										Communicator.mediator.trigger("map:load:geojson", evt.target.result);
+									}
+
+									reader.readAsText(evt.target.files[0]);
+			                	}
+			                    
+				            }
+				        };
+				        reader.readAsBinaryString(evt.target.files[i]);
+				        //reader.readAsDataURL(evt.target.files[i]);
+			        })(evt.target.files[i]);
+			    }
+
 	      	},
 
 	      	onExportSelectionClicked: function() {
