@@ -289,6 +289,7 @@ define(['backbone',
 
 		                }
 		                this.vectorLayer.addFeatures(features);
+		                Communicator.mediator.trigger("selection:changed", features[0].geometry);
 		                this.map.zoomToExtent(bounds);
 					}
 				},

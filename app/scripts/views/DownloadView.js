@@ -112,6 +112,7 @@
           options.subsetX = [bbox.left, bbox.right];
           options.subsetY = [bbox.bottom, bbox.top];
 
+
           // TODO: Check for download protocol !
           set.url = WCS.EO.KVP.describeEOCoverageSetURL(product.get('download').url, key, options);
           return set;
@@ -189,7 +190,7 @@
         // apply mask parameter if polygon is not a square
         // (described by 5 points, first and last the same)
         var components = this.model.get("AoI").components[0].components;
-        if(components.length>5){
+        if(components.length>=5){
           var coords = [];
           _.each(components, function(point) {
             coords.push(point.x);
