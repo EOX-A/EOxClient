@@ -285,7 +285,7 @@
 				// Create panel views
 				this.LegendView = new v.PanelView({
             		template: {type:'handlebars',template: t.Legend},
-            					className: "panel panel-default not-selectable legendpanel",
+            					className: "panel panel-default legendpanel",
             	});
 
 				// Create the views - these are Marionette.CollectionViews that render ItemViews
@@ -385,6 +385,10 @@
 
                 this.timeSliderView = new v.TimeSliderView(config.timeSlider);
                 this.bottomBar.show(this.timeSliderView);
+
+
+                this.welcomeView = new v.WelcomeView();
+                this.welcomeViewRegion.show(this.welcomeView);
 
 				// Add a trigger for ajax calls in order to display loading state
 				// in mouse cursor to give feedback to the user the client is busy

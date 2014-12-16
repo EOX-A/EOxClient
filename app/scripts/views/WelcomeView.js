@@ -1,3 +1,4 @@
+
 //-------------------------------------------------------------------------------
 //
 // Project: EOxClient <https://github.com/EOX-A/EOxClient>
@@ -9,8 +10,8 @@
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
-// copies of the Software, and to permit persons to whom the Software is 
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
 // The above copyright notice and this permission notice shall be included in all
@@ -26,55 +27,50 @@
 //-------------------------------------------------------------------------------
 
 (function() {
-	'use strict';
+  'use strict';
 
-	var root = this;
+  var root = this;
 
-	root.define([
-		'backbone',
-		'communicator',
-		'hbs!tmpl/LayerControl',
-		'underscore'
-	],
+  root.define([
+    'backbone',
+    'communicator',
+    'hbs!tmpl/WelcomeView',
+    'underscore'
+  ],
 
-	function( Backbone, Communicator, LayerControlTmpl ) {
+  function( Backbone, Communicator, WelcomeViewTmpl ) {
 
-		var LayerControlLayout = Backbone.Marionette.Layout.extend({
+    var WelcomeView = Backbone.Marionette.ItemView.extend({
 
-			template: {type: 'handlebars', template: LayerControlTmpl},
-			regions: {
-				baseLayers: "#baseLayers",
-				products: "#products",
-				overlays: "#overlays"
-			},
-			className: "panel panel-default layercontrol",
-			events: {},
+      tagName: "div",
+      className: "welcomeview",
+      template: {type: 'handlebars', template: WelcomeViewTmpl},
 
-			initialize: function(options) {
-			},
+      initialize: function(options) {
+        // setup welcome message that fades upon click anywhere else
+        var $welcome = this.$el;
+        this.handler = _.bind(function(event) {
+          var $target = $(event.target);
+          if ($target.parents().index($welcome) < 0) {
+            this.hide("slow");
+          }
+        }, this);
+    
+        document.body.addEventListener("mousedown", this.handler, true);
+      },
 
-			onShow: function(view){
-		    	this.$('.close').on("click", _.bind(this.onClose, this));
-		    	this.$el.draggable({
-		    		handle: '.panel-heading',
-		    		containment: "#content" ,
-		    		scroll: false,
-		    		start: function(event, ui) {
-						$( ".ui-slider" ).detach();
-						$('.fa-adjust').toggleClass('active')
-						$('.fa-adjust').popover('hide');
-					},
-		    	});
-		    },
+      hide: function(speed) {
+        if (speed) {
+          this.$el.fadeOut("slow");
+        }
+        this.$el.hide();
+        document.body.removeEventListener("mousedown", arguments, true);
+  }
 
-			onClose: function() {
-				this.close();
-			}
+    });
 
-		});
+    return {"WelcomeView":WelcomeView};
 
-		return LayerControlLayout;
-
-	});
+  });
 
 }).call( this );

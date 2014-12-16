@@ -133,6 +133,37 @@ div#preload {
     opacity: 0.95;
 }
 
+
+/*
+ * Welcome View Region
+ */
+#welcomeViewRegion{
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  z-index: 90000;
+  color: white;
+}
+
+#welcomeViewRegion h1{
+  margin: 0px;
+  padding: 5px;
+  color: white;
+  font-weight: normal;
+}
+
+.dark{
+  background-color: rgba(0,15,26,0.65);
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 3px;
+}
+
+.huge{
+  font-size: 45px;
+}
+
 /*
  * Panels & Modals
  */

@@ -43,7 +43,7 @@
 
 		var SelectionManagerView = Backbone.Marionette.ItemView.extend({
 			tagName: "div",
-      		className: "panel panel-default selectionManager not-selectable",
+      		className: "panel panel-default selectionManager",
 			template: {type: 'handlebars', template: SelectionManagerTmpl},
 
 			initialize: function(options) {

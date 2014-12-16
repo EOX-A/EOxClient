@@ -505,6 +505,10 @@
     {
       "name": "viewContent",
       "class": ""
+    },
+    {
+      "name": "welcomeViewRegion",
+      "class": ""
     }
   ],
 
@@ -581,7 +585,8 @@
     "views/ToolSelectionView",
     "views/ToolItemView",
     "views/DownloadView",
-    "views/PanelView"
+    "views/PanelView",
+    "views/WelcomeView"
   ],
 
   "models":[
