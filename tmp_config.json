@@ -517,21 +517,21 @@
         "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl",
-        "show":false
+        "show":true
       },
       {
         "name" : "Glaciers",
-        "icon" : "fa fa-picture-o",
+        "icon" : "fa-globe",
         "eventToRaise" : "ui:open:glacierlayercontrol",
         "template" : "LayerControl",
-        "show":false
+        "show":true
       },
       {
         "name" : "Tools",
         "icon" : "fa-wrench",
         "eventToRaise" : "ui:open:toolselection",
         "template" : "ToolSelection",
-        "show":false
+        "show":true
       },
       {
         "name" : "Legend",

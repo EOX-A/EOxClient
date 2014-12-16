@@ -125,6 +125,13 @@ div#preload {
   left: 30%;
 }
 
+/*
+ * NavBar
+ */
+
+.navbar{
+    opacity: 0.95;
+}
 
 /*
  * Panels & Modals
@@ -152,7 +159,7 @@ div#preload {
 /* Help View */
 .modal-body-help{
   max-height: 700px;
-  overflow-y: scroll; 
+  overflow-y: auto; 
 }
 
 
@@ -178,7 +185,7 @@ button[active=active] {
  * Layer control styles
  */
 .layercontrol {
-    width: 34em;
+    width: 35em;
     top: 10em;
     left: 3em;
     font-size: .9em;
@@ -213,6 +220,15 @@ button[active=active] {
 .fa-sort {
     cursor: ns-resize;
 }
+
+#products{
+  max-height: 600px;
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
 
 /*
  * Tool control
@@ -250,7 +266,7 @@ button[active=active] {
 
 .legendpanel .panel-body{
   max-height: 600px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 /*
@@ -335,8 +351,8 @@ button[active=active] {
 	//position: relative;
 }
 
-#OpenLayers_Control_Zoom_5 {
-	top: 60px;
+.olControlZoom {
+  top: 60px !important;
 }
 
 .tab-header {
@@ -393,6 +409,9 @@ button[active=active] {
 }
 
 
-.popover {
+/*.popover {
   position: fixed;
+}*/
+#products .popover.left {
+  margin-left: -102px !important;
 }
