@@ -45,6 +45,7 @@
             	this.listenTo(Communicator.mediator, "dialog:open:help", this.onDialogOpenHelp);
             	this.listenTo(Communicator.mediator, "ui:open:legend", this.onOpenLegend);
             	this.listenTo(Communicator.mediator, "ui:open:layercontrol", this.onLayerControlOpen);
+            	this.listenTo(Communicator.mediator, "ui:open:glacierlayercontrol", this.onGlacierLayerControlOpen);
             	this.listenTo(Communicator.mediator, "ui:open:toolselection", this.onToolSelectionOpen);
 			},
 
@@ -76,6 +77,18 @@
                 }
                
 			},
+			onGlacierLayerControlOpen: function(event){
+				//We have to render the layout before we can
+                //call show() on the layout's regions
+                if (_.isUndefined(App.glacierlayout.isClosed) || App.glacierlayout.isClosed) {
+				  	App.leftSideBar.show(App.glacierlayout);
+	                App.glacierlayout.products.show(App.glacierproductsView);
+				} else {
+					App.glacierlayout.close();
+                }
+               
+			},
+
 			onToolSelectionOpen: function(event){
 				if (_.isUndefined(App.toolLayout.isClosed) || App.toolLayout.isClosed) {
 					App.rightSideBar.show(App.toolLayout);

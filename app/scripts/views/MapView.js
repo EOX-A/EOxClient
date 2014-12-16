@@ -109,6 +109,11 @@ define(['backbone',
 						this.map.addLayer(this.createLayer(product));
 					}, this);
 
+					// Go through all glacierproducts and add them to the map
+					globals.glacierproducts.each(function(product){
+						this.map.addLayer(this.createLayer(product));
+					}, this);
+
 					// Go through all products and add them to the map
 					globals.overlays.each(function(overlay){
 						this.map.addLayer(this.createLayer(overlay));
@@ -221,6 +226,9 @@ define(['backbone',
 						this.map.setBaseLayer(this.map.getLayersByName(options.name)[0]);
 					}else{
 						var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+						if(!product)
+							var product = globals.glacierproducts.find(function(model) { return model.get('name') == options.name; });
+						
 						if (product){
 							product.set("visible", options.visible);
 						}else{
@@ -234,8 +242,19 @@ define(['backbone',
 				onSortProducts: function(productLayers) {
 				    globals.products.each(function(product) {
 				      var productLayer = this.map.getLayersByName(product.get("name"))[0];
-				      var index = globals.products.indexOf(productLayer);
-				      this.map.setLayerIndex(productLayer, index);
+				      var index = globals.products.indexOf(product);
+				      if(index != -1){
+				      	this.map.setLayerIndex(productLayer, index);
+				      }
+				    }, this);
+
+				    globals.glacierproducts.each(function(product) {
+				      var productLayer = this.map.getLayersByName(product.get("name"))[0];
+				      var index = globals.glacierproducts.indexOf(product);
+				      if(index != -1){
+				      	index += globals.products.length;
+				      	this.map.setLayerIndex(productLayer, index);
+				      }
 				    }, this);
 				    console.log("Map products sorted");
 				},

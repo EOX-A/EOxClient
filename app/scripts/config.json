@@ -414,7 +414,7 @@
 
     ],
 
-    "glacier-products": [
+    "glacierproducts": [
       {
         "name": "Tininnilik_Segments",
         "visible": false,
@@ -431,6 +431,25 @@
           "id": "Tininnilik_segments_20000922",
           "protocol": "EOWCS",
           "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+      {
+        "name": "View_10day_LIE_Baltic_Cloudfree",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "view": { 
+          "id": "View_10day_LIE_Baltic_Cloudfree",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "View_10day_LIE_Baltic_Cloudfree",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
         }
       }
     ],
@@ -654,7 +673,12 @@
     {
       "id":"About",
       "template":"hbs!tmpl/About"
+    },
+    {
+      "id":"GlacierLayerControl",
+      "template":"hbs!tmpl/GlacierLayerControl"
     }
+    
   ],
 
   "selectionTools":[

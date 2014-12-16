@@ -376,6 +376,11 @@ button[active=active] {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+  cursor: ew-resize;
+}
+
+#timeslider circle, rect{
+  cursor: auto;
 }
 
 #viewContent{

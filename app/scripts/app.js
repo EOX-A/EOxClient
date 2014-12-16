@@ -186,6 +186,53 @@
 					console.log("Added product " + products.view.id );
 				}, this);
 
+				
+				//Productsare loaded and added to the global collection
+				_.each(config.mapConfig.glacierproducts, function(products) {
+					
+					var p_color = products.color ? products.color : autoColor.getColor();
+					globals.glacierproducts.add(
+						new m.LayerModel({
+							name: products.name,
+							visible: products.visible,
+							timeSlider: products.timeSlider,
+							// Default to WMS if no protocol is defined
+ 							timeSliderProtocol: (products.timeSliderProtocol) ? products.timeSliderProtocol : "EOWCS",
+							color: p_color,
+							time: products.time,
+							opacity: 1,
+							view:{
+								id : products.view.id,
+								protocol: products.view.protocol,
+								urls : products.view.urls,
+								visualization: products.view.visualization,
+								projection: products.view.projection,
+								attribution: products.view.attribution,
+								matrixSet: products.view.matrixSet,
+								style: products.view.style,
+								format: products.view.format,
+								resolutions: products.view.resolutions,
+								maxExtent: products.view.maxExtent,
+								gutter: products.view.gutter,
+								buffer: products.view.buffer,
+								units: products.view.units,
+								transitionEffect: products.view.transitionEffect,
+								isphericalMercator: products.view.isphericalMercator,
+								isBaseLayer: false,
+								wrapDateLine: products.view.wrapDateLine,
+								zoomOffset: products.view.zoomOffset,
+								requestEncoding: products.view.requestEncoding
+							},
+							download: {
+								id : products.download.id,
+								protocol: products.download.protocol,
+								url : products.download.url
+							}
+						})
+					);
+					console.log("Added product " + products.view.id );
+				}, this);
+
 				//Overlays are loaded and added to the global collection
 				_.each(config.mapConfig.overlays, function(overlay) {
 
@@ -310,6 +357,17 @@
                 	className: "sortable"
                 });
 
+                this.glacierproductsView = new v.LayerSelectionView({
+                	collection:globals.glacierproducts,
+                	itemView: v.LayerItemView.extend({
+                		template: {
+                			type:'handlebars',
+                			template: t.CheckBoxLayer},
+                		className: "sortable-layer"
+                	}),
+                	className: "sortable"
+                });
+
                 this.overlaysView = new v.BaseLayerSelectionView({
                 	collection:globals.overlays,
                 	itemView: v.LayerItemView.extend({
@@ -323,6 +381,15 @@
 
                 // Create layout that will hold the child views
                 this.layout = new LayerControlLayout();
+
+                var extLayout = LayerControlLayout.extend({
+                	template: {
+                			type:'handlebars',
+                			template: t.GlacierLayerControl
+                		}
+                });
+
+                this.glacierlayout = new extLayout();
 
 
                 // Define collection of selection tools
