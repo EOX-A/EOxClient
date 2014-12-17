@@ -47,6 +47,7 @@
       template: {type: 'handlebars', template: WelcomeViewTmpl},
 
       initialize: function(options) {
+        
         // setup welcome message that fades upon click anywhere else
         var $welcome = this.$el;
         this.handler = _.bind(function(event) {
@@ -59,13 +60,21 @@
         document.body.addEventListener("mousedown", this.handler, true);
       },
 
+      onShow: function(view){
+        $("#openhelp").on("click",this.openhelp);
+      },
+
       hide: function(speed) {
         if (speed) {
           this.$el.fadeOut("slow");
         }
         this.$el.hide();
         document.body.removeEventListener("mousedown", arguments, true);
-  }
+      },
+
+      openhelp: function(){
+        Communicator.mediator.trigger("dialog:open:help");
+      }
 
     });
 
