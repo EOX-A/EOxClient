@@ -233,6 +233,41 @@
 					console.log("Added product " + products.view.id );
 				}, this);
 
+
+				//Overlays are loaded and added to the global collection
+				_.each(config.mapConfig.glacieroverlays, function(overlay) {
+
+					globals.glacieroverlays.add(
+						new m.LayerModel({
+							name: overlay.name,
+							visible: overlay.visible,
+							view: {
+								id : overlay.id,
+								urls : overlay.urls,
+								protocol: overlay.protocol,
+								projection: overlay.projection,
+								attribution: overlay.attribution,
+								matrixSet: overlay.matrixSet,
+								style: overlay.style,
+								format: overlay.format,
+								resolutions: overlay.resolutions,
+								maxExtent: overlay.maxExtent,
+								gutter: overlay.gutter,
+								buffer: overlay.buffer,
+								units: overlay.units,
+								transitionEffect: overlay.transitionEffect,
+								isphericalMercator: overlay.isphericalMercator,
+								isBaseLayer: false,
+								wrapDateLine: overlay.wrapDateLine,
+								zoomOffset: overlay.zoomOffset,
+								time: overlay.time,
+								requestEncoding: overlay.requestEncoding
+							}
+						})
+					);
+					console.log("Added overlay " + overlay.id );
+				}, this);
+
 				//Overlays are loaded and added to the global collection
 				_.each(config.mapConfig.overlays, function(overlay) {
 
@@ -366,6 +401,17 @@
                 		className: "sortable-layer"
                 	}),
                 	className: "sortable"
+                });
+
+                this.glacieroverlaysView = new v.BaseLayerSelectionView({
+                	collection:globals.glacieroverlays,
+                	itemView: v.LayerItemView.extend({
+                		template: {
+                			type:'handlebars',
+                			template: t.CheckBoxOverlayLayer},
+                		className: "checkbox"
+                	}),
+                	className: "check"
                 });
 
                 this.overlaysView = new v.BaseLayerSelectionView({

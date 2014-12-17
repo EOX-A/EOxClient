@@ -83,6 +83,7 @@
                 if (_.isUndefined(App.glacierlayout.isClosed) || App.glacierlayout.isClosed) {
 				  	App.leftSideBar.show(App.glacierlayout);
 	                App.glacierlayout.products.show(App.glacierproductsView);
+	                App.glacierlayout.overlays.show(App.glacieroverlaysView);
 				} else {
 					App.glacierlayout.close();
                 }

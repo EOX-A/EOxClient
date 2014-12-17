@@ -114,6 +114,12 @@ define(['backbone',
 						this.map.addLayer(this.createLayer(product));
 					}, this);
 
+
+					// Go through all glacier overlays and add them to the map
+					globals.glacieroverlays.each(function(overlay){
+						this.map.addLayer(this.createLayer(overlay));
+					}, this);
+
 					// Go through all products and add them to the map
 					globals.overlays.each(function(overlay){
 						this.map.addLayer(this.createLayer(overlay));
@@ -232,7 +238,11 @@ define(['backbone',
 						if (product){
 							product.set("visible", options.visible);
 						}else{
-							globals.overlays.find(function(model) { return model.get('name') == options.name; }).set("visible", options.visible);
+							var overlay = globals.overlays.find(function(model) { return model.get('name') == options.name; });
+							if(!overlay)
+								overlay = globals.glacieroverlays.find(function(model) { return model.get('name') == options.name; })
+
+							overlay.set("visible", options.visible);
 						}
 						this.map.getLayersByName(options.name)[0].setVisibility(options.visible);
 						

@@ -453,6 +453,21 @@
         }
       }
     ],
+
+    "glacieroverlays": [
+      {
+        "name": "LIE_Analysed_Lakes_Baltic",
+        "id": "LIE_Analysed_Lakes_Baltic",
+        "protocol": "WMS",
+        "visible": false,
+        "urls": [
+          "http://192.168.122.129/cgi-bin/mapserv"
+        ],
+        "style": "default",
+        "format": "image/png",
+        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
+      }
+    ],
     
     "overlays": [
        {
@@ -482,19 +497,6 @@
         "wrapDateLine": true,
         "zoomOffset": 0,
         "attribution": "Overlay { Data &copy; <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\">OpenStreetMap</a> contributors, Rendering &copy; <a href=\"http://eox.at\" target=\"_blank\">EOX</a> and <a href=\"https://github.com/mapserver/basemaps\" target=\"_blank\">MapServer</a> }"
-      },
-
-      {
-        "name": "LIE_Analysed_Lakes_Baltic",
-        "id": "LIE_Analysed_Lakes_Baltic",
-        "protocol": "WMS",
-        "visible": false,
-        "urls": [
-          "http://192.168.122.129/cgi-bin/mapserv"
-        ],
-        "style": "default",
-        "format": "image/png",
-        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
       }
     ]
   },

@@ -34,6 +34,7 @@ define(['backbone', 'objectStore'], function(Backbone, ObjectStore) {
 		baseLayers: new Backbone.Collection(),
 		products: new Backbone.Collection(),
 		glacierproducts: new Backbone.Collection(),
-		overlays: new Backbone.Collection()
+		overlays: new Backbone.Collection(),
+		glacieroverlays: new Backbone.Collection()
 	}
 });
