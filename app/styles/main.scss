@@ -220,8 +220,8 @@ button[active=active] {
  * Layer control styles
  */
 .layercontrol {
-    width: 35em;
-    top: 10em;
+    width: 36em;
+    top: 5em;
     left: 3em;
     font-size: .9em;
     position: absolute;
@@ -257,12 +257,26 @@ button[active=active] {
 }
 
 #products{
-  max-height: 600px;
+  max-height: 350px;
   overflow-y: auto; 
   overflow-x: hidden; 
   padding-left: 8px;
   padding-right: 8px;
 }
+
+#overlays ul{
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+
+
+#overlays input{
+  margin-left: 0px;
+  margin-right: 5px;
+}
+
 
 
 /*
@@ -270,7 +284,7 @@ button[active=active] {
  */
 .toolcontrol {
   width: 5.2em;
-  top: 10em;
+  top: 5em;
   right: 3em;
   font-size: .9em;
   position: absolute;
@@ -291,7 +305,7 @@ button[active=active] {
 /* Legend panel */
 .legendpanel {
   width: 30em;
-  top: 10em;
+  top: 5em;
   right: 3em;
   font-size: .9em;
   position: absolute;
@@ -373,7 +387,7 @@ button[active=active] {
 }*/
 
 #timeslider svg.timeslider {
-  height: 4em;
+  height: 5em;
   -webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -383,9 +397,34 @@ button[active=active] {
   cursor: ew-resize;
 }
 
-#timeslider circle, rect{
-  cursor: auto;
+svg.timeslider .axis .tick text {
+  font: .8em sans-serif !important;
 }
+
+svg.timeslider{
+  opacity: 0.9 !important;
+}
+
+#timeslider circle{
+  stroke-width: 2px !important;
+}
+
+.dataset > circle{
+  cursor: pointer;
+}
+
+.dataset > rect{
+  cursor: pointer;
+}
+
+.extent{
+  fill: rgb(255, 0, 0) !important;
+}
+
+
+
+
+
 
 #viewContent{
 	//position: relative;
@@ -449,9 +488,28 @@ button[active=active] {
 }
 
 
-/*.popover {
-  position: fixed;
-}*/
+
 #products .popover.left {
   margin-left: -102px !important;
+}
+
+#modal-start-download .popover {
+  width: auto;
+  height: auto;
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
+#modal-start-download .popover ul {
+  list-style-type: square;
+}
+
+#modal-start-download .popover li {
+  white-space: nowrap;
+}
+
+
+#modal-start-download .popover li:before {
+    content: "• ";
+    color: black; /* or whatever color you prefer */
 }

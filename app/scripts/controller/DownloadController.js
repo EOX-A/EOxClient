@@ -56,6 +56,8 @@
 		onChangeLayer: function (options) {
 	        if (!options.isBaseLayer){
 	            var layer = globals.products.find(function(model) { return model.get('name') == options.name; });
+	            if (!layer)
+	            	layer = globals.glacierproducts.find(function(model) { return model.get('name') == options.name; });
 	            if (layer) { // Layer will be empty if it is an overlay layer
 					var products = this.model.get('products');
 		        	if(options.visible){

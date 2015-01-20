@@ -89,6 +89,9 @@
 
                 var product = globals.products.find(function(model) { return model.get('name') == options.name; });
 
+                if(!product)
+                	product = globals.glacierproducts.find(function(model) { return model.get('name') == options.name; });
+
 				if (product){
 
 					if (options.visible && product.get("view").protocol=="WMS"){

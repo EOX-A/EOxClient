@@ -158,7 +158,7 @@
             trigger: "hover",
             html: true,
             content: CoverageInfoTmpl(coverageJSON),
-            title: "Coverage Description",
+            title: "Original Coverage Description",
             placement: "bottom"
           });
         }, this);

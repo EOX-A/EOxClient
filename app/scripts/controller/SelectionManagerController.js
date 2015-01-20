@@ -52,9 +52,9 @@
 
 	    onSelectionChange: function(selection) {
 	        if (selection != null) {
-	        	var selections = this.model.get('selections');
-	        	selections.push(selection);
-	            this.model.set('selections', selections);
+	        	//var selections = this.model.get('selections');
+	        	//selections.push(selection);
+	            this.model.set('selections', [selection]);
 	        }else{
 	        	this.model.set('selections', []);
 	        }

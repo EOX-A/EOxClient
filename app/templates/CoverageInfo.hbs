@@ -1,5 +1,24 @@
-<table class="table table-condensed table-striped">
-  <tr>
-    <td>Time Period</td><td> {{timePeriod}} </td>
-  </tr>
-</table>
+
+<ul style="margin:0; padding:0;">
+	{{#if bounds}}
+		<li>Lower Bounds: {{bounds.lower.[0]}}, {{bounds.lower.[1]}}</li>
+		<li>Upper Bounds: {{bounds.upper.[0]}}, {{bounds.upper.[1]}}</li>
+	{{/if}}
+
+	{{#if timePeriod}}
+		<li>Time Period: {{timePeriod}}</li>
+	{{/if}}
+
+	{{#if origin}}
+		<li>Origin: {{origin.[0]}}, {{origin.[1]}}</li>
+	{{/if}}
+
+	{{#if offsetVectors}}
+		<li>Offset Vector: {{offsetVectors.[0]}}, {{offsetVectors.[1]}}</li>
+	{{/if}}
+
+	{{#if size}}
+		<li>Size: {{size.[0]}}, {{size.[1]}}</li>
+	{{/if}}
+
+</ul>

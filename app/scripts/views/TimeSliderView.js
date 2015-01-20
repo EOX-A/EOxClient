@@ -59,23 +59,34 @@
         this.listenTo(Communicator.mediator, "map:position:change", this.updateExtent);
         this.listenTo(Communicator.mediator, "date:selection:change", this.onDateSelectionChange);
 
-        var selectionstart = new Date(this.options.brush.start);
-        var selectionend = new Date(this.options.brush.end);
+        // var selectionstart = new Date(this.options.brush.start);
+        // var selectionend = new Date(this.options.brush.end);
+
+        var selectionend = new Date();
+        selectionend.setDate(selectionend.getDate()-1);
+        selectionend.setHours(23,59,59,0);
+        var selectionstart = new Date(selectionend.getTime());
+        selectionstart.setHours(0,0,1,0);
+
+        var domainend = new Date();
+        domainend.setDate(domainend.getDate()+15);
+        var domainstart = new Date(domainend.getTime());
+        domainstart.setMonth(domainstart.getMonth() - 36);
 
         this.activeWPSproducts = [];
 
        this.slider = new TimeSlider(this.el, {
 
           domain: {
-            start: new Date(this.options.domain.start),
-            end: new Date(this.options.domain.end)
+            start: domainstart,
+            end: domainend
           },
           brush: {
             start: selectionstart,
             end: selectionend
           },
           debounce: 300,
-          ticksize: 5,
+          ticksize: 9,
 
           datasets: []
 
@@ -97,6 +108,9 @@
       changeLayer: function (options) {
         if (!options.isBaseLayer){
           var product = globals.products.find(function(model) { return model.get('name') == options.name; });
+          if (!product){
+            product = globals.glacierproducts.find(function(model) { return model.get('name') == options.name; });
+          }
           if (product){
             if(options.visible && product.get('timeSlider')){
 
@@ -169,7 +183,7 @@
                   this.active_products.splice(this.active_products.indexOf("id"+strHash(product.get('download').id)), 1);
               }
               
-              if (this.active_products.length == 0)
+              if (this.active_products.length == 0 && this.$el.is(":visible"))
                 this.slider.hide();
             }
           }

@@ -365,6 +365,13 @@ module.exports = function (grunt) {
                     src: [
                         'templates/**'
                     ]
+                },{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/bower_components/jquery-ui/themes/base/',
+                    dest: '<%= yeoman.dist %>/styles/',
+                    src: [
+                        'images/**',
+                    ]
                 }, {
                     expand: true,
                     dot: true,

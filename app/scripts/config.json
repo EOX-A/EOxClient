@@ -77,6 +77,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "blue",
         "view": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "WMS",
@@ -97,6 +98,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(43,205,62)",
         "view": {
           "id": "daily_FSC_PanEuropean_Optical_Uncertainty",
           "protocol": "WMS",
@@ -117,6 +119,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(0,232,250)",
         "view": {
           "id": "daily_FSC_Alps_Optical",
           "protocol": "WMS",
@@ -137,6 +140,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(67,124,185)",
         "view": {
           "id": "daily_MODIS_RGB651_PanEuropean",
           "protocol": "WMS",
@@ -157,6 +161,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "red",
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "WMS",
@@ -177,6 +182,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(249,107,19)",
         "view": { 
           "id": "avg_10day_SSPI_PanEuropean_Microwave",
           "protocol": "WMS",
@@ -197,6 +203,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(164,0,196)",
         "view": { 
           "id": "avg_30day_SSPI_PanEuropean_Microwave",
           "protocol": "WMS",
@@ -217,6 +224,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "green",
         "view": { 
           "id": "daily_FSC_Baltic_Optical",
           "protocol": "WMS",
@@ -237,6 +245,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(255,135,9)",
         "view": { 
           "id": "daily_LIE_Baltic_Optical",
           "protocol": "WMS",
@@ -257,6 +266,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(0,255,73)",
         "view": { 
           "id": "daily_SCAW_Scandinavia_Radar",
           "protocol": "WMS",
@@ -277,6 +287,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(145,21,244)",
         "view": { 
           "id": "daily_SSW_SouthNorway_Optical",
           "protocol": "WMS",
@@ -297,6 +308,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(244,194,21)",
         "view": { 
           "id": "daily_STS_SouthNorway_Optical",
           "protocol": "WMS",
@@ -317,6 +329,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(255,0,255)",
         "view": { 
           "id": "multitemp_FSC_Scandinavia_Optical",
           "protocol": "WMS",
@@ -337,6 +350,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(69,160,190)",
         "view": { 
           "id": "multitemp_FSC_Scandinavia_Optical_Radar",
           "protocol": "WMS",
@@ -357,6 +371,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(3,200,136)",
         "view": { 
           "id": "RIE_SE_FI_Torne_River_2013_Radar",
           "protocol": "WMS",
@@ -377,6 +392,7 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(186,109,3)",
         "view": { 
           "id": "View_10day_FSC_PanEuropean_Cloudfree",
           "protocol": "WMS",
@@ -391,12 +407,14 @@
           "url": "http://192.168.122.129/cryoland/ows"
         }
       },
-  
+
+
       {
         "name": "View_10day_LIE_Baltic_Cloudfree",
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
+        "color": "rgb(90,87,90)",
         "view": { 
           "id": "View_10day_LIE_Baltic_Cloudfree",
           "protocol": "WMS",
@@ -416,7 +434,28 @@
 
     "glacierproducts": [
       {
-        "name": "Tininnilik_Segments",
+        "name": "GL_Tininnilik_images",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "color": "rgb(255,140,140)",
+        "view": {
+          "id": "Tininnilik_images",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "Tininnilik_images",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+
+      {
+        "name": "GL_Tininnilik_lake_20000922",
         "visible": false,
         "timeSlider": false,
         "view": {
@@ -434,12 +473,140 @@
         }
       },
       {
-        "name": "View_10day_LIE_Baltic_Cloudfree",
+        "name": "GL_Tininnilik_lake_20010707",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "Tininnilik_segments_20010707",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Tininnilik_segments_20010707",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+      {
+        "name": "GL_Tininnilik_lake_20040901",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "Tininnilik_segments_20040901",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Tininnilik_segments_20040901",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+      {
+        "name": "GL_Tininnilik_lake_20050904",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "Tininnilik_segments_20050904",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Tininnilik_segments_20050904",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+      {
+        "name": "GL_Tininnilik_lake_20070809",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "Tininnilik_segments_20070809",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Tininnilik_segments_20070809",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+      {
+        "name": "GL_Tininnilik_lake_20100817",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "Tininnilik_segments_20100817",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Tininnilik_segments_20100817",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+      {
+        "name": "GL_Tininnilik_lake_20110703",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "Tininnilik_segments_20110703",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Tininnilik_segments_20110703",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+      {
+        "name": "GL_Tininnilik_lake_20120907",
+        "visible": false,
+        "timeSlider": false,
+        "view": {
+          "id": "Tininnilik_segments_20120907",
+          "protocol": "WMS",
+          "urls": [
+              "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Tininnilik_segments_20120907",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
+        }
+      },
+
+      {
+        "name": "AT_Hohe_Tauern_images",
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
-        "view": { 
-          "id": "View_10day_LIE_Baltic_Cloudfree",
+        "color": "rgb(140,255,140)",
+        "view": {
+          "id": "Grossglockner_images",
           "protocol": "WMS",
           "urls": [
               "http://192.168.122.129/cryoland/ows"
@@ -447,41 +614,39 @@
           "style": "default"
         },
         "download": {
-          "id": "View_10day_LIE_Baltic_Cloudfree",
+          "id": "Grossglockner_images",
           "protocol": "EOWCS",
           "url": "http://192.168.122.129/cryoland/ows"
+        }
+      },
+      {
+      "name": "AT_Hohe_Tauern_outlines_20090901",
+      "visible": false,
+      "view" : {
+          "id": "Glockner_segments",
+          "protocol" : "WMS",
+          "urls" : [
+            "http://192.168.122.129/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Glockner_segments_20090901",
+          "protocol": "EOWCS",
+          "url": "http://192.168.122.129/cgi-bin/mapserv"
         }
       }
     ],
 
     "glacieroverlays": [
-      {
-        "name": "LIE_Analysed_Lakes_Baltic",
-        "id": "LIE_Analysed_Lakes_Baltic",
-        "protocol": "WMS",
-        "visible": false,
-        "urls": [
-          "http://192.168.122.129/cgi-bin/mapserv"
-        ],
-        "style": "default",
-        "format": "image/png",
-        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
-      }
-    ],
-    
-    "overlays": [
-       {
-        "name": "Overlay",
-        "id": "overlay",
+     {
+        "name": "Glacier_Mask",
+        "id": "cryoland_glaciermask_pal",
         "protocol": "WMTS",
         "requestEncoding": "REST",
-        "visible": true,
+        "visible": false,
         "urls": [
-          "http://a.tiles.maps.eox.at/wmts/",
-          "http://b.tiles.maps.eox.at/wmts/",
-          "http://c.tiles.maps.eox.at/wmts/",
-          "http://d.tiles.maps.eox.at/wmts/",
-          "http://e.tiles.maps.eox.at/wmts/"
+          "http://192.168.122.129/mapcache/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -496,7 +661,150 @@
         "isphericalMercator": false,
         "wrapDateLine": true,
         "zoomOffset": 0,
+        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
+      },
+      {  
+        "name": "Glacier_GLIMS_RGI4.0",
+        "id": "RGI40_all",
+        "protocol": "WMS",
+        "visible": false,
+        "urls": [
+            "http://glims.colorado.edu/cgi-bin/glims_ogc"
+        ],
+        "style": "default",
+        "format": "image/png",
+        "attribution": "GLIMS { Data &copy; <a href=http://www.glims.org/\"/\" target=\"_blank\">GLIMS</a> }"
+      }
+    ],
+    
+    "overlays": [
+       {
+        "name": "Borders & Roads",
+        "id": "overlay",
+        "protocol": "WMTS",
+        "requestEncoding": "REST",
+        "visible": true,
+        "urls": [
+          "http://a.tiles.maps.eox.at/wmts/",
+          "http://b.tiles.maps.eox.at/wmts/",
+          "http://c.tiles.maps.eox.at/wmts/",
+          "http://d.tiles.maps.eox.at/wmts/",
+          "http://e.tiles.maps.eox.at/wmts/"
+        ],
+        "matrixSet": "WGS84",
+        "style": "default",
         "attribution": "Overlay { Data &copy; <a href=\"http://www.openstreetmap.org/copyright\" target=\"_blank\">OpenStreetMap</a> contributors, Rendering &copy; <a href=\"http://eox.at\" target=\"_blank\">EOX</a> and <a href=\"https://github.com/mapserver/basemaps\" target=\"_blank\">MapServer</a> }"
+      },
+
+     {
+        "name": "Forest_Mask",
+        "id": "cryoland_forestmask_pal",
+        "protocol": "WMTS",
+        "visible": false,
+        "urls": [
+          "http://192.168.122.129/mapcache/wmts/"
+        ],
+        "matrixSet": "WGS84",
+        "style": "default",
+        "format": "image/png",
+        "maxExtent": [-180.000000,-90.000000,180.000000,90.000000],
+        "resolutions": [ 0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516 ],
+        "projection": "EPSG:4326",
+        "gutter": 0,
+        "buffer": 0,
+        "units": "dd",
+        "transitionEffect": "resize",
+        "isphericalMercator": false,
+        "wrapDateLine": true,
+        "zoomOffset": 0,
+        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
+      },
+
+     {
+        "name": "Urban_Mask",
+        "id": "cryoland_urbanmask_pal",
+        "protocol": "WMTS",
+        "requestEncoding": "REST",
+        "visible": false,
+        "urls": [
+          "http://192.168.122.129/mapcache/wmts/"
+        ],
+        "matrixSet": "WGS84",
+        "style": "default",
+        "format": "image/png",
+        "maxExtent": [-180.000000,-90.000000,180.000000,90.000000],
+        "resolutions": [ 0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516 ],
+        "projection": "EPSG:4326",
+        "gutter": 0,
+        "buffer": 0,
+        "units": "dd",
+        "transitionEffect": "resize",
+        "isphericalMercator": false,
+        "wrapDateLine": true,
+        "zoomOffset": 0,
+        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
+      },
+
+     {
+        "name": "Water_Mask",
+        "id": "cryoland_watermask_pal",
+        "protocol": "WMTS",
+        "requestEncoding": "REST",
+        "visible": false,
+        "urls": [
+          "http://192.168.122.129/mapcache/wmts/"
+        ],
+        "matrixSet": "WGS84",
+        "style": "default",
+        "format": "image/png",
+        "maxExtent": [-180.000000,-90.000000,180.000000,90.000000],
+        "resolutions": [ 0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516 ],
+        "projection": "EPSG:4326",
+        "gutter": 0,
+        "buffer": 0,
+        "units": "dd",
+        "transitionEffect": "resize",
+        "isphericalMercator": false,
+        "wrapDateLine": true,
+        "zoomOffset": 0,
+        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
+      },
+
+     {
+        "name": "Glacier_Mask",
+        "id": "cryoland_glaciermask_pal",
+        "protocol": "WMTS",
+        "requestEncoding": "REST",
+        "visible": false,
+        "urls": [
+          "http://192.168.122.129/mapcache/wmts/"
+        ],
+        "matrixSet": "WGS84",
+        "style": "default",
+        "format": "image/png",
+        "maxExtent": [-180.000000,-90.000000,180.000000,90.000000],
+        "resolutions": [ 0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516 ],
+        "projection": "EPSG:4326",
+        "gutter": 0,
+        "buffer": 0,
+        "units": "dd",
+        "transitionEffect": "resize",
+        "isphericalMercator": false,
+        "wrapDateLine": true,
+        "zoomOffset": 0,
+        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
+      },
+      {
+        "name": "LIE_Analysed_Lakes_Baltic",
+        "id": "LIE_Analysed_Lakes_Baltic",
+        "protocol": "WMS",
+        "visible": false,
+        "urls": [
+            "http://192.168.122.129/cgi-bin/mapserv"
+        ],
+        "style": "default",
+        "format": "image/png",
+        "attribution": "CryoLand { Data &copy; <a href=\"http://cryoland.eu\" target=\"_blank\">CryoLand</a> }"
       }
     ]
   },
@@ -538,7 +846,7 @@
     "url" : "http://cryoland.eu",
     "items" : [
       {
-        "name" : "Layers",
+        "name" : "Snow / Ice",
         "icon" : "fa-globe",
         "eventToRaise" : "ui:open:layercontrol",
         "template" : "LayerControl",
@@ -692,7 +1000,8 @@
     {
       "id":"bboxSelection",
       "description": "Bounding box selection tool",
-      "icon":"icon-vector-path-square"
+      "icon":"icon-vector-path-square",
+      "selectionType":"single"
     }
   ],
 

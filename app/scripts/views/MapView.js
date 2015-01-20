@@ -71,34 +71,7 @@ define(['backbone',
 					Communicator.reqres.setHandler('map:get:extent', _.bind(this.onGetMapExtent, this));
 					Communicator.reqres.setHandler('get:selection:json', _.bind(this.onGetGeoJSON, this));
 
-					// Add layers for different selection methods
-					this.vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
-
-	                this.map.addLayers([this.vectorLayer]);
-	                this.map.addControl(new OpenLayers.Control.MousePosition());
-
-	                this.drawControls = {
-	                    pointSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
-	                        OpenLayers.Handler.Point),
-	                    lineSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
-	                        OpenLayers.Handler.Path),
-	                    polygonSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
-	                        OpenLayers.Handler.Polygon),
-	                    bboxSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
-	                        OpenLayers.Handler.RegularPolygon, {
-	                            handlerOptions: {
-	                                sides: 4,
-	                                irregular: true
-	                            }
-	                        }
-	                    )
-	                };
-
-	                for(var key in this.drawControls) {
-	                    this.map.addControl(this.drawControls[key]);
-	                    this.drawControls[key].events.register("featureadded",'', this.onDone);
-	                }
-
+						                
 					//Go through all defined baselayer and add them to the map
 					globals.baseLayers.each(function(baselayer) {
 						this.map.addLayer(this.createLayer(baselayer));
@@ -136,6 +109,34 @@ define(['backbone',
 
 					this.geojson = new OpenLayers.Format.GeoJSON(io_options);
 
+					// Add layers for different selection methods
+					this.vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
+
+	                this.map.addLayers([this.vectorLayer]);
+	                this.map.addControl(new OpenLayers.Control.MousePosition());
+
+	                this.drawControls = {
+	                    pointSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
+	                        OpenLayers.Handler.Point),
+	                    lineSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
+	                        OpenLayers.Handler.Path),
+	                    polygonSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
+	                        OpenLayers.Handler.Polygon),
+	                    bboxSelection: new OpenLayers.Control.DrawFeature(this.vectorLayer,
+	                        OpenLayers.Handler.RegularPolygon, {
+	                            handlerOptions: {
+	                                sides: 4,
+	                                irregular: true
+	                            }
+	                        }
+	                    )
+	                };
+
+					for(var key in this.drawControls) {
+	                    this.map.addControl(this.drawControls[key]);
+	                    this.drawControls[key].events.register("featureadded",'', this.onDone);
+	                }
+
 
 					//Set attributes of map based on mapmodel attributes
 				    var mapmodel = globals.objects.get('mapmodel');
@@ -169,7 +170,7 @@ define(['backbone',
 						        isBaseLayer: layer.isBaseLayer,
 						        wrapDateLine: layer.wrapDateLine,
 						        zoomOffset: layer.zoomOffset,
-						        visible: layerdesc.get("visible"),
+						        visibility: layerdesc.get("visible"),
 						        time: layerdesc.time,
 		                        attribution: layer.attribution,
 						        requestEncoding: layer.requestEncoding
@@ -250,19 +251,25 @@ define(['backbone',
 				},
 
 				onSortProducts: function(productLayers) {
+					//var offset = globals.baseLayers.length;
+					var amount = globals.products.length -1;
 				    globals.products.each(function(product) {
 				      var productLayer = this.map.getLayersByName(product.get("name"))[0];
-				      var index = globals.products.indexOf(product);
+				      var index = amount - globals.products.indexOf(product);
 				      if(index != -1){
 				      	this.map.setLayerIndex(productLayer, index);
 				      }
 				    }, this);
 
+				    //offset = offset + amount;
+				    var offset = amount;
+				    amount = globals.glacierproducts.length -1;
+
 				    globals.glacierproducts.each(function(product) {
 				      var productLayer = this.map.getLayersByName(product.get("name"))[0];
-				      var index = globals.glacierproducts.indexOf(product);
+				      var index = offset + (amount - globals.glacierproducts.indexOf(product));
 				      if(index != -1){
-				      	index += globals.products.length;
+				      	//index += globals.products.length;
 				      	this.map.setLayerIndex(productLayer, index);
 				      }
 				    }, this);
@@ -333,6 +340,10 @@ define(['backbone',
 				onDone: function (evt) {
 					// TODO: How to handle multiple draws etc has to be thought of
 					// as well as what exactly is comunicated out
+					var feature = evt.feature.clone();
+					var layer = evt.feature.layer;
+					layer.removeAllFeatures();
+					layer.addFeatures([feature]);
 					Communicator.mediator.trigger("selection:changed", evt.feature.geometry);
 				},
 
@@ -340,6 +351,14 @@ define(['backbone',
 					var string = getISODateTimeString(time.start) + "/"+ getISODateTimeString(time.end);
 					
 					globals.products.each(function(product) {
+						if(product.get("timeSlider")){
+							var productLayer = this.map.getLayersByName(product.get("name"))[0];
+				      		productLayer.mergeNewParams({'time':string});
+						}
+				     
+				    }, this);
+
+				    globals.glacierproducts.each(function(product) {
 						if(product.get("timeSlider")){
 							var productLayer = this.map.getLayersByName(product.get("name"))[0];
 				      		productLayer.mergeNewParams({'time':string});
