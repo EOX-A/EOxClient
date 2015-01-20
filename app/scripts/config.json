@@ -82,14 +82,14 @@
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_FSC_PanEuropean_Optical",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
 
@@ -103,14 +103,14 @@
           "id": "daily_FSC_PanEuropean_Optical_Uncertainty",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_FSC_PanEuropean_Optical_Uncertainty",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
 
@@ -124,14 +124,14 @@
           "id": "daily_FSC_Alps_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_FSC_Alps_Optical",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
 
@@ -145,14 +145,14 @@
           "id": "daily_MODIS_RGB651_PanEuropean",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_MODIS_RGB651_PanEuropean",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
 
@@ -161,19 +161,19 @@
         "visible": false,
         "timeSlider": true,
         "timeSliderProtocol":"WPS",
-        "color": "red",
+        "color": "rgb(177,0,76)",
         "view": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_SWE_PanEuropean_Microwave",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
 
@@ -187,14 +187,14 @@
           "id": "avg_10day_SSPI_PanEuropean_Microwave",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "avg_10day_SSPI_PanEuropean_Microwave",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -208,14 +208,14 @@
           "id": "avg_30day_SSPI_PanEuropean_Microwave",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "avg_30day_SSPI_PanEuropean_Microwave",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -229,14 +229,14 @@
           "id": "daily_FSC_Baltic_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_FSC_Baltic_Optical",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -250,14 +250,14 @@
           "id": "daily_LIE_Baltic_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_LIE_Baltic_Optical",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -271,14 +271,14 @@
           "id": "daily_SCAW_Scandinavia_Radar",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_SCAW_Scandinavia_Radar",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -292,14 +292,14 @@
           "id": "daily_SSW_SouthNorway_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_SSW_SouthNorway_Optical",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -313,14 +313,14 @@
           "id": "daily_STS_SouthNorway_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "daily_STS_SouthNorway_Optical",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -334,14 +334,14 @@
           "id": "multitemp_FSC_Scandinavia_Optical",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "multitemp_FSC_Scandinavia_Optical",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -355,14 +355,14 @@
           "id": "multitemp_FSC_Scandinavia_Optical_Radar",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "multitemp_FSC_Scandinavia_Optical_Radar",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -376,14 +376,14 @@
           "id": "RIE_SE_FI_Torne_River_2013_Radar",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "RIE_SE_FI_Torne_River_2013_Radar",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
   
@@ -397,14 +397,14 @@
           "id": "View_10day_FSC_PanEuropean_Cloudfree",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "View_10day_FSC_PanEuropean_Cloudfree",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
 
@@ -419,14 +419,14 @@
           "id": "View_10day_LIE_Baltic_Cloudfree",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "View_10day_LIE_Baltic_Cloudfree",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       }
 
@@ -443,159 +443,167 @@
           "id": "Tininnilik_images",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "Tininnilik_images",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
 
       {
         "name": "GL_Tininnilik_lake_20000922",
         "visible": false,
+        "color": "rgb(255,158,0)",
         "timeSlider": false,
         "view": {
           "id": "Tininnilik_segments_20000922",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20000922",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
       {
         "name": "GL_Tininnilik_lake_20010707",
         "visible": false,
         "timeSlider": false,
+        "color": "rgb(255,0,234)",
         "view": {
           "id": "Tininnilik_segments_20010707",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20010707",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
       {
         "name": "GL_Tininnilik_lake_20040901",
         "visible": false,
         "timeSlider": false,
+        "color": "rgb(15,0,255)",
         "view": {
           "id": "Tininnilik_segments_20040901",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20040901",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
       {
         "name": "GL_Tininnilik_lake_20050904",
         "visible": false,
         "timeSlider": false,
+        "color": "rgb(0,255,255)",
         "view": {
           "id": "Tininnilik_segments_20050904",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20050904",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
       {
         "name": "GL_Tininnilik_lake_20070809",
         "visible": false,
         "timeSlider": false,
+        "color": "rgb(0,255,15)",
         "view": {
           "id": "Tininnilik_segments_20070809",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20070809",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
       {
         "name": "GL_Tininnilik_lake_20100817",
         "visible": false,
         "timeSlider": false,
+        "color": "rgb(251,255,0)",
         "view": {
           "id": "Tininnilik_segments_20100817",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20100817",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
       {
         "name": "GL_Tininnilik_lake_20110703",
         "visible": false,
         "timeSlider": false,
+        "color": "rgb(255,12,0)",
         "view": {
           "id": "Tininnilik_segments_20110703",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20110703",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
       {
         "name": "GL_Tininnilik_lake_20120907",
         "visible": false,
         "timeSlider": false,
+        "color": "rgb(110,10,5)",
         "view": {
           "id": "Tininnilik_segments_20120907",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cgi-bin/mapserv"
+              "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Tininnilik_segments_20120907",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
 
@@ -609,14 +617,14 @@
           "id": "Grossglockner_images",
           "protocol": "WMS",
           "urls": [
-              "http://192.168.122.129/cryoland/ows"
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
           ],
           "style": "default"
         },
         "download": {
           "id": "Grossglockner_images",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cryoland/ows"
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
         }
       },
       {
@@ -626,14 +634,14 @@
           "id": "Glockner_segments",
           "protocol" : "WMS",
           "urls" : [
-            "http://192.168.122.129/cgi-bin/mapserv"
+            "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
           ],
           "style": "default"
         },
          "download": {
           "id": "Glockner_segments_20090901",
           "protocol": "EOWCS",
-          "url": "http://192.168.122.129/cgi-bin/mapserv"
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       }
     ],
@@ -646,7 +654,7 @@
         "requestEncoding": "REST",
         "visible": false,
         "urls": [
-          "http://192.168.122.129/mapcache/wmts/"
+          "http://neso1.cryoland.enveo.at/mapcache/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -702,7 +710,7 @@
         "protocol": "WMTS",
         "visible": false,
         "urls": [
-          "http://192.168.122.129/mapcache/wmts/"
+          "http://neso1.cryoland.enveo.at/mapcache/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -727,7 +735,7 @@
         "requestEncoding": "REST",
         "visible": false,
         "urls": [
-          "http://192.168.122.129/mapcache/wmts/"
+          "http://neso1.cryoland.enveo.at/mapcache/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -752,7 +760,7 @@
         "requestEncoding": "REST",
         "visible": false,
         "urls": [
-          "http://192.168.122.129/mapcache/wmts/"
+          "http://neso1.cryoland.enveo.at/mapcache/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -777,7 +785,7 @@
         "requestEncoding": "REST",
         "visible": false,
         "urls": [
-          "http://192.168.122.129/mapcache/wmts/"
+          "http://neso1.cryoland.enveo.at/mapcache/wmts/"
         ],
         "matrixSet": "WGS84",
         "style": "default",
@@ -800,7 +808,7 @@
         "protocol": "WMS",
         "visible": false,
         "urls": [
-            "http://192.168.122.129/cgi-bin/mapserv"
+            "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         ],
         "style": "default",
         "format": "image/png",
@@ -892,12 +900,12 @@
 
   "timeSlider": {
     "domain": {
-      "start": "2001-01-01T00:00:00Z",
-      "end": "2015-12-31T00:00:00Z"
+      "start": "2011-03-01T00:00:00Z",
+      "end": "2015-03-31T00:00:00Z"
     },
     "brush": {
-       "start": "2014-11-10T00:00:00Z",
-      "end": "2014-11-11T00:00:00Z"
+       "start": "2015-01-12T00:00:00Z",
+      "end": "2015-01-12T23:59:00Z"
     }
   },
 
@@ -1000,8 +1008,7 @@
     {
       "id":"bboxSelection",
       "description": "Bounding box selection tool",
-      "icon":"icon-vector-path-square",
-      "selectionType":"single"
+      "icon":"icon-vector-path-square"
     }
   ],
 
