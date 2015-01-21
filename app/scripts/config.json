@@ -434,27 +434,6 @@
 
     "glacierproducts": [
       {
-        "name": "GL_Tininnilik_images",
-        "visible": false,
-        "timeSlider": true,
-        "timeSliderProtocol":"WPS",
-        "color": "rgb(255,140,140)",
-        "view": {
-          "id": "Tininnilik_images",
-          "protocol": "WMS",
-          "urls": [
-              "http://neso1.cryoland.enveo.at/cryoland/ows"
-          ],
-          "style": "default"
-        },
-        "download": {
-          "id": "Tininnilik_images",
-          "protocol": "EOWCS",
-          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
-        }
-      },
-
-      {
         "name": "GL_Tininnilik_lake_20000922",
         "visible": false,
         "color": "rgb(255,158,0)",
@@ -606,7 +585,44 @@
           "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       },
+      {
+        "name": "GL_Tininnilik_images",
+        "visible": false,
+        "timeSlider": true,
+        "timeSliderProtocol":"WPS",
+        "color": "rgb(255,140,140)",
+        "view": {
+          "id": "Tininnilik_images",
+          "protocol": "WMS",
+          "urls": [
+              "http://neso1.cryoland.enveo.at/cryoland/ows"
+          ],
+          "style": "default"
+        },
+        "download": {
+          "id": "Tininnilik_images",
+          "protocol": "EOWCS",
+          "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
+        }
+      },
 
+     {
+      "name": "AT_Hohe_Tauern_outlines_20090901",
+      "visible": false,
+      "view" : {
+          "id": "Glockner_segments",
+          "protocol" : "WMS",
+          "urls" : [
+            "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
+          ],
+          "style": "default"
+        },
+         "download": {
+          "id": "Glockner_segments_20090901",
+          "protocol": "EOWCS",
+          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
+        }
+      },
       {
         "name": "AT_Hohe_Tauern_images",
         "visible": false,
@@ -625,23 +641,6 @@
           "id": "Grossglockner_images",
           "protocol": "EOWCS",
           "url": "http://neso1.cryoland.enveo.at/cryoland/ows"
-        }
-      },
-      {
-      "name": "AT_Hohe_Tauern_outlines_20090901",
-      "visible": false,
-      "view" : {
-          "id": "Glockner_segments",
-          "protocol" : "WMS",
-          "urls" : [
-            "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
-          ],
-          "style": "default"
-        },
-         "download": {
-          "id": "Glockner_segments_20090901",
-          "protocol": "EOWCS",
-          "url": "http://neso1.cryoland.enveo.at/cgi-bin/mapserv"
         }
       }
     ],

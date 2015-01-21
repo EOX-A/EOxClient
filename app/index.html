@@ -80,6 +80,33 @@
 
     <div id="welcomeViewRegion"></div>
 
+
+
+    <!-- New element to show some information of new client that will be removed -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div id="helptutorial" class="modal show" style="top:80px; pointer-events:none; !important" data-backdrop="false" style="">
+      <div class="modal-dialog" style="pointer-events: all; margin-right: 150px;">
+        <div class="modal-content" style="background-color: rgba(0,15,26,0.65); border-radius:0px; color: white; !important">
+          <div class="modal-header" style="border:0 !important;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick = "$('#helptutorial').attr('class','modal')" style="opacity:1; color:white; !important">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Main interactions</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+            <p>One fine body&hellip;</p>
+            <p>One fine body&hellip;</p>
+            <p>One fine body&hellip;</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------- -->
+
+
     <!-- HIDDEN DOWNLOAD DIV -->
     <div id="div-downloads">
       <iframe name="iframe-download-post" id="iframe-download-post"></iframe>
