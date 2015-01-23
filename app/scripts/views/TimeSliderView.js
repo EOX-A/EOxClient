@@ -68,10 +68,20 @@
         var selectionstart = new Date(selectionend.getTime());
         selectionstart.setHours(0,0,1,0);
 
-        var domainend = new Date();
-        domainend.setDate(domainend.getDate()+15);
-        var domainstart = new Date(domainend.getTime());
-        domainstart.setMonth(domainstart.getMonth() - 36);
+        var displayend = new Date();
+        displayend.setDate(displayend.getDate()+10);
+        displayend.setHours(23,59,59,0);
+        var displaystart = new Date(displayend.getTime());
+        displaystart.setDate(displaystart.getDate()-90);
+
+        
+        var domainstart = new Date("2000-01-01T00:00:00Z");
+        var domainend = new Date("2004-01-01T00:00:00Z");
+
+        // var domainend = new Date();
+        // domainend.setDate(domainend.getDate()+15);
+        // var domainstart = new Date(domainend.getTime());
+        // domainstart.setMonth(domainstart.getMonth() - 36);
 
         this.activeWPSproducts = [];
 
@@ -84,6 +94,10 @@
           brush: {
             start: selectionstart,
             end: selectionend
+          },
+          display: {
+            start: displaystart,
+            end: displayend
           },
           debounce: 300,
           ticksize: 9,

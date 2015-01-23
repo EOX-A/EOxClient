@@ -83,28 +83,37 @@
 
 
     <!-- New element to show some information of new client that will be removed -->
-    <!-- ----------------------------------------------------------------------- -->
+    <!-- ======================================================================= -->
     <div id="helptutorial" class="modal show" style="top:80px; pointer-events:none; !important" data-backdrop="false" style="">
-      <div class="modal-dialog" style="pointer-events: all; margin-right: 150px;">
-        <div class="modal-content" style="background-color: rgba(0,15,26,0.65); border-radius:0px; color: white; !important">
-          <div class="modal-header" style="border:0 !important;">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick = "$('#helptutorial').attr('class','modal')" style="opacity:1; color:white; !important">
+      <div class="modal-dialog" style="pointer-events: all; margin-right: 150px">
+<!--        <div class="modal-content" style="background-color: rgba(0,15,26,0.65); border-radius:0px; color: white; !important"> -->
+        <div class="modal-content" style="background-color: rgba(255,255,255,0.85); border-radius:0px; color: white; !important">
+          <div class="modal-header" style="border:0 !important">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#helptutorial').attr('class','modal')" style="opacity:1; color: rgba(0,15,26,0.65); !important">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title">Main interactions</h4>
+            <font color="#000000">
+            <h2 class="modal-title" align="center"><strong>What's new in the GeoPortal</strong></h2>
+            <h4 class="modal-title"><strong>Here we provide a very short overview about the changes. Nevertheless, we strongly recommend to read the respective sections in the <a onclick="require(['communicator'], function(Communicator){Communicator.mediator.trigger('dialog:open:help');});" href="#">Online Help to find out more&hellip;</a></strong></h4>
           </div>
           <div class="modal-body">
-            <p>One fine body&hellip;</p>
-            <p>One fine body&hellip;</p>
-            <p>One fine body&hellip;</p>
-            <p>One fine body&hellip;</p>
-          </div>
+            <h5><strong>TimeSlider:</strong></h5>
+            <p>The new TimeSlider provides a Zoom In/Out functionality using the mouse wheel. Inside the lower area (Date area) the TimeSlider can be dragged to change the time shown. Symbols indicate product availability at a point in time. Full symbol &rarr; Product is within viewing area; Empty symbol &rarr; Product is outside current viewing area. A Click on a symbol will zoom you to the product's extent. You can select a Time-Period by clicking and dragging the mouse in the upper part of the TimeSlider(&rarr; red bar) e.g. used for Download. This time selection can be enlarged&nbsp;/&nbsp;shortened ('&hArr;'-icon) or shifted ('hand'-icon) by dragging. </strong><a onclick="require(['communicator'], function(Communicator){Communicator.mediator.trigger('dialog:open:help');});" href="#">Please read more details in the Online Help&hellip;</a></strong></p>
+            <h5><strong>Snow&nbsp;/&nbsp;Ice&nbsp;&amp;&nbsp;Glaciers:</strong></h5>
+            <p>Contains all Snow and River/Lake Ice products&nbsp;/&nbsp;Contains all Glacier images, Glacier Lakes and Glacier Outlines products. A DatasetSeries can be activated by clicking the rectangle left of the Name. The DoubleArrow allows resorting the layers by simply dragging them up or down. </strong><a onclick="require(['communicator'], function(Communicator){Communicator.mediator.trigger('dialog:open:help');});" href="#">Please read more details in the Online Help&hellip;</a></strong></p>
+            <h5><strong>Tools:</strong></h5>
+            <p>Area-of-Interest (AOI) selection using Polygons or Rectangles. Import&nbsp;/&nbsp;Export&nbsp;/&nbsp;Save your AOI, as a geoJSON file. </strong><a onclick="require(['communicator'], function(Communicator){Communicator.mediator.trigger('dialog:open:help');});" href="#">Please read more details in the Online Help&hellip;</a></strong></p>
+            <h5><strong>Download:</strong></h5>
+            <p>Before a download is possible you have to select at least one DatasetSeries, a AOI, and a Time-Period. The download of a Time-Series of products is still provided. New output formats are offered. New output projections are offered. </strong><a onclick="require(['communicator'], function(Communicator){Communicator.mediator.trigger('dialog:open:help');});" href="#">Please read more details in the Online Help&hellip;</a></strong></p>
+            <h5><strong>Server:</strong></h5>
+            <p>OGC support has changed to OGC EO-WMS and EO-WCS (WCS 2.0) requests only! Due to the large number of products (&sim;20.000) plain WMS-GetCapbilities requests exceeded any reasonable size (>16MB) and creation time (~20min). Valis EO-WMS requests need to provide a DatasetSeries name plus a Time-Stamp in the GetMap Request. CryoLand now also supports the OGC WCS Interface Standard – CRS Extension, version 1.0.0. This also required a change in the GetCoverege request syntax. </strong><a onclick="require(['communicator'], function(Communicator){Communicator.mediator.trigger('dialog:open:help');});" href="#">Please read more details in the Online Help,</a> where also a link to new <srtong>request examples,</strong> showing the new syntax, is provided.</strong></p>
+          </div></font>
         </div>
       </div>
     </div>
 
-    <!-- ----------------------------------------------------------------------- -->
-    <!-- ----------------------------------------------------------------------- -->
+    <!-- ======================================================================= -->
+    <!-- ======================================================================= -->
 
 
     <!-- HIDDEN DOWNLOAD DIV -->
