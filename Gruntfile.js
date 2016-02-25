@@ -333,7 +333,7 @@ module.exports = function (grunt) {
                         'bower_components/bootstrap/dist/*/*',
                         'bower_components/font-awesome/css/*',
                         'bower_components/lm.js/lm.js',
-                        'bower_components/ol3/build/ol.js'
+                        'bower_components/ol3/ol.js'
                     ]
                 },{
                     expand: true,
