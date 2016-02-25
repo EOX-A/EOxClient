@@ -68,7 +68,10 @@
             },
             timeslider_plugins: {
                 deps: ['timeslider', 'libcoverage']
-            }
+            },
+            openlayers: {
+               exports: 'ol'
+           },
         },
 
         paths: {
@@ -107,7 +110,7 @@
             /* marionette and handlebars plugin */
             'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars.min',
 
-            'openlayers': '../bower_components/ol3/build/ol'
+            'openlayers': '../bower_components/ol3/ol'
             //'openlayers': 'http://ol3js.org/en/master/build/ol',
         },
 
