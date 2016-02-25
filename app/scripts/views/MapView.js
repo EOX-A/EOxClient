@@ -136,6 +136,14 @@ define(['backbone',
 							]
 						]);
 
+						if (this.selectionType == "single"){
+							var features = this.source.getFeatures();
+							for (var i in features){
+								this.source.removeFeature(features[i]);
+							}
+							Communicator.mediator.trigger("selection:changed", null);
+						}
+
 						var feature = new ol.Feature();
 					    feature.setGeometry(polygon);
 					    this.source.addFeature(feature);
@@ -352,6 +360,7 @@ define(['backbone',
 		                    var control = this.drawControls[key];
 		                    if(arg.id == key) {
 		                        this.map.addInteraction(control);
+		                        this.selectionType = arg.selectionType;
 		                    } else {
 		                        this.map.removeInteraction(control);
 		                        var features = this.source.getFeatures();

@@ -52,10 +52,10 @@
 				if(this.model.get('enabled')){
 					if(this.model.get('type') == 'selection'){
 						if(this.model.get('active')){
-		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:false});
+		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:false,selectionType:this.model.get("selectionType")});
 		                	this.model.set({active:false});
 		                }else{
-		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:true});
+		                	Communicator.mediator.trigger('selection:activated',{id:this.model.get('id'),active:true,selectionType:this.model.get("selectionType")});
 		                	this.model.set({active:true});
 		                }
 					}else{

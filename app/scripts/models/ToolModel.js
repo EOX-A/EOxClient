@@ -38,7 +38,8 @@
 			enabled: true,
 			icon:"",
 			type:"",
-			size: null
+			size: null,
+			selectionType: null
 		});
 		return {'ToolModel':ToolModel};
 	});
