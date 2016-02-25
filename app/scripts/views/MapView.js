@@ -32,7 +32,7 @@ define(['backbone',
 		'models/MapModel',
 		'filesaver'
 		],
-		function( Backbone, Communicator, globals ) {
+		function( Backbone, Communicator, globals, ol ) {
 
 			var MapView = Backbone.View.extend({
 				
@@ -242,6 +242,7 @@ define(['backbone',
 								      html: layer.attribution
 								  	})
 								  ],
+								wrapX: true
 						      })
 						    })
 							break;
@@ -256,7 +257,8 @@ define(['backbone',
 							      	'VERSION': '1.1.0',
 							      	'FORMAT': 'image/png'
 							      },
-							      url: layer.urls[0]
+							      url: layer.urls[0],
+							      wrapX: true
 							    }),
 							    attribution: layer.attribution,
 							  })
