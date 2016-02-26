@@ -64,7 +64,7 @@
 
         this.activeWPSproducts = [];
 
-       this.slider = new TimeSlider(this.el, {
+        this.slider = new TimeSlider(this.el, {
 
           domain: {
             start: new Date(this.options.domain.start),
@@ -80,10 +80,14 @@
           datasets: []
 
         });
+        this.slider.zoom(
+          new Date(this.options.domain.start), new Date(this.options.domain.end)
+        );
+        this.slider.hide();
 
-       this.slider.hide();
-
-        Communicator.mediator.trigger('time:change', {start:selectionstart, end:selectionend});
+        _.defer(function() {
+          Communicator.mediator.trigger('time:change', {start:selectionstart, end:selectionend})
+        });
       }, 
 
       onChangeTime: function(evt){
